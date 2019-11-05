@@ -10,7 +10,21 @@
   padding: 9px 12px 5px 12px;
   display: inline-block;
   position: relative;
+  outline: 0;
 }
+
+.page_Button_PageSelector {
+  display: inline-block;
+  left: -10px;
+  position: relative;
+  top: -10px;
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 10px;
+  height: 115%;
+  width: 110%;
+}
+
 /* Selected for default by theme */
 .page_button_color {
   border-color: darkslategray;
@@ -21,6 +35,10 @@
 .page_button_color:hover {
   background: slategray;
   color: white;
+}
+
+.page_button_color:focus {
+  box-shadow: 0 0 4px teal;
 }
 
 .page_button_color_Blue {
@@ -34,6 +52,10 @@
   color: white;
 }
 
+.page_button_color_Blue:focus {
+  box-shadow: 0 0 4px #092e47;
+}
+
 .page_button_color_Green {
   border-color: #08583e;
   background: #0c6d4e;
@@ -43,6 +65,10 @@
 .page_button_color_Green:hover {
   background: #469b80;
   color: white;
+}
+
+.page_button_color_Green:focus {
+  box-shadow: 0 0 4px #0c6d4e;
 }
 
 .page_button_color_Red {
@@ -56,6 +82,10 @@
   color: white;
 }
 
+.page_button_color_Red:focus {
+  box-shadow: 0 0 4px #631717;
+}
+
 .page_button_color_Orange {
   border-color: #c45c20;
   background: #d4601d;
@@ -67,6 +97,10 @@
   color: white;
 }
 
+.page_button_color_Orange:focus {
+  box-shadow: 0 0 4px #d4601d;
+}
+
 .page_button_color_Grey {
   border-color: #313131;
   background: #4d4d4d;
@@ -76,6 +110,10 @@
 .page_button_color_Grey:hover {
   background: #a0a0a0;
   color: white;
+}
+
+.page_button_color_Grey:focus {
+  box-shadow: 0 0 4px #4d4d4d;
 }
 
 /* Selected from options */
@@ -90,6 +128,10 @@
   color: white;
 }
 
+.page_button_danger:focus {
+  box-shadow: 0 0 4px #df293b;
+}
+
 .page_button_Warning {
   border-color: #f07b2d;
   background-color: #fab12a;
@@ -99,6 +141,10 @@
 .page_button_Warning:hover {      
   background-color: #D75600;
   color: white;
+}
+
+.page_button_Warning:focus {
+  box-shadow: 0 0 4px #fab12a;
 }
 
 .page_button_Confirmation {
@@ -112,15 +158,23 @@
   color: white;
 }
 
+.page_button_Confirmation:focus {
+  box-shadow: 0 0 4px #009c3c;
+}
+
 .page_button_Cancelation {
   border-color: #3b3b3b;
   background-color: #a8a8a8;
   color: black;
 }
 
-.page_button_Cancelation:hover {      
+.page_button_Cancelation:hover {
   background-color: #3b3b3b;
   color: white;
+}
+
+.page_button_Cancelation:focus {
+  box-shadow: 0 0 4px #a8a8a8;
 }
 
 .page_button_Information {
@@ -132,4 +186,8 @@
 .page_button_Information:hover {      
   background-color: #02469e;
   color: white;
+}
+
+.page_button_Information:focus {
+  box-shadow: 0 0 4px #1b73e6;
 }

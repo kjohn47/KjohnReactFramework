@@ -64,11 +64,12 @@ const Button: React.FC<IButton> = ( props ) => {
     css = props.className !== undefined ? css + " " + props.className : css;
 
     return(
-    <div className = { css } onClick = { props.onClick }>
+    <div tabIndex = { 0 } className = { css } onClick = { props.onClick }>
         { props.page !== undefined && 
             <PageSelector 
                 page = { props.page }
                 queryParams = { props.queryParams } 
+                className = "page_Button_PageSelector"
             >
                 { props.children }
             </PageSelector>
