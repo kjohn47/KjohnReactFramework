@@ -1,0 +1,135 @@
+.page_button {
+  min-width: 100px;
+  text-align: center;
+  border-width: 1px;    
+  border-style: solid;
+  height: 25px;        
+  cursor: pointer;
+  vertical-align: middle;
+  border-radius: 25px 25px;
+  padding: 9px 12px 5px 12px;
+  display: inline-block;
+  position: relative;
+}
+/* Selected for default by theme */
+.page_button_color {
+  border-color: darkslategray;
+  background: teal;
+  color: white;
+}
+
+.page_button_color:hover {
+  background: slategray;
+  color: white;
+}
+
+.page_button_color_Blue {
+  border-color: #062133;
+  background: #092e47;
+  color: white;
+}
+
+.page_button_color_Blue:hover {
+  background: #447596;
+  color: white;
+}
+
+.page_button_color_Green {
+  border-color: #08583e;
+  background: #0c6d4e;
+  color: white;
+}
+
+.page_button_color_Green:hover {
+  background: #469b80;
+  color: white;
+}
+
+.page_button_color_Red {
+  border-color: #491111;
+  background: #631717;
+  color: white;
+}
+
+.page_button_color_Red:hover {
+  background: #a73f3f;
+  color: white;
+}
+
+.page_button_color_Orange {
+  border-color: #c45c20;
+  background: #d4601d;
+  color: white;
+}
+
+.page_button_color_Orange:hover {
+  background: #ec9f73;
+  color: white;
+}
+
+.page_button_color_Grey {
+  border-color: #313131;
+  background: #4d4d4d;
+  color: white;
+}
+
+.page_button_color_Grey:hover {
+  background: #a0a0a0;
+  color: white;
+}
+
+/* Selected from options */
+.page_button_danger {
+  border-color: #660202;
+  background-color: #df293b;
+  color: white;
+}
+
+.page_button_danger:hover {      
+  background-color: #660202;
+  color: white;
+}
+
+.page_button_Warning {
+  border-color: #f07b2d;
+  background-color: #fab12a;
+  color: black;
+}
+
+.page_button_Warning:hover {      
+  background-color: #D75600;
+  color: white;
+}
+
+.page_button_Confirmation {
+  border-color: #003300;
+  background-color: #009c3c;
+  color: white;
+}
+
+.page_button_Confirmation:hover {      
+  background-color: #003300;
+  color: white;
+}
+
+.page_button_Cancelation {
+  border-color: #3b3b3b;
+  background-color: #a8a8a8;
+  color: black;
+}
+
+.page_button_Cancelation:hover {      
+  background-color: #3b3b3b;
+  color: white;
+}
+
+.page_button_Information {
+  border-color: #02469e;
+  background-color: #1b73e6;
+  color: white;
+}
+
+.page_button_Information:hover {      
+  background-color: #02469e;
+  color: white;
+}
