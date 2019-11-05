@@ -6,6 +6,7 @@ import { ErrorActions } from "../../common/context/appErrorEnums";
 interface IPageSelector {
     page: KnownPages;
     queryParams?: object;
+    className?: string;
 }
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
@@ -39,7 +40,7 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
     }
 
     return(
-        <span onClick = { () => setPage( props.page, props.queryParams ) } >{props.children}</span>
+        <span className = { props.className } onClick = { () => setPage( props.page, props.queryParams ) } >{props.children}</span>
     );
 }
 
