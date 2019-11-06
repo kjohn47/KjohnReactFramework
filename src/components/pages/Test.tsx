@@ -11,6 +11,9 @@ import Button, { ButtonTypes } from '../common/Button';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from '../common/WithTooltip';
 import InputText from '../common/InputText';
 import { AppRegex } from '../../common/config/regexEnum';
+import WithLabel from '../common/WithLabel';
+import Column, { ColumnNumber } from '../common/Column';
+import Row from '../common/Row';
 
 interface IResult {
   id: number;
@@ -179,18 +182,28 @@ const Test: React.FC = () => {
           </WithTooltip>
         </div>
         <hr />
-        <div>
-          <InputText
-            name = "TestInput"
-            validText = "Valid :)"
-            invalidText = "Invalid :("
-            notEmpty = { true }
-            onChange = { ( Output ) => { console.log( Output ) } }
-            onBlur = { ( Output ) => { console.log( Output ) } }
-            regexValidation = { AppRegex.NumberOnly }
-            allowOnlyRegex
-          />
-        </div>
+        <Row>
+          <Column
+             full = { ColumnNumber.C10 } 
+             large = { ColumnNumber.C14 }
+             medium = { ColumnNumber.C17 }
+             mobile = { ColumnNumber.C20 }
+          >
+            <WithLabel htmlFor = "TestInput" text = "Test Input Box" inline>
+              <InputText
+                name = "TestInput"
+                validText = "Valid :)"
+                invalidText = "Invalid :("
+                notEmpty = { true }
+                onChange = { ( Output ) => { console.log( Output ) } }
+                onBlur = { ( Output ) => { console.log( Output ) } }
+                regexValidation = { AppRegex.NumberOnly }
+                allowOnlyRegex
+                placeHolder = "Test input box"
+              />
+            </WithLabel>
+          </Column>
+        </Row>
       </div>
     </div>
   );
