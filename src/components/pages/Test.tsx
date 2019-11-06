@@ -9,6 +9,8 @@ import Loader from '../common/Loader';
 import SHA from "sha.js";
 import Button, { ButtonTypes } from '../common/Button';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from '../common/WithTooltip';
+import InputText from '../common/InputText';
+import { AppRegex } from '../../common/config/regexEnum';
 
 interface IResult {
   id: number;
@@ -175,6 +177,19 @@ const Test: React.FC = () => {
             { appContext.translations.testPage.serviceCallButton3 }
             </Button>
           </WithTooltip>
+        </div>
+        <hr />
+        <div>
+          <InputText
+            name = "TestInput"
+            validText = "Valid :)"
+            invalidText = "Invalid :("
+            notEmpty = { true }
+            onChange = { ( Output ) => { console.log( Output ) } }
+            onBlur = { ( Output ) => { console.log( Output ) } }
+            regexValidation = { AppRegex.NumberOnly }
+            allowOnlyRegex
+          />
         </div>
       </div>
     </div>
