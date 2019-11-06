@@ -118,6 +118,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
                 onBlur = { ( event ) => { blurHandler( event ) } }                
                 value = { value }
                 maxLength = { props.lenght }
+                placeholder = { props.placeHolder }
             />
             { props.validText && inputValid && <div className = "inputTextValidation inputTextValidationValid">{ props.validText }</div> }
             { props.invalidText && inputInvalid && <div className = "inputTextValidation inputTextValidationInvalid">{ props.invalidText }</div> }
