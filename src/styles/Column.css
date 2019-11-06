@@ -1,0 +1,525 @@
+.ColumnDiv {
+    display: inline-flex;
+    flex-flow: column wrap;
+    position: relative;
+    min-width: 100%;
+    flex: 0 0 100%;
+}
+
+/* config full */
+
+.ColumnDivFull-1 {
+    min-width: 5%;
+    flex: 0 0 5%;
+}
+
+.ColumnDivFull-2 {
+    min-width: 10%;
+    flex: 0 0 10%;
+}
+
+.ColumnDivFull-3 {
+    min-width: 15%;
+    flex: 0 0 15%;
+}
+
+.ColumnDivFull-4 {
+    min-width: 20%;
+    flex: 0 0 20%;
+}
+
+.ColumnDivFull-5 {
+    min-width: 25%;
+    flex: 0 0 25%;
+}
+
+.ColumnDivFull-6 {
+    min-width: 30%;
+    flex: 0 0 30%;
+}
+
+.ColumnDivFull-7 {
+    min-width: 35%;
+    flex: 0 0 35%;
+}
+
+.ColumnDivFull-8 {
+    min-width: 40%;
+    flex: 0 0 40%;
+}
+
+.ColumnDivFull-9 {
+    min-width: 45%;
+    flex: 0 0 45%;
+}
+
+.ColumnDivFull-10 {
+    min-width: 50%;
+    flex: 0 0 50%;
+}
+
+.ColumnDivFull-11 {
+    min-width: 55%;
+    flex: 0 0 55%;
+}
+
+.ColumnDivFull-12 {
+    min-width: 60%;
+    flex: 0 0 60%;
+}
+
+.ColumnDivFull-13 {
+    min-width: 65%;
+    flex: 0 0 65%;
+}
+
+.ColumnDivFull-14 {
+    min-width: 70%;
+    flex: 0 0 70%;
+}
+
+.ColumnDivFull-15 {
+    min-width: 75%;
+    flex: 0 0 75%;
+}
+
+.ColumnDivFull-16 {
+    min-width: 80%;
+    flex: 0 0 80%;
+}
+
+.ColumnDivFull-17 {
+    min-width: 85%;
+    flex: 0 0 85%;
+}
+
+.ColumnDivFull-18 {
+    min-width: 90%;
+    flex: 0 0 90%;
+}
+
+.ColumnDivFull-19 {
+    min-width: 95%;
+    flex: 0 0 95%;
+}
+
+.ColumnDivFull-20 {
+    min-width: 100%;
+    flex: 0 0 100%;
+}
+
+/* Config Large */
+
+@media( max-width: 1600px ) {
+    .ColumnDivLarge-1 {
+        min-width: 5%;
+        flex: 0 0 5%;
+    }
+    
+    .ColumnDivLarge-2 {
+        min-width: 10%;
+        flex: 0 0 10%;
+    }
+    
+    .ColumnDivLarge-3 {
+        min-width: 15%;
+        flex: 0 0 15%;
+    }
+    
+    .ColumnDivLarge-4 {
+        min-width: 20%;
+        flex: 0 0 20%;
+    }
+    
+    .ColumnDivLarge-5 {
+        min-width: 25%;
+        flex: 0 0 25%;
+    }
+    
+    .ColumnDivLarge-6 {
+        min-width: 30%;
+        flex: 0 0 30%;
+    }
+    
+    .ColumnDivLarge-7 {
+        min-width: 35%;
+        flex: 0 0 35%;
+    }
+    
+    .ColumnDivLarge-8 {
+        min-width: 40%;
+        flex: 0 0 40%;
+    }
+    
+    .ColumnDivLarge-9 {
+        min-width: 45%;
+        flex: 0 0 45%;
+    }
+    
+    .ColumnDivLarge-10 {
+        min-width: 50%;
+        flex: 0 0 50%;
+    }
+    
+    .ColumnDivLarge-11 {
+        min-width: 55%;
+        flex: 0 0 55%;
+    }
+    
+    .ColumnDivLarge-12 {
+        min-width: 60%;
+        flex: 0 0 60%;
+    }
+    
+    .ColumnDivLarge-13 {
+        min-width: 65%;
+        flex: 0 0 65%;
+    }
+    
+    .ColumnDivLarge-14 {
+        min-width: 70%;
+        flex: 0 0 70%;
+    }
+    
+    .ColumnDivLarge-15 {
+        min-width: 75%;
+        flex: 0 0 75%;
+    }
+    
+    .ColumnDivLarge-16 {
+        min-width: 80%;
+        flex: 0 0 80%;
+    }
+    
+    .ColumnDivLarge-17 {
+        min-width: 85%;
+        flex: 0 0 85%;
+    }
+    
+    .ColumnDivLarge-18 {
+        min-width: 90%;
+        flex: 0 0 90%;
+    }
+    
+    .ColumnDivLarge-19 {
+        min-width: 95%;
+        flex: 0 0 95%;
+    }
+    
+    .ColumnDivLarge-20 {
+        min-width: 100%;
+        flex: 0 0 100%;
+    }
+}
+
+/* Config Medium */
+
+@media( max-width: 1024px ) {
+    .ColumnDivMedium-1 {
+        min-width: 5%;
+        flex: 0 0 5%;
+    }
+    
+    .ColumnDivMedium-2 {
+        min-width: 10%;
+        flex: 0 0 10%;
+    }
+    
+    .ColumnDivMedium-3 {
+        min-width: 15%;
+        flex: 0 0 15%;
+    }
+    
+    .ColumnDivMedium-4 {
+        min-width: 20%;
+        flex: 0 0 20%;
+    }
+    
+    .ColumnDivMedium-5 {
+        min-width: 25%;
+        flex: 0 0 25%;
+    }
+    
+    .ColumnDivMedium-6 {
+        min-width: 30%;
+        flex: 0 0 30%;
+    }
+    
+    .ColumnDivMedium-7 {
+        min-width: 35%;
+        flex: 0 0 35%;
+    }
+    
+    .ColumnDivMedium-8 {
+        min-width: 40%;
+        flex: 0 0 40%;
+    }
+    
+    .ColumnDivMedium-9 {
+        min-width: 45%;
+        flex: 0 0 45%;
+    }
+    
+    .ColumnDivMedium-10 {
+        min-width: 50%;
+        flex: 0 0 50%;
+    }
+    
+    .ColumnDivMedium-11 {
+        min-width: 55%;
+        flex: 0 0 55%;
+    }
+    
+    .ColumnDivMedium-12 {
+        min-width: 60%;
+        flex: 0 0 60%;
+    }
+    
+    .ColumnDivMedium-13 {
+        min-width: 65%;
+        flex: 0 0 65%;
+    }
+    
+    .ColumnDivMedium-14 {
+        min-width: 70%;
+        flex: 0 0 70%;
+    }
+    
+    .ColumnDivMedium-15 {
+        min-width: 75%;
+        flex: 0 0 75%;
+    }
+    
+    .ColumnDivMedium-16 {
+        min-width: 80%;
+        flex: 0 0 80%;
+    }
+    
+    .ColumnDivMedium-17 {
+        min-width: 85%;
+        flex: 0 0 85%;
+    }
+    
+    .ColumnDivMedium-18 {
+        min-width: 90%;
+        flex: 0 0 90%;
+    }
+    
+    .ColumnDivMedium-19 {
+        min-width: 95%;
+        flex: 0 0 95%;
+    }
+    
+    .ColumnDivMedium-20 {
+        min-width: 100%;
+        flex: 0 0 100%;
+    }
+}
+
+/* Config Tablet */
+
+@media( max-width: 800px ) {
+    .ColumnDivTablet-1 {
+        min-width: 5%;
+        flex: 0 0 5%;
+    }
+    
+    .ColumnDivTablet-2 {
+        min-width: 10%;
+        flex: 0 0 10%;
+    }
+    
+    .ColumnDivTablet-3 {
+        min-width: 15%;
+        flex: 0 0 15%;
+    }
+    
+    .ColumnDivTablet-4 {
+        min-width: 20%;
+        flex: 0 0 20%;
+    }
+    
+    .ColumnDivTablet-5 {
+        min-width: 25%;
+        flex: 0 0 25%;
+    }
+    
+    .ColumnDivTablet-6 {
+        min-width: 30%;
+        flex: 0 0 30%;
+    }
+    
+    .ColumnDivTablet-7 {
+        min-width: 35%;
+        flex: 0 0 35%;
+    }
+    
+    .ColumnDivTablet-8 {
+        min-width: 40%;
+        flex: 0 0 40%;
+    }
+    
+    .ColumnDivTablet-9 {
+        min-width: 45%;
+        flex: 0 0 45%;
+    }
+    
+    .ColumnDivTablet-10 {
+        min-width: 50%;
+        flex: 0 0 50%;
+    }
+    
+    .ColumnDivTablet-11 {
+        min-width: 55%;
+        flex: 0 0 55%;
+    }
+    
+    .ColumnDivTablet-12 {
+        min-width: 60%;
+        flex: 0 0 60%;
+    }
+    
+    .ColumnDivTablet-13 {
+        min-width: 65%;
+        flex: 0 0 65%;
+    }
+    
+    .ColumnDivTablet-14 {
+        min-width: 70%;
+        flex: 0 0 70%;
+    }
+    
+    .ColumnDivTablet-15 {
+        min-width: 75%;
+        flex: 0 0 75%;
+    }
+    
+    .ColumnDivTablet-16 {
+        min-width: 80%;
+        flex: 0 0 80%;
+    }
+    
+    .ColumnDivTablet-17 {
+        min-width: 85%;
+        flex: 0 0 85%;
+    }
+    
+    .ColumnDivTablet-18 {
+        min-width: 90%;
+        flex: 0 0 90%;
+    }
+    
+    .ColumnDivTablet-19 {
+        min-width: 95%;
+        flex: 0 0 95%;
+    }
+    
+    .ColumnDivTablet-20 {
+        min-width: 100%;
+        flex: 0 0 100%;
+    }
+}
+
+/* Config Mobile */
+
+@media( max-width: 640px ) {
+    .ColumnDivMobile-1 {
+        min-width: 5%;
+        flex: 0 0 5%;
+    }
+    
+    .ColumnDivMobile-2 {
+        min-width: 10%;
+        flex: 0 0 10%;
+    }
+    
+    .ColumnDivMobile-3 {
+        min-width: 15%;
+        flex: 0 0 15%;
+    }
+    
+    .ColumnDivMobile-4 {
+        min-width: 20%;
+        flex: 0 0 20%;
+    }
+    
+    .ColumnDivMobile-5 {
+        min-width: 25%;
+        flex: 0 0 25%;
+    }
+    
+    .ColumnDivMobile-6 {
+        min-width: 30%;
+        flex: 0 0 30%;
+    }
+    
+    .ColumnDivMobile-7 {
+        min-width: 35%;
+        flex: 0 0 35%;
+    }
+    
+    .ColumnDivMobile-8 {
+        min-width: 40%;
+        flex: 0 0 40%;
+    }
+    
+    .ColumnDivMobile-9 {
+        min-width: 45%;
+        flex: 0 0 45%;
+    }
+    
+    .ColumnDivMobile-10 {
+        min-width: 50%;
+        flex: 0 0 50%;
+    }
+    
+    .ColumnDivMobile-11 {
+        min-width: 55%;
+        flex: 0 0 55%;
+    }
+    
+    .ColumnDivMobile-12 {
+        min-width: 60%;
+        flex: 0 0 60%;
+    }
+    
+    .ColumnDivMobile-13 {
+        min-width: 65%;
+        flex: 0 0 65%;
+    }
+    
+    .ColumnDivMobile-14 {
+        min-width: 70%;
+        flex: 0 0 70%;
+    }
+    
+    .ColumnDivMobile-15 {
+        min-width: 75%;
+        flex: 0 0 75%;
+    }
+    
+    .ColumnDivMobile-16 {
+        min-width: 80%;
+        flex: 0 0 80%;
+    }
+    
+    .ColumnDivMobile-17 {
+        min-width: 85%;
+        flex: 0 0 85%;
+    }
+    
+    .ColumnDivMobile-18 {
+        min-width: 90%;
+        flex: 0 0 90%;
+    }
+    
+    .ColumnDivMobile-19 {
+        min-width: 95%;
+        flex: 0 0 95%;
+    }
+    
+    .ColumnDivMobile-20 {
+        min-width: 100%;
+        flex: 0 0 100%;
+    }
+}
