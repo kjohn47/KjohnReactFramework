@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../../styles/Test.css';
+import '../../styles/Test.scss';
 import { AppContext  } from '../../common/config/appConfig';
 import { useServiceCaller } from '../../common/services/serviceCaller';
 import { ServiceType } from '../../common/services/serviceCallerInterfaces';
-import { ContextActions, AppLanguage } from '../../common/context/appContextEnums';
+import { ContextActions, AppLanguage, KnownPages } from '../../common/context/appContextEnums';
 import { ErrorCodes } from '../../common/context/appErrorEnums';
 import Loader from '../common/Loader';
 import SHA from "sha.js";
@@ -14,6 +14,7 @@ import { AppRegex } from '../../common/config/regexEnum';
 import WithLabel from '../common/WithLabel';
 import Column, { ColumnNumber } from '../common/Column';
 import Row from '../common/Row';
+import Table from '../common/Table';
 
 interface IResult {
   id: number;
@@ -204,6 +205,30 @@ const Test: React.FC = () => {
             </WithLabel>
           </Column>
         </Row>
+        <hr />
+        <Table 
+          header = { [ "A", "B", "C" ] }
+          title = "Test Table 001"
+          rows = { [
+              [
+                { text: "01" },
+                { text: "02 AASASDSFSDFS" },
+                { text: "03" }
+              ],
+              [
+                { text: "04 AASASDSFSDFS" },
+                { text: "Link to home", page: KnownPages.Home },
+                { text: "06 AASASDSFSDFS DFSFSDFSDFSFSD" }
+              ],
+              [
+                { text: "07" },
+                { text: "08" },
+                { text: "09 AASASDSFSDFS FDSFSDFDSF", onClickEdit: () => {}, onClickRemove: () => {} }
+              ]
+          ]
+          }
+          highlightRows
+        />
       </div>
     </div>
   );
