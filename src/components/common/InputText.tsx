@@ -83,9 +83,10 @@ const InputText: React.FC<IInputProps> = ( props ) =>
 
     let inputValid = ( valid && validated ) || ( props.externalIsValid && props.externalValidated );
     let inputInvalid = ( !valid && validated ) || ( !props.externalIsValid && props.externalValidated );
-    let inputCss = "inputText inputText_Color";
-    inputCss += ( inputValid ?  " inputTextValid" : "" );
-    inputCss += ( inputInvalid ?  " inputTextInvalid" : "" );
+    let inputCss = "inputText";
+    inputCss += !( inputValid || inputInvalid ) ? " inputText_Color" : "" ;
+    inputCss += inputValid ?  " inputTextValid" : "";
+    inputCss += inputInvalid ?  " inputTextInvalid" : "";
 
     return(
         <React.Fragment>
