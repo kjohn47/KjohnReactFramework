@@ -1,7 +1,5 @@
-import React, { useState, useContext } from 'react';
-import "../../styles/InputText.css";
-import { AppGlobalTheme } from '../../common/context/appContextEnums';
-import { AppContext } from '../../common/config/appConfig';
+import React, { useState } from 'react';
+import "../../styles/InputText.scss";
 import { AppRegex } from '../../common/config/regexEnum';
 
 interface IInputProps {
@@ -22,27 +20,8 @@ interface IInputProps {
     lenght?: number;
 }
 
-const getThemeCss: ( appTheme: AppGlobalTheme ) => string = ( appTheme ) => {    
-    switch( appTheme )
-    {
-        case AppGlobalTheme.Blue: 
-            return " inputText_Color_Blue";
-        case AppGlobalTheme.Green: 
-            return " inputText_Color_Green";
-        case AppGlobalTheme.Red: 
-            return " inputText_Color_Red";
-        case AppGlobalTheme.Orange: 
-            return " inputText_Color_Orange";
-        case AppGlobalTheme.Grey: 
-            return " inputText_Color_Grey";
-        default:
-            return " inputText_Color";
-    }
-}
-
 const InputText: React.FC<IInputProps> = ( props ) => 
-{
-    const appTheme = useContext( AppContext )[0].globalTheme;
+{    
     const [ value, setValue ] = useState<string>( "" );
     const [ [ valid, validated ], setValidation ] = useState< [boolean, boolean ] >( [ false, false ] );    
 
@@ -104,7 +83,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
 
     let inputValid = ( valid && validated ) || ( props.externalIsValid && props.externalValidated );
     let inputInvalid = ( !valid && validated ) || ( !props.externalIsValid && props.externalValidated );
-    let inputCss = "inputText" + getThemeCss( appTheme );
+    let inputCss = "inputText inputText_Color";
     inputCss += ( inputValid ?  " inputTextValid" : "" );
     inputCss += ( inputInvalid ?  " inputTextInvalid" : "" );
 

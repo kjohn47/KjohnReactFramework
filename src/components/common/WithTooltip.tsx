@@ -1,20 +1,20 @@
 import React from 'react';
-import "../../styles/Tooltip.css";
+import "../../styles/Tooltip.scss";
 
 export enum ToolTipPosition {
-    Left,
-    Right,
-    Top,
-    Bottom
+    Left = "ToolTip_Text_Left",
+    Right = "ToolTip_Text_Right",
+    Top = "ToolTip_Text_Top",
+    Bottom = "ToolTip_Text_Bottom"
 }
 
 export enum ToolTipColor {
-    Default,
-    Red,
-    Blue,
-    Yellow,
-    Green,
-    Grey
+    Default = "ToolTip_Text_Default",
+    Red = "ToolTip_Text_Red",
+    Blue = "ToolTip_Text_Blue",
+    Yellow = "ToolTip_Text_Yellow",
+    Green = "ToolTip_Text_Green",
+    Grey = "ToolTip_Text_Grey"
 }
 
 interface ITooltipProps {
@@ -24,40 +24,8 @@ interface ITooltipProps {
     className?: string;
 }
 
-const getToolTipPosition: ( position?: ToolTipPosition ) => string = ( position ) => {
-    switch( position )
-    {
-        case ToolTipPosition.Left: 
-            return "ToolTip_Text_Left";
-        case ToolTipPosition.Right: 
-            return "ToolTip_Text_Right";
-        case ToolTipPosition.Bottom: 
-            return "ToolTip_Text_Bottom";
-        default:
-            return "ToolTip_Text_Top";
-    }
-}
-
-const getToolTipColor: ( color?: ToolTipColor ) => string = ( color ) => {
-    switch( color )
-    {
-        case ToolTipColor.Red:
-            return " ToolTip_Text_Red";
-        case ToolTipColor.Blue:
-            return " ToolTip_Text_Blue";
-        case ToolTipColor.Green:
-            return " ToolTip_Text_Green";
-        case ToolTipColor.Yellow:
-            return " ToolTip_Text_Yellow";
-        case ToolTipColor.Grey:
-            return " ToolTip_Text_Grey";
-        default:
-            return "";
-    }
-}
-
 const WithTooltip: React.FC<ITooltipProps> = ( props ) => {
-    let css = "ToolTip_Text " + getToolTipPosition( props.toolTipPosition ) + getToolTipColor( props.toolTipColor );
+    let css = "ToolTip_Text " + ( props.toolTipPosition ? props.toolTipPosition : "ToolTip_Text_Top" ) + " " + ( props.toolTipColor ? props.toolTipColor : "ToolTip_Text_Default" );
     let toolTipContainerCss = "ToolTip";
     toolTipContainerCss = props.className !== undefined ? toolTipContainerCss + " " + props.className : toolTipContainerCss;
     return(

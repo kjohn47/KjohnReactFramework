@@ -6,6 +6,10 @@ export const textTranslations: ITranslations = {
         loadingText: "A Carregar!",
         goBackToHome: "Voltar para Homepage",
         goBackToHomeToolTip: "Carregue no botão para retomar para a homepage.",
+        tableText: {
+            edit: "Editar",
+            remove: "Remover"
+        },
         testPage: {
             langButton: "Lingua",
             searchBox: "Procurar: ",
@@ -23,6 +27,10 @@ export const textTranslations: ITranslations = {
         loadingText: "Loading!",
         goBackToHome: "Go back to Homepage",
         goBackToHomeToolTip: "Click at the button to return to homepage.",
+        tableText: {
+            edit: "Edit",
+            remove: "Remove"
+        },
         testPage: {
             langButton: "Language",
             searchBox: "Search: ",

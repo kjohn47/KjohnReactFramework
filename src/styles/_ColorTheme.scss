@@ -1,0 +1,190 @@
+/*-------------------------------------------*/
+/*------ Colors that change with theme ------*/
+/*-------------------------------------------*/
+
+/*------------- Default Colors --------------*/
+$MainColor_Default: #2f4f4f;
+$SecondaryColor_Default: #778899;
+$MenuTextColor_Default: #ffffff;
+$TextColor_Default: #000000;
+$LinkColor_Default: #008080;
+
+$Button_Default: #008080;
+$Button_Text_Default: #ffffff;
+$Button_Hover_Default: #778899;
+$Button_Text_Hover_Default: #ffffff;
+
+$Input_Border_Default: #2f4f4f;
+$Input_Focus_Default: #008080;
+
+$Table_Header_Text_Default: #ffffff;
+/*------------------------------------------*/
+
+/*-------------- Red Colors ----------------*/
+$MainColor_Red: #491111;
+$SecondaryColor_Red: #a73f3f;
+$MenuTextColor_Red: #ffffff;
+$TextColor_Red: #200000;
+$LinkColor_Red: #631717;
+
+$Button_Red: #631717;
+$Button_Text_Red: #ffffff;
+$Button_Hover_Red: #a73f3f;
+$Button_Text_Hover_Red: #ffffff;
+
+$Input_Border_Red: #491111;
+$Input_Focus_Red: #a73f3f;
+
+$Table_Header_Text_Red: #ffffff;
+/*------------------------------------------*/
+
+/*------------- Green Colors ---------------*/
+$MainColor_Green: #08583e;
+$SecondaryColor_Green: #469b80;
+$MenuTextColor_Green: #ffffff;
+$TextColor_Green: #001a12;
+$LinkColor_Green: #0c6d4e;
+
+$Button_Green: #0c6d4e;
+$Button_Text_Green: #ffffff;
+$Button_Hover_Green: #469b80;
+$Button_Text_Hover_Green: #ffffff;
+
+$Input_Border_Green: #08583e;
+$Input_Focus_Green: #469b80;
+
+$Table_Header_Text_Green: #ffffff;
+/*------------------------------------------*/
+
+/*-------------- Blue Colors ---------------*/
+$MainColor_Blue: #062133;
+$SecondaryColor_Blue: #447596;
+$MenuTextColor_Blue: #ffffff;
+$TextColor_Blue: #041825;
+$LinkColor_Blue: #092e47;
+
+$Button_Blue: #092e47;
+$Button_Text_Blue: #ffffff;
+$Button_Hover_Blue: #447596;
+$Button_Text_Hover_Blue: #ffffff;
+
+$Input_Border_Blue: #062133;
+$Input_Focus_Blue: #447596;
+
+$Table_Header_Text_Blue: #ffffff;
+/*------------------------------------------*/
+
+/*------------- Orange Colors --------------*/
+$MainColor_Orange: #c45c20;
+$SecondaryColor_Orange: #ec9f73;
+$MenuTextColor_Orange: #ffffff;
+$TextColor_Orange: #1d0b00;
+$LinkColor_Orange: #d4601d;
+
+$Button_Orange: #d4601d;
+$Button_Text_Orange: #ffffff;
+$Button_Hover_Orange: #f89053;
+$Button_Text_Hover_Orange: #ffffff;
+
+$Input_Border_Orange: #c45c20;
+$Input_Focus_Orange: #f89053;
+
+$Table_Header_Text_Orange: #ffffff;
+/*------------------------------------------*/
+
+/*-------------- Grey Colors ---------------*/
+$MainColor_Grey: #313131;
+$SecondaryColor_Grey: #a0a0a0;
+$MenuTextColor_Grey: #ffffff;
+$TextColor_Grey: #1d1d1d;
+$LinkColor_Grey: #4d4d4d;
+
+$Button_Grey: #4d4d4d;
+$Button_Text_Grey: #ffffff;
+$Button_Hover_Grey: #a0a0a0;
+$Button_Text_Hover_Grey: #ffffff;
+
+$Input_Border_Grey: #313131;
+$Input_Focus_Grey: #a0a0a0;
+
+$Table_Header_Text_Grey: #ffffff;
+/*------------------------------------------*/
+/*-------------------------------------------*/
+/*---- End Colors that change with theme ----*/
+/*-------------------------------------------*/
+
+/*-------------------------------------------*/
+/*--- Colors that are fixed on component ----*/
+/*-------------------------------------------*/
+/*--- Button Types ---*/
+$Button_Confirmation_Main: #009c3c;
+$Button_Confirmation_Secondary: #003300;
+$Button_Confirmation_Text: #ffffff;
+$Button_Confirmation_Text_Hover: #ffffff;
+
+$Button_Warning_Main: #fab12a;
+$Button_Warning_Secondary: #D75600;
+$Button_Warning_Text: #000000;
+$Button_Warning_Text_Hover: #ffffff;
+
+$Button_Danger_Main: #df293b;
+$Button_Danger_Secondary: #660202;
+$Button_Danger_Text: #ffffff;
+$Button_Danger_Text_Hover: #ffffff;
+
+$Button_Cancelation_Main: #a8a8a8;
+$Button_Cancelation_Secondary: #3b3b3b;
+$Button_Cancelation_Text: #000000;
+$Button_Cancelation_Text_Hover: #ffffff;
+
+$Button_Information_Main: #1b73e6;
+$Button_Information_Secondary: #02469e;
+$Button_Information_Text: #ffffff;
+$Button_Information_Text_Hover: #ffffff;
+/*--- Button Types ---*/
+
+/*----- ToolTip ------*/
+$ToolTip_Default: #fce35a;
+$ToolTip_Default_Text: #000000;
+
+$ToolTip_Red: #ffa4a4;
+$ToolTip_Red_Text: #660202;
+
+$ToolTip_Green: #98FFC8;
+$ToolTip_Green_Text: #003300;
+
+$ToolTip_Blue: #a9e2ff;
+$ToolTip_Blue_Text: #02469e;
+
+$ToolTip_Yellow: #FFFD9B;
+$ToolTip_Yellow_Text: #D75600;
+
+$ToolTip_Grey: #708090;
+$ToolTip_Grey_Text: #ffffff;
+/*----- ToolTip ------*/
+
+/*---- Text Input ----*/
+$TextInputValid: #008000;
+$TextInputInvalid: #f00000;
+/*---- Text Input ----*/
+
+/*------ Links -------*/
+$EditLink: #0b6dff;
+$EditLink_Hover: #0432ff;
+$RemoveLink: #ff4343;
+$RemoveLink_Hover: #ac1515;
+/*------ Links -------*/
+
+/*------ Table -------*/
+$Table_Highlight_Even: #e7e7e7;
+$Table_Highlight_Odd: #f7f5f5;
+$Table_Border: #000000;
+$Table_Border_Header: #ffffff;
+/*------ Table -------*/
+
+/*--- Page Header ----*/
+$PageTitleError: #f00000;
+/*--- Page Header ----*/
+/*-------------------------------------------*/
+/*- End Colors that are fixed on component --*/
+/*-------------------------------------------*/

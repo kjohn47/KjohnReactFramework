@@ -1,0 +1,504 @@
+@import "_ColorTheme";
+
+/* ---------------------------------- */
+/* ------- Layout Dimension --------- */
+/* ---------------------------------- */
+
+.PageLayout {
+  width: 100%;
+  min-width: 300px;
+}  
+
+.PageMenu{
+  width: calc(100% - 40px);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: 40px;
+}
+
+.PageContent {
+  padding-top: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  width: calc( 100% - 50px);
+  height: calc( 100% - 135px );
+  padding-bottom: 135px;
+}
+
+.PageFooter {
+  width: calc(100% - 40px);
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  height: 90px;
+  position: fixed;
+  bottom: 0;
+}
+
+/* ---------------------------------- */
+/* --------- Layout Color ----------- */
+/* ---------------------------------- */
+
+/* ------------ Default ------------- */
+.PageLayoutColor {
+  /* ---- General colors ---- */
+
+  /* Page Selector */
+  .PageSelector_Highlight {
+    color: $LinkColor_Default;
+    text-decoration: none;
+  }
+
+  .PageSelector_Highlight:hover {
+    text-decoration: underline;
+  }
+  /* Page Selector */
+
+  /* Load Spinner */
+  .LoadSpinnerColor {
+    border-top-color: $MainColor_Default;
+    border-bottom-color: $MainColor_Default;
+    border-left-color: $SecondaryColor_Default;
+    border-right-color: $SecondaryColor_Default;
+  }
+  /* Load Spinner */
+
+  /* Button Component */
+  .page_button_color {
+    border-color: $MainColor_Default;
+    background: $Button_Default;
+    color: $Button_Text_Default;
+  }
+  
+  .page_button_color:hover {
+    background: $Button_Hover_Default;
+    color: $Button_Text_Hover_Default;
+  }
+  
+  .page_button_color:focus {
+    box-shadow: 0 0 4px $Button_Default;
+  }
+  /* Button Component */
+
+  /* Input Text */
+  .inputText_Color {
+    border-color: $Input_Border_Default;
+  }
+
+  .inputText_Color:focus {
+    box-shadow: 0 0 3px $Input_Focus_Default;
+  }
+  /* Input Text */
+
+  /* ---- Menu and Footer Colors ---- */
+  .PageMenuColor {
+    background-color: $MainColor_Default;
+    color: $MenuTextColor_Default;
+  }
+
+  /* ---- Content Colors ---- */
+  .PageContentColor {
+    /* -- All Content -- */
+    color: $TextColor_Default;
+    
+    /* Table Component */
+    .TableDiv {
+      .TableContent {
+        .TableHeaderCellColor {    
+          background-color: $MainColor_Default;
+          color: $Table_Header_Text_Default;
+        }
+      }
+    }
+    /* Table Component */
+
+  }
+}
+/*------------------------------------*/
+
+/* -------------- Red --------------- */
+.PageLayoutColor_Red {
+  /* ---- General colors ---- */
+
+  /* Page Selector */
+  .PageSelector_Highlight {
+    color: $LinkColor_Red;
+    text-decoration: none;
+  }
+
+  .PageSelector_Highlight:hover {
+    text-decoration: underline;
+  }
+  /* Page Selector */
+
+  /* Load Spinner */
+  .LoadSpinnerColor {
+    border-top-color: $MainColor_Red;
+    border-bottom-color: $MainColor_Red;
+    border-left-color: $SecondaryColor_Red;
+    border-right-color: $SecondaryColor_Red;
+  }
+  /* Load Spinner */
+
+  /* Button Component */
+  .page_button_color {
+    border-color: $MainColor_Red;
+    background: $Button_Red;
+    color: $Button_Text_Red;
+  }
+  
+  .page_button_color:hover {
+    background: $Button_Hover_Red;
+    color: $Button_Text_Hover_Red;
+  }
+  
+  .page_button_color:focus {
+    box-shadow: 0 0 4px $Button_Red;
+  }
+  /* Button Component */
+
+  /* Input Text */
+  .inputText_Color {
+    border-color: $Input_Border_Red;
+  }
+
+  .inputText_Color:focus {
+    box-shadow: 0 0 3px $Input_Focus_Red;
+  }
+  /* Input Text */
+
+  /* ---- Menu and Footer Colors ---- */
+  .PageMenuColor {
+    background-color: $MainColor_Red;
+    color: $MenuTextColor_Red;
+  }
+
+  /* ---- Content Colors ---- */
+  .PageContentColor {
+    /* -- All Content -- */
+    color: $TextColor_Red;
+  
+    /* Table Component */
+    .TableDiv {
+      .TableContent {
+        .TableHeaderCellColor {    
+          background-color: $MainColor_Red;
+          color: $Table_Header_Text_Red;
+        }
+      }
+    }
+    /* Table Component */
+
+  }
+}
+/*------------------------------------*/
+
+/* ------------- Green -------------- */
+.PageLayoutColor_Green {
+  /* ---- General colors ---- */
+ 
+  /* Page Selector */
+  .PageSelector_Highlight {
+    color: $LinkColor_Green;
+    text-decoration: none;
+  }
+
+  .PageSelector_Highlight:hover {
+    text-decoration: underline;
+  }
+  /* Page Selector */  
+
+  /* Load Spinner */
+  .LoadSpinnerColor {
+    border-top-color: $MainColor_Green;
+    border-bottom-color: $MainColor_Green;
+    border-left-color: $SecondaryColor_Green;
+    border-right-color: $SecondaryColor_Green;
+  }
+  /* Load Spinner */
+
+  /* Button Component */
+  .page_button_color {
+    border-color: $MainColor_Green;
+    background: $Button_Green;
+    color: $Button_Text_Green;
+  }
+  
+  .page_button_color:hover {
+    background: $Button_Hover_Green;
+    color: $Button_Text_Hover_Green;
+  }
+  
+  .page_button_color:focus {
+    box-shadow: 0 0 4px $Button_Green;
+  }
+  /* Button Component */  
+
+  /* Input Text */
+  .inputText_Color {
+    border-color: $Input_Border_Green;
+  }
+
+  .inputText_Color:focus {
+    box-shadow: 0 0 3px $Input_Focus_Green;
+  }
+  /* Input Text */
+
+  /* ---- Menu and Footer Colors ---- */
+  .PageMenuColor {
+    background-color: $MainColor_Green;
+    color: $MenuTextColor_Green;
+  }
+
+  /* ---- Content Colors ---- */
+  .PageContentColor {
+    /* -- All Content -- */
+    color: $TextColor_Green;
+  
+    /* Table Component */
+    .TableDiv {
+      .TableContent {
+        .TableHeaderCellColor {    
+          background-color: $MainColor_Green;
+          color: $Table_Header_Text_Green;
+        }
+      }
+    }
+    /* Table Component */
+
+  }
+}
+/*------------------------------------*/
+
+/* ------------- Blue --------------- */
+.PageLayoutColor_Blue {
+  /* ---- General colors ---- */
+
+  /* Page Selector */
+  .PageSelector_Highlight {
+    color: $LinkColor_Blue;
+    text-decoration: none;
+  }
+
+  .PageSelector_Highlight:hover {
+    text-decoration: underline;
+  }
+  /* Page Selector */  
+
+  /* Load Spinner */
+  .LoadSpinnerColor {
+    border-top-color: $MainColor_Blue;
+    border-bottom-color: $MainColor_Blue;
+    border-left-color: $SecondaryColor_Blue;
+    border-right-color: $SecondaryColor_Blue;
+  }
+  /* Load Spinner */
+
+  /* Button Component */
+  .page_button_color {
+    border-color: $MainColor_Blue;
+    background: $Button_Blue;
+    color: $Button_Text_Blue;
+  }
+  
+  .page_button_color:hover {
+    background: $Button_Hover_Blue;
+    color: $Button_Text_Hover_Blue;
+  }
+  
+  .page_button_color:focus {
+    box-shadow: 0 0 4px $Button_Blue;
+  }
+  /* Button Component */
+
+  /* Input Text */
+   .inputText_Color {
+    border-color: $Input_Border_Blue;
+  }
+
+  .inputText_Color:focus {
+    box-shadow: 0 0 3px $Input_Focus_Blue;
+  }
+  /* Input Text */
+  
+  /* ---- Menu and Footer Colors ---- */
+  .PageMenuColor {
+    background-color: $MainColor_Blue;
+    color: $MenuTextColor_Blue;
+  }
+
+  /* ---- Content Colors ---- */
+  .PageContentColor {
+    /* -- All Content -- */
+    color: $TextColor_Blue;
+  
+    /* Table Component */
+    .TableDiv {
+      .TableContent {
+        .TableHeaderCellColor {    
+          background-color: $MainColor_Blue;
+          color: $Table_Header_Text_Blue;
+        }
+      }
+    }
+    /* Table Component */
+
+  }
+}
+/*------------------------------------*/
+
+/* ------------ Orange -------------- */
+.PageLayoutColor_Orange {
+  /* ---- General colors ---- */
+
+  /* Page Selector */
+  .PageSelector_Highlight {
+    color: $LinkColor_Orange;
+    text-decoration: none;
+  }
+
+  .PageSelector_Highlight:hover {
+    text-decoration: underline;
+  }
+  /* Page Selector */
+
+  /* Load Spinner */
+  .LoadSpinnerColor {
+    border-top-color: $MainColor_Orange;
+    border-bottom-color: $MainColor_Orange;
+    border-left-color: $SecondaryColor_Orange;
+    border-right-color: $SecondaryColor_Orange;
+  }
+  /* Load Spinner */
+
+  /* Button Component */
+  .page_button_color {
+    border-color: $MainColor_Orange;
+    background: $Button_Orange;
+    color: $Button_Text_Orange;
+  }
+  
+  .page_button_color:hover {
+    background: $Button_Hover_Orange;
+    color: $Button_Text_Hover_Orange;
+  }
+  
+  .page_button_color:focus {
+    box-shadow: 0 0 4px $Button_Orange;
+  }
+  /* Button Component */
+
+  /* Input Text */
+  .inputText_Color {
+    border-color: $Input_Border_Orange;
+  }
+
+  .inputText_Color:focus {
+    box-shadow: 0 0 3px $Input_Focus_Orange;
+  }
+  /* Input Text */
+
+  /* ---- Menu and Footer Colors ---- */
+  .PageMenuColor {
+    background-color: $MainColor_Orange;
+    color: $MenuTextColor_Orange;
+  }
+
+  /* ---- Content Colors ---- */
+  .PageContentColor {
+    /* -- All Content -- */
+    color: $TextColor_Orange;
+  
+    /* Table Component */
+    .TableDiv {
+      .TableContent {
+        .TableHeaderCellColor {    
+          background-color: $MainColor_Orange;
+          color: $Table_Header_Text_Orange;
+        }
+      }
+    }
+    /* Table Component */
+
+  }
+}
+/*------------------------------------*/
+
+/* ------------- Grey --------------- */
+.PageLayoutColor_Grey {
+  /* ---- General colors ---- */
+
+  /* Page Selector */
+  .PageSelector_Highlight {
+    color: $LinkColor_Grey;
+    text-decoration: none;
+  }
+
+  .PageSelector_Highlight:hover {
+    text-decoration: underline;
+  }
+  /* Page Selector */
+
+  /* Load Spinner */
+  .LoadSpinnerColor {
+    border-top-color: $MainColor_Grey;
+    border-bottom-color: $MainColor_Grey;
+    border-left-color: $SecondaryColor_Grey;
+    border-right-color: $SecondaryColor_Grey;
+  }
+  /* Load Spinner */
+
+  /* Button Component */
+  .page_button_color {
+    border-color: $MainColor_Grey;
+    background: $Button_Grey;
+    color: $Button_Text_Grey;
+  }
+  
+  .page_button_color:hover {
+    background: $Button_Hover_Grey;
+    color: $Button_Text_Hover_Grey;
+  }
+  
+  .page_button_color:focus {
+    box-shadow: 0 0 4px $Button_Grey;
+  }
+  /* Button Component */
+
+  /* Input Text */
+  .inputText_Color {
+    border-color: $Input_Border_Grey;
+  }
+
+  .inputText_Color:focus {
+    box-shadow: 0 0 3px $Input_Focus_Grey;
+  }
+  /* Input Text */
+  
+  /* ---- Menu and Footer Colors ---- */
+  .PageMenuColor {
+    background-color: $MainColor_Grey;
+    color: $MenuTextColor_Grey;
+  }
+
+  /* ---- Content Colors ---- */
+  .PageContentColor {
+    /* -- All Content -- */
+    color: $TextColor_Grey;
+  
+    /* Table Component */
+    .TableDiv {
+      .TableContent {
+        .TableHeaderCellColor {    
+          background-color: $MainColor_Grey;
+          color: $Table_Header_Text_Grey;
+        }
+      }
+    }
+    /* Table Component */
+
+  }
+}
+/*------------------------------------*/

@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../styles/WithLabel.css";
+import "../../styles/WithLabel.scss";
 import Row from './Row';
 import Column, { ColumnNumber } from './Column';
 

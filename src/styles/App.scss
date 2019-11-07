@@ -46,48 +46,6 @@
   margin-right: calc(50% - 28px);
 }
 
-.LoadSpinnerColor {
-  border-top-color: darkslategray;
-  border-bottom-color: darkslategray;
-  border-left-color: lightslategray;
-  border-right-color: lightslategray;
-}
-
-.LoadSpinnerColor_Blue {
-  border-top-color: #062133;
-  border-bottom-color: #062133;
-  border-left-color: #447596;
-  border-right-color: #447596;
-}
-
-.LoadSpinnerColor_Green {
-  border-top-color: #08583e;
-  border-bottom-color: #08583e;
-  border-left-color: #469b80;
-  border-right-color: #469b80;
-}
-
-.LoadSpinnerColor_Red {
-  border-top-color: #491111;
-  border-bottom-color: #491111;
-  border-left-color: #a73f3f;
-  border-right-color: #a73f3f;
-}
-
-.LoadSpinnerColor_Orange {
-  border-top-color: #c45c20;
-  border-bottom-color: #c45c20;
-  border-left-color: #ec9f73;
-  border-right-color: #ec9f73;
-}
-
-.LoadSpinnerColor_Grey {
-  border-top-color: #313131;
-  border-bottom-color: #313131;
-  border-left-color: #a0a0a0;
-  border-right-color: #a0a0a0;
-}
-
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
@@ -114,4 +72,8 @@
 
 .button_width {
   width: 150px;
+}
+
+.pointer_cursor {
+  cursor: pointer;
 }

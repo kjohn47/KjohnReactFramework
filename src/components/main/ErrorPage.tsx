@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import '../../styles/ErrorPage.css';
+import '../../styles/ErrorPage.scss';
 import { ErrorContext, AppContext } from "../../common/config/appConfig";
 import { IErrorData } from "../../common/context/appErrorInterfaces";
 import { KnownPages } from "../../common/context/appContextEnums";

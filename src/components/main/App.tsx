@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppProvider } from '../../common/config/appConfig';
-import '../../styles/App.css';
+import '../../styles/App.scss';
 import PageHandler from './PageHandler';
 import Layout from './Layout';
 import SessionHandler from './SessionHandler';

@@ -2,7 +2,13 @@ export interface ITranslation {
     loadingText: string;
     goBackToHome: string;
     goBackToHomeToolTip: string;
+    tableText: ITableTranslation;
     testPage: ITestPageTranslations;
+}
+
+interface ITableTranslation {
+    edit: string;
+    remove: string;
 }
 
 interface ITestPageTranslations {
