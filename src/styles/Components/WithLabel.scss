@@ -4,18 +4,18 @@
 .withLabelDiv {
     padding-left: 15px;
     padding-right: 15px;
-}
 
-.withLabelDiv .withLable_lable {
-    padding-left: 10px;
-    padding-bottom: 10px;
-    min-height: 15px;
+    .withLable_lable {
+        padding-left: 10px;
+        padding-bottom: 10px;
+        min-height: 15px;
 
-}
+    }
 
-.withLabelDiv .withLable_lable_inline {
-    vertical-align: middle;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-top: 8px;
+    .withLable_lable_inline {
+        vertical-align: middle;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-top: 8px;
+    }
 }

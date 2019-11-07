@@ -12,18 +12,18 @@
   display: inline-block;
   position: relative;
   outline: 0;
-}
-
-.page_Button_PageSelector {
-  display: inline-block;
-  left: -10px;
-  position: relative;
-  top: -10px;
-  vertical-align: middle;
-  text-align: center;
-  padding-top: 10px;
-  height: 115%;
-  width: 110%;
+  
+  .page_Button_PageSelector {
+    display: inline-block;
+    left: -10px;
+    position: relative;
+    top: -10px;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 10px;
+    height: 115%;
+    width: 110%;
+  }
 }
 
 /* Selected from options */
@@ -31,73 +31,67 @@
   border-color: $Button_Danger_Secondary;
   background-color: $Button_Danger_Main;
   color: $Button_Danger_Text;
-}
-
-.page_button_danger:hover {      
-  background-color: $Button_Danger_Secondary;
-  color: $Button_Danger_Text_Hover;
-}
-
-.page_button_danger:focus {
-  box-shadow: 0 0 4px $Button_Danger_Main;
+  &:hover {
+    background-color: $Button_Danger_Secondary;
+    color: $Button_Danger_Text_Hover;
+  }
+  &:focus {
+    box-shadow: 0 0 4px $Button_Danger_Main;
+  }
 }
 
 .page_button_Warning {
   border-color: $Button_Warning_Secondary;
   background-color: $Button_Warning_Main;
   color: $Button_Warning_Text;
-}
-
-.page_button_Warning:hover {      
-  background-color: $Button_Warning_Secondary;
-  color: $Button_Warning_Text_Hover;
-}
-
-.page_button_Warning:focus {
-  box-shadow: 0 0 4px $Button_Warning_Main;
+  &:hover {      
+    background-color: $Button_Warning_Secondary;
+    color: $Button_Warning_Text_Hover;
+  }
+  
+  &:focus {
+    box-shadow: 0 0 4px $Button_Warning_Main;
+  }
 }
 
 .page_button_Confirmation {
   border-color: $Button_Confirmation_Secondary;
   background-color: $Button_Confirmation_Main;
   color: $Button_Confirmation_Text;
-}
-
-.page_button_Confirmation:hover {      
-  background-color: $Button_Confirmation_Secondary;
-  color: $Button_Confirmation_Text_Hover;
-}
-
-.page_button_Confirmation:focus {
-  box-shadow: 0 0 4px $Button_Confirmation_Main;
+  &:hover {      
+    background-color: $Button_Confirmation_Secondary;
+    color: $Button_Confirmation_Text_Hover;
+  }
+  
+  &:focus {
+    box-shadow: 0 0 4px $Button_Confirmation_Main;
+  }
 }
 
 .page_button_Cancelation {
   border-color: $Button_Cancelation_Secondary;
   background-color: $Button_Cancelation_Main;
   color: $Button_Cancelation_Text;
-}
-
-.page_button_Cancelation:hover {
-  background-color: $Button_Cancelation_Secondary;
-  color: $Button_Cancelation_Text_Hover;
-}
-
-.page_button_Cancelation:focus {
-  box-shadow: 0 0 4px $Button_Cancelation_Main;
+  &:hover {
+    background-color: $Button_Cancelation_Secondary;
+    color: $Button_Cancelation_Text_Hover;
+  }
+  
+  &:focus {
+    box-shadow: 0 0 4px $Button_Cancelation_Main;
+  }
 }
 
 .page_button_Information {
   border-color: $Button_Information_Secondary;
   background-color: $Button_Information_Main;
   color: $Button_Information_Text;
-}
-
-.page_button_Information:hover {
-  background-color: $Button_Information_Secondary;
-  color: $Button_Information_Text_Hover;
-}
-
-.page_button_Information:focus {
-  box-shadow: 0 0 4px $Button_Information_Main;
+  &:hover {
+    background-color: $Button_Information_Secondary;
+    color: $Button_Information_Text_Hover;
+  }
+  
+  &:focus {
+    box-shadow: 0 0 4px $Button_Information_Main;
+  }
 }

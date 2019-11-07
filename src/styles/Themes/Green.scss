@@ -24,10 +24,9 @@ $Table_Header_Text_Green: #ffffff;
     .PageSelector_Highlight {
       color: $LinkColor_Green;
       text-decoration: none;
-    }
-  
-    .PageSelector_Highlight:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
     /* Page Selector */  
   
@@ -45,25 +44,23 @@ $Table_Header_Text_Green: #ffffff;
       border-color: $MainColor_Green;
       background: $Button_Green;
       color: $Button_Text_Green;
-    }
-    
-    .page_button_color:hover {
-      background: $Button_Hover_Green;
-      color: $Button_Text_Hover_Green;
-    }
-    
-    .page_button_color:focus {
-      box-shadow: 0 0 4px $Button_Green;
+      &:hover {
+        background: $Button_Hover_Green;
+        color: $Button_Text_Hover_Green;
+      }
+      
+      &:focus {
+        box-shadow: 0 0 4px $Button_Green;
+      }
     }
     /* Button Component */  
   
     /* Input Text */
     .inputText_Color {
       border-color: $Input_Border_Green;
-    }
-  
-    .inputText_Color:focus {
-      box-shadow: 0 0 3px $Input_Focus_Green;
+      &:focus {
+        box-shadow: 0 0 3px $Input_Focus_Green;
+      }
     }
     /* Input Text */
   

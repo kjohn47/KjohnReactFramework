@@ -1,5 +1,5 @@
 /* Input text config */
-.inputText {    
+.inputText {
     border-width: 1px;    
     border-style: solid;
     border-radius: 10px;
@@ -15,20 +15,17 @@
 /* validation colors */
 .inputTextValid {
     border-color: $TextInputValid;
-}
-
-.inputTextValid:focus {
-    box-shadow: 0 0 3px $TextInputValid;
+    &:focus {
+        box-shadow: 0 0 3px $TextInputValid;
+    }
 }
 
 .inputTextInvalid {
     border-color: $TextInputInvalid;
-}
-
-.inputTextInvalid:focus {
-    box-shadow: 0 0 3px $TextInputInvalid;
-}
-
+    &:focus {
+        box-shadow: 0 0 3px $TextInputInvalid;
+    }
+}    
 /* validation text*/
 
 .inputTextValidation {

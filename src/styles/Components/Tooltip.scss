@@ -3,139 +3,127 @@
 */
 .ToolTip {
     position: relative;
-    display: inline-block;    
-  }
+    display: inline-block;
+    &:hover .ToolTip_Text {
+        visibility: visible;
+        cursor: default;
+    }
   
-.ToolTip .ToolTip_Text {
-    visibility: hidden;
-    min-width: 100px;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    font-size: small;
-    position: absolute;
-    z-index: 1;    
-}
+    .ToolTip_Text {
+        visibility: hidden;
+        min-width: 100px;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 5px;
+        font-size: small;
+        position: absolute;
+        z-index: 1;
+        &:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-width: 10px;
+            border-style: solid;   
+        }
+    }
 
-.ToolTip .ToolTip_Text:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-width: 10px;
-    border-style: solid;    
-}
+    .ToolTip_Text_Default {
+        background-color: $ToolTip_Default;
+        color: $ToolTip_Default_Text;
+        &:after {
+            border-color: $ToolTip_Default;
+        }
+    }
 
-.ToolTip .ToolTip_Text_Default {
-    background-color: $ToolTip_Default;
-    color: $ToolTip_Default_Text;
-}
+    .ToolTip_Text_Grey {
+        background-color: $ToolTip_Grey;
+        color: $ToolTip_Grey_Text;
+        &:after {
+            border-color: $ToolTip_Grey;
+        }
+    }
 
-.ToolTip .ToolTip_Text_Default:after {
-    border-color: $ToolTip_Default;
-}
+    .ToolTip_Text_Red {
+        background-color: $ToolTip_Red;
+        color: $ToolTip_Red_Text;
+        &:after {
+            border-color: $ToolTip_Red;
+        }
+    }
 
-.ToolTip .ToolTip_Text_Grey {
-    background-color: $ToolTip_Grey;
-    color: $ToolTip_Grey_Text;
-}
+    .ToolTip_Text_Green {
+        background-color: $ToolTip_Green;
+        color: $ToolTip_Green_Text;
+        &:after {
+            border-color: $ToolTip_Green;
+        }
+    }
 
-.ToolTip .ToolTip_Text_Grey:after {
-    border-color: $ToolTip_Grey;
-}
+    .ToolTip_Text_Yellow {
+        background-color: $ToolTip_Yellow;
+        color: $ToolTip_Yellow_Text;
+        &:after {
+            border-color: $ToolTip_Yellow;
+        }
+    }
 
-.ToolTip .ToolTip_Text_Red {
-    background-color: $ToolTip_Red;
-    color: $ToolTip_Red_Text;
-}
+    .ToolTip_Text_Blue {
+        background-color: $ToolTip_Blue;
+        color: $ToolTip_Blue_Text;
+        &:after {
+            border-color: $ToolTip_Blue;
+        }
+    }
 
-.ToolTip .ToolTip_Text_Red:after {
-    border-color: $ToolTip_Red;
-}
+    .ToolTip_Text_Left {
+        top: 5px;
+        right: 108%;
+        min-width: 100px;
+        &:after {    
+            border-right-color: transparent;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            top: 3px;
+            right: -19px;
+        }
+    }
 
-.ToolTip .ToolTip_Text_Green {
-    background-color: $ToolTip_Green;
-    color: $ToolTip_Green_Text;
-}
+    .ToolTip_Text_Right {
+        top: 5px;
+        left: 108%;
+        &:after {
+            border-left-color: transparent;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            top: 3px;
+            left: -19px;
+        }
+    }
 
-.ToolTip .ToolTip_Text_Green:after {
-    border-color: $ToolTip_Green;
-}
+    .ToolTip_Text_Top {
+        bottom: 52px;
+        left: 50%;
+        margin-left: -40%;
+        &:after {
+            border-right-color: transparent;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+            bottom: -20px;
+            left: calc( 50% - 10px );
+        }
+    }
 
-.ToolTip .ToolTip_Text_Yellow {
-    background-color: $ToolTip_Yellow;
-    color: $ToolTip_Yellow_Text;
-}
-
-.ToolTip .ToolTip_Text_Yellow:after {
-    border-color: $ToolTip_Yellow;
-}
-
-.ToolTip .ToolTip_Text_Blue {
-    background-color: $ToolTip_Blue;
-    color: $ToolTip_Blue_Text;
-}
-
-.ToolTip .ToolTip_Text_Blue:after {
-    border-color: $ToolTip_Blue;
-}
-
-.ToolTip .ToolTip_Text_Left {
-    top: 5px;
-    right: 108%;
-    min-width: 100px;
-}
-
-.ToolTip .ToolTip_Text_Left:after {    
-    border-right-color: transparent;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-    top: 3px;
-    right: -19px;
-}
-
-.ToolTip .ToolTip_Text_Right {
-    top: 5px;
-    left: 108%;
-}
-
-.ToolTip .ToolTip_Text_Right:after {
-    border-left-color: transparent;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-    top: 3px;
-    left: -19px;
-}
-
-.ToolTip .ToolTip_Text_Top {
-    bottom: 52px;
-    left: 50%;
-    margin-left: -40%;
-}
-
-.ToolTip .ToolTip_Text_Top:after {
-    border-right-color: transparent;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    bottom: -20px;
-    left: calc( 50% - 10px );
-}
-
-.ToolTip .ToolTip_Text_Bottom {
-    top: 52px;
-    left: 50%;
-    margin-left: -40%;
-}
-
-.ToolTip .ToolTip_Text_Bottom:after {
-    border-right-color: transparent;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    top: -20px;
-    left: calc( 50% - 10px );
-}
-
-.ToolTip:hover .ToolTip_Text {
-    visibility: visible;
-    cursor: default;
+    .ToolTip_Text_Bottom {
+        top: 52px;
+        left: 50%;
+        margin-left: -40%;
+        &:after {
+            border-right-color: transparent;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            top: -20px;
+            left: calc( 50% - 10px );
+        }
+    }
 }

@@ -24,10 +24,9 @@ $Table_Header_Text_Red: #ffffff;
     .PageSelector_Highlight {
       color: $LinkColor_Red;
       text-decoration: none;
-    }
-  
-    .PageSelector_Highlight:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
     /* Page Selector */
   
@@ -45,25 +44,23 @@ $Table_Header_Text_Red: #ffffff;
       border-color: $MainColor_Red;
       background: $Button_Red;
       color: $Button_Text_Red;
-    }
-    
-    .page_button_color:hover {
-      background: $Button_Hover_Red;
-      color: $Button_Text_Hover_Red;
-    }
-    
-    .page_button_color:focus {
-      box-shadow: 0 0 4px $Button_Red;
+      &:hover {
+        background: $Button_Hover_Red;
+        color: $Button_Text_Hover_Red;
+      }
+      
+      &:focus {
+        box-shadow: 0 0 4px $Button_Red;
+      }
     }
     /* Button Component */
   
     /* Input Text */
     .inputText_Color {
       border-color: $Input_Border_Red;
-    }
-  
-    .inputText_Color:focus {
-      box-shadow: 0 0 3px $Input_Focus_Red;
+      &:focus {
+        box-shadow: 0 0 3px $Input_Focus_Red;
+      }
     }
     /* Input Text */
   

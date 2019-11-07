@@ -24,10 +24,9 @@ $Table_Header_Text_Default: #ffffff;
     .PageSelector_Highlight {
       color: $LinkColor_Default;
       text-decoration: none;
-    }
-  
-    .PageSelector_Highlight:hover {
-      text-decoration: underline;
+      &:hover {
+        text-decoration: underline;
+      }
     }
     /* Page Selector */
   
@@ -45,25 +44,22 @@ $Table_Header_Text_Default: #ffffff;
       border-color: $MainColor_Default;
       background: $Button_Default;
       color: $Button_Text_Default;
-    }
-    
-    .page_button_color:hover {
-      background: $Button_Hover_Default;
-      color: $Button_Text_Hover_Default;
-    }
-    
-    .page_button_color:focus {
-      box-shadow: 0 0 4px $Button_Default;
+      &:hover {
+        background: $Button_Hover_Default;
+        color: $Button_Text_Hover_Default;
+      }
+      &:focus {
+        box-shadow: 0 0 4px $Button_Default;
+      }
     }
     /* Button Component */
   
     /* Input Text */
     .inputText_Color {
       border-color: $Input_Border_Default;
-    }
-  
-    .inputText_Color:focus {
-      box-shadow: 0 0 3px $Input_Focus_Default;
+      &:focus {
+        box-shadow: 0 0 3px $Input_Focus_Default;
+      }
     }
     /* Input Text */
   
@@ -81,7 +77,7 @@ $Table_Header_Text_Default: #ffffff;
       /* Table Component */
       .TableDiv {
         .TableContent {
-          .TableHeaderCellColor {    
+          .TableHeaderCellColor {
             background-color: $MainColor_Default;
             color: $Table_Header_Text_Default;
           }

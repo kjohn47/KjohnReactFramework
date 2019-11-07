@@ -116,7 +116,7 @@ const Test: React.FC = () => {
   }
 
   return (
-    <div className="App">
+    <div className="TestApp">
       { "Hash token tested correctly: " + testhash( "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c", "7f75367e7881255134e1375e723d1dea8ad5f6a4fdb79d938df1f1754a830606" ) }
       <div className = "searchBox">
         <label>{appContext.translations.testPage.searchBox}</label>
@@ -129,9 +129,9 @@ const Test: React.FC = () => {
         <input type="checkbox" checked = {lootBox} onChange = { (event: React.FormEvent<HTMLInputElement>) => { setLootBox( event.currentTarget.checked ) } }/>
         <hr />      
       </div>
-      <div className = "table">
-        <div className = "resultTable tableHeader">
-          <span className="leftCol header">ID</span><span className="rightCol header">{appContext.translations.testPage.text}</span>
+      <div className = "testtable">
+        <div className = "resultTable tabletestHeader">
+          <span className="leftCol testheader">ID</span><span className="rightCol testheader">{appContext.translations.testPage.text}</span>
         </div>
         { showTable && results.map( (r, i) => 
           <div className = "resultTable" key = { i }>
@@ -144,7 +144,7 @@ const Test: React.FC = () => {
           </div>
         </WithTooltip>
       </div>
-      <div className = "tableBottom">
+      <div className = "testtableBottom">
         <hr />
         <div className = "center_menu_button">
           <WithTooltip toolTipText = { appContext.translations.testPage.serviceCallTooltip1 } toolTipPosition = { ToolTipPosition.Top } toolTipColor = { ToolTipColor.Green }  >

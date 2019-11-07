@@ -9,51 +9,51 @@
 
 .LoadingDiv {
   text-align: center;
+
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .LoaderSpinner {
+    border-radius: 50%;
+    border-width: 4px;
+    border-style: solid;
+    width: 20px;
+    height: 20px;
+    margin-left: calc(50% - 14px);
+    margin-right: calc(50% - 14px);
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;    
+  }
+  
+  .BigSpinner {
+    border-width: 8px;
+    width: 40px;
+    height: 40px;
+    margin-left: calc(50% - 28px);
+    margin-right: calc(50% - 28px);
+  }
+
+  .LoaderText {
+    padding-top: 10px;
+  }
+
+  .LoaderTextBig {
+    padding-top: 15px;
+    font-size: large;
+    font-weight: bold;
+  }
 }
 
 .LoadingPadding 
 {
   padding-top: 60px;
-}
-
-.LoaderText {
-  padding-top: 10px;
-}
-
-.LoaderTextBig {
-  padding-top: 15px;
-  font-size: large;
-  font-weight: bold;
-}
-
-.LoaderSpinner {
-  border-radius: 50%;
-  border-width: 4px;
-  border-style: solid;
-  width: 20px;
-  height: 20px;
-  margin-left: calc(50% - 14px);
-  margin-right: calc(50% - 14px);
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
-
-.BigSpinner {
-  border-width: 8px;
-  width: 40px;
-  height: 40px;
-  margin-left: calc(50% - 28px);
-  margin-right: calc(50% - 28px);
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .noselect {
@@ -65,6 +65,10 @@
             user-select: none;
 }
 
+.pointer_cursor {
+  cursor: pointer;
+}
+
 .center_menu_button {
   margin-left: calc( 50% - 88px );
   margin-right: calc( 50% - 88px );
@@ -72,8 +76,4 @@
 
 .button_width {
   width: 150px;
-}
-
-.pointer_cursor {
-  cursor: pointer;
 }

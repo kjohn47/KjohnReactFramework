@@ -28,7 +28,7 @@ const Button: React.FC<IButton> = ( props ) => {
         { props.page !== undefined && 
             <PageSelector 
                 page = { props.page }
-                queryParams = { props.queryParams } 
+                queryParams = { props.queryParams }
                 className = "page_Button_PageSelector"
             >
                 { props.children }
