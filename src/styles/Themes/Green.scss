@@ -1,0 +1,94 @@
+/*------------- Green Colors ---------------*/
+$MainColor_Green: #08583e;
+$SecondaryColor_Green: #469b80;
+$MenuTextColor_Green: #ffffff;
+$TextColor_Green: #001a12;
+$LinkColor_Green: #0c6d4e;
+
+$Button_Green: #0c6d4e;
+$Button_Text_Green: #ffffff;
+$Button_Hover_Green: #469b80;
+$Button_Text_Hover_Green: #ffffff;
+
+$Input_Border_Green: #08583e;
+$Input_Focus_Green: #469b80;
+
+$Table_Header_Text_Green: #ffffff;
+/*------------------------------------------*/
+
+/* ------------- Green -------------- */
+.PageLayoutColor_Green {
+    /* ---- General colors ---- */
+   
+    /* Page Selector */
+    .PageSelector_Highlight {
+      color: $LinkColor_Green;
+      text-decoration: none;
+    }
+  
+    .PageSelector_Highlight:hover {
+      text-decoration: underline;
+    }
+    /* Page Selector */  
+  
+    /* Load Spinner */
+    .LoadSpinnerColor {
+      border-top-color: $MainColor_Green;
+      border-bottom-color: $MainColor_Green;
+      border-left-color: $SecondaryColor_Green;
+      border-right-color: $SecondaryColor_Green;
+    }
+    /* Load Spinner */
+  
+    /* Button Component */
+    .page_button_color {
+      border-color: $MainColor_Green;
+      background: $Button_Green;
+      color: $Button_Text_Green;
+    }
+    
+    .page_button_color:hover {
+      background: $Button_Hover_Green;
+      color: $Button_Text_Hover_Green;
+    }
+    
+    .page_button_color:focus {
+      box-shadow: 0 0 4px $Button_Green;
+    }
+    /* Button Component */  
+  
+    /* Input Text */
+    .inputText_Color {
+      border-color: $Input_Border_Green;
+    }
+  
+    .inputText_Color:focus {
+      box-shadow: 0 0 3px $Input_Focus_Green;
+    }
+    /* Input Text */
+  
+    /* ---- Menu and Footer Colors ---- */
+    .PageMenuColor {
+      background-color: $MainColor_Green;
+      color: $MenuTextColor_Green;
+    }
+  
+    /* ---- Content Colors ---- */
+    .PageContentColor {
+      /* -- All Content -- */
+      color: $TextColor_Green;
+    
+      /* Table Component */
+      .TableDiv {
+        .TableContent {
+          .TableHeaderCellColor {    
+            background-color: $MainColor_Green;
+            color: $Table_Header_Text_Green;
+          }
+        }
+      }
+      /* Table Component */
+  
+    }
+  }
+  /*------------------------------------*/

@@ -1,5 +1,4 @@
 import React from 'react';
-import "../../styles/Tooltip.scss";
 
 export enum ToolTipPosition {
     Left = "ToolTip_Text_Left",

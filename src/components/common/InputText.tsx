@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import "../../styles/InputText.scss";
 import { AppRegex } from '../../common/config/regexEnum';
 
 interface IInputProps {

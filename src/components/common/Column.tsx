@@ -1,5 +1,4 @@
 import React from 'react';
-import "../../styles/Column.scss";
 
 export enum ColumnNumber {
     C1 = "1",

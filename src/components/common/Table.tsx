@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import "../../styles/Table.scss";
 import Row from "./Row";
 import Column from "./Column";
 import { KnownPages } from "../../common/context/appContextEnums";

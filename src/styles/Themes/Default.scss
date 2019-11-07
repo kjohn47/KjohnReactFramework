@@ -1,0 +1,94 @@
+/*------------- Default Colors --------------*/
+$MainColor_Default: #2f4f4f;
+$SecondaryColor_Default: #778899;
+$MenuTextColor_Default: #ffffff;
+$TextColor_Default: #000000;
+$LinkColor_Default: #008080;
+
+$Button_Default: #008080;
+$Button_Text_Default: #ffffff;
+$Button_Hover_Default: #778899;
+$Button_Text_Hover_Default: #ffffff;
+
+$Input_Border_Default: #2f4f4f;
+$Input_Focus_Default: #008080;
+
+$Table_Header_Text_Default: #ffffff;
+/*------------------------------------------*/
+
+/* ------------ Default ------------- */
+.PageLayoutColor {
+    /* ---- General colors ---- */
+  
+    /* Page Selector */
+    .PageSelector_Highlight {
+      color: $LinkColor_Default;
+      text-decoration: none;
+    }
+  
+    .PageSelector_Highlight:hover {
+      text-decoration: underline;
+    }
+    /* Page Selector */
+  
+    /* Load Spinner */
+    .LoadSpinnerColor {
+      border-top-color: $MainColor_Default;
+      border-bottom-color: $MainColor_Default;
+      border-left-color: $SecondaryColor_Default;
+      border-right-color: $SecondaryColor_Default;
+    }
+    /* Load Spinner */
+  
+    /* Button Component */
+    .page_button_color {
+      border-color: $MainColor_Default;
+      background: $Button_Default;
+      color: $Button_Text_Default;
+    }
+    
+    .page_button_color:hover {
+      background: $Button_Hover_Default;
+      color: $Button_Text_Hover_Default;
+    }
+    
+    .page_button_color:focus {
+      box-shadow: 0 0 4px $Button_Default;
+    }
+    /* Button Component */
+  
+    /* Input Text */
+    .inputText_Color {
+      border-color: $Input_Border_Default;
+    }
+  
+    .inputText_Color:focus {
+      box-shadow: 0 0 3px $Input_Focus_Default;
+    }
+    /* Input Text */
+  
+    /* ---- Menu and Footer Colors ---- */
+    .PageMenuColor {
+      background-color: $MainColor_Default;
+      color: $MenuTextColor_Default;
+    }
+  
+    /* ---- Content Colors ---- */
+    .PageContentColor {
+      /* -- All Content -- */
+      color: $TextColor_Default;
+      
+      /* Table Component */
+      .TableDiv {
+        .TableContent {
+          .TableHeaderCellColor {    
+            background-color: $MainColor_Default;
+            color: $Table_Header_Text_Default;
+          }
+        }
+      }
+      /* Table Component */
+  
+    }
+  }
+  /*------------------------------------*/

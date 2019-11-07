@@ -1,0 +1,94 @@
+/*------------- Orange Colors --------------*/
+$MainColor_Orange: #c45c20;
+$SecondaryColor_Orange: #ec9f73;
+$MenuTextColor_Orange: #ffffff;
+$TextColor_Orange: #1d0b00;
+$LinkColor_Orange: #d4601d;
+
+$Button_Orange: #d4601d;
+$Button_Text_Orange: #ffffff;
+$Button_Hover_Orange: #f89053;
+$Button_Text_Hover_Orange: #ffffff;
+
+$Input_Border_Orange: #c45c20;
+$Input_Focus_Orange: #f89053;
+
+$Table_Header_Text_Orange: #ffffff;
+/*------------------------------------------*/
+
+/* ------------ Orange -------------- */
+.PageLayoutColor_Orange {
+    /* ---- General colors ---- */
+  
+    /* Page Selector */
+    .PageSelector_Highlight {
+      color: $LinkColor_Orange;
+      text-decoration: none;
+    }
+  
+    .PageSelector_Highlight:hover {
+      text-decoration: underline;
+    }
+    /* Page Selector */
+  
+    /* Load Spinner */
+    .LoadSpinnerColor {
+      border-top-color: $MainColor_Orange;
+      border-bottom-color: $MainColor_Orange;
+      border-left-color: $SecondaryColor_Orange;
+      border-right-color: $SecondaryColor_Orange;
+    }
+    /* Load Spinner */
+  
+    /* Button Component */
+    .page_button_color {
+      border-color: $MainColor_Orange;
+      background: $Button_Orange;
+      color: $Button_Text_Orange;
+    }
+    
+    .page_button_color:hover {
+      background: $Button_Hover_Orange;
+      color: $Button_Text_Hover_Orange;
+    }
+    
+    .page_button_color:focus {
+      box-shadow: 0 0 4px $Button_Orange;
+    }
+    /* Button Component */
+  
+    /* Input Text */
+    .inputText_Color {
+      border-color: $Input_Border_Orange;
+    }
+  
+    .inputText_Color:focus {
+      box-shadow: 0 0 3px $Input_Focus_Orange;
+    }
+    /* Input Text */
+  
+    /* ---- Menu and Footer Colors ---- */
+    .PageMenuColor {
+      background-color: $MainColor_Orange;
+      color: $MenuTextColor_Orange;
+    }
+  
+    /* ---- Content Colors ---- */
+    .PageContentColor {
+      /* -- All Content -- */
+      color: $TextColor_Orange;
+    
+      /* Table Component */
+      .TableDiv {
+        .TableContent {
+          .TableHeaderCellColor {    
+            background-color: $MainColor_Orange;
+            color: $Table_Header_Text_Orange;
+          }
+        }
+      }
+      /* Table Component */
+  
+    }
+  }
+  /*------------------------------------*/

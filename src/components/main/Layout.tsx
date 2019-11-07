@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import '../../styles/Layout.scss';
 import { AppContext } from "../../common/config/appConfig";
 
 interface ILayout {

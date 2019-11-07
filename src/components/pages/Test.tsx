@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../../styles/Test.scss';
 import { AppContext  } from '../../common/config/appConfig';
 import { useServiceCaller } from '../../common/services/serviceCaller';
 import { ServiceType } from '../../common/services/serviceCallerInterfaces';
