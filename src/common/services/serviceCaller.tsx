@@ -5,6 +5,8 @@ import { ErrorActions, ErrorCodes } from "../context/appErrorEnums";
 import { getTranslatedError } from "../context/pageErrors/pageErrors";
 import { IContext, IServiceError, ServiceCallType, ServiceType } from "./serviceCallerInterfaces";
 
+const delay = (t: number) => new Promise(resolve => setTimeout(resolve, t));
+
 export function useServiceCaller<IServiceRequest,IServiceResponse>( service: ServiceType<IServiceRequest,IServiceResponse>, processError?: ErrorCodes, localLoading?: boolean ): ServiceCallType<IServiceRequest, IServiceResponse>
 {
     const [ serviceResponse, setServiceResponse ] = useState<IServiceResponse>();    
@@ -48,8 +50,6 @@ export function useServiceCaller<IServiceRequest,IServiceResponse>( service: Ser
 
     return [ serviceResponse, serviceHandler ];
 }
-
-const delay = (t: number) => new Promise(resolve => setTimeout(resolve, t));
 
 const callService = async <IServiceRequest, IServiceResponse>( service: ServiceType<IServiceRequest,IServiceResponse>, context: IContext, request?: IServiceRequest ) => {
     return new Promise< IServiceResponse | IServiceError >( ( resolve ) => {
