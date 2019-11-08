@@ -4,12 +4,15 @@ import Column from "./Column";
 import { KnownPages } from "../../common/context/appContextEnums";
 import PageSelector from "./PageSelector";
 import { AppContext } from "../../common/config/appConfig";
+import WithTooltip, { ToolTipColor, ToolTipPosition } from "./WithTooltip";
 
 export interface ITableCell {
     page?: KnownPages;
     query?: object;
     onClick?: () => void;
     text: string;
+    toolTip?: string;
+    toolTipColor?: ToolTipColor;
     onClickEdit?: () => void;
     onClickRemove?: () => void;    
 }
@@ -40,29 +43,35 @@ const Table: React.FC<ITableContent> = ( props ) => {
     const renderTableCells: ( cells: ITableCell[] ) => any = ( cells ) => {
         return (                
                 cells.map( ( cell, i ) =>
-                    <div className = { "TableCell" + ( cell.onClick !== undefined ? " TableCell_Clickable" : "" ) } key = {i} onClick = { cell.onClick } >
-                        <div className = "TableCellRow">
-                            <div className = {( cell.onClickEdit !== undefined || cell.onClickRemove !== undefined ) ? "TableCell_EditRemove_left" : "TableCellData" } >
-                            { 
-                                cell.page ? 
-                                    <PageSelector highlight page = { cell.page } queryParams = { cell.query }>{cell.text}</PageSelector>
-                                :
-                                    cell.text
-                            }
-                            </div>
-                            {
-                                ( cell.onClickEdit !== undefined || cell.onClickRemove !== undefined ) && 
-                                <div className = "TableCell_EditRemove_right">
-                                    <div className = "TableCellEditRemoveRow">
-                                        { cell.onClickEdit && <div className = "TableCell_Clickable TableCellEditRemoveField" onClick = { cell.onClickEdit }>{ appContext.translations.tableText.edit }</div> }
-                                        { cell.onClickRemove && <div className = "TableCell_Clickable TableCellEditRemoveField TableRemoveField" onClick = { cell.onClickRemove }>{ appContext.translations.tableText.remove }</div> }
-                                    </div>
+                {
+                    let cellText = cell.page ? <PageSelector highlight page = { cell.page } queryParams = { cell.query }>{cell.text}</PageSelector> : <span>{cell.text}</span>;
+                    return (
+                        <div className = { "TableCell" + ( cell.onClick !== undefined ? " TableCell_Clickable" : "" ) } key = {i} onClick = { cell.onClick } >
+                            <div className = "TableCellRow">
+                                <div className = {( cell.onClickEdit !== undefined || cell.onClickRemove !== undefined ) ? "TableCell_EditRemove_left" : "TableCellData" } >
+                                {
+                                    cell.toolTip ?
+                                        <WithTooltip className = "Table_Tooltip" toolTipText = { cell.toolTip } toolTipColor = { cell.toolTipColor } toolTipPosition = { ToolTipPosition.Bottom }>
+                                            {cellText}
+                                        </WithTooltip>
+                                    :
+                                        cellText
+                                }
                                 </div>
-                            }
+                                {
+                                    ( cell.onClickEdit !== undefined || cell.onClickRemove !== undefined ) && 
+                                    <div className = "TableCell_EditRemove_right">
+                                        <div className = "TableCellEditRemoveRow">
+                                            { cell.onClickEdit && <div className = "TableCell_Clickable TableCellEditRemoveField" onClick = { cell.onClickEdit }>{ appContext.translations.tableText.edit }</div> }
+                                            { cell.onClickRemove && <div className = "TableCell_Clickable TableCellEditRemoveField TableRemoveField" onClick = { cell.onClickRemove }>{ appContext.translations.tableText.remove }</div> }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    </div>
-                )
-        )
+                    );                                    
+                } )
+        );
     }
     
     const renderTableRows: ( rows: Array<ITableCell[]> ) => any = ( rows ) => {

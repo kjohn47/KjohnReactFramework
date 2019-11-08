@@ -212,15 +212,15 @@ const Test: React.FC = () => {
               [
                 { text: "01" },
                 { text: "02 AASASDSFSDFS" },
-                { text: "03" }
+                { text: "03 with a lot of text lalala lorem ipsum and dont say anything", onClickEdit: () => {}, onClickRemove: () => {}, toolTip: "This is a cell with edit", toolTipColor: ToolTipColor.Grey }
               ],
               [
                 { text: "04 AASASDSFSDFS" },
-                { text: "Link to home", page: KnownPages.Home },
+                { text: "Link to home", page: KnownPages.Home, toolTip: "This is a cell link", toolTipColor: ToolTipColor.Green },
                 { text: "06 AASASDSFSDFS DFSFSDFSDFSFSD" }
               ],
               [
-                { text: "07" },
+                { text: "07", toolTip: "This is a cell tooltip", toolTipColor: ToolTipColor.Yellow },
                 { text: "08" },
                 { text: "09 AASASDSFSDFS FDSFSDFDSF", onClickEdit: () => {}, onClickRemove: () => {} }
               ]

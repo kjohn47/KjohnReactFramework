@@ -89,6 +89,14 @@
                 display: flex;
                 flex-flow: row;
                 width: 100%;
+
+                .ToolTip {
+                    .ToolTip_Text_Bottom {
+                        bottom: -50px;
+                        top: auto;
+                        left: 35%;                        
+                    }
+                }
                 
                 .TableCellData {
                     min-width: 100%;
