@@ -8,6 +8,7 @@ export interface IContextAction {
 
 export interface IContextPayload {
     globalLanguage?: AppLanguage;
+    pageTheme?: AppGlobalTheme;
     selectedPage?: KnownPages;
     queryString?: string;
 }

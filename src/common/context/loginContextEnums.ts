@@ -1,5 +1,7 @@
 export enum LoginActions {
     MakeLogin = "MakeLogin",
     MakeLogout = "MakeLogout",
-    UpdateData = "UpdateData"
+    UpdateData = "UpdateData",
+    UpdateUserLanguage = "UpdateUserLanguage",
+    UpdateUserTheme = "UpdateUserTheme"
 }

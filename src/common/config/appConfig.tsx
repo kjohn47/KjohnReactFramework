@@ -13,19 +13,20 @@ export const AppContext = createContext<AppContextType>( [] as unknown as AppCon
 export const LoginContext = createContext<LoginContextType>( [] as unknown as LoginContextType );
 
 export const AppProvider: React.FC = ({ children }) => {
+    const [login, setLogin] = useLogin( initialLogin );
+    const [appContext, setAppContext] = useAppContext( initialAppConfig );
     const [error, setError] = useError( initialError );
     const [loading, setLoading] = useState( false );
-    const [appContext, setAppContext] = useAppContext( initialAppConfig );
-    const [login, setLogin] = useLogin( initialLogin );
+    
     return (
-        <ErrorContext.Provider value = {[error, setError] as ErrorContextType }>
-            <LoadingContext.Provider value = {[loading, setLoading] as LoadingType }>
-                <AppContext.Provider value = {[ appContext, setAppContext ] as AppContextType } >
-                    <LoginContext.Provider value = {[login, setLogin] as LoginContextType } >
+        <LoginContext.Provider value = {[login, setLogin] as LoginContextType } >
+            <AppContext.Provider value = {[ appContext, setAppContext ] as AppContextType } >
+                <ErrorContext.Provider value = {[error, setError] as ErrorContextType }>
+                    <LoadingContext.Provider value = {[loading, setLoading] as LoadingType }>
                         {children}
-                    </LoginContext.Provider>
-                </AppContext.Provider>
-            </LoadingContext.Provider>
-        </ErrorContext.Provider>
+                    </LoadingContext.Provider>
+                </ErrorContext.Provider>
+            </AppContext.Provider>
+        </LoginContext.Provider>
     )
 }

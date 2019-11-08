@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LoginActions } from "./loginContextEnums";
 import { ILogin, ILoginAction } from "./loginContextInterfaces";
+import { updateUserSession } from "../functions/sessionStorage";
 
 export function useLogin( initialState: ILogin | undefined )
 {
@@ -16,15 +17,39 @@ export function useLogin( initialState: ILogin | undefined )
             case LoginActions.UpdateData: {
                 if( action.userData !== undefined && login !== undefined )
                 {
-                    setLogin( { ...login,
+                    let newData: ILogin = { ...login,
                         name: action.userData.name,
                         surname: action.userData.surname
-                    } );
+                    };
+                    updateUserSession( newData );
+                    setLogin( newData );
                 }
                 break;
             }
             case LoginActions.MakeLogout: {
                 setLogin( undefined );
+                break;
+            }
+            case LoginActions.UpdateUserLanguage: {
+                if( action.userLanguage && login )
+                {
+                    let newData: ILogin = { ...login,
+                        appLanguage: action.userLanguage
+                    };
+                    updateUserSession( newData );
+                    setLogin( newData );
+                }                    
+                break;
+            }
+            case LoginActions.UpdateUserTheme: {
+                if( action.userTheme && login )
+                {
+                    let newData: ILogin = { ...login,
+                        appTheme: action.userTheme
+                    };
+                    updateUserSession( newData );
+                    setLogin( newData );
+                }                      
                 break;
             }
         }

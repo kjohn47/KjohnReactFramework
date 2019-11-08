@@ -22,6 +22,7 @@ export enum AppStorageKeys {
 //Add new actions here
 export enum ContextActions {
     ChangeLanguage = "ChangeLanguage",
+    ChangeTheme = "ChangeTheme",
     ChangePage = "ChangePage"
 }
 

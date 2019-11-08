@@ -43,12 +43,26 @@ export const setAppTheme: ( language: AppGlobalTheme ) => void = ( theme ) => {
     localStorage.setItem( AppStorageKeys.APPTHEME, theme );
 }
 
-export const setUserSession: ( permanent: boolean, userData: ILogin ) => void = ( permanent, userData ) => {
+export const setUserSession: ( userData: ILogin, permanent?: boolean ) => void = ( userData, permanent ) => {
     if( permanent ) {
         localStorage.setItem( AppStorageKeys.USERDATA, JSON.stringify( userData ) );
     }
     else {
         sessionStorage.setItem( AppStorageKeys.USERDATA, JSON.stringify( userData ) );
+    }
+}
+
+export const updateUserSession: ( userDate: ILogin ) => void = ( userData ) => {
+    let storedUser: string | null = localStorage.getItem( AppStorageKeys.USERDATA ); 
+    
+    if ( storedUser === null ) {
+        storedUser = sessionStorage.getItem( AppStorageKeys.USERDATA );
+        if( storedUser !== null )
+            setUserSession( userData );
+    }
+    else
+    {
+        setUserSession( userData, true );
     }
 }
 

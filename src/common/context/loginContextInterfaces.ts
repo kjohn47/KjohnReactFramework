@@ -13,6 +13,8 @@ export interface ILogin {
 export interface ILoginAction {
     type: LoginActions;
     userData?: ILogin;
+    userLanguage?: AppLanguage;
+    userTheme?: AppGlobalTheme;
 }
 
 export type LoginContextType = [ ILogin | undefined, ( (action: ILoginAction) => void ) ];
