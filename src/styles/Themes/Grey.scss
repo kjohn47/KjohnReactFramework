@@ -1,0 +1,25 @@
+/* ------------- Grey --------------- */
+.PageLayoutColor_Grey {
+  /*-------------- Grey Colors ---------------*/
+  $MainColor: #313131;
+  $SecondaryColor: #a0a0a0;
+  $MenuTextColor: #ffffff;
+  $TextColor: #1d1d1d;
+  $LinkColor: #4d4d4d;
+
+  $Button: #4d4d4d;
+  $Button_Text: #ffffff;
+  $Button_Hover: #a0a0a0;
+  $Button_Text_Hover: #ffffff;
+
+  $Input_Border: #313131;
+  $Input_Focus: #a0a0a0;
+
+  $Table_Header_Text: #ffffff;
+
+  $CardBorderColor: #313131;
+  $CardBackground: #e0e0e06e;
+  /*------------------------------------------*/
+   @import "./ThemeTree";
+ }
+ /*------------------------------------*/

@@ -1,0 +1,164 @@
+/*
+    Table component styles
+*/
+.TableDiv {
+    padding: 10px;
+    display: block;
+    width: calc( 100% - 20px );
+
+
+    .TableTitle {
+        padding-left: 10px;
+        font-size: large;
+        font-weight: bold;
+        padding-bottom: 15px;
+    }
+
+    .TableContent {
+        border: 2px solid $Table_Border;
+        border-radius: 20px;
+        display: table;
+        width: calc( 100% - 4px );    
+
+        .TableRow {
+            display: table-row;    
+            width: calc( 100% - 10px );
+            &:last-child {
+                .TableCell {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        .TableHeader {
+            font-weight: bold;    
+        }
+
+        .TableRowHighlight {
+            &:nth-child( odd ) .TableCell {
+                background-color: $Table_Highlight_Odd;
+            }
+            &:nth-child( even ) .TableCell {
+                background-color: $Table_Highlight_Even;
+            }
+            &:last-child {
+                .TableCell {
+                    &:first-child {
+                        border-radius: 0 0 0 18px;
+                    }
+                    &:last-child {
+                        border-radius: 0 0 18px 0;
+                    }
+                }
+            }
+        }
+
+        .TableHeaderCell {
+            display: table-cell;    
+            border-left: 1px ridge $Table_Border_Header;
+            border-bottom: 2px solid $Table_Border;
+            padding: 10px;
+            min-height: 25px;    
+            text-align: center;
+            &:first-child {
+                border-left: none;
+                border-radius: 18px 0 0 0;
+            }
+            &:last-child {
+                border-left: none;
+                border-left: 1px ridge $Table_Border_Header;
+                border-radius: 0 18px 0 0;
+            }
+        }
+
+        .TableCell {
+            display: table-cell;
+            padding: 15px 20px 15px 20px;
+            min-height: 20px;            
+            border-bottom: 1px solid $Table_Border;
+            border-left: 1px ridge $Table_Border;                        
+            &:first-child {
+                    border-left: none;
+                }    
+            
+            .TableCell_Clickable {
+                cursor: pointer;
+            }
+
+            .TableCellRow {
+                display: flex;
+                flex-flow: row;
+                width: 100%;                            
+
+                .ToolTip {
+                    .ToolTip_Text_Bottom {
+                        bottom: -50px;
+                        top: auto;
+                        left: 35%;                        
+                    }
+                }
+                
+                .TableCellData {
+                    min-width: 100%;
+                    position: relative;
+                    display: inline-flex;
+                    flex-flow: column wrap;
+                    flex: 0 0 100%;                    
+                }
+
+                .TableCell_EditRemove_left {
+                    text-align: left;
+                    position: relative;
+                    display: inline-Flex;
+                    flex-flow: column;
+                    min-width: calc( 100% - 161px );
+                    flex: 0 0 calc( 100% - 161px );
+                }
+        
+                .TableCell_EditRemove_right {
+                    text-align: right;
+                    position: relative;
+                    display: inline-flex;
+                    flex-flow: column;
+                    border-left: 1px dotted $Table_Border;
+                    margin-left: 10px;
+                    padding-left: 10px;
+                    min-width: 140px;
+                    flex: 0 0 140px;
+
+                    .TableCellEditRemoveRow {
+                        text-align: left;
+                        display: flex;
+                        flex-flow: row;
+                        flex-wrap: wrap;
+                        position: relative;
+                        min-width: 100%;
+                        flex: 0 0 100%;
+                        max-height: 25px;
+                        
+                        .TableCellEditRemoveField {
+                            display: inline-flex;
+                            flex-flow: column;
+                            position: relative;
+                            min-width: 70px;
+                            flex: 0 0 70px;                            
+                            color: $EditLink;
+                            &:hover
+                            {
+                                color: $EditLink_Hover;
+                            }
+                        }
+                
+                        .TableRemoveField {
+                            text-align: right;
+                            color: $RemoveLink;
+                            &:hover {    
+                                color: $RemoveLink_Hover;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

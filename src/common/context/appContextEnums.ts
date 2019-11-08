@@ -4,23 +4,25 @@ export enum AppLanguage {
 }
 
 export enum AppGlobalTheme {
-    Default,
-    Blue,
-    Green,
-    Red,
-    Orange,
-    Grey
+    Default = "PageLayoutColor",   
+    Red = "PageLayoutColor_Red",
+    Green = "PageLayoutColor_Green",    
+    Blue = "PageLayoutColor_Blue",
+    Orange = "PageLayoutColor_Orange",
+    Grey = "PageLayoutColor_Grey"
 }
 
 //Browser Storage Keys
 export enum AppStorageKeys {
     APPLANGUAGE = "APPLANGUAGE",
+    APPTHEME = "APPTHEME",
     USERDATA = "USERDATA"
 }
 
 //Add new actions here
 export enum ContextActions {
     ChangeLanguage = "ChangeLanguage",
+    ChangeTheme = "ChangeTheme",
     ChangePage = "ChangePage"
 }
 

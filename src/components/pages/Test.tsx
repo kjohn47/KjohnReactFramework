@@ -1,52 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
-import '../../styles/Test.css';
+import React, { useState, useContext } from 'react';
 import { AppContext  } from '../../common/config/appConfig';
 import { useServiceCaller } from '../../common/services/serviceCaller';
 import { ServiceType } from '../../common/services/serviceCallerInterfaces';
-import { ContextActions, AppLanguage } from '../../common/context/appContextEnums';
+import { ContextActions, AppLanguage, KnownPages } from '../../common/context/appContextEnums';
 import { ErrorCodes } from '../../common/context/appErrorEnums';
 import Loader from '../common/Loader';
 import SHA from "sha.js";
 import Button, { ButtonTypes } from '../common/Button';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from '../common/WithTooltip';
+import InputText from '../common/InputText';
+import { AppRegex } from '../../common/config/regexEnum';
+import WithLabel from '../common/WithLabel';
+import Column, { ColumnNumber } from '../common/Column';
+import Row from '../common/Row';
+import Table from '../common/Table';
+import Card from '../common/Card';
+import CardContent from '../common/CardContent';
 
 interface IResult {
   id: number;
   text: string;
 }
-
-const getResults = ( search?: string ): IResult[] => {
-  let resultList: IResult[] = [
-      {
-        id: 0,
-        text: "Result zero"
-      },
-      {
-        id: 1,
-        text: "Result one"
-      },
-      {
-        id: 2,
-        text: "Result two"
-      },
-      {
-        id: 3,
-        text: "Result three"
-      },
-      {
-        id: 4,
-        text: "Result four"
-      }
-    ];
-
-  if( search === undefined || search === "" )
-  {
-    return resultList;
-  }
-
-  return resultList.filter( r => r.id.toString().includes( search ) || r.text.includes( search ) );
-}
-
 
 const serverCallTest: ServiceType<IResult, IResult> = ( context, request ) => {
   if( request === undefined ) 
@@ -68,33 +42,37 @@ const serverCallTest: ServiceType<IResult, IResult> = ( context, request ) => {
   };
 }
 
-function loot( text:string, oldLenght: number, lootBox: boolean ){
-  if( lootBox && text.length > oldLenght && text !== "" )
-  {
-    let newText = text.substring( 0, text.length - 1 );
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!"#$%&/()=?@£§{[]}«»´`~^ºª*+¨-_.:,;| ';
-    newText += characters.charAt(Math.floor(Math.random() * characters.length));
-    return newText;
-  }
+const CardItem = ( props: { id: string } ) =>  <Column>
+                          <Card 
+                            title = {"Card Test - " + props.id } 
+                            detailsPage = { KnownPages.Home } 
+                            image = "imgTest"
+                            footerText = {<span>Test</span>}                            
+                          >
+                            <CardContent data = { [
+                                {
+                                  field: "field 1",
+                                  value: "001"
+                                },
+                                {
+                                  field: "field 2",
+                                  value: "002"
+                                },
+                                {
+                                  field: "field 3",
+                                  value: "003"
+                                }
+                              ] } 
+                            />
+                          </Card>
+                        </Column>;
 
-  return text;
-}
-
-const Test: React.FC = () => {
-  const [search, setSearch] = useState<string>( "" );
-  const [results, setResults] = useState<IResult[]>( [] );
-  const [showTable, setShowTable] = useState<boolean>( true );
-  const [lootBox, setLootBox] = useState<boolean>( true );
+const Test: React.FC = () => {  
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [appContext] = useContext( AppContext );
   const [serviceResponse, serviceHandler] = useServiceCaller<IResult, IResult>( serverCallTest );
   const [serviceResponse2, serviceHandler2] = useServiceCaller<IResult, IResult>( serverCallTest, ErrorCodes.GenericError, true );
   const serviceHandler3 = useServiceCaller<IResult, IResult>( serverCallTest )[1];
-
-  useEffect(() => {
-    setResults( getResults( search ) );
-    document.title = "MyReactHookSearch: " + search;
-  }, [search]);
 
   const loadService2 = () => {
     setIsLoading( true );
@@ -110,36 +88,19 @@ const Test: React.FC = () => {
       return "no";
   }
 
+  
+
   return (
-    <div className="App">
+    <div className="TestApp">
       { "Hash token tested correctly: " + testhash( "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c", "7f75367e7881255134e1375e723d1dea8ad5f6a4fdb79d938df1f1754a830606" ) }
-      <div className = "searchBox">
-        <label>{appContext.translations.testPage.searchBox}</label>
-        <input 
-          type = "text" 
-          onChange = { (event: React.FormEvent<HTMLInputElement>) => setSearch( loot( event.currentTarget.value, search.length, lootBox ) ) }
-          value = { search }
-        />
-        <label>&nbsp;Loot?&nbsp;</label>
-        <input type="checkbox" checked = {lootBox} onChange = { (event: React.FormEvent<HTMLInputElement>) => { setLootBox( event.currentTarget.checked ) } }/>
-        <hr />      
-      </div>
-      <div className = "table">
-        <div className = "resultTable tableHeader">
-          <span className="leftCol header">ID</span><span className="rightCol header">{appContext.translations.testPage.text}</span>
-        </div>
-        { showTable && results.map( (r, i) => 
-          <div className = "resultTable" key = { i }>
-            <span className="leftCol">{r.id}</span><span className="rightCol" >{r.text}</span>
-          </div>
-        )}
-        <WithTooltip className = "tableHideToolTip" toolTipText = "Show or Hide the table" toolTipColor = { ToolTipColor.Blue } toolTipPosition = { ToolTipPosition.Bottom }>
-          <div className = "tableHide" onClick = { () => { setShowTable( !showTable ) } } >
-            <span> { showTable ? <span>&uarr;</span> : <span>&darr;</span> } </span>
-          </div>
-        </WithTooltip>
-      </div>
-      <div className = "tableBottom">
+      <div className = "TestPageStuff">
+        <hr />
+          <Row>            
+            <CardItem id = "1" />
+            <CardItem id = "2" />
+            <CardItem id = "3" />
+            <CardItem id = "4" />
+          </Row>
         <hr />
         <div className = "center_menu_button">
           <WithTooltip toolTipText = { appContext.translations.testPage.serviceCallTooltip1 } toolTipPosition = { ToolTipPosition.Top } toolTipColor = { ToolTipColor.Green }  >
@@ -176,6 +137,53 @@ const Test: React.FC = () => {
             </Button>
           </WithTooltip>
         </div>
+        <hr />
+        <Row>
+          <Column
+             full = { ColumnNumber.C10 } 
+             large = { ColumnNumber.C14 }
+             medium = { ColumnNumber.C17 }
+             mobile = { ColumnNumber.C20 }
+          >
+            <WithLabel htmlFor = "TestInput" text = "Test Input Box" inline>
+              <InputText
+                name = "TestInput"
+                validText = "Valid :)"
+                invalidText = "Invalid :("
+                notEmpty = { true }
+                onChange = { ( Output ) => { console.log( Output ) } }
+                onBlur = { ( Output ) => { console.log( Output ) } }
+                regexValidation = { AppRegex.NumberOnly }
+                allowOnlyRegex
+                placeHolder = "Test input box"
+              />
+            </WithLabel>
+          </Column>
+        </Row>
+        <hr />
+        <Table 
+          header = { [ "A", "B", "C" ] }
+          title = "Test Table 001"
+          rows = { [
+              [
+                { text: "01" },
+                { text: "02 AASASDSFSDFS" },
+                { text: "03 with a lot of text lalala lorem ipsum and dont say anything", onClickEdit: () => {}, onClickRemove: () => {}, toolTip: "This is a cell with edit", toolTipColor: ToolTipColor.Blue }
+              ],
+              [
+                { text: "04 AASASDSFSDFS" },
+                { text: "Link to home", page: KnownPages.Home, toolTip: "This is a cell link", toolTipColor: ToolTipColor.Green },
+                { text: "06 AASASDSFSDFS DFSFSDFSDFSFSD" }
+              ],
+              [
+                { text: "07", toolTip: "This is a cell tooltip", toolTipColor: ToolTipColor.Yellow },
+                { text: "08" },
+                { text: "09 AASASDSFSDFS FDSFSDFDSF", onClickEdit: () => {}, onClickRemove: () => {} }
+              ]
+          ]
+          }
+          highlightRows
+        />
       </div>
     </div>
   );
