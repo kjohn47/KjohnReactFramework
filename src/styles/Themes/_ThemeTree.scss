@@ -1,0 +1,68 @@
+   /* ---- General colors ---- */
+  
+    /* Page Selector */
+    .PageSelector_Highlight {
+        color: $LinkColor;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      /* Page Selector */
+    
+      /* Load Spinner */
+      .LoadSpinnerColor {
+        border-top-color: $MainColor;
+        border-bottom-color: $MainColor;
+        border-left-color: $SecondaryColor;
+        border-right-color: $SecondaryColor;
+      }
+      /* Load Spinner */
+    
+      /* Button Component */
+      .page_button_color {
+        border-color: $MainColor;
+        background: $Button;
+        color: $Button_Text;
+        &:hover {
+          background: $Button_Hover;
+          color: $Button_Text_Hover;
+        }
+        &:focus {
+          box-shadow: 0 0 4px $Button;
+        }
+      }
+      /* Button Component */
+    
+      /* Input Text */
+      .inputText_Color {
+        border-color: $Input_Border;
+        &:focus {
+          box-shadow: 0 0 3px $Input_Focus;
+        }
+      }
+      /* Input Text */
+    
+      /* ---- Menu and Footer Colors ---- */
+      .PageMenuColor {
+        background-color: $MainColor;
+        color: $MenuTextColor;
+      }
+    
+      /* ---- Content Colors ---- */
+      .PageContentColor {
+        /* -- All Content -- */
+        color: $TextColor;
+        
+        /* Table Component */
+        .TableDiv {
+          .TableContent {
+            .TableHeaderCellColor {
+              background-color: $MainColor;
+              color: $Table_Header_Text;
+            }
+          }
+        }
+        /* Table Component */
+    
+      }

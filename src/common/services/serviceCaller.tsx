@@ -8,7 +8,7 @@ import { IContext, IServiceError, ServiceCallType, ServiceType } from "./service
 export function useServiceCaller<IServiceRequest,IServiceResponse>( service: ServiceType<IServiceRequest,IServiceResponse>, processError?: ErrorCodes, localLoading?: boolean ): ServiceCallType<IServiceRequest, IServiceResponse>
 {
     const [ serviceResponse, setServiceResponse ] = useState<IServiceResponse>();    
-    const [ loading, setloading ] = useContext( LoadingContext );    
+    const [ loading, setloading ] = useContext( LoadingContext );
     const [ error, setError ] = useContext( ErrorContext );
     const [ appContext, setAppContext ] = useContext( AppContext );
     const [ login, setLogin ] = useContext( LoginContext );

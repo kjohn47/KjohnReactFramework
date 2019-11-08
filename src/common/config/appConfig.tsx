@@ -21,7 +21,7 @@ export const AppProvider: React.FC = ({ children }) => {
         <ErrorContext.Provider value = {[error, setError] as ErrorContextType }>
             <LoadingContext.Provider value = {[loading, setLoading] as LoadingType }>
                 <AppContext.Provider value = {[ appContext, setAppContext ] as AppContextType } >
-                    <LoginContext.Provider value = {[login, setLogin] as LoginContextType } > 
+                    <LoginContext.Provider value = {[login, setLogin] as LoginContextType } >
                         {children}
                     </LoginContext.Provider>
                 </AppContext.Provider>

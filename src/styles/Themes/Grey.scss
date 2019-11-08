@@ -1,91 +1,22 @@
-/*-------------- Grey Colors ---------------*/
-$MainColor_Grey: #313131;
-$SecondaryColor_Grey: #a0a0a0;
-$MenuTextColor_Grey: #ffffff;
-$TextColor_Grey: #1d1d1d;
-$LinkColor_Grey: #4d4d4d;
-
-$Button_Grey: #4d4d4d;
-$Button_Text_Grey: #ffffff;
-$Button_Hover_Grey: #a0a0a0;
-$Button_Text_Hover_Grey: #ffffff;
-
-$Input_Border_Grey: #313131;
-$Input_Focus_Grey: #a0a0a0;
-
-$Table_Header_Text_Grey: #ffffff;
-/*------------------------------------------*/
-
 /* ------------- Grey --------------- */
 .PageLayoutColor_Grey {
-    /* ---- General colors ---- */
-  
-    /* Page Selector */
-    .PageSelector_Highlight {
-      color: $LinkColor_Grey;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    /* Page Selector */
-  
-    /* Load Spinner */
-    .LoadSpinnerColor {
-      border-top-color: $MainColor_Grey;
-      border-bottom-color: $MainColor_Grey;
-      border-left-color: $SecondaryColor_Grey;
-      border-right-color: $SecondaryColor_Grey;
-    }
-    /* Load Spinner */
-  
-    /* Button Component */
-    .page_button_color {
-      border-color: $MainColor_Grey;
-      background: $Button_Grey;
-      color: $Button_Text_Grey;
-      &:hover {
-        background: $Button_Hover_Grey;
-        color: $Button_Text_Hover_Grey;
-      }
-      
-      &:focus {
-        box-shadow: 0 0 4px $Button_Grey;
-      }
-    }
-    /* Button Component */
-  
-    /* Input Text */
-    .inputText_Color {
-      border-color: $Input_Border_Grey;
-      &:focus {
-        box-shadow: 0 0 3px $Input_Focus_Grey;
-      }
-    }
-    /* Input Text */
-    
-    /* ---- Menu and Footer Colors ---- */
-    .PageMenuColor {
-      background-color: $MainColor_Grey;
-      color: $MenuTextColor_Grey;
-    }
-  
-    /* ---- Content Colors ---- */
-    .PageContentColor {
-      /* -- All Content -- */
-      color: $TextColor_Grey;
-    
-      /* Table Component */
-      .TableDiv {
-        .TableContent {
-          .TableHeaderCellColor {    
-            background-color: $MainColor_Grey;
-            color: $Table_Header_Text_Grey;
-          }
-        }
-      }
-      /* Table Component */
-  
-    }
-  }
-  /*------------------------------------*/
+  /*-------------- Grey Colors ---------------*/
+  $MainColor: #313131;
+  $SecondaryColor: #a0a0a0;
+  $MenuTextColor: #ffffff;
+  $TextColor: #1d1d1d;
+  $LinkColor: #4d4d4d;
+
+  $Button: #4d4d4d;
+  $Button_Text: #ffffff;
+  $Button_Hover: #a0a0a0;
+  $Button_Text_Hover: #ffffff;
+
+  $Input_Border: #313131;
+  $Input_Focus: #a0a0a0;
+
+  $Table_Header_Text: #ffffff;
+  /*------------------------------------------*/
+   @import "./ThemeTree";
+ }
+ /*------------------------------------*/

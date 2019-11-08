@@ -98,7 +98,7 @@ const Test: React.FC = () => {
 
   useEffect(() => {
     setResults( getResults( search ) );
-    document.title = "MyReactHookSearch: " + search;
+    document.title = "Kjohn React Framework: " + search;
   }, [search]);
 
   const loadService2 = () => {

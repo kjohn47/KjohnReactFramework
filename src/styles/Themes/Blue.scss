@@ -1,91 +1,24 @@
-/*-------------- Blue Colors ---------------*/
-$MainColor_Blue: #062133;
-$SecondaryColor_Blue: #447596;
-$MenuTextColor_Blue: #ffffff;
-$TextColor_Blue: #041825;
-$LinkColor_Blue: #226ea0;
-
-$Button_Blue: #092e47;
-$Button_Text_Blue: #ffffff;
-$Button_Hover_Blue: #447596;
-$Button_Text_Hover_Blue: #ffffff;
-
-$Input_Border_Blue: #062133;
-$Input_Focus_Blue: #447596;
-
-$Table_Header_Text_Blue: #ffffff;
-/*------------------------------------------*/
-
 /* ------------- Blue --------------- */
 .PageLayoutColor_Blue {
-    /* ---- General colors ---- */
-  
-    /* Page Selector */
-    .PageSelector_Highlight {
-      color: $LinkColor_Blue;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    /* Page Selector */  
-  
-    /* Load Spinner */
-    .LoadSpinnerColor {
-      border-top-color: $MainColor_Blue;
-      border-bottom-color: $MainColor_Blue;
-      border-left-color: $SecondaryColor_Blue;
-      border-right-color: $SecondaryColor_Blue;
-    }
-    /* Load Spinner */
-  
-    /* Button Component */
-    .page_button_color {
-      border-color: $MainColor_Blue;
-      background: $Button_Blue;
-      color: $Button_Text_Blue;
-      &:hover {
-        background: $Button_Hover_Blue;
-        color: $Button_Text_Hover_Blue;
-      }
-      
-      &:focus {
-        box-shadow: 0 0 4px $Button_Blue;
-      }
-    }
-    /* Button Component */
-  
-    /* Input Text */
-     .inputText_Color {
-      border-color: $Input_Border_Blue;
-      &:focus {
-        box-shadow: 0 0 3px $Input_Focus_Blue;
-      }
-    }
-    /* Input Text */
-    
-    /* ---- Menu and Footer Colors ---- */
-    .PageMenuColor {
-      background-color: $MainColor_Blue;
-      color: $MenuTextColor_Blue;
-    }
-  
-    /* ---- Content Colors ---- */
-    .PageContentColor {
-      /* -- All Content -- */
-      color: $TextColor_Blue;
-    
-      /* Table Component */
-      .TableDiv {
-        .TableContent {
-          .TableHeaderCellColor {    
-            background-color: $MainColor_Blue;
-            color: $Table_Header_Text_Blue;
-          }
-        }
-      }
-      /* Table Component */
-  
-    }
-  }
-  /*------------------------------------*/
+
+/*-------------- Blue Colors ---------------*/
+$MainColor: #062133;
+$SecondaryColor: #447596;
+$MenuTextColor: #ffffff;
+$TextColor: #041825;
+$LinkColor: #226ea0;
+
+$Button: #092e47;
+$Button_Text: #ffffff;
+$Button_Hover: #447596;
+$Button_Text_Hover: #ffffff;
+
+$Input_Border: #062133;
+$Input_Focus: #447596;
+
+$Table_Header_Text: #ffffff;
+
+/*------------------------------------------*/
+  @import "./ThemeTree";
+}
+/*------------------------------------*/

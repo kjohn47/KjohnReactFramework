@@ -15,6 +15,7 @@ export enum AppGlobalTheme {
 //Browser Storage Keys
 export enum AppStorageKeys {
     APPLANGUAGE = "APPLANGUAGE",
+    APPTHEME = "APPTHEME",
     USERDATA = "USERDATA"
 }
 

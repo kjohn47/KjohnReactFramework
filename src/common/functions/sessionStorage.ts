@@ -1,4 +1,4 @@
-import { AppLanguage, AppStorageKeys } from "../context/appContextEnums";
+import { AppLanguage, AppStorageKeys, AppGlobalTheme } from "../context/appContextEnums";
 import { ILogin } from "../context/loginContextInterfaces";
 import SHA from "sha.js";
 import JWT from "jsonwebtoken";
@@ -6,7 +6,9 @@ import JWT from "jsonwebtoken";
 interface IAuthTokenPayload {
     name: string;
     surname: string;
-    isAdmin: boolean;    
+    appLanguage: AppLanguage;
+    appTheme: AppGlobalTheme;
+    isAdmin: boolean;
 }
 
 export const getLastSelectedLanguage: () => AppLanguage = () => {
@@ -23,6 +25,22 @@ export const getLastSelectedLanguage: () => AppLanguage = () => {
 
 export const setLastSelectedLanguage: ( language: AppLanguage ) => void = ( language ) => {
     localStorage.setItem( AppStorageKeys.APPLANGUAGE, language );
+}
+
+export const getAppTheme: () => AppGlobalTheme = () => {
+    let storedTheme: string | null = localStorage.getItem( AppStorageKeys.APPTHEME );
+    
+    if( storedTheme !== null )
+    {
+        return storedTheme as AppGlobalTheme;
+    }
+
+    setAppTheme( AppGlobalTheme.Default );
+    return  AppGlobalTheme.Default;
+}
+
+export const setAppTheme: ( language: AppGlobalTheme ) => void = ( theme ) => {
+    localStorage.setItem( AppStorageKeys.APPTHEME, theme );
 }
 
 export const setUserSession: ( permanent: boolean, userData: ILogin ) => void = ( permanent, userData ) => {
@@ -66,7 +84,7 @@ export const getUserSession: () => ILogin | undefined = () => {
 
 export const clearUserSession: () => void = () => {
     localStorage.removeItem( AppStorageKeys.USERDATA );
-    sessionStorage.removeItem( AppStorageKeys.USERDATA );
+    sessionStorage.removeItem( AppStorageKeys.USERDATA );    
 }
 
 export const getTokenData: ( token: string ) => IAuthTokenPayload = ( token ) => {
