@@ -4,9 +4,10 @@ import { AppContext, ErrorContext } from "../../common/config/appConfig";
 import { ErrorActions } from "../../common/context/appErrorEnums";
 
 interface IPageSelector {
-    page: KnownPages;
+    page: KnownPages;    
     queryParams?: object;
     className?: string;
+    highlight?: boolean;
 }
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
@@ -40,7 +41,7 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
     }
 
     return(
-        <span className = { props.className } onClick = { () => setPage( props.page, props.queryParams ) } >{props.children}</span>
+        <span className = { "pointer_cursor" + ( props.highlight ? " PageSelector_Highlight" : "" ) + ( props.className ? ( " " + props.className ) : "" ) } onClick = { () => setPage( props.page, props.queryParams ) } >{props.children}</span>
     );
 }
 

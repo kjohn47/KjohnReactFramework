@@ -1,4 +1,4 @@
-import { AppLanguage, AppStorageKeys } from "../context/appContextEnums";
+import { AppLanguage, AppStorageKeys, AppGlobalTheme } from "../context/appContextEnums";
 import { ILogin } from "../context/loginContextInterfaces";
 import SHA from "sha.js";
 import JWT from "jsonwebtoken";
@@ -6,7 +6,9 @@ import JWT from "jsonwebtoken";
 interface IAuthTokenPayload {
     name: string;
     surname: string;
-    isAdmin: boolean;    
+    appLanguage: AppLanguage;
+    appTheme: AppGlobalTheme;
+    isAdmin: boolean;
 }
 
 export const getLastSelectedLanguage: () => AppLanguage = () => {
@@ -25,12 +27,42 @@ export const setLastSelectedLanguage: ( language: AppLanguage ) => void = ( lang
     localStorage.setItem( AppStorageKeys.APPLANGUAGE, language );
 }
 
-export const setUserSession: ( permanent: boolean, userData: ILogin ) => void = ( permanent, userData ) => {
+export const getAppTheme: () => AppGlobalTheme = () => {
+    let storedTheme: string | null = localStorage.getItem( AppStorageKeys.APPTHEME );
+    
+    if( storedTheme !== null )
+    {
+        return storedTheme as AppGlobalTheme;
+    }
+
+    setAppTheme( AppGlobalTheme.Default );
+    return  AppGlobalTheme.Default;
+}
+
+export const setAppTheme: ( language: AppGlobalTheme ) => void = ( theme ) => {
+    localStorage.setItem( AppStorageKeys.APPTHEME, theme );
+}
+
+export const setUserSession: ( userData: ILogin, permanent?: boolean ) => void = ( userData, permanent ) => {
     if( permanent ) {
         localStorage.setItem( AppStorageKeys.USERDATA, JSON.stringify( userData ) );
     }
     else {
         sessionStorage.setItem( AppStorageKeys.USERDATA, JSON.stringify( userData ) );
+    }
+}
+
+export const updateUserSession: ( userDate: ILogin ) => void = ( userData ) => {
+    let storedUser: string | null = localStorage.getItem( AppStorageKeys.USERDATA ); 
+    
+    if ( storedUser === null ) {
+        storedUser = sessionStorage.getItem( AppStorageKeys.USERDATA );
+        if( storedUser !== null )
+            setUserSession( userData );
+    }
+    else
+    {
+        setUserSession( userData, true );
     }
 }
 
@@ -66,7 +98,7 @@ export const getUserSession: () => ILogin | undefined = () => {
 
 export const clearUserSession: () => void = () => {
     localStorage.removeItem( AppStorageKeys.USERDATA );
-    sessionStorage.removeItem( AppStorageKeys.USERDATA );
+    sessionStorage.removeItem( AppStorageKeys.USERDATA );    
 }
 
 export const getTokenData: ( token: string ) => IAuthTokenPayload = ( token ) => {
