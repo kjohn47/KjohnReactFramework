@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ContextActions } from "./appContextEnums";
 import { IAppContext,IContextAction } from "./appContextInterfaces";
 import { textTranslations } from "./pageText/pageTranslation";
-import { setLastSelectedLanguage } from "../functions/sessionStorage";
+import { setLastSelectedLanguage, setAppTheme } from "../functions/sessionStorage";
+import { LoginContext } from "../config/appConfig";
+import { LoginActions } from "./loginContextEnums";
 
 export function useAppContext( initialContext: IAppContext )
 {
     const [currentAppContext, setCurrentAppContext] = useState(initialContext);
+    const [currentUser, setCurrentUser] = useContext(LoginContext);
 
     function changeAppConfig( action: IContextAction )
     {     
@@ -14,10 +17,28 @@ export function useAppContext( initialContext: IAppContext )
             case ContextActions.ChangeLanguage: {
                 if( action.payload.globalLanguage !== undefined )
                 {
-                    setLastSelectedLanguage( action.payload.globalLanguage );
+                    if( currentUser )
+                        setCurrentUser( { type: LoginActions.UpdateUserLanguage, userLanguage: action.payload.globalLanguage } );
+                    else                    
+                        setLastSelectedLanguage( action.payload.globalLanguage );
+
                     setCurrentAppContext( { ...currentAppContext,
                         globalLanguage: action.payload.globalLanguage,
                         translations: textTranslations[ action.payload.globalLanguage] 
+                    } );
+                }
+                break;
+            }
+            case ContextActions.ChangeTheme: {
+                if( action.payload.pageTheme )
+                {                    
+                    if( currentUser )
+                        setCurrentUser( { type: LoginActions.UpdateUserTheme, userTheme: action.payload.pageTheme } );
+                    else                    
+                        setAppTheme( action.payload.pageTheme );
+                    
+                    setCurrentAppContext( { ...currentAppContext,
+                        globalTheme: action.payload.pageTheme
                     } );
                 }
                 break;

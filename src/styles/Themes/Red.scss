@@ -1,0 +1,25 @@
+/* -------------- Red --------------- */
+.PageLayoutColor_Red {
+  /*-------------- Red Colors ----------------*/
+  $MainColor: #491111;
+  $SecondaryColor: #a73f3f;
+  $MenuTextColor: #ffffff;
+  $TextColor: #200000;
+  $LinkColor: #631717;
+
+  $Button: #631717;
+  $Button_Text: #ffffff;
+  $Button_Hover: #a73f3f;
+  $Button_Text_Hover: #ffffff;
+
+  $Input_Border: #491111;
+  $Input_Focus: #a73f3f;
+
+  $Table_Header_Text: #ffffff;
+
+  $CardBorderColor: #491111;
+  $CardBackground: #fff5f54f;
+  /*------------------------------------------*/
+  @import "./ThemeTree";
+}
+/*------------------------------------*/

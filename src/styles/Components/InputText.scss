@@ -1,0 +1,46 @@
+/* Input text config */
+.inputText {
+    border-width: 1px;    
+    border-style: solid;
+    border-radius: 10px;
+    height: 30px;
+    min-width: 150px;
+    width: calc( 100% - 32px );
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    display: block;    
+}
+
+/* validation colors */
+.inputTextValid {
+    border-color: $TextInputValid;
+    &:focus {
+        box-shadow: 0 0 3px $TextInputValid;
+    }
+}
+
+.inputTextInvalid {
+    border-color: $TextInputInvalid;
+    &:focus {
+        box-shadow: 0 0 3px $TextInputInvalid;
+    }
+}    
+/* validation text*/
+
+.inputTextValidation {
+    font-size: small;
+    padding-left: 20px;
+    width: calc( 100% - 20px );
+    margin-top: 5px;
+    display: block;
+    position: relative;
+}
+
+.inputTextValidationValid {
+    color: $TextInputValid;
+}
+
+.inputTextValidationInvalid {
+    color: $TextInputInvalid;
+}

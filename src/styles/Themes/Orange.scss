@@ -1,0 +1,25 @@
+/* ------------ Orange -------------- */
+.PageLayoutColor_Orange {
+  /*------------- Orange Colors --------------*/
+  $MainColor: #c45c20;
+  $SecondaryColor: #ec9f73;
+  $MenuTextColor: #ffffff;
+  $TextColor: #1d0b00;
+  $LinkColor: #d4601d;
+
+  $Button: #d4601d;
+  $Button_Text: #ffffff;
+  $Button_Hover: #f89053;
+  $Button_Text_Hover: #ffffff;
+
+  $Input_Border: #c45c20;
+  $Input_Focus: #f89053;
+
+  $Table_Header_Text: #ffffff;
+
+  $CardBorderColor: #c45c20;
+  $CardBackground: #ffeee080;
+  /*------------------------------------------*/
+   @import "./ThemeTree";
+ }
+ /*------------------------------------*/
