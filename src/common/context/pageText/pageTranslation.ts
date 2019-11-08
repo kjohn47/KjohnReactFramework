@@ -6,15 +6,13 @@ export const textTranslations: ITranslations = {
         loadingText: "A Carregar!",
         goBackToHome: "Voltar para Homepage",
         goBackToHomeToolTip: "Carregue no botão para retomar para a homepage.",
+        cardDetails: "Ver detalhes",
         tableText: {
             edit: "Editar",
             remove: "Remover"
         },
         testPage: {
             langButton: "Lingua",
-            searchBox: "Procurar: ",
-            loadButton: "Carregar",
-            text: "Texto",
             serviceCallButton1: "Chamar serviço 1",
             serviceCallTooltip1: "Clique aqui para chamar serviço 1",
             serviceCallButton2: "Chamar serviço 2",
@@ -27,15 +25,13 @@ export const textTranslations: ITranslations = {
         loadingText: "Loading!",
         goBackToHome: "Go back to Homepage",
         goBackToHomeToolTip: "Click at the button to return to homepage.",
+        cardDetails: "View details",
         tableText: {
             edit: "Edit",
             remove: "Remove"
         },
         testPage: {
             langButton: "Language",
-            searchBox: "Search: ",
-            loadButton: "Loading",
-            text: "Text",
             serviceCallButton1: "Call Service 1",
             serviceCallTooltip1: "Click here to call service 1",
             serviceCallButton2: "Call Service 2",

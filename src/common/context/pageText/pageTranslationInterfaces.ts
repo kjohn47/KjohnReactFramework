@@ -2,6 +2,7 @@ export interface ITranslation {
     loadingText: string;
     goBackToHome: string;
     goBackToHomeToolTip: string;
+    cardDetails: string;
     tableText: ITableTranslation;
     testPage: ITestPageTranslations;
 }
@@ -13,9 +14,6 @@ interface ITableTranslation {
 
 interface ITestPageTranslations {
     langButton: string;
-    searchBox: string;
-    loadButton: string;
-    text: string;
     serviceCallButton1: string;
     serviceCallTooltip1: string;
     serviceCallButton2: string;
