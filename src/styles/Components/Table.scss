@@ -55,7 +55,7 @@
 
         .TableHeaderCell {
             display: table-cell;    
-            border-left: 1px dotted $Table_Border_Header;
+            border-left: 1px ridge $Table_Border_Header;
             border-bottom: 2px solid $Table_Border;
             padding: 10px;
             min-height: 25px;    
@@ -66,7 +66,7 @@
             }
             &:last-child {
                 border-left: none;
-                border-left: 1px dotted $Table_Border_Header;
+                border-left: 1px ridge $Table_Border_Header;
                 border-radius: 0 18px 0 0;
             }
         }
@@ -74,13 +74,13 @@
         .TableCell {
             display: table-cell;
             padding: 15px 20px 15px 20px;
-            min-height: 20px;
-            border-left: 1px dotted $Table_Border;
-            border-bottom: 1px solid $Table_Border;            
+            min-height: 20px;            
+            border-bottom: 1px solid $Table_Border;
+            border-left: 1px ridge $Table_Border;                        
             &:first-child {
-                border-left: none;
-            }
-
+                    border-left: none;
+                }    
+            
             .TableCell_Clickable {
                 cursor: pointer;
             }
@@ -88,7 +88,7 @@
             .TableCellRow {
                 display: flex;
                 flex-flow: row;
-                width: 100%;
+                width: 100%;                            
 
                 .ToolTip {
                     .ToolTip_Text_Bottom {
@@ -103,7 +103,7 @@
                     position: relative;
                     display: inline-flex;
                     flex-flow: column wrap;
-                    flex: 0 0 100%;
+                    flex: 0 0 100%;                    
                 }
 
                 .TableCell_EditRemove_left {
