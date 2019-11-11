@@ -5,10 +5,11 @@ import { KnownPages } from "../../common/context/appContextEnums";
 import { AppContext } from "../../common/config/appConfig";
 import PageSelector from "./PageSelector";
 
-interface ICard {
+export interface ICard {
     className?: string;
     image?:string;
-    title: string;
+    title: string;    
+    cardContent?: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements;    
     footerText?: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements;
     onClick?: () => {};
     detailsPage?: KnownPages;
@@ -32,7 +33,10 @@ const Card: React.FC<ICard> = ( props ) => {
                         <Column className = "CardTitle">{props.title}</Column>
                     </Row>
                     <Row>
-                        <Column className = "CardContent">{props.children}</Column>
+                        <Column className = "CardContent">
+                            { props.children }
+                            { props.cardContent && props.cardContent }
+                        </Column>
                     </Row>
                 </Column>
             </Row>

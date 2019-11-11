@@ -3,6 +3,8 @@
     max-width: 350px;
     min-width: 350px;
     margin: 25px;
+    margin-left: auto;
+    margin-right: auto;
     border: solid 1px;
     border-radius: 20px;
     .CardRow {        
@@ -74,4 +76,19 @@
             padding-bottom: 10px;
         }
     }
+}
+
+.CardListComponent {
+    max-width: 25%;
+    min-width: 370px;
+}
+
+.CardsListTitle {
+    border-bottom: 2px solid black;
+    font-size: 32px;
+    font-weight: bold;
+    padding-left: 25px;
+    padding-top: 15px;
+    padding-bottom: 35px;
+    margin-bottom: 5px;
 }

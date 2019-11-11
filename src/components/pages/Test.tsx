@@ -14,8 +14,9 @@ import WithLabel from '../common/WithLabel';
 import Column, { ColumnNumber } from '../common/Column';
 import Row from '../common/Row';
 import Table from '../common/Table';
-import Card from '../common/Card';
+import { ICard } from '../common/Card';
 import CardContent from '../common/CardContent';
+import CardList from '../../styles/Components/CardList';
 
 interface IResult {
   id: number;
@@ -42,30 +43,29 @@ const serverCallTest: ServiceType<IResult, IResult> = ( context, request ) => {
   };
 }
 
-const CardItem = ( props: { id: string } ) =>  <Column>
-                          <Card 
-                            title = {"Card Test - " + props.id } 
-                            detailsPage = { KnownPages.Home } 
-                            image = "imgTest"
-                            footerText = {<span>Test</span>}                            
-                          >
-                            <CardContent data = { [
-                                {
-                                  field: "field 1",
-                                  value: "001"
-                                },
-                                {
-                                  field: "field 2",
-                                  value: "002"
-                                },
-                                {
-                                  field: "field 3",
-                                  value: "003"
-                                }
-                              ] } 
-                            />
-                          </Card>
-                        </Column>;
+const getCardItem: ( id: number ) => ICard = ( id ) => {
+  return {
+  title: "Card Test - " + id, 
+  detailsPage: KnownPages.Home,
+  image: "imgTest",
+  footerText: <span>{ new Date().toLocaleString() }</span>,
+  cardContent: <CardContent data = { [
+                  {
+                    field: "field 1",
+                    value: "001"
+                  },
+                  {
+                    field: "field 2",
+                    value: "002"
+                  },
+                  {
+                    field: "field 3",
+                    value: "003"
+                  }
+                  ] }
+                />
+  }
+};
 
 const Test: React.FC = () => {  
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -87,7 +87,6 @@ const Test: React.FC = () => {
     
       return "no";
   }
-
   
 
   return (
@@ -95,12 +94,18 @@ const Test: React.FC = () => {
       { "Hash token tested correctly: " + testhash( "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c", "7f75367e7881255134e1375e723d1dea8ad5f6a4fdb79d938df1f1754a830606" ) }
       <div className = "TestPageStuff">
         <hr />
-          <Row>            
-            <CardItem id = "1" />
-            <CardItem id = "2" />
-            <CardItem id = "3" />
-            <CardItem id = "4" />
-          </Row>
+          <CardList 
+            data = {
+              [
+                getCardItem( 1 ),
+                getCardItem( 2 ),
+                getCardItem( 3 ),
+                getCardItem( 4 )
+              ]
+            }
+          >
+            Test of list of cards
+          </CardList>
         <hr />
         <div className = "center_menu_button">
           <WithTooltip toolTipText = { appContext.translations.testPage.serviceCallTooltip1 } toolTipPosition = { ToolTipPosition.Top } toolTipColor = { ToolTipColor.Green }  >
