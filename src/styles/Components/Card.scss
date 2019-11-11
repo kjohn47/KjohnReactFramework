@@ -40,8 +40,7 @@
             margin-bottom: 10px;
         }
     }
-    .CardFooter {
-        border-top: dotted 1px;
+    .CardFooter {        
         margin-top: 5px;
         margin-bottom: 10px;
         min-height: 35px;
@@ -81,14 +80,4 @@
 .CardListComponent {
     max-width: 25%;
     min-width: 370px;
-}
-
-.CardsListTitle {
-    border-bottom: 2px solid black;
-    font-size: 32px;
-    font-weight: bold;
-    padding-left: 25px;
-    padding-top: 15px;
-    padding-bottom: 35px;
-    margin-bottom: 5px;
 }

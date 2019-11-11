@@ -1,7 +1,8 @@
 import React from 'react';
-import Card, { ICard } from '../../components/common/Card';
-import Row from '../../components/common/Row';
-import Column from '../../components/common/Column';
+import Card, { ICard } from './Card';
+import Row from './Row';
+import Column from './Column';
+import PageHeader from './PageHeader';
 
 
 
@@ -12,11 +13,9 @@ export interface ICardList {
 const CardList: React.FC<ICardList> = ( props ) => {
     return (
         <React.Fragment>
-            {props.children && <Row>
-                <Column className = "CardsListTitle">
+            { props.children && <PageHeader>
                     {props.children}
-                </Column>
-            </Row>}
+            </PageHeader> }
             <Row>
                 {
                     props.data.map( ( card, i ) =>

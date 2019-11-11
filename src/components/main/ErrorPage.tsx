@@ -6,6 +6,9 @@ import { ErrorActions, ErrorCodes } from "../../common/context/appErrorEnums";
 import { getTranslatedError } from "../../common/context/pageErrors/pageErrors";
 import Button from "../common/Button";
 import WithTooltip, { ToolTipPosition } from "../common/WithTooltip";
+import PageHeader from "../common/PageHeader";
+import Row from "../common/Row";
+import Column from "../common/Column";
 
 const ErrorPage: React.FC = () => {
     const [appContext] = useContext( AppContext );
@@ -33,22 +36,30 @@ const ErrorPage: React.FC = () => {
     }, [appLanguage] );
 
     return (
-        <div className = "ErrorPage">
-            <div className = "ErrorPageHeader">
-                <h1>{errorData.errorTitle}</h1>
-            </div>            
-            <div className = "ErrorPageDescription">
-                {errorData.errorDescription}
-            </div>
-            <div className = "ErrorPageFooter">
-                { errorContext.errorCode !== undefined && "[" + errorContext.errorCode + "]: " + errorData.errorMessage }
-            </div>            
-            <div className = "ErrorPageRedirect">
-                <WithTooltip toolTipText = { appContext.translations.goBackToHomeToolTip } toolTipPosition = { ToolTipPosition.Bottom }>
-                    <Button page = { KnownPages.Home } >{ appContext.translations.goBackToHome }</Button>
-                </WithTooltip>
-            </div>
-        </div>
+        <Row className = "ErrorPage">
+            <Column>
+                <PageHeader className = "ErrorPageHeader">
+                    {errorData.errorTitle}
+                </PageHeader>
+                <Row className = "ErrorPageDescription">
+                    <Column>
+                        {errorData.errorDescription}
+                    </Column>
+                </Row>
+                <Row className = "ErrorPageFooter">
+                    <Column>
+                        { errorContext.errorCode !== undefined && "[" + errorContext.errorCode + "]: " + errorData.errorMessage }
+                    </Column>
+                </Row>
+                <Row className = "ErrorPageRedirect">
+                    <Column>
+                        <WithTooltip toolTipText = { appContext.translations.goBackToHomeToolTip } toolTipPosition = { ToolTipPosition.Bottom } className = "ErrorPageReturnTooltip">
+                            <Button page = { KnownPages.Home } >{ appContext.translations.goBackToHome }</Button>
+                        </WithTooltip>
+                    </Column>
+                </Row>
+            </Column>
+        </Row>
     );
 }
 
