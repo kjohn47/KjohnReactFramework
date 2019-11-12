@@ -9,7 +9,8 @@ export enum AppGlobalTheme {
     Green = "PageLayoutColor_Green",    
     Blue = "PageLayoutColor_Blue",
     Orange = "PageLayoutColor_Orange",
-    Grey = "PageLayoutColor_Grey"
+    Grey = "PageLayoutColor_Grey",
+    Pink = "PageLayoutColor_Pink"
 }
 
 //Browser Storage Keys
