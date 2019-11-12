@@ -1,0 +1,25 @@
+/* -------------- Pink --------------- */
+.PageLayoutColor_Pink {
+  /*-------------- Pink Colors ----------------*/
+  $MainColor: #9e0184;
+  $SecondaryColor: #ff6bf8;
+  $MenuTextColor: #ffffff;
+  $TextColor: #200000;
+  $LinkColor: #e838ff;
+
+  $Button: #e919c6;
+  $Button_Text: #ffffff;
+  $Button_Hover: #ff6bf8;
+  $Button_Text_Hover: #ffffff;
+
+  $Input_Border: #9e0184;
+  $Input_Focus: #ff6bf8;
+
+  $Table_Header_Text: #ffffff;
+
+  $CardBorderColor: #9e0184;
+  $CardBackground: #faabf63f;
+  /*------------------------------------------*/
+  @import "./ThemeTree";
+}
+/*------------------------------------*/
