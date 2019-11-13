@@ -84,4 +84,39 @@
           color: $MainColor;
         }
         /* Page Header */
+        /* Page Side Menu */
+        .SideMenuPage {
+          .SideMenuColumn {    
+              .SideMenuColumnContent {
+                  border-color: $MainColor;
+
+                  .SideMenuTitle {
+                      border-bottom-color: $MainColor;
+                      background-color: $MainColor;
+                      color: $MenuTextColor;
+
+                      .SideMenuTitleText:hover {
+                        color: $SecondaryColor;
+                      }
+    
+                    .SideMenuTitleCollapse:hover {
+                      color: $SecondaryColor;
+                    }
+                  }
+      
+                  .SideMenuContent {
+                    .SideMenuMenu:hover {
+                        color: $SecondaryColor;
+                      }
+                      .SubMenuSubMenu span:hover {
+                          color: $LinkColor;
+                      }
+                      .SideMenuSelectedSubMenu {
+                          color: $MainColor;
+                      }
+                  }
+              }
+          }
+        }
+        /* Page Side Menu */
       }
