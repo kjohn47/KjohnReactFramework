@@ -2,7 +2,7 @@ import React from "react";
 import { KnownPages } from "../context/appContextEnums";
 import { withLogin } from "./checkLogin";
 import ErrorPage from "../../components/main/ErrorPage";
-import Test from "../../components/pages/Test";
+import Test from "../../components/pages/ComponentTest/Test";
 
 const TestWithLogin = withLogin( Test );
 
