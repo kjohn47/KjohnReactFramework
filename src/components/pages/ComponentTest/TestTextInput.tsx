@@ -45,7 +45,7 @@ const TestTextInput: React.FC = () =>
                         notEmpty = { true }
                         onChange = { ( Output ) => { console.log( Output ) } }
                         onBlur = { ( Output ) => { console.log( Output ) } }
-                        regexValidation = { AppRegex.NumberOnly }
+                        regexValidation = { AppRegex.TextOnly }
                         allowOnlyRegex
                         placeHolder = "Test input box for text"
                         />

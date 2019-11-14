@@ -48,6 +48,12 @@
                     font-weight: bold;
                 }
             }
+            .SideMenuCollapsedDescription {
+                font-size: small;                
+                padding-bottom: 5px;
+                padding-left: 15px;
+                word-wrap: break-word;
+            }
         }
         .SideMenuColumnContentHidden {
             min-height: 30px;

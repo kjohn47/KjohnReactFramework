@@ -20,8 +20,10 @@ interface ISubMenu {
     component: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements;
 }
 
+type selectFunctionType = ( component: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements, index: string, menuTitle: string, subMenuTitle: string ) => void;
+
 interface ISideMenuItem {
-    selectFunc: ( component: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements, index: string ) => void;
+    selectFunc: selectFunctionType;
     index: number;
     menu: IMenu;
     selectedIndex: string;    
@@ -43,7 +45,7 @@ const SideMenuItem: React.FC<ISideMenuItem > = ( props ) => {
                             <Column className = "SubMenuSubMenu">
                                 <span 
                                     className = { props.selectedIndex === index? "SideMenuSelectedSubMenu" : "pointer_cursor" }
-                                    onClick = { () => { props.selectFunc( subMenu.component, index ) } }
+                                    onClick = { () => { props.selectFunc( subMenu.component, index, props.menu.title, subMenu.title ) } }
                                 >
                                     {subMenu.title}
                                 </span>
@@ -61,9 +63,13 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
     const [ selected, setSelected ] = useState<string | React.ComponentType | JSX.Element | JSX.IntrinsicElements>( props.presentationComponent );
     const [ selectedIndex, setSelectedIndex ] = useState<string>( "" );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
-    const selectSubMenu: ( component: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements, index: string ) => void = ( component, index ) => {
+    const [ selectedTitle, setSelectedTitle ] = useState<[ string, string ]>( [ props.title, ""] )
+    const selectSubMenu: selectFunctionType = ( component, index, menuTitle,subMenuTitle ) => {
         setSelected( component );
-        setSelectedIndex(index);
+        setSelectedIndex( index );
+        setSelectedTitle( [ menuTitle, subMenuTitle ] );
+        if( width <= 480 )
+            setMenuCollapse( true );
     }
 
     useEffect( () => {
@@ -82,7 +88,7 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
                             <Column className = "SideMenuTitle">
                                 <Row>
                                     <Column className = "SideMenuTitleText" >
-                                        <span className = "pointer_cursor" onClick = { () => { selectSubMenu( props.presentationComponent, "") } }>{props.title}</span>
+                                        <span className = "pointer_cursor" onClick = { () => { selectSubMenu( props.presentationComponent, "", props.title, "") } }>{props.title}</span>
                                     </Column>
                                     <Column full = { ColumnNumber.C2 } className = "SideMenuTitleCollapse">
                                         { width <= 480 && <span className = "pointer_cursor " onClick = { () => { setMenuCollapse( !menuCollapse ) } }>{ menuCollapse ? "+" : "-" }</span> }
@@ -103,6 +109,11 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
                                         />
                                 )}
                             </Column>
+                            {menuCollapse && 
+                                <Column className = "SideMenuCollapsedDescription">
+                                    {selectedTitle[0] + ( selectedTitle[1] !== "" ? " - " + selectedTitle[1] : "")}
+                                </Column>
+                            }
                         </Row>
                     </Column>
                 </Row>
