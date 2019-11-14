@@ -1,4 +1,6 @@
 import React from 'react';
+import useWindowSize from '../../common/functions/windowResize';
+import { mobileWidth } from '../../common/config/configuration';
 
 export enum ToolTipPosition {
     Left = "ToolTip_Text_Left",
@@ -24,7 +26,9 @@ interface ITooltipProps {
 }
 
 const WithTooltip: React.FC<ITooltipProps> = ( props ) => {
-    let css = "ToolTip_Text " + ( props.toolTipPosition ? props.toolTipPosition : "ToolTip_Text_Top" ) + " " + ( props.toolTipColor ? props.toolTipColor : "ToolTip_Text_Default" );
+    const [ width ] = useWindowSize();
+    
+    let css = "ToolTip_Text " + ( props.toolTipPosition && width > mobileWidth ? props.toolTipPosition : "ToolTip_Text_Bottom" ) + " " + ( props.toolTipColor ? props.toolTipColor : "ToolTip_Text_Default" );
     let toolTipContainerCss = "ToolTip";
     toolTipContainerCss = props.className !== undefined ? toolTipContainerCss + " " + props.className : toolTipContainerCss;
     return(

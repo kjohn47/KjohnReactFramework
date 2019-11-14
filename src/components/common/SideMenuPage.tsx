@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Column, { ColumnNumber } from './Column';
 import Row from './Row';
 import useWindowSize from '../../common/functions/windowResize';
+import { mobileWidth } from '../../common/config/configuration';
 
 interface ISideMenuProps {
     title: string;
@@ -68,12 +69,12 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
         setSelected( component );
         setSelectedIndex( index );
         setSelectedTitle( [ menuTitle, subMenuTitle ] );
-        if( width <= 480 )
+        if( width <= mobileWidth )
             setMenuCollapse( true );
     }
 
     useEffect( () => {
-        if( width <= 480 )
+        if( width <= mobileWidth )
             setMenuCollapse( true );
         else
             setMenuCollapse( false );
@@ -91,7 +92,7 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
                                         <span className = "pointer_cursor" onClick = { () => { selectSubMenu( props.presentationComponent, "", props.title, "") } }>{props.title}</span>
                                     </Column>
                                     <Column full = { ColumnNumber.C2 } className = "SideMenuTitleCollapse">
-                                        { width <= 480 && <span className = "pointer_cursor " onClick = { () => { setMenuCollapse( !menuCollapse ) } }>{ menuCollapse ? "+" : "-" }</span> }
+                                        { width <= mobileWidth && <span className = "pointer_cursor " onClick = { () => { setMenuCollapse( !menuCollapse ) } }>{ menuCollapse ? "+" : "-" }</span> }
                                     </Column>
                                 </Row>
                             </Column>

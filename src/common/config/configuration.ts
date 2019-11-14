@@ -37,3 +37,5 @@ export const initialAppConfig: IAppContext = {
 
 //// Get from cookie or storage
 export const initialLogin: ILogin | undefined = currentUser;
+
+export const mobileWidth: number = 480;

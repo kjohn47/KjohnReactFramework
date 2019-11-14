@@ -97,12 +97,16 @@
                       background-color: $MainColor;
                       color: $MenuTextColor;
 
-                      .SideMenuTitleText:hover {
-                        color: $SecondaryColor;
+                      .SideMenuTitleText{
+                        span:hover {
+                          color: $SecondaryColor;
+                        }
                       }
     
-                    .SideMenuTitleCollapse:hover {
-                      color: $SecondaryColor;
+                    .SideMenuTitleCollapse {
+                      span:hover {
+                        color: $SecondaryColor;
+                      }
                     }
                   }
       
