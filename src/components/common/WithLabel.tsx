@@ -11,18 +11,25 @@ interface IWithLabel {
 
 const WithLabel: React.FC<IWithLabel> = ( props ) => {
     return (
-            <div className = {"withLabelDiv" + ( props.className ? ( " " + props.className ) : "" ) } >
+        <Row>
+            <Column className = {"withLabelDiv" + ( props.className ? ( " " + props.className ) : "" ) } >
             { !props.inline ?
-                <Row>
+                <Row className = "labelRow">
                     <Column>
-                        <label className = "withLable_lable" htmlFor = { props.htmlFor }>{ props.text }</label>
-                    </Column>
-                    <Column>
-                        { props.children }
+                        <Row>
+                            <Column>
+                                <label className = "withLable_lable" htmlFor = { props.htmlFor }>{ props.text }</label>
+                            </Column>
+                        </Row>
+                        <Row>
+                            <Column>
+                                { props.children }
+                            </Column>
+                        </Row>
                     </Column>
                 </Row>
                 :
-                <Row>
+                <Row className = "inlineLabelRow">
                     <Column 
                         full = { ColumnNumber.C4 }
                         large = { ColumnNumber.C5 }
@@ -43,7 +50,8 @@ const WithLabel: React.FC<IWithLabel> = ( props ) => {
                     </Column>
                 </Row>
             }
-            </div>
+            </Column>
+        </Row>
     )
 }
 

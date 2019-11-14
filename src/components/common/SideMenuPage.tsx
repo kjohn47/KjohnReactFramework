@@ -108,11 +108,11 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
                 </Row>
             </Column>
             <Column className = "SideMenuComponentColumn">
-                <Row>
+                <Row className = "SideMenuComponentRow">
                     <Column>
                         {selected}
                     </Column>
-                </Row>                
+                </Row>
             </Column>
         </Row>
     );

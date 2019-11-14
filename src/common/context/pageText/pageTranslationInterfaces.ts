@@ -14,10 +14,4 @@ interface ITableTranslation {
 
 interface ITestPageTranslations {
     langButton: string;
-    serviceCallButton1: string;
-    serviceCallTooltip1: string;
-    serviceCallButton2: string;
-    serviceCallTooltip2: string;
-    serviceCallButton3: string;
-    serviceCallTooltip3: string;
 }

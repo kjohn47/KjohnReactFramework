@@ -8,6 +8,7 @@ import TestCards from './TestCards';
 import TestTable from './TestTable';
 import TestButtons from './TestButtons';
 import TestTextInput from './TestTextInput';
+import TestServices from './TestServices';
 
 const Test: React.FC = () => {    
 
@@ -16,33 +17,31 @@ const Test: React.FC = () => {
       <Column>
       <PageHeader>
         Test page :)
-      </PageHeader>    
+      </PageHeader>
         <SideMenuPage 
           title = "Test Side Menu"
           presentationComponent = { <span>Welcome to test page of components</span> }
           menus = {[
             {
-              title: "Hash and Login",
-              startCollapsed: true,
+              title: "Hash and Services",              
               submenus: [
                 {
                   title: "Test hash",
                   component: <TestHash />
+                },
+                {
+                  title: "Call Services",
+                  component: < TestServices/>
                 }
               ]
             },
             {
-              title: "Cards",
+              title: "Data Presentation",
               submenus: [
                 {
                   title: "Cards components",
                   component: <TestCards />
-                }
-              ]
-            },
-            {
-              title: "Table",
-              submenus: [
+                },
                 {
                   title: "Table component",
                   component: <TestTable />
@@ -55,18 +54,13 @@ const Test: React.FC = () => {
                 {
                   title: "Text input component",
                   component: <TestTextInput />
-                }
-              ]
-            },
-            {
-              title: "Buttons",
-              submenus: [
+                },
                 {
-                  title: "Buttons with services",
+                  title: "Buttons",
                   component: <TestButtons />
                 }
               ]
-            }
+            },
           ]}
         />                  
       </Column>

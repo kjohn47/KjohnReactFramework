@@ -12,13 +12,7 @@ export const textTranslations: ITranslations = {
             remove: "Remover"
         },
         testPage: {
-            langButton: "Lingua",
-            serviceCallButton1: "Chamar serviço 1",
-            serviceCallTooltip1: "Clique aqui para chamar serviço 1",
-            serviceCallButton2: "Chamar serviço 2",
-            serviceCallTooltip2: "Clique aqui para chamar serviço 2",
-            serviceCallButton3: "Chamar serviço 3",
-            serviceCallTooltip3: "Clique aqui para chamar serviço 3"
+            langButton: "Lingua"
         }
     },
     [AppLanguage.EN]: {
@@ -31,13 +25,7 @@ export const textTranslations: ITranslations = {
             remove: "Remove"
         },
         testPage: {
-            langButton: "Language",
-            serviceCallButton1: "Call Service 1",
-            serviceCallTooltip1: "Click here to call service 1",
-            serviceCallButton2: "Call Service 2",
-            serviceCallTooltip2: "Click here to call service 2",
-            serviceCallButton3: "Call Service 3",
-            serviceCallTooltip3: "Click here to call service 3"
+            langButton: "Language"
         }        
     }
 }
