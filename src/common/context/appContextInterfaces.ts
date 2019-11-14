@@ -27,6 +27,6 @@ export interface IAppContext {
     globalTheme: AppGlobalTheme;
 }
 
-export type LoadingType = [ boolean, ( ( isLoading: boolean ) => void ) ];
+export type LoadingType = [ boolean, React.Dispatch<React.SetStateAction<boolean>> ];
 
 export type AppContextType = [ IAppContext, ( (action: IContextAction) => void ) ];

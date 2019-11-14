@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { IError, IErrorAction } from "./appErrorInterfaces";
+import { IError, IErrorAction, ErrorContextType } from "./appErrorInterfaces";
 import { ErrorActions } from "./appErrorEnums";
 
-export function useError( initialState: IError )
+export const useError: ( initialState: IError ) => ErrorContextType = ( initialState ) => 
 {
     const [error, setError] = useState( initialState );
 

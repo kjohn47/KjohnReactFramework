@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import { ContextActions } from "./appContextEnums";
-import { IAppContext,IContextAction } from "./appContextInterfaces";
+import { IAppContext,IContextAction, AppContextType } from "./appContextInterfaces";
 import { textTranslations } from "./pageText/pageTranslation";
 import { setLastSelectedLanguage, setAppTheme } from "../functions/sessionStorage";
 import { LoginContext } from "../config/appConfig";
 import { LoginActions } from "./loginContextEnums";
 
-export function useAppContext( initialContext: IAppContext )
+export const useAppContext: ( initialContext: IAppContext ) => AppContextType = ( initialContext ) =>
 {
     const [currentAppContext, setCurrentAppContext] = useState(initialContext);
     const [currentUser, setCurrentUser] = useContext(LoginContext);

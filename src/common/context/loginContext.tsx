@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { LoginActions } from "./loginContextEnums";
-import { ILogin, ILoginAction } from "./loginContextInterfaces";
+import { ILogin, ILoginAction, LoginContextType } from "./loginContextInterfaces";
 import { updateUserSession } from "../functions/sessionStorage";
 
-export function useLogin( initialState: ILogin | undefined )
+export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType = ( initialState ) =>
 {
     const [login, setLogin] = useState( initialState );
 
