@@ -62,8 +62,8 @@ const Table: React.FC<ITableContent> = ( props ) => {
                                     ( cell.onClickEdit !== undefined || cell.onClickRemove !== undefined ) && 
                                     <div className = "TableCell_EditRemove_right">
                                         <div className = "TableCellEditRemoveRow">
-                                            { cell.onClickEdit && <div className = "TableCell_Clickable TableCellEditRemoveField" onClick = { cell.onClickEdit }>{ getTranslation( "tableText", "edit" ) }</div> }
-                                            { cell.onClickRemove && <div className = "TableCell_Clickable TableCellEditRemoveField TableRemoveField" onClick = { cell.onClickRemove }>{ getTranslation( "tableText", "remove" ) }</div> }
+                                            { cell.onClickEdit && <div className = "TableCell_Clickable TableCellEditRemoveField" onClick = { cell.onClickEdit }>{ getTranslation( "_tableText", "#(edit)" ) }</div> }
+                                            { cell.onClickRemove && <div className = "TableCell_Clickable TableCellEditRemoveField TableRemoveField" onClick = { cell.onClickRemove }>{ getTranslation( "_tableText", "#(remove)" ) }</div> }
                                         </div>
                                     </div>
                                 }

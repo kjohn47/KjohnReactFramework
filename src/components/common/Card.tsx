@@ -52,7 +52,7 @@ const Card: React.FC<ICard> = ( props ) => {
                     >
                         { props.detailsPage && 
                             <PageSelector page = { props.detailsPage } queryParams = { props.detailsQuery } highlight>
-                                { props.detailsLinkText ? props.detailsLinkText : getTranslation( "generic", "cardDetails" ) }
+                                { props.detailsLinkText ? props.detailsLinkText : getTranslation( "_generic", "#(cardDetails)" ) }
                             </PageSelector>
                         }
                     </Column>}

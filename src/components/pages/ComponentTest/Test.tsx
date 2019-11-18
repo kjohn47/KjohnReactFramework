@@ -9,14 +9,15 @@ import TestTable from './TestTable';
 import TestButtons from './TestButtons';
 import TestTextInput from './TestTextInput';
 import TestServices from './TestServices';
+import useTranslation from '../../../common/context/pageText/getTranslation';
 
 const Test: React.FC = () => {    
-
+  const { getTranslation } = useTranslation();
   return (
     <Row className="TestApp">
       <Column>
       <PageHeader>
-        Test page :)
+        { getTranslation( "_TestPage", "#(TestPage Title)" ) }
       </PageHeader>
         <SideMenuPage 
           title = "Test Side Menu"

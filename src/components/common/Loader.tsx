@@ -17,7 +17,7 @@ const Loader: React.FC<ILoader> = ( props ) => {
                 <div className={ props.paddingTop ? "LoadingDiv LoadingPadding" : "LoadingDiv" }>
                     <div className={ "LoaderSpinner LoadSpinnerColor" + ( props.bigLoader ? " BigSpinner" : "" ) }></div>
                     { !props.withoutText && <div className={ props.bigLoader ? "LoaderTextBig" : "LoaderText" }>
-                        { getTranslation( "generic", "loadingText" ) }
+                        { getTranslation( "_generic", "#(loadingText)" ) }
                     </div> }
                 </div> }
             <div className={ props.isLoading ? "contentLoading" : "" }>

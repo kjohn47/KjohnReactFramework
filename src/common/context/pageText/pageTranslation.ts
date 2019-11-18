@@ -3,27 +3,33 @@ import { ITranslations } from "../appContextInterfaces"
 
 export const textTranslations: ITranslations = {
     [AppLanguage.PT]: {
-        "generic": {
-            "loadingText": "A Carregar!",
-            "goBackToHome": "Voltar para Homepage",
-            "goBackToHomeToolTip": "Carregue no botão para retomar para a homepage.",
-            "cardDetails": "Ver detalhes"
+        "_generic": {
+            "#(loadingText)": "A Carregar!",
+            "#(goBackToHome)": "Voltar para Homepage",
+            "#(goBackToHomeToolTip)": "Carregue no botão para retomar para a homepage.",
+            "#(cardDetails)": "Ver detalhes"
         },
-        "tableText": {
-            "edit": "Editar",
-            "remove": "Remover"
+        "_tableText": {
+            "#(edit)": "Editar",
+            "#(remove)": "Remover"
+        },
+        "_TestPage" : {
+            "#(TestPage Title)": "Test page :)"
         }
     },
     [AppLanguage.EN]: {
-        "generic": {
-            "loadingText": "Loading!",
-            "goBackToHome": "Go back to Homepage",
-            "goBackToHomeToolTip": "Click at the button to return to homepage.",
-            "cardDetails": "View details"
+        "_generic": {
+            "#(loadingText)": "Loading!",
+            "#(goBackToHome)": "Go back to Homepage",
+            "#(goBackToHomeToolTip)": "Click at the button to return to homepage.",
+            "#(cardDetails)": "View details"
         },
-        "tableText": {
-            "edit": "Edit",
-            "remove": "Remove"
+        "_tableText": {
+            "#(edit)": "Edit",
+            "#(remove)": "Remove"
+        },
+        "_TestPage" : {
+            "#(TestPage Title)": "Test page :)"
         }
     }
 }

@@ -32,8 +32,8 @@ const ErrorPage: React.FC = () => {
                 </Row>
                 <Row className="ErrorPageRedirect">
                     <Column>
-                        <WithTooltip toolTipText={ getTranslation( "generic", "goBackToHomeToolTip" ) } toolTipPosition={ ToolTipPosition.Bottom } className="ErrorPageReturnTooltip">
-                            <Button page={ KnownPages.Home } >{ getTranslation( "generic", "goBackToHome" ) }</Button>
+                        <WithTooltip toolTipText={ getTranslation( "_generic", "#(goBackToHomeToolTip)" ) } toolTipPosition={ ToolTipPosition.Bottom } className="ErrorPageReturnTooltip">
+                            <Button page={ KnownPages.Home } >{ getTranslation( "_generic", "#(goBackToHome)" ) }</Button>
                         </WithTooltip>
                     </Column>
                 </Row>
