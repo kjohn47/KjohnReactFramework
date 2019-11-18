@@ -2,7 +2,7 @@ import { IError } from "../context/appErrorInterfaces";
 import { IAppContext } from "../context/appContextInterfaces";
 import { ILogin } from "../context/loginContextInterfaces";
 import { AppLanguage, KnownPages, AppGlobalTheme } from "../context/appContextEnums";
-import { textTranslations } from "../context/pageText/pageTranslation";
+//import { textTranslations } from "../context/pageText/pageTranslation";
 import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme } from "../functions/sessionStorage";
 import { getQueryStringParams } from "../functions/stringParsing";
 
@@ -21,14 +21,14 @@ if ( !( Object ).values( AppGlobalTheme ).includes( lastSavedTheme ) as any ) {
 //// Error initial config
 export const initialError: IError = {
     hasError: false,
-    errorData: undefined,
+    errorDescription: undefined,
     errorCode: undefined
 }
 
 //// Get language from cookie or storage
 export const initialAppConfig: IAppContext = {
     globalLanguage: lastSavedLang,
-    translations: textTranslations[lastSavedLang],
+    //translations: textTranslations[lastSavedLang],
     globalTheme: lastSavedTheme,
     selectedPage: window.location.pathname.substring(1) !== "" ? window.location.pathname.substring(1) as KnownPages : KnownPages.Home,
     queryString:  window.location.pathname.substring(1) !== "" ? JSON.stringify( getQueryStringParams<any>( window.location.search.substring(1) ) ) : undefined,

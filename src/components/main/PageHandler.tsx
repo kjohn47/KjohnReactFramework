@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { AppContext, ErrorContext, LoadingContext } from "../../common/config/appConfig";
 import { KnownPages } from "../../common/context/appContextEnums";
 import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
-import { getTranslatedError } from "../../common/context/pageErrors/pageErrors";
 import Loader from "../common/Loader";
 import { getKnownPage } from "../../common/functions/getKnownPage";
 
@@ -21,7 +20,7 @@ const PageHandler: React.FC = () => {
         setErrorContext( {
             type: ErrorActions.ActivateError,
             errorCode: ErrorCodes.PageNotFound,
-            errorData: getTranslatedError( ErrorCodes.PageNotFound, appContext.globalLanguage )
+            errorDescription: "Not Found: 404"
         } );
     }
 

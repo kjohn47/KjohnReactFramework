@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { AppContext } from "../../common/config/appConfig";
+import React from "react";
+import useTranslation from "../../common/context/pageText/getTranslation";
 
 interface ILoader {
     isLoading: boolean;
@@ -8,20 +8,19 @@ interface ILoader {
     withoutText?: boolean;
 }
 
-const Loader: React.FC<ILoader> = ( props ) => 
-{
-    const [appContext] = useContext(AppContext);
+const Loader: React.FC<ILoader> = ( props ) => {
+    const { getTranslation } = useTranslation();
 
-    return ( 
+    return (
         <React.Fragment>
-            { props.isLoading && 
-                <div className = { props.paddingTop ? "LoadingDiv LoadingPadding" : "LoadingDiv"}>
-                    <div className = { "LoaderSpinner LoadSpinnerColor" + ( props.bigLoader ? " BigSpinner" : "" ) }></div>
-                    { !props.withoutText && <div className = { props.bigLoader ? "LoaderTextBig" : "LoaderText" }>
-                        {appContext.translations.loadingText}
+            { props.isLoading &&
+                <div className={ props.paddingTop ? "LoadingDiv LoadingPadding" : "LoadingDiv" }>
+                    <div className={ "LoaderSpinner LoadSpinnerColor" + ( props.bigLoader ? " BigSpinner" : "" ) }></div>
+                    { !props.withoutText && <div className={ props.bigLoader ? "LoaderTextBig" : "LoaderText" }>
+                        { getTranslation( "generic", "loadingText" ) }
                     </div> }
                 </div> }
-            <div className = { props.isLoading ? "contentLoading" : "" }>
+            <div className={ props.isLoading ? "contentLoading" : "" }>
                 { props.children }
             </div>
         </React.Fragment>

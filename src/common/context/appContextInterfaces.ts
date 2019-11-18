@@ -19,8 +19,7 @@ export interface ITranslations {
 }
 
 export interface IAppContext {
-    globalLanguage: AppLanguage;
-    translations: ITranslation;
+    globalLanguage: AppLanguage;    
     selectedPage: KnownPages;
     queryString?: string;
     adminOptions: boolean;

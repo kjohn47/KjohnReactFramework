@@ -12,7 +12,7 @@ export const useError: ( initialState: IError ) => ErrorContextType = ( initialS
             case ErrorActions.ActivateError: {
                 setError( { ...error,
                     hasError: true,
-                    errorData: action.errorData,
+                    errorDescription: action.errorDescription,
                     errorCode: action.errorCode
                 } );
                 break;
@@ -20,15 +20,9 @@ export const useError: ( initialState: IError ) => ErrorContextType = ( initialS
             case ErrorActions.RemoveError: {
                 setError( { ...error,                    
                     hasError: false,
-                    errorData: undefined,
+                    errorDescription: undefined,
                     errorCode: undefined
                 } );
-                break;
-            }
-            case ErrorActions.ChangeErrorLanguage: {
-                setError( { ...error,
-                    errorData: action.errorData
-                });            
                 break;
             }
         }

@@ -3,29 +3,27 @@ import { ITranslations } from "../appContextInterfaces"
 
 export const textTranslations: ITranslations = {
     [AppLanguage.PT]: {
-        loadingText: "A Carregar!",
-        goBackToHome: "Voltar para Homepage",
-        goBackToHomeToolTip: "Carregue no botão para retomar para a homepage.",
-        cardDetails: "Ver detalhes",
-        tableText: {
-            edit: "Editar",
-            remove: "Remover"
+        "generic": {
+            "loadingText": "A Carregar!",
+            "goBackToHome": "Voltar para Homepage",
+            "goBackToHomeToolTip": "Carregue no botão para retomar para a homepage.",
+            "cardDetails": "Ver detalhes"
         },
-        testPage: {
-            langButton: "Lingua"
+        "tableText": {
+            "edit": "Editar",
+            "remove": "Remover"
         }
     },
     [AppLanguage.EN]: {
-        loadingText: "Loading!",
-        goBackToHome: "Go back to Homepage",
-        goBackToHomeToolTip: "Click at the button to return to homepage.",
-        cardDetails: "View details",
-        tableText: {
-            edit: "Edit",
-            remove: "Remove"
+        "generic": {
+            "loadingText": "Loading!",
+            "goBackToHome": "Go back to Homepage",
+            "goBackToHomeToolTip": "Click at the button to return to homepage.",
+            "cardDetails": "View details"
         },
-        testPage: {
-            langButton: "Language"
-        }        
+        "tableText": {
+            "edit": "Edit",
+            "remove": "Remove"
+        }
     }
 }

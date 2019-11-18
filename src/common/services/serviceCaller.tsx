@@ -1,8 +1,6 @@
 import { useContext, useState } from 'react';
 import { AppContext, LoadingContext, ErrorContext, LoginContext } from '../config/appConfig';
-import { IErrorData } from '../context/appErrorInterfaces';
 import { ErrorActions, ErrorCodes } from "../context/appErrorEnums";
-import { getTranslatedError } from "../context/pageErrors/pageErrors";
 import { IContext, IServiceError, ServiceCallType, ServiceType } from "./serviceCallerInterfaces";
 
 const delay = (t: number) => new Promise(resolve => setTimeout(resolve, t));
@@ -35,10 +33,8 @@ export function useServiceCaller<IServiceRequest,IServiceResponse>( service: Ser
                         }
                         setServiceResponse( response as IServiceResponse );
                     } )                    
-                    .catch( (err: Error ) => {
-                        let formattedError: IErrorData = processError !== undefined ? getTranslatedError( processError, appContext.globalLanguage ) : getTranslatedError( ErrorCodes.GenericError, appContext.globalLanguage );
-                        formattedError.errorMessage = err.message;
-                        setError( { type: ErrorActions.ActivateError, errorData: formattedError, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
+                    .catch( (err: Error ) => {                        
+                        setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
                     } )
                     .finally( () => {
                         !localLoading && setloading( false );

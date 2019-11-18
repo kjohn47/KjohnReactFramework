@@ -1,8 +1,12 @@
 import { AppLanguage } from "../appContextEnums";
 import { ErrorCodes } from "../appErrorEnums";
-import { IErrorData } from "../appErrorInterfaces";
 
-export interface IErrorTranstation {
+export interface IErrorData {
+    Title: string;
+    Message: string;
+}
+
+interface IErrorTranstation {
     [AppLanguage.EN]: IErrorData;
     [AppLanguage.PT]: IErrorData;
 }
@@ -12,3 +16,4 @@ export interface IPageErrors {
     [ErrorCodes.GenericError]: IErrorTranstation;
     [ErrorCodes.PageNotFound]: IErrorTranstation;
 }
+

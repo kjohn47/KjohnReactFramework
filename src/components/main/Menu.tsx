@@ -9,7 +9,7 @@ const Menu: React.FC = () => {
     return (
       <div className = "center_menu_button">        
           <Button className = "button_width" onClick = { () => {setAppContext( { type: ContextActions.ChangeLanguage, payload: { globalLanguage: appContext.globalLanguage === AppLanguage.PT ? AppLanguage.EN : AppLanguage.PT } } ) } } >
-            { appContext.translations.testPage.langButton + " "}&rarr;{ " " +( appContext.globalLanguage === AppLanguage.EN ? "PT" : "EN" ) }
+            { "Language: "}&rarr;{ " " +( appContext.globalLanguage === AppLanguage.EN ? "PT" : "EN" ) }
           </Button>        
       </div>
     );

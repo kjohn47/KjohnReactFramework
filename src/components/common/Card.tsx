@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import Column, { ColumnNumber } from "./Column";
 import Row from "./Row";
 import { KnownPages } from "../../common/context/appContextEnums";
-import { AppContext } from "../../common/config/appConfig";
 import PageSelector from "./PageSelector";
+import useTranslation from "../../common/context/pageText/getTranslation";
 
 export interface ICard {
     className?: string;
@@ -18,7 +18,7 @@ export interface ICard {
 }
 
 const Card: React.FC<ICard> = ( props ) => {
-    const cardText = useContext( AppContext )[0].translations.cardDetails;
+    const { getTranslation } = useTranslation();
     let hasFooter: boolean = props.footerText !== undefined || props.detailsPage !== undefined;
     return (
         <div className = { "CardComponent" + ( props.className !== undefined ? props.className : "" ) }>
@@ -52,7 +52,7 @@ const Card: React.FC<ICard> = ( props ) => {
                     >
                         { props.detailsPage && 
                             <PageSelector page = { props.detailsPage } queryParams = { props.detailsQuery } highlight>
-                                { props.detailsLinkText ? props.detailsLinkText : cardText }
+                                { props.detailsLinkText ? props.detailsLinkText : getTranslation( "generic", "cardDetails" ) }
                             </PageSelector>
                         }
                     </Column>}

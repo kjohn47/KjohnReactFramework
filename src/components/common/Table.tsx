@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import Row from "./Row";
 import Column from "./Column";
 import { KnownPages } from "../../common/context/appContextEnums";
 import PageSelector from "./PageSelector";
-import { AppContext } from "../../common/config/appConfig";
 import WithTooltip, { ToolTipColor, ToolTipPosition } from "./WithTooltip";
+import useTranslation from "../../common/context/pageText/getTranslation";
 
 export interface ITableCell {
     page?: KnownPages;
@@ -26,7 +26,7 @@ export interface ITableContent {
 
 const Table: React.FC<ITableContent> = ( props ) => {
 
-    const appContext = useContext( AppContext )[0];
+    const { getTranslation } = useTranslation();
     
     const renderTableHeader: ( header: string[] ) => any = ( header ) => {
         return (
@@ -62,8 +62,8 @@ const Table: React.FC<ITableContent> = ( props ) => {
                                     ( cell.onClickEdit !== undefined || cell.onClickRemove !== undefined ) && 
                                     <div className = "TableCell_EditRemove_right">
                                         <div className = "TableCellEditRemoveRow">
-                                            { cell.onClickEdit && <div className = "TableCell_Clickable TableCellEditRemoveField" onClick = { cell.onClickEdit }>{ appContext.translations.tableText.edit }</div> }
-                                            { cell.onClickRemove && <div className = "TableCell_Clickable TableCellEditRemoveField TableRemoveField" onClick = { cell.onClickRemove }>{ appContext.translations.tableText.remove }</div> }
+                                            { cell.onClickEdit && <div className = "TableCell_Clickable TableCellEditRemoveField" onClick = { cell.onClickEdit }>{ getTranslation( "tableText", "edit" ) }</div> }
+                                            { cell.onClickRemove && <div className = "TableCell_Clickable TableCellEditRemoveField TableRemoveField" onClick = { cell.onClickRemove }>{ getTranslation( "tableText", "remove" ) }</div> }
                                         </div>
                                     </div>
                                 }
