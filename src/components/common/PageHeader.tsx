@@ -9,8 +9,8 @@ interface IPageHeader {
 const PageHeader: React.FC<IPageHeader> = ( props ) => {
     return (
         <Row>
-            <Column className = { "PageHeaderDiv" + ( props.className ? " " + props.className : "" ) }>
-                {props.children}
+            <Column className={ "PageHeaderDiv" + ( props.className ? " " + props.className : "" ) }>
+                { props.children }
             </Column>
         </Row>
     )

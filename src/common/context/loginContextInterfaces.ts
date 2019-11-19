@@ -1,8 +1,8 @@
 import { LoginActions } from "./loginContextEnums";
 import { AppLanguage, AppGlobalTheme } from "./appContextEnums";
 
-export interface ILogin {        
-    userSessionToken: string;    
+export interface ILogin {
+    userSessionToken: string;
     authTokenHash: string;
     name: string;
     surname: string;
@@ -17,4 +17,4 @@ export interface ILoginAction {
     userTheme?: AppGlobalTheme;
 }
 
-export type LoginContextType = [ ILogin | undefined, ( (action: ILoginAction) => void ) ];
+export type LoginContextType = [ ILogin | undefined, ( ( action: ILoginAction ) => void ) ];

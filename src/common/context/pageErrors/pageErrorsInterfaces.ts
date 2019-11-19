@@ -7,13 +7,12 @@ export interface IErrorData {
 }
 
 interface IErrorTranstation {
-    [AppLanguage.EN]: IErrorData;
-    [AppLanguage.PT]: IErrorData;
+    [ AppLanguage.EN ]: IErrorData;
+    [ AppLanguage.PT ]: IErrorData;
 }
 
 //Add new errors here
 export interface IPageErrors {
-    [ErrorCodes.GenericError]: IErrorTranstation;
-    [ErrorCodes.PageNotFound]: IErrorTranstation;
+    [ ErrorCodes.GenericError ]: IErrorTranstation;
+    [ ErrorCodes.PageNotFound ]: IErrorTranstation;
 }
-

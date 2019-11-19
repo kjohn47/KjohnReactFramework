@@ -23,4 +23,4 @@ export interface IServiceError {
 
 export type ServiceCallType<IServiceRequest, IServiceResponse> = [ IServiceResponse | undefined, ( request?: IServiceRequest ) => Promise<void> ];
 
-export type ServiceType<IServiceRequest, IServiceResponse> = ( context: IContext, request?: IServiceRequest ) => IServiceResponse | IServiceError;
+export type ServiceType<IServiceRequest, IServiceResponse> = ( context: IContext, request?: IServiceRequest ) => Promise<IServiceResponse | IServiceError>;

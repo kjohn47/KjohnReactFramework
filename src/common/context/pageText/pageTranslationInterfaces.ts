@@ -1,5 +1,5 @@
 export interface ITranslation {
-    [process: string]: {
-        [token: string]: string;
+    [ process: string ]: {
+        [ token: string ]: string;
     };
 }

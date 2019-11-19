@@ -12,4 +12,4 @@ export interface IErrorAction {
     errorDescription?: string;
 }
 
-export type ErrorContextType = [ IError , ( ( action: IErrorAction ) => void ) ];
+export type ErrorContextType = [ IError, ( ( action: IErrorAction ) => void ) ];

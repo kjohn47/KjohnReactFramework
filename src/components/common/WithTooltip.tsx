@@ -27,14 +27,14 @@ interface ITooltipProps {
 
 const WithTooltip: React.FC<ITooltipProps> = ( props ) => {
     const [ width ] = useWindowSize();
-    
+
     let css = "ToolTip_Text " + ( props.toolTipPosition && width > mobileWidth ? props.toolTipPosition : "ToolTip_Text_Bottom" ) + " " + ( props.toolTipColor ? props.toolTipColor : "ToolTip_Text_Default" );
     let toolTipContainerCss = "ToolTip";
     toolTipContainerCss = props.className !== undefined ? toolTipContainerCss + " " + props.className : toolTipContainerCss;
-    return(
-        <div className = { toolTipContainerCss }>
-            {props.children}
-            <span className = { css } >{ props.toolTipText }</span>
+    return (
+        <div className={ toolTipContainerCss }>
+            { props.children }
+            <span className={ css } >{ props.toolTipText }</span>
         </div>
     );
 }

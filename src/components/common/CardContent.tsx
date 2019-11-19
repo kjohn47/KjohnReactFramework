@@ -4,7 +4,7 @@ import Row from "./Row";
 
 interface ICardContent {
     className?: string;
-    data: ICardData[]; 
+    data: ICardData[];
 }
 
 export interface ICardData {
@@ -14,15 +14,15 @@ export interface ICardData {
 
 const CardContent: React.FC<ICardContent> = ( props ) => {
     return (
-        <div className = "CardContentComponent">
+        <div className="CardContentComponent">
             {
                 props.data.map( ( data, i ) =>
-                    <Row className = "CardContentRow" key = { i }>
-                        <Column full = { ColumnNumber.C10 } className = "CardContentLeft">
-                            {data.field}
+                    <Row className="CardContentRow" key={ i }>
+                        <Column full={ ColumnNumber.C10 } className="CardContentLeft">
+                            { data.field }
                         </Column>
-                        <Column full = { ColumnNumber.C10 } className = "CardContentRight">
-                            {data.value}
+                        <Column full={ ColumnNumber.C10 } className="CardContentRight">
+                            { data.value }
                         </Column>
                     </Row>
                 )

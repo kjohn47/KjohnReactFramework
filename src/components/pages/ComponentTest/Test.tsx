@@ -11,20 +11,20 @@ import TestTextInput from './TestTextInput';
 import TestServices from './TestServices';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 
-const Test: React.FC = () => {    
+const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
   return (
     <Row className="TestApp">
       <Column>
-      <PageHeader>
-        { getTranslation( "_TestPage", "#(TestPage Title)" ) }
-      </PageHeader>
-        <SideMenuPage 
-          title = "Test Side Menu"
-          presentationComponent = { <span>Welcome to test page of components</span> }
-          menus = {[
+        <PageHeader>
+          { getTranslation( "_TestPage", "#(TestPage Title)" ) }
+        </PageHeader>
+        <SideMenuPage
+          title="Test Side Menu"
+          presentationComponent={ <span>Welcome to test page of components</span> }
+          menus={ [
             {
-              title: "Hash and Services",              
+              title: "Hash and Services",
               submenus: [
                 {
                   title: "Test hash",
@@ -32,7 +32,7 @@ const Test: React.FC = () => {
                 },
                 {
                   title: "Call Services",
-                  component: < TestServices/>
+                  component: < TestServices />
                 }
               ]
             },
@@ -62,8 +62,8 @@ const Test: React.FC = () => {
                 }
               ]
             },
-          ]}
-        />                  
+          ] }
+        />
       </Column>
     </Row>
   );

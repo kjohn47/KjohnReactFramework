@@ -6,17 +6,16 @@ import Loader from "../common/Loader";
 import { getKnownPage } from "../../common/functions/getKnownPage";
 
 const PageHandler: React.FC = () => {
-    const [appContext] = useContext( AppContext );
-    const [errorContext, setErrorContext] = useContext( ErrorContext );
-    const isLoading = useContext( LoadingContext )[0];
+    const [ appContext ] = useContext( AppContext );
+    const [ errorContext, setErrorContext ] = useContext( ErrorContext );
+    const isLoading = useContext( LoadingContext )[ 0 ];
     let selectedPage = errorContext.hasError ? KnownPages.Error : appContext.selectedPage;
-    
+
     let Output: React.ComponentType | undefined;
 
     Output = getKnownPage( selectedPage );
 
-    if( Output === undefined )
-    {
+    if ( Output === undefined ) {
         setErrorContext( {
             type: ErrorActions.ActivateError,
             errorCode: ErrorCodes.PageNotFound,
@@ -25,7 +24,7 @@ const PageHandler: React.FC = () => {
     }
 
     return (
-        <Loader isLoading = { isLoading } bigLoader paddingTop >
+        <Loader isLoading={ isLoading } bigLoader paddingTop >
             { Output && <Output /> }
         </Loader>
     );

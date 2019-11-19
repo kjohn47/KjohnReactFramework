@@ -1,15 +1,20 @@
 import { useState, useContext } from "react";
-import { ContextActions } from "./appContextEnums";
+import { ContextActions, AppLanguage } from "./appContextEnums";
 import { IAppContext, IContextAction, AppContextType } from "./appContextInterfaces";
 import { setLastSelectedLanguage, setAppTheme } from "../functions/sessionStorage";
 import { LoginContext } from "../config/appConfig";
 import { LoginActions } from "./loginContextEnums";
+import { ITranslation } from "./pageText/pageTranslationInterfaces";
+import { apiServerUrl } from "../config/configuration";
+import { AvailableServices } from "../services/servicesAvailable";
+import { fetchGetHandler } from "../services/fetchHandler";
+import { IServiceError } from "../services/serviceCallerInterfaces";
 
 export const useAppContext: ( initialContext: IAppContext ) => AppContextType = ( initialContext ) => {
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
     const [ currentUser, setCurrentUser ] = useContext( LoginContext );
 
-    function changeAppConfig ( action: IContextAction ) {
+    const changeAppConfig = ( action: IContextAction ) => new Promise<void | IServiceError>( ( resolve ) => {
         switch ( action.type ) {
             case ContextActions.ChangeLanguage: {
                 if ( action.payload.globalLanguage !== undefined ) {
@@ -18,10 +23,32 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                     else
                         setLastSelectedLanguage( action.payload.globalLanguage );
 
-                    setCurrentAppContext( {
-                        ...currentAppContext,
-                        globalLanguage: action.payload.globalLanguage
-                    } );
+                    if ( currentAppContext.translations === {} || currentAppContext.translations[ action.payload.globalLanguage ] === undefined ) {
+                        resolve(
+                            fetchGetHandler<ITranslation, void>(
+                                `${ apiServerUrl }/${ AvailableServices.Translation }/${ action.payload.globalLanguage }.json`,
+                                ( data ) =>
+                                    setCurrentAppContext( {
+                                        ...currentAppContext,
+                                        globalLanguage: action.payload.globalLanguage as AppLanguage,
+                                        translations: {
+                                            ...currentAppContext.translations,
+                                            [ action.payload.globalLanguage as AppLanguage ]: data
+                                        }
+                                    } )
+                            ).catch( () =>
+                                setCurrentAppContext( {
+                                    ...currentAppContext,
+                                    globalLanguage: action.payload.globalLanguage as AppLanguage
+                                } )
+                            ) );
+                    }
+                    else {
+                        setCurrentAppContext( {
+                            ...currentAppContext,
+                            globalLanguage: action.payload.globalLanguage
+                        } );
+                    }
                 }
                 break;
             }
@@ -49,7 +76,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                 break;
             }
         }
-    }
+    } )
 
     return [ currentAppContext, changeAppConfig ];
 }

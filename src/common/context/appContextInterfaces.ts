@@ -14,18 +14,19 @@ export interface IContextPayload {
 }
 
 export interface ITranslations {
-    [AppLanguage.PT]: ITranslation;
-    [AppLanguage.EN]: ITranslation;
+    [ AppLanguage.PT ]?: ITranslation;
+    [ AppLanguage.EN ]?: ITranslation;
 }
 
 export interface IAppContext {
-    globalLanguage: AppLanguage;    
+    globalLanguage: AppLanguage;
     selectedPage: KnownPages;
     queryString?: string;
     adminOptions: boolean;
     globalTheme: AppGlobalTheme;
+    translations: ITranslations;
 }
 
 export type LoadingType = [ boolean, React.Dispatch<React.SetStateAction<boolean>> ];
 
-export type AppContextType = [ IAppContext, ( (action: IContextAction) => void ) ];
+export type AppContextType = [ IAppContext, ( ( action: IContextAction ) => void ) ];

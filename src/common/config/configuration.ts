@@ -1,14 +1,14 @@
 import { IError } from "../context/appErrorInterfaces";
 import { IAppContext } from "../context/appContextInterfaces";
 import { ILogin } from "../context/loginContextInterfaces";
-import { AppLanguage, KnownPages, AppGlobalTheme } from "../context/appContextEnums";
-//import { textTranslations } from "../context/pageText/pageTranslation";
+import { AppLanguage, AppGlobalTheme } from "../context/appContextEnums";
 import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme } from "../functions/sessionStorage";
-import { getQueryStringParams } from "../functions/stringParsing";
+import { getRouteUrlAndQuery } from "../functions/routeHandling";
 
 let currentUser: ILogin | undefined = getUserSession();
 let lastSavedLang: AppLanguage = currentUser !== undefined ? currentUser.appLanguage : getLastSelectedLanguage();
 let lastSavedTheme: AppGlobalTheme = currentUser !== undefined ? currentUser.appTheme : getAppTheme();
+let pageRoute = getRouteUrlAndQuery();
 
 if ( !( Object ).values( AppLanguage ).includes( lastSavedLang ) as any ) {
     lastSavedLang = AppLanguage.PT;
@@ -28,14 +28,18 @@ export const initialError: IError = {
 //// Get language from cookie or storage
 export const initialAppConfig: IAppContext = {
     globalLanguage: lastSavedLang,
-    //translations: textTranslations[lastSavedLang],
     globalTheme: lastSavedTheme,
-    selectedPage: window.location.pathname.substring(1) !== "" ? window.location.pathname.substring(1) as KnownPages : KnownPages.Home,
-    queryString:  window.location.pathname.substring(1) !== "" ? JSON.stringify( getQueryStringParams<any>( window.location.search.substring(1) ) ) : undefined,
-    adminOptions: currentUser !== undefined && getTokenData( currentUser.userSessionToken ).isAdmin
+    selectedPage: pageRoute.selectedPage,
+    queryString: pageRoute.queryString,
+    adminOptions: currentUser !== undefined && getTokenData( currentUser.userSessionToken ).isAdmin,
+    translations: {}
 }
 
 //// Get from cookie or storage
 export const initialLogin: ILogin | undefined = currentUser;
 
+//// Width for mobile dimensions
 export const mobileWidth: number = 480;
+
+//// Api host server url
+export const apiServerUrl: string = "";
