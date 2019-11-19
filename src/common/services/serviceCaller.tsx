@@ -3,8 +3,6 @@ import { AppContext, LoadingContext, ErrorContext, LoginContext } from '../confi
 import { ErrorActions, ErrorCodes } from "../context/appErrorEnums";
 import { IContext, IServiceError, ServiceCallType, ServiceType } from "./serviceCallerInterfaces";
 
-const delay = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) );
-
 export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: ServiceType<IServiceRequest, IServiceResponse>, processError?: ErrorCodes, localLoading?: boolean ): ServiceCallType<IServiceRequest, IServiceResponse> {
     const [ serviceResponse, setServiceResponse ] = useState<IServiceResponse>();
     const [ loading, setloading ] = useContext( LoadingContext );
@@ -17,24 +15,20 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
             !localLoading && setloading( true );
 
             if ( error.hasError )
-                setError( { type: ErrorActions.RemoveError } ); //might not be necessary??
-            //// remove the delay (only for testing async)
-            resolve( delay( 1000 ).then(
-                async () => {
-                    return await callService<IServiceRequest, IServiceResponse>( service, { appContext: { Get: appContext, Set: setAppContext }, userContext: login ? { Get: login, Set: setLogin } : undefined }, request )
-                        .then( ( response: IServiceResponse | IServiceError ) => {
-                            let serviceError: IServiceError = response as IServiceError;
-                            if ( serviceError !== null && serviceError !== undefined && serviceError.hasError ) {
-                                throw new Error( serviceError.caughtError );
-                            }
-                            setServiceResponse( response as IServiceResponse );
-                        } )
-                        .catch( ( err: Error ) => {
-                            setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
-                        } )
-                        .finally( () => {
-                            !localLoading && setloading( false );
-                        } );
+                setError( { type: ErrorActions.RemoveError } ); //might not be necessary??            
+            resolve( callService<IServiceRequest, IServiceResponse>( service, { appContext: { Get: appContext, Set: setAppContext }, userContext: login ? { Get: login, Set: setLogin } : undefined }, request, serviceResponse )
+                .then( ( response: IServiceResponse | IServiceError ) => {
+                    let serviceError: IServiceError = response as IServiceError;
+                    if ( serviceError !== null && serviceError !== undefined && serviceError.hasError ) {
+                        throw new Error( serviceError.caughtError );
+                    }
+                    setServiceResponse( response as IServiceResponse );
+                } )
+                .catch( ( err: Error ) => {
+                    setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
+                } )
+                .finally( () => {
+                    !localLoading && setloading( false );
                 } )
             );
         }
@@ -43,9 +37,9 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
     return [ serviceResponse, serviceHandler ];
 }
 
-const callService = async <IServiceRequest, IServiceResponse> ( service: ServiceType<IServiceRequest, IServiceResponse>, context: IContext, request?: IServiceRequest ) => {
+const callService = async <IServiceRequest, IServiceResponse> ( service: ServiceType<IServiceRequest, IServiceResponse>, context: IContext, serviceRequest?: IServiceRequest, serviceResponse?: IServiceResponse ) => {
     return new Promise<IServiceResponse | IServiceError>( ( resolve ) => {
-        resolve( service( context, request ) );
+        resolve( service( context, serviceRequest, serviceResponse ) );
     } ).then( ( response: IServiceResponse | IServiceError ) => {
         if ( response === null || response === undefined ) {
             throw new Error( "Empty data from server" );

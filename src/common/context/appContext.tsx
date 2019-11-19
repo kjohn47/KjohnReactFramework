@@ -25,9 +25,9 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
 
                     if ( currentAppContext.translations === {} || currentAppContext.translations[ action.payload.globalLanguage ] === undefined ) {
                         resolve(
-                            fetchGetHandler<ITranslation, void>(
-                                `${ apiServerUrl }/${ AvailableServices.Translation }/${ action.payload.globalLanguage }.json`,
-                                ( data ) =>
+                            fetchGetHandler<ITranslation>(
+                                `${ apiServerUrl }/${ AvailableServices.Translation }/${ action.payload.globalLanguage }.json` )
+                                .then( data =>
                                     setCurrentAppContext( {
                                         ...currentAppContext,
                                         globalLanguage: action.payload.globalLanguage as AppLanguage,
@@ -36,12 +36,13 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                                             [ action.payload.globalLanguage as AppLanguage ]: data
                                         }
                                     } )
-                            ).catch( () =>
-                                setCurrentAppContext( {
-                                    ...currentAppContext,
-                                    globalLanguage: action.payload.globalLanguage as AppLanguage
-                                } )
-                            ) );
+                                )
+                                .catch( () =>
+                                    setCurrentAppContext( {
+                                        ...currentAppContext,
+                                        globalLanguage: action.payload.globalLanguage as AppLanguage
+                                    } )
+                                ) );
                     }
                     else {
                         setCurrentAppContext( {

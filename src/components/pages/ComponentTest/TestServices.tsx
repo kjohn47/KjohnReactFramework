@@ -1,39 +1,17 @@
 import React, { useState } from 'react';
-import { ServiceType } from '../../../common/services/serviceCallerInterfaces';
-import { ContextActions, AppLanguage } from '../../../common/context/appContextEnums';
 import { useServiceCaller } from '../../../common/services/serviceCaller';
 import { ErrorCodes } from '../../../common/context/appErrorEnums';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
 import Button, { ButtonTypes } from '../../common/Button';
 import Loader from '../../common/Loader';
-import { fetchGetHandler } from '../../../common/services/fetchHandler';
+import { serverCallTest } from './TestServicesCalls';
 
-interface IResult {
+export interface IResult {
   id: number;
   text: string;
 }
 
-const TestServices: React.FC = () => {
-  const serverCallTest: ServiceType<IResult, IResult> = ( context, request ) => {
-    if ( request === undefined ) {
-      return fetchGetHandler<IResult, IResult>( 'http://httpstat.us/404' );
-    }
-
-    context.appContext.Set( {
-      type: ContextActions.ChangeLanguage,
-      payload: {
-        globalLanguage: AppLanguage.EN
-      }
-    } );
-
-    return new Promise<IResult>( resolve =>
-      resolve( {
-        id: request.id,
-        text: request.text + " - " + context.appContext.Get.globalLanguage.toString()
-      } )
-    )
-  }
-
+const TestServices: React.FC = () => { 
   const [ isLoading, setIsLoading ] = useState<boolean>( false );
   const [ serviceResponse, serviceHandler ] = useServiceCaller<IResult, IResult>( serverCallTest );
   const [ serviceResponse2, serviceHandler2 ] = useServiceCaller<IResult, IResult>( serverCallTest, ErrorCodes.GenericError, true );
@@ -41,7 +19,7 @@ const TestServices: React.FC = () => {
 
   const loadService2 = () => {
     setIsLoading( true );
-    serviceHandler2( { text: "test2", id: 0 } ).then( () => { setIsLoading( false ) } );
+    serviceHandler2( { text: "test2", id: 0 } ).then( () => { setIsLoading( false ) } ).catch();
   }
 
   return ( <div className="TestPageStuff">

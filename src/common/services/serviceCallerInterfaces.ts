@@ -3,7 +3,7 @@ import { IAppContext, IContextAction } from '../context/appContextInterfaces';
 
 export interface IContext {
     appContext: IAppContextObject;
-    userContext?: IAppUserObject;
+    userContext?: IAppUserObject;      
 }
 
 interface IAppContextObject {
@@ -23,4 +23,4 @@ export interface IServiceError {
 
 export type ServiceCallType<IServiceRequest, IServiceResponse> = [ IServiceResponse | undefined, ( request?: IServiceRequest ) => Promise<void> ];
 
-export type ServiceType<IServiceRequest, IServiceResponse> = ( context: IContext, request?: IServiceRequest ) => Promise<IServiceResponse | IServiceError>;
+export type ServiceType<IServiceRequest, IServiceResponse> = ( context: IContext, request?: IServiceRequest, response?: IServiceResponse) => Promise<IServiceResponse | IServiceError>;
