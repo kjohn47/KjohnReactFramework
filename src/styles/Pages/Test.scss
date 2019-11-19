@@ -8,4 +8,12 @@
     width: 100%;
     text-align: left;
   }
+  .TestButtonCol{
+    max-width: 16.66%;
+    min-width: 135px;
+    .TestButtons {
+      max-width: 100px;
+      margin: 5px;
+    }
+  }
 }
