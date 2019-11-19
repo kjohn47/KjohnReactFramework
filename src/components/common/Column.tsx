@@ -23,7 +23,7 @@ export enum ColumnNumber {
     C20 = "20",
 }
 
-interface IColumn {    
+interface IColumn {
     full?: ColumnNumber;
     large?: ColumnNumber;
     medium?: ColumnNumber;
@@ -35,27 +35,27 @@ interface IColumn {
 const getCssString: ( config: IColumn ) => string = ( config ) => {
     let colCss: string = "";
 
-    if( config.full )
+    if ( config.full )
         colCss += " ColumnDivFull-" + config.full;
-    if( config.large )
+    if ( config.large )
         colCss += " ColumnDivLarge-" + config.large;
-    if( config.medium )
+    if ( config.medium )
         colCss += " ColumnDivMedium-" + config.medium;
-    if( config.tablet )
+    if ( config.tablet )
         colCss += " ColumnDivTablet-" + config.tablet;
-    if( config.mobile )
+    if ( config.mobile )
         colCss += " ColumnDivMobile-" + config.mobile;
 
     return "ColumnDiv" + colCss + ( config.className !== undefined ? " " + config.className : "" );
 }
 
- const Column: React.FC< IColumn > = ( props ) => {
-     let css = getCssString( props ); 
-     return (
-         <div className = { css } >
-             { props.children }
-         </div>
-     )
- }
+const Column: React.FC<IColumn> = ( props ) => {
+    let css = getCssString( props );
+    return (
+        <div className={ css } >
+            { props.children }
+        </div>
+    )
+}
 
 export default Column;

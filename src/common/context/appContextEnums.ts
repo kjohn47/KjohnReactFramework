@@ -4,9 +4,9 @@ export enum AppLanguage {
 }
 
 export enum AppGlobalTheme {
-    Default = "PageLayoutColor",   
+    Default = "PageLayoutColor",
     Red = "PageLayoutColor_Red",
-    Green = "PageLayoutColor_Green",    
+    Green = "PageLayoutColor_Green",
     Blue = "PageLayoutColor_Blue",
     Orange = "PageLayoutColor_Orange",
     Grey = "PageLayoutColor_Grey",

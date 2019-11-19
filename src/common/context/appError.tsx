@@ -1,34 +1,28 @@
 import { useState } from "react";
-import { IError, IErrorAction } from "./appErrorInterfaces";
+import { IError, IErrorAction, ErrorContextType } from "./appErrorInterfaces";
 import { ErrorActions } from "./appErrorEnums";
 
-export function useError( initialState: IError )
-{
-    const [error, setError] = useState( initialState );
+export const useError: ( initialState: IError ) => ErrorContextType = ( initialState ) => {
+    const [ error, setError ] = useState( initialState );
 
-    function changeError( action: IErrorAction )
-    {    
-        switch( action.type ) {
+    function changeError ( action: IErrorAction ) {
+        switch ( action.type ) {
             case ErrorActions.ActivateError: {
-                setError( { ...error,
+                setError( {
+                    ...error,
                     hasError: true,
-                    errorData: action.errorData,
+                    errorDescription: action.errorDescription,
                     errorCode: action.errorCode
                 } );
                 break;
             }
             case ErrorActions.RemoveError: {
-                setError( { ...error,                    
+                setError( {
+                    ...error,
                     hasError: false,
-                    errorData: undefined,
+                    errorDescription: undefined,
                     errorCode: undefined
                 } );
-                break;
-            }
-            case ErrorActions.ChangeErrorLanguage: {
-                setError( { ...error,
-                    errorData: action.errorData
-                });            
                 break;
             }
         }

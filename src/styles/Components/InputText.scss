@@ -1,46 +1,49 @@
 /* Input text config */
-.inputText {
-    border-width: 1px;    
-    border-style: solid;
-    border-radius: 10px;
-    height: 30px;
-    min-width: 150px;
-    width: calc( 100% - 32px );
-    padding-left: 15px;
-    padding-right: 15px;
-    position: relative;
-    display: block;    
-}
-
-/* validation colors */
-.inputTextValid {
-    border-color: $TextInputValid;
-    &:focus {
-        box-shadow: 0 0 3px $TextInputValid;
+.inputTextDiv {
+    height: 65px;
+    .inputText {
+        border-width: 1px;    
+        border-style: solid;
+        border-radius: 10px;
+        height: 30px;
+        min-width: 100px;
+        width: calc( 100% - 32px );
+        padding-left: 15px;
+        padding-right: 15px;
+        position: relative;
+        display: block;    
     }
-}
 
-.inputTextInvalid {
-    border-color: $TextInputInvalid;
-    &:focus {
-        box-shadow: 0 0 3px $TextInputInvalid;
+    /* validation colors */
+    .inputTextValid {
+        border-color: $TextInputValid;
+        &:focus {
+            box-shadow: 0 0 3px $TextInputValid;
+        }
     }
-}    
-/* validation text*/
 
-.inputTextValidation {
-    font-size: small;
-    padding-left: 20px;
-    width: calc( 100% - 20px );
-    margin-top: 5px;
-    display: block;
-    position: relative;
-}
+    .inputTextInvalid {
+        border-color: $TextInputInvalid;
+        &:focus {
+            box-shadow: 0 0 3px $TextInputInvalid;
+        }
+    }    
+    /* validation text*/
 
-.inputTextValidationValid {
-    color: $TextInputValid;
-}
+    .inputTextValidation {
+        font-size: small;
+        padding-left: 20px;
+        width: calc( 100% - 20px );
+        margin-top: 5px;
+        display: block;
+        position: relative;
+    }
 
-.inputTextValidationInvalid {
-    color: $TextInputInvalid;
+    .inputTextValidationValid {
+        color: $TextInputValid;
+    }
+
+    .inputTextValidationInvalid {
+        color: $TextInputInvalid;
+    }
 }

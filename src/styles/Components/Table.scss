@@ -3,9 +3,11 @@
 */
 .TableDiv {
     padding: 10px;
-    display: block;
-    width: calc( 100% - 20px );
-
+    display: grid;
+    max-width: calc( 100% - 20px );
+    overflow-x: scroll;
+    overflow-y: hidden;
+    min-height: calc( 100% + 20px );
 
     .TableTitle {
         padding-left: 10px;
@@ -18,7 +20,7 @@
         border: 2px solid $Table_Border;
         border-radius: 20px;
         display: table;
-        width: calc( 100% - 4px );    
+        width: calc( 100% - 4px );
 
         .TableRow {
             display: table-row;    
@@ -160,5 +162,11 @@
                 }
             }
         }
+    }
+}
+
+@media ( max-width: 380px ) {
+    .TableDiv {        
+        max-width: 320px;        
     }
 }

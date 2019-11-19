@@ -4,10 +4,10 @@ const SessionHandler: React.FC = ( props ) => {
     const [ firstLoad, setFirstLoad ] = useState<boolean>( true );
 
     useEffect( () => {
-        if( firstLoad ){
+        if ( firstLoad ) {
             setFirstLoad( false );
         }
-    }, [firstLoad] );
+    }, [ firstLoad ] );
 
     return (
         <React.Fragment>
