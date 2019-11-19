@@ -125,4 +125,13 @@
           }
         }
         /* Page Side Menu */
+        /* FieldSet */
+        .FieldSetTitle {
+          color: $MainColor;
+        }
+        
+        .FieldSetContent {
+            border-color: $SecondaryColor;
+        }
+        /* FieldSet */
       }
