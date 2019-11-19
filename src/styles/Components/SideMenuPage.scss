@@ -71,17 +71,21 @@
     }
 }
 
-@media ( max-width: 380px ) {
-    .SideMenuPage {
-        .SideMenuColumn {
-            max-width: 320px;
-        }
-
+@media ( max-width: 480px ) {    
+    .SideMenuPage {            
         .SideMenuComponentColumn {
             .SideMenuComponentRow {
                 padding-left: 0;
                 padding-top: 10px;
             }
+        }
+    }
+}
+
+@media ( max-width: 380px ) {
+    .SideMenuPage {
+        .SideMenuColumn {
+            max-width: 320px;
         }
     }
 }

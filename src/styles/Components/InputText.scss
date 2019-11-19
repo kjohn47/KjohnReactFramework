@@ -5,13 +5,14 @@
         border-width: 1px;    
         border-style: solid;
         border-radius: 10px;
-        height: 30px;
+        height: 35px;
         min-width: 100px;
         width: calc( 100% - 32px );
         padding-left: 15px;
         padding-right: 15px;
         position: relative;
-        display: block;    
+        display: block;
+        box-sizing: border-box;
     }
 
     /* validation colors */
