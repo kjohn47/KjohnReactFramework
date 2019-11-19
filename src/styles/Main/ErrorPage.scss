@@ -11,16 +11,15 @@
   .ErrorPageDescription {
     padding-top: 15px;    
     border-bottom: solid 1px black;
-    min-height: 200px;
+    min-height: 150px;
     width: 100%;
   }
 
   .ErrorPageFooter {
     padding-top: 5px;
     border-bottom: solid 1px black;
-    text-align: right;
     width: 100%;
-    height: 30px;
+    min-height: 100px;
     font-size: small;
   }
 

@@ -1,7 +1,6 @@
 export enum ErrorActions {
     ActivateError = "ActivateError",
-    RemoveError = "RemoveError",
-    ChangeErrorLanguage = "ChangeErrorLanguage"
+    RemoveError = "RemoveError"
 }
 
 export enum ErrorCodes {

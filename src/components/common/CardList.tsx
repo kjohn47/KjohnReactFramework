@@ -14,13 +14,13 @@ const CardList: React.FC<ICardList> = ( props ) => {
     return (
         <React.Fragment>
             { props.children && <PageHeader>
-                    {props.children}
+                { props.children }
             </PageHeader> }
             <Row>
                 {
                     props.data.map( ( card, i ) =>
-                        <Column key = { i } className = "CardListComponent">
-                            <Card {...card } />
+                        <Column key={ i } className="CardListComponent">
+                            <Card { ...card } />
                         </Column>
                     )
                 }

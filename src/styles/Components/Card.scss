@@ -2,7 +2,7 @@
     text-align: left;
     max-width: 350px;
     min-width: 350px;
-    margin: 25px;
+    margin: 20px;
     margin-left: auto;
     margin-right: auto;
     border: solid 1px;
@@ -80,4 +80,17 @@
 .CardListComponent {
     max-width: 25%;
     min-width: 370px;
+}
+
+@media ( max-width: 680px ) {
+    .CardComponent {
+        min-width: 320px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    
+    .CardListComponent {
+        max-width: 0;
+        min-width: 320px;
+    }
 }
