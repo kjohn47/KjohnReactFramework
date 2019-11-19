@@ -6,14 +6,14 @@ import SessionHandler from './SessionHandler';
 import Menu from './Menu';
 import Footer from './Footer';
 
-const App: React.FC = () =>   
-    <AppProvider>
-      <SessionHandler>
-        <Layout MenuComponent = { Menu } FooterComponent = { Footer } >
-          <PageHandler />
-        </Layout>
-      </SessionHandler>
-    </AppProvider>
+const App: React.FC = () =>
+  <AppProvider>
+    <SessionHandler>
+      <Layout MenuComponent={ Menu } FooterComponent={ Footer } >
+        <PageHandler />
+      </Layout>
+    </SessionHandler>
+  </AppProvider>
 
 
 export default App;

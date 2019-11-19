@@ -19,23 +19,23 @@ interface IButton {
     onClick?(): void;
 }
 
-const Button: React.FC<IButton> = ( props ) => {    
+const Button: React.FC<IButton> = ( props ) => {
     let css = "noselect page_button  " + ( props.buttonType !== undefined ? ( props.buttonType ) : "page_button_color" );
     css = props.className !== undefined ? css + " " + props.className : css;
 
-    return(
-    <div tabIndex = { 0 } className = { css } onClick = { props.onClick }>
-        { props.page !== undefined && 
-            <PageSelector 
-                page = { props.page }
-                queryParams = { props.queryParams }
-                className = "page_Button_PageSelector"
-            >
-                { props.children }
-            </PageSelector>
-        }
-        { !props.page && props.children }
-    </div>
+    return (
+        <div tabIndex={ 0 } className={ css } onClick={ props.onClick }>
+            { props.page !== undefined &&
+                <PageSelector
+                    page={ props.page }
+                    queryParams={ props.queryParams }
+                    className="page_Button_PageSelector"
+                >
+                    { props.children }
+                </PageSelector>
+            }
+            { !props.page && props.children }
+        </div>
     );
 }
 

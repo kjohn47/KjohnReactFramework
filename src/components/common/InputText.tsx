@@ -88,7 +88,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
     inputCss += inputInvalid ?  " inputTextInvalid" : "";
 
     return(
-        <React.Fragment>
+        <div className = "inputTextDiv">
             <input 
                 type = { props.isPassword ? "password" : "text" }
                 name = { props.name }
@@ -101,7 +101,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
             />
             { props.validText && inputValid && <div className = "inputTextValidation inputTextValidationValid">{ props.validText }</div> }
             { props.invalidText && inputInvalid && <div className = "inputTextValidation inputTextValidationInvalid">{ props.invalidText }</div> }
-        </React.Fragment>
+        </div>
     )
 }
 
