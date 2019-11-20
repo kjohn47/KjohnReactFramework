@@ -10,8 +10,11 @@ const handleErrors = ( response: Response ) => {
 export const fetchGetHandler = <FetchDataType> ( url: string, authToken?: string ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
     let header = new Headers();
     header.append( 'Accept', 'application/json' );
-    if ( authToken )
-        header.append( 'Authorization', authToken );
+    if ( authToken ) {
+        header.append( 'Access-Control-Allow-Headers', 'Authorization' );
+        header.append( 'Authorization', `Bearer ${ authToken }` );
+    }
+
     resolve(
         fetch( url, {
             method: 'GET',
@@ -28,9 +31,12 @@ export const fetchGetHandler = <FetchDataType> ( url: string, authToken?: string
 export const fetchPostHandler = <FetchDataIn, FetchDataOut> ( url: string, request: FetchDataIn, authToken?: string ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
     let header = new Headers();
     header.append( 'Accept', 'application/json' );
+    header.append( 'Access-Control-Allow-Headers', 'Content-Type' );
     header.append( 'Content-Type', 'application/json' );
-    if ( authToken )
-        header.append( 'Authorization', authToken );
+    if ( authToken ) {
+        header.append( 'Access-Control-Allow-Headers', 'Authorization' );
+        header.append( 'Authorization', `Bearer ${ authToken }` );
+    }
 
     resolve(
         fetch( url, {
@@ -49,8 +55,10 @@ export const fetchPostHandler = <FetchDataIn, FetchDataOut> ( url: string, reque
 export const fetchPutHandler = <FetchDataIn, FetchDataOut> ( url: string, request: FetchDataIn, authToken: string ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
     let header = new Headers();
     header.append( 'Accept', 'application/json' );
+    header.append( 'Access-Control-Allow-Headers', 'Content-Type' );
     header.append( 'Content-Type', 'application/json' );
-    header.append( 'Authorization', authToken );
+    header.append( 'Access-Control-Allow-Headers', 'Authorization' );
+    header.append( 'Authorization', `Bearer ${ authToken }` );
 
     resolve(
         fetch( url, {
@@ -69,8 +77,10 @@ export const fetchPutHandler = <FetchDataIn, FetchDataOut> ( url: string, reques
 export const fetchDeleteHandler = <FetchDataIn, FetchDataOut> ( url: string, request: FetchDataIn, authToken: string ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
     let header = new Headers();
     header.append( 'Accept', 'application/json' );
+    header.append( 'Access-Control-Allow-Headers', 'Content-Type' );
     header.append( 'Content-Type', 'application/json' );
-    header.append( 'Authorization', authToken );
+    header.append( 'Access-Control-Allow-Headers', 'Authorization' );
+    header.append( 'Authorization', `Bearer ${ authToken }` );
 
     resolve(
         fetch( url, {
