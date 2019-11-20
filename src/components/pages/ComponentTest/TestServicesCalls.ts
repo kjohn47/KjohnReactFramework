@@ -2,12 +2,13 @@ import { ServiceType } from "../../../common/services/serviceCallerInterfaces";
 import { fetchGetHandler } from "../../../common/services/fetchHandler";
 import { ContextActions, AppLanguage } from "../../../common/context/appContextEnums";
 import { IResult } from "./TestServices";
+import { apiServerUrl } from "../../../common/config/configuration";
 
 const delay = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) );
 
 export const serverCallTest: ServiceType<IResult, IResult> = async ( context, request, response ) => {
     if ( request === undefined ) {
-        return fetchGetHandler<IResult>( 'http://httpstat.us/404' );
+        return fetchGetHandler<IResult>( `${ apiServerUrl }/404`, "df234423gf.dgdfgdfgdfdg4353fgdfgdf.756dfgdf" );
     }
 
     context.appContext.Set( {
