@@ -43,3 +43,6 @@ export const mobileWidth: number = 480;
 
 //// Api host server url
 export const apiServerUrl: string = "";
+
+//// Show caught error from service
+export const showDetailedErrors: boolean = true;
