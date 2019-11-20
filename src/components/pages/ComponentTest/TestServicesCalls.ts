@@ -8,7 +8,7 @@ const delay = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) 
 
 export const serverCallTest: ServiceType<IResult, IResult> = async ( context, request, response ) => {
     if ( request === undefined ) {
-        return fetchGetHandler<IResult>( `${ apiServerUrl }/404`, "df234423gf.dgdfgdfgdfdg4353fgdfgdf.756dfgdf" );
+        return fetchGetHandler<IResult>( `${ apiServerUrl }/test`, "df234423gf.dgdfgdfgdfdg4353fgdfgdf.756dfgdf" );
     }
 
     context.appContext.Set( {
