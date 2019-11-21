@@ -10,6 +10,7 @@ import TestButtons from './TestButtons';
 import TestTextInput from './TestTextInput';
 import TestServices from './TestServices';
 import useTranslation from '../../../common/context/pageText/getTranslation';
+import TestDatePicker from './TestDatePicker';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -59,6 +60,10 @@ const Test: React.FC = () => {
                 {
                   title: "Buttons",
                   component: <TestButtons />
+                },
+                {
+                  title: "Date Picker",
+                  component: <TestDatePicker />
                 }
               ]
             },

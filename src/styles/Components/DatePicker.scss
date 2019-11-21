@@ -1,0 +1,134 @@
+.DatePickerDiv {
+    min-width: 257px;
+    max-width: 257px;
+    margin: 5px;
+    .DatePickerCallendar {
+        display: grid;
+        box-sizing: border-box;
+        min-width: 247px;
+        max-width: 247px;
+        border: 1px black solid;
+        border-radius: 10px;
+        background-color: white;
+        background-clip: padding-box;
+        .DatePickerRow {
+            .DatePickerDay{
+                display: inline-grid;        
+                padding: 5px;
+                min-width: 35px;
+                max-width: 35px;
+                box-sizing: border-box;
+                text-align: center;
+                background-color: lightslategrey;
+                color: black;
+            }
+            .DatePickerWeek{
+                color: white;
+                background-color: darkslategray;
+                font-size: small;
+            }
+            .DatePickerMonth {            
+                max-width: 60%;
+                min-width: 60%;
+                .DatePickerSelector {
+                    margin-left: calc( -50% + 20px );
+                }
+            }
+            .DatePickerHeader {
+                display: inline-block;
+                color: white;
+                background-color: darkslategray;
+                .DatePickerArrow {
+                    width: 20px;
+                    display: inline-block;
+                    &:hover {
+                        color: lightskyblue;
+                    }
+                }
+                .DatePickerText {
+                    width: calc( 100% - 40px );
+                    display: inline-block;
+                    &:hover {
+                        color: lightskyblue;
+                    }
+                }
+                .DatePickerTextSelected {
+                    color: lightskyblue;                    
+                }
+                .DatePickerSelector {
+                    position: absolute;
+                    left: 50%;
+                    max-height: 180px;
+                    overflow-y: scroll;
+                    background-color: slategray;
+                    border: black solid 2px;
+                    border-radius: 10px 0 0 10px;
+                    .DatePickerSelectorField {
+                        background-color: darkslategray;
+                        box-sizing: border-box;
+                        padding: 4px 10px;
+                        &:hover {
+                            background-color: slategray;
+                        }
+                    }
+                    .DatePickerSelectorSelected {
+                        background-color: slategray;
+                    }
+                }
+            }
+            .DatePickerYear {
+                max-width: 40%;
+                min-width: 40%;
+                .DatePickerSelector {
+                    margin-left: calc( -50% + 170px );
+                }
+            }
+            .DatePickerDisabled {
+                color: darkgray;
+                background-color: lightgray;
+            }
+            .DatePickerSelected {
+                font-weight: bold;
+                background-color: darkslategray;
+                color: white;
+            }
+            &:first-child {
+                .DatePickerDay {
+                    &:last-child {
+                        border-radius: 0 10px 0 0;
+                    }
+                    &:first-child {
+                        border-radius: 10px 0 0 0;
+                    }
+                }
+            }
+            &:last-child {
+                .DatePickerDay {
+                    &:last-child {
+                        border-radius: 0 0 10px 0;
+                    }
+                    &:first-child {
+                        border-radius: 0 0 0 10px;
+                    }
+                }
+            }
+        }        
+    }
+
+    .DatePickerInputGroup {
+        .DatePickerInput {
+            width: 35px;
+            padding: 5px;
+            margin: 5px;
+            border: 0px;
+            border-bottom: 1px dotted;
+            text-align: center;
+        }
+    }
+
+    .DatePickerCallendarNotVisible {
+        position: absolute;
+        left: 5%;
+        z-index: 1000;
+    }
+}
