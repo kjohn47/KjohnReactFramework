@@ -267,7 +267,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                         outOfRange = outOfRange || ( selectedYear === maxYear && ( selectedMonth > props.endDate.getMonth() || ( selectedMonth === props.endDate.getMonth() && day > props.endDate.getDate() ) ) );
                         let disabledDay = ( ( ( i === 0 && ( day > ( numOfDays - day ) ) ) || ( i > 3 && ( day >= 1 && day <= 7 ) ) ) || outOfRange );
                         let daySelected = ( day === selectedDay && currentMonth === selectedMonth && currentYear === selectedYear );
-                        let cssClass = "DatePickerDay" + ( disabledDay ? " DatePickerDisabled" : daySelected ? " DatePickerSelected" : " pointer_cursor" );
+                        let cssClass = "DatePickerDay" + ( disabledDay ? " DatePickerDisabled" : daySelected ? " DatePickerSelected" : " DatePickerSelectable pointer_cursor" );
                         return ( <div className={ cssClass } key={ `w-${ i }-${ z }` } onClick={ disabledDay || daySelected ? undefined : () => selectNewDate( selectedYear, selectedMonth, day ) } >{ day }</div> )
                     } )
                 }

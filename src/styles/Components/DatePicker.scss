@@ -5,28 +5,27 @@
     position: relative;
     display: flex;
     .DatePickerCalendar {
-        display: grid;
+        display: block;
         box-sizing: border-box;
         min-width: 247px;
         max-width: 247px;
-        border: 1px black solid;
+        border: 1px solid;
         border-radius: 10px;
-        background-color: white;
         background-clip: padding-box;
         .DatePickerRow {
+            box-sizing: border-box;
+            display: block;
+            &:first-child {
+                border-radius: 10px 10px 0 0;
+            }
             .DatePickerDay{
-                display: inline-grid;        
+                display: inline-block;        
                 padding: 5px;
-                min-width: 35px;
-                max-width: 35px;
+                width: 35px;
                 box-sizing: border-box;
                 text-align: center;
-                background-color: lightslategrey;
-                color: black;
             }
             .DatePickerWeek{
-                color: white;
-                background-color: darkslategray;
                 font-size: small;
             }
             .DatePickerMonth {            
@@ -38,44 +37,25 @@
             }
             .DatePickerHeader {
                 display: inline-block;
-                color: white;
-                background-color: darkslategray;
                 .DatePickerArrow {
                     width: 20px;
                     display: inline-block;
-                    &:hover {
-                        color: lightskyblue;
-                    }
                 }
                 .DatePickerText {
                     width: calc( 100% - 40px );
                     display: inline-block;
-                    &:hover {
-                        color: lightskyblue;
-                    }
-                }
-                .DatePickerTextSelected {
-                    color: lightskyblue;                    
                 }
                 .DatePickerSelector {
                     position: absolute;
                     left: 50%;
                     max-height: 180px;
                     overflow-y: scroll;
-                    background-color: slategray;
-                    border: black solid 2px;
+                    border: solid 2px;
                     border-radius: 10px 0 0 10px;
                     top: 28px;
                     .DatePickerSelectorField {
-                        background-color: darkslategray;
                         box-sizing: border-box;
                         padding: 4px 10px;
-                        &:hover {
-                            background-color: slategray;
-                        }
-                    }
-                    .DatePickerSelectorSelected {
-                        background-color: slategray;
                     }
                 }
             }
@@ -86,15 +66,12 @@
                     margin-left: calc( -50% + 170px );
                 }
             }
-            .DatePickerDisabled {
-                color: darkgray;
-                background-color: lightgray;
-            }
+
+
             .DatePickerSelected {
                 font-weight: bold;
-                background-color: darkslategray;
-                color: white;
             }
+
             &:first-child {
                 .DatePickerDay {
                     &:last-child {
@@ -115,11 +92,11 @@
                     }
                 }
             }
-        }        
+        }
     }
 
     .DatePickerInputGroup {
-        border: 1px solid black;
+        border: 1px solid;
         border-radius: 10px;
         padding: 2px 2px 2px 10px;
         .DatePickerInput {
@@ -131,9 +108,9 @@
             text-align: center;            
         }
         .DatePickerInputDisabled {
+            cursor: default;
             color: transparent;
-            text-shadow: 0 0 0 gray;
-            cursor: none;
+            text-shadow: 0 0 $Disabled_Text;
             &:focus {
                 outline: none;
             }
@@ -142,9 +119,6 @@
             text-align: right;
             padding-left: 15px;
             padding-right: 15px;
-            &:hover {
-                color: gray;
-            }
         }
     }
 
