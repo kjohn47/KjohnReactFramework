@@ -2,7 +2,9 @@
     min-width: 257px;
     max-width: 257px;
     margin: 5px;
-    .DatePickerCallendar {
+    position: relative;
+    display: flex;
+    .DatePickerCalendar {
         display: grid;
         box-sizing: border-box;
         min-width: 247px;
@@ -63,6 +65,7 @@
                     background-color: slategray;
                     border: black solid 2px;
                     border-radius: 10px 0 0 10px;
+                    top: 28px;
                     .DatePickerSelectorField {
                         background-color: darkslategray;
                         box-sizing: border-box;
@@ -116,19 +119,43 @@
     }
 
     .DatePickerInputGroup {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 2px 2px 2px 10px;
         .DatePickerInput {
             width: 35px;
-            padding: 5px;
-            margin: 5px;
+            padding: 3px;
+            margin: 3px;
             border: 0px;
             border-bottom: 1px dotted;
-            text-align: center;
+            text-align: center;            
+        }
+        .DatePickerInputDisabled {
+            color: gray;
+            cursor: default;
+        }
+        .DatePickerButton {
+            text-align: right;
+            padding-left: 15px;
+            padding-right: 15px;
+            &:hover {
+                color: gray;
+            }
         }
     }
 
-    .DatePickerCallendarNotVisible {
+    .DatePickerCalendarNotVisible {
         position: absolute;
         left: 5%;
+        top: 32px;
         z-index: 1000;
+        .DatePickerRow {
+            .DatePickerHeader{
+                .DatePickerSelector {
+                    left: 47%;
+                    top: 28px;
+                }
+            }
+        }
     }
 }

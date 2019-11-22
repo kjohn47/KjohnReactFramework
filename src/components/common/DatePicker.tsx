@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
+import { AppRegex } from '../../common/config/regexEnum';
 
 interface IDatePicker {
     startDate: Date;
     endDate: Date;
     selectedDate?: Date;
-    callendarVisible?: boolean;
+    calendarVisible?: boolean;
+    disableEdit?: boolean;
     getSelectedDate: ( selectedDate: Date ) => void;
 }
 
-interface ICallendarInput {
-    day: string;
-    month: string;
-    year: string;
+enum DatePickerTextField {
+    day = "day",
+    year = "year",
+    month = "month"
+}
+
+interface ICalendarInput {
+    [ DatePickerTextField.day ]: string;
+    [ DatePickerTextField.month ]: string;
+    [ DatePickerTextField.year ]: string;
 }
 
 const DatePicker: React.FC<IDatePicker> = ( props ) => {
@@ -20,14 +28,13 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     const [ selectedDate, setSelectedDate ] = useState<Date>( props.selectedDate ? props.selectedDate : new Date() );
     const [ selectedYear, setSelectedYear ] = useState<number>( selectedDate.getFullYear() );
     const [ selectedMonth, setSelectedMonth ] = useState<number>( selectedDate.getMonth() );
-    const [ showCallendar, setShowCallendar ] = useState<boolean>( props.callendarVisible !== undefined && props.callendarVisible );
+    const [ showCalendar, setShowCalendar ] = useState<boolean>( props.calendarVisible !== undefined && props.calendarVisible );
     const [ showMonthSelector, setShowMonthSelector ] = useState<boolean>( false );
     const [ showYearSelector, setShowYearSelector ] = useState<boolean>( false );
-    const [ callendarInput, setCallendarInput ] = useState<ICallendarInput>({ day: selectedDate.getDate().toString(), month: ( selectedMonth + 1 ).toString(), year: selectedYear.toString() });
+    const [ calendarInput, setCalendarInput ] = useState<ICalendarInput>( { [ DatePickerTextField.day ]: selectedDate.getDate().toString(), [ DatePickerTextField.month ]: ( selectedMonth + 1 ).toString(), [ DatePickerTextField.year ]: selectedYear.toString() } );
 
     const monthTokens = [ "#(January)", "#(February)", "#(March)", "#(April)", "#(May)", "#(June)", "#(July)", "#(August)", "#(September)", "#(October)", "#(November)", "#(December)" ];
-    //const weekToken = [ "#(Mon)", "#(Tue)", "#(Wed)", "#(Thu)", "#(Fri)", "#(Sat)", "#(Sun)" ];
-    const weekToken = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ];
+    const weekToken = [ "#(Mon)", "#(Tue)", "#(Wed)", "#(Thu)", "#(Fri)", "#(Sat)", "#(Sun)" ];
 
     const selectNewDate: ( year: number, month: number, day: number ) => void = ( year, month, day ) => {
         let newDate = new Date( year, month, day );
@@ -36,12 +43,14 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         }
         else if ( newDate > props.endDate ) {
             newDate = props.endDate;
-        } 
-        
+        }
+
+        setShowYearSelector( false );
+        setShowMonthSelector( false );
         setSelectedDate( newDate );
         props.getSelectedDate( newDate );
-        setCallendarInput( { day: newDate.getDate().toString(), month: ( newDate.getMonth() + 1 ).toString(), year: newDate.getFullYear().toString() } );
-        !props.callendarVisible && setShowCallendar( false );
+        setCalendarInput( { [ DatePickerTextField.day ]: newDate.getDate().toString(), [ DatePickerTextField.month ]: ( newDate.getMonth() + 1 ).toString(), [ DatePickerTextField.year ]: newDate.getFullYear().toString() } );
+        !props.calendarVisible && setShowCalendar( false );
     }
 
     const createYearSelector: () => JSX.Element = () => {
@@ -140,7 +149,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         }
 
         return (
-            <div className={ "DatePickerCallendar noselect" + ( !props.callendarVisible ? " DatePickerCallendarNotVisible" : "" ) }>
+            <div className={ "DatePickerCalendar noselect" + ( !props.calendarVisible ? " DatePickerCalendarNotVisible" : "" ) }>
                 <div className="DatePickerRow">
                     <div className="DatePickerDay DatePickerHeader DatePickerMonth" >
                         <span
@@ -152,6 +161,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                         <span
                             className={ "DatePickerText pointer_cursor" + ( showMonthSelector ? " DatePickerTextSelected" : "" ) }
                             onClick={ () => { setShowMonthSelector( !showMonthSelector ) } }
+                            onBlur={ () => { setShowMonthSelector( false ) } }
                         >
                             { monthTokens[ selectedMonth ] }
                         </span>
@@ -203,19 +213,94 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         )
     }
 
+    const showHideCalendar: () => void = () => {
+        if ( showCalendar ) {
+            setShowMonthSelector( false );
+            setShowYearSelector( false );
+            setSelectedMonth( selectedDate.getMonth() );
+            setSelectedYear( selectedDate.getFullYear() );
+        }
+        setShowCalendar( !showCalendar );
+    }
+
+    const updateTextValue: ( event: React.FormEvent<HTMLInputElement>, field: DatePickerTextField ) => void = ( event, field ) => {
+        if ( !props.disableEdit ) {
+            let numberReg = new RegExp( AppRegex.NumberOnly );
+            let validInput = ( numberReg.test( event.currentTarget.value ) || event.currentTarget.value === "" );
+            if ( validInput && event.currentTarget.value !== "" ) {
+                let parsedInput: number = +event.currentTarget.value;
+                switch ( field ) {
+                    case DatePickerTextField.day: {
+                        let maxDay = new Date( selectedYear, ( selectedMonth + 1 ), 0 ).getDate();
+                        validInput = ( parsedInput > 0 && parsedInput <= maxDay );
+                        break;
+                    }
+                    case DatePickerTextField.month: {
+                        validInput = ( parsedInput > 0 && parsedInput <= 12 );
+                        break;
+                    }
+                    case DatePickerTextField.year: {
+                        validInput = ( parsedInput > 0 && parsedInput <= maxYear );
+                        break;
+                    }
+                }
+            }
+
+            if ( validInput ) {
+                setCalendarInput( {
+                    ...calendarInput,
+                    [ field ]: event.currentTarget.value
+                } );
+            }
+        }
+    }
+
+    const updateDateFromInput: () => void = () => {
+        if ( !props.disableEdit ) {
+            let newYear: number = +calendarInput[ DatePickerTextField.year ];
+            let newMonth: number = +calendarInput[ DatePickerTextField.month ];
+            let newDay: number = +calendarInput[ DatePickerTextField.day ];
+            let maxDay = new Date( newYear, ( newMonth ), 0 ).getDate();
+            newMonth = ( newMonth - 1 ) > 11 ? 11 : ( newMonth - 1 );
+            newYear = newYear < minYear ? minYear : newYear > maxYear ? maxYear : newYear;
+            newDay = newDay > maxDay ? maxDay : newDay;
+            setSelectedMonth( newMonth );
+            setSelectedYear( newYear );
+            selectNewDate( newYear, newMonth, newDay );
+        }
+    }
+
     return (
-        <div className="DatePickerDiv">            
-            { !props.callendarVisible &&
+        <div className="DatePickerDiv">
+            { !props.calendarVisible &&
                 <div
                     className="DatePickerInputGroup"
                 >
-                    <input type="text" className="DatePickerInput" value = {callendarInput.day}/>/
-                    <input type="text" className="DatePickerInput" value = {callendarInput.month}/>/
-                    <input type="text" className="DatePickerInput" value = {callendarInput.year}/>
-                    <span onClick={ () => { setShowCallendar( !showCallendar ) } } >Open</span>
+                    <input
+                        type="text"
+                        className={ "DatePickerInput" + ( props.disableEdit ? " DatePickerInputDisabled noselect" : "" ) }
+                        value={ calendarInput[ DatePickerTextField.day ] }
+                        onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.day ) } }
+                        onBlur={ () => updateDateFromInput() }
+                    />/
+                    <input
+                        type="text"
+                        className={ "DatePickerInput" + ( props.disableEdit ? " DatePickerInputDisabled noselect" : "" ) }
+                        value={ calendarInput[ DatePickerTextField.month ] }
+                        onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.month ) } }
+                        onBlur={ () => updateDateFromInput() }
+                    />/
+                    <input
+                        type="text"
+                        className={ "DatePickerInput" + ( props.disableEdit ? " DatePickerInputDisabled noselect" : "" ) }
+                        value={ calendarInput[ DatePickerTextField.year ] }
+                        onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.year ) } }
+                        onBlur={ () => updateDateFromInput() }
+                    />
+                    <span className="DatePickerButton pointer_cursor noselect" onClick={ () => { showHideCalendar() } } >[ v ]</span>
                 </div>
             }
-            { showCallendar && createCalendar() }
+            { showCalendar && createCalendar() }
         </div>
     )
 }
