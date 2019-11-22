@@ -131,8 +131,12 @@
             text-align: center;            
         }
         .DatePickerInputDisabled {
-            color: gray;
-            cursor: default;
+            color: transparent;
+            text-shadow: 0 0 0 gray;
+            cursor: none;
+            &:focus {
+                outline: none;
+            }
         }
         .DatePickerButton {
             text-align: right;
