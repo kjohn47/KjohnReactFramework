@@ -53,6 +53,69 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         !props.calendarVisible && setShowCalendar( false );
     }
 
+    const showHideCalendar: () => void = () => {
+        if ( showCalendar ) {
+            setShowMonthSelector( false );
+            setShowYearSelector( false );
+            setSelectedMonth( selectedDate.getMonth() );
+            setSelectedYear( selectedDate.getFullYear() );
+        }
+        setShowCalendar( !showCalendar );
+    }
+
+    const updateTextValue: ( event: React.FormEvent<HTMLInputElement>, field: DatePickerTextField ) => void = ( event, field ) => {
+        if ( !props.disableEdit ) {
+            let numberReg = new RegExp( AppRegex.NumberOnly );
+            let validInput = ( numberReg.test( event.currentTarget.value ) || event.currentTarget.value === "" );
+            if ( validInput && event.currentTarget.value !== "" ) {
+                let parsedInput: number = +event.currentTarget.value;
+                switch ( field ) {
+                    case DatePickerTextField.day: {
+                        let maxDay = new Date( selectedYear, ( selectedMonth + 1 ), 0 ).getDate();
+                        validInput = ( parsedInput > 0 && parsedInput <= maxDay );
+                        break;
+                    }
+                    case DatePickerTextField.month: {
+                        validInput = ( parsedInput > 0 && parsedInput <= 12 );
+                        break;
+                    }
+                    case DatePickerTextField.year: {
+                        validInput = ( parsedInput > 0 && parsedInput <= maxYear );
+                        break;
+                    }
+                }
+            }
+
+            if ( validInput ) {
+                setCalendarInput( {
+                    ...calendarInput,
+                    [ field ]: event.currentTarget.value
+                } );
+            }
+        }
+    }
+
+    const updateDateFromInput: () => void = () => {
+        if ( !props.disableEdit ) {
+            let newYear: number = +calendarInput[ DatePickerTextField.year ];
+            let newMonth: number = +calendarInput[ DatePickerTextField.month ] - 1;
+            let newDay: number = +calendarInput[ DatePickerTextField.day ];
+            let maxDay = new Date( newYear, ( newMonth ), 0 ).getDate();
+            newYear = newYear < minYear ? minYear : newYear > maxYear ? maxYear : newYear;
+            newMonth = ( newYear === minYear && newMonth < props.startDate.getMonth() ) ?
+                props.startDate.getMonth() : ( newYear === maxYear && newMonth > props.endDate.getMonth() ) ?
+                    props.endDate.getMonth() : ( newMonth ) > 11 ?
+                        11 : ( newMonth );
+            newDay = ( newYear === minYear && newMonth === props.startDate.getMonth() && newDay < props.startDate.getDate() ) ?
+                props.startDate.getDate() : ( newYear === maxYear && newMonth === props.endDate.getMonth() && newDay > props.endDate.getDate() ) ?
+                    props.endDate.getDate() : newDay > maxDay ?
+                        maxDay : newDay;
+            setSelectedMonth( newMonth );
+            setSelectedYear( newYear );
+            selectNewDate( newYear, newMonth, newDay );
+        }
+    }
+
     const createYearSelector: () => JSX.Element = () => {
         let years: number[] = [];
         for ( let i = minYear; i <= maxYear; i++ ) {
@@ -211,69 +274,6 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                 </div> ) }
             </div>
         )
-    }
-
-    const showHideCalendar: () => void = () => {
-        if ( showCalendar ) {
-            setShowMonthSelector( false );
-            setShowYearSelector( false );
-            setSelectedMonth( selectedDate.getMonth() );
-            setSelectedYear( selectedDate.getFullYear() );
-        }
-        setShowCalendar( !showCalendar );
-    }
-
-    const updateTextValue: ( event: React.FormEvent<HTMLInputElement>, field: DatePickerTextField ) => void = ( event, field ) => {
-        if ( !props.disableEdit ) {
-            let numberReg = new RegExp( AppRegex.NumberOnly );
-            let validInput = ( numberReg.test( event.currentTarget.value ) || event.currentTarget.value === "" );
-            if ( validInput && event.currentTarget.value !== "" ) {
-                let parsedInput: number = +event.currentTarget.value;
-                switch ( field ) {
-                    case DatePickerTextField.day: {
-                        let maxDay = new Date( selectedYear, ( selectedMonth + 1 ), 0 ).getDate();
-                        validInput = ( parsedInput > 0 && parsedInput <= maxDay );
-                        break;
-                    }
-                    case DatePickerTextField.month: {
-                        validInput = ( parsedInput > 0 && parsedInput <= 12 );
-                        break;
-                    }
-                    case DatePickerTextField.year: {
-                        validInput = ( parsedInput > 0 && parsedInput <= maxYear );
-                        break;
-                    }
-                }
-            }
-
-            if ( validInput ) {
-                setCalendarInput( {
-                    ...calendarInput,
-                    [ field ]: event.currentTarget.value
-                } );
-            }
-        }
-    }
-
-    const updateDateFromInput: () => void = () => {
-        if ( !props.disableEdit ) {
-            let newYear: number = +calendarInput[ DatePickerTextField.year ];
-            let newMonth: number = +calendarInput[ DatePickerTextField.month ] - 1;
-            let newDay: number = +calendarInput[ DatePickerTextField.day ];
-            let maxDay = new Date( newYear, ( newMonth ), 0 ).getDate();
-            newYear = newYear < minYear ? minYear : newYear > maxYear ? maxYear : newYear;
-            newMonth = ( newYear === minYear && newMonth < props.startDate.getMonth() ) ?
-                props.startDate.getMonth() : ( newYear === maxYear && newMonth > props.endDate.getMonth() ) ?
-                    props.endDate.getMonth() : ( newMonth ) > 11 ?
-                        11 : ( newMonth );
-            newDay = ( newYear === minYear && newMonth === props.startDate.getMonth() && newDay < props.startDate.getDate() ) ?
-                props.startDate.getDate() : ( newYear === maxYear && newMonth === props.endDate.getMonth() && newDay > props.endDate.getDate() ) ?
-                    props.endDate.getDate() : newDay > maxDay ?
-                        maxDay : newDay;
-            setSelectedMonth( newMonth );
-            setSelectedYear( newYear );
-            selectNewDate( newYear, newMonth, newDay );
-        }
     }
 
     return (
