@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AppRegex } from '../../common/config/regexEnum';
+import useTranslation from '../../common/context/pageText/getTranslation';
 
 interface IDatePicker {
     startDate: Date;
@@ -32,9 +33,30 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     const [ showMonthSelector, setShowMonthSelector ] = useState<boolean>( false );
     const [ showYearSelector, setShowYearSelector ] = useState<boolean>( false );
     const [ calendarInput, setCalendarInput ] = useState<ICalendarInput>( { [ DatePickerTextField.day ]: selectedDate.getDate().toString(), [ DatePickerTextField.month ]: ( selectedMonth + 1 ).toString(), [ DatePickerTextField.year ]: selectedYear.toString() } );
-
-    const monthTokens = [ "#(January)", "#(February)", "#(March)", "#(April)", "#(May)", "#(June)", "#(July)", "#(August)", "#(September)", "#(October)", "#(November)", "#(December)" ];
-    const weekToken = [ "#(Mon)", "#(Tue)", "#(Wed)", "#(Thu)", "#(Fri)", "#(Sat)", "#(Sun)" ];
+    const { getTranslation } = useTranslation();
+    const monthTokens = [ 
+        getTranslation( "_datePicker", "#(January)" ), 
+        getTranslation( "_datePicker", "#(February)" ), 
+        getTranslation( "_datePicker", "#(March)" ), 
+        getTranslation( "_datePicker", "#(April)" ), 
+        getTranslation( "_datePicker", "#(May)" ), 
+        getTranslation( "_datePicker", "#(June)" ), 
+        getTranslation( "_datePicker", "#(July)" ), 
+        getTranslation( "_datePicker", "#(August)" ), 
+        getTranslation( "_datePicker", "#(September)" ), 
+        getTranslation( "_datePicker", "#(October)" ), 
+        getTranslation( "_datePicker", "#(November)" ), 
+        getTranslation( "_datePicker", "#(December)" ) 
+    ];
+    const weekToken = [
+        getTranslation( "_datePicker", "#(Mon)" ), 
+        getTranslation( "_datePicker", "#(Tue)" ), 
+        getTranslation( "_datePicker", "#(Wed)" ), 
+        getTranslation( "_datePicker", "#(Thu)" ), 
+        getTranslation( "_datePicker", "#(Fri)" ), 
+        getTranslation( "_datePicker", "#(Sat)" ), 
+        getTranslation( "_datePicker", "#(Sun)" ) 
+    ];
 
     const selectNewDate: ( year: number, month: number, day: number ) => void = ( year, month, day ) => {
         let newDate = new Date( year, month, day );
