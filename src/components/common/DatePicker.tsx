@@ -39,9 +39,31 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     //// refs hooks to dropdown
     const yearSelectedRef = useRef<HTMLDivElement>(null);
     const monthSelectedRef = useRef<HTMLDivElement>(null);
+    const datePickerRef = useRef<HTMLDivElement>(null);
     //// Translate hook
     const { getTranslation } = useTranslation();
+    ////handle click out event to close calendar
+    const handleClickOut: ( event: any ) => void = ( event ) => {
+        if( !props.calendarVisible && showCalendar && ( datePickerRef !== null && datePickerRef.current !== null && !datePickerRef.current.contains( event.target ) ) ) {
+            setShowCalendar(false);
+            setShowYearSelector( false );
+            setShowMonthSelector( false );
+            setSelectedMonth( selectedDate.getMonth() );
+            setSelectedYear( selectedDate.getFullYear() );
+        }
+        if( showYearSelector && yearSelectedRef !== null && yearSelectedRef.current !== null && yearSelectedRef.current.parentElement !== null && !yearSelectedRef.current.parentElement.contains( event.target )
+            && yearSelectedRef.current.parentElement.previousElementSibling !== null && !yearSelectedRef.current.parentElement.previousElementSibling.contains( event.target ) )
+        {
+            setShowYearSelector( false );
+        }
+        if( showMonthSelector && monthSelectedRef !== null && monthSelectedRef.current !== null && monthSelectedRef.current.parentElement !== null && !monthSelectedRef.current.parentElement.contains( event.target )
+            && monthSelectedRef.current.parentElement.previousElementSibling !== null && !monthSelectedRef.current.parentElement.previousElementSibling.contains( event.target ) )
+        {
+            setShowMonthSelector( false );
+        }
+    }
 
+    //// useEffect hooks
     useEffect( () => {
         if( showYearSelector ) {
             scrollToRef( yearSelectedRef );
@@ -53,6 +75,16 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
             scrollToRef( monthSelectedRef );
         }
     }, [showMonthSelector] )
+
+    useEffect( () => {
+        // add when mounted
+        document.addEventListener("mousedown", handleClickOut);
+        // return function to be called when unmounted
+        return () => {
+            document.removeEventListener("mousedown", handleClickOut);
+        };
+        //eslint-disable-next-line
+    },[ showCalendar, showYearSelector, showMonthSelector ] )
 
     //// Translate tokens
     const monthTokens = [ 
@@ -87,9 +119,6 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         else if ( newDate > props.endDate ) {
             newDate = props.endDate;
         }
-
-        setShowYearSelector( false );
-        setShowMonthSelector( false );
         setSelectedDate( newDate );
         props.getSelectedDate( newDate );
         setCalendarInput( { [ DatePickerTextField.day ]: newDate.getDate().toString(), [ DatePickerTextField.month ]: ( newDate.getMonth() + 1 ).toString(), [ DatePickerTextField.year ]: newDate.getFullYear().toString() } );
@@ -353,7 +382,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     }
     //// Returns date picker
     return (
-        <div className="DatePickerDiv">
+        <div className="DatePickerDiv" ref = { datePickerRef }>
             { !props.calendarVisible && createInputGroup() }
             { showCalendar && createCalendar() }
         </div>
