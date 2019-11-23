@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AppRegex } from '../../common/config/regexEnum';
 import useTranslation from '../../common/context/pageText/getTranslation';
+import { scrollToRef } from '../../common/functions/misc';
 
 interface IDatePicker {
     startDate: Date;
@@ -35,8 +36,25 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     const [ showMonthSelector, setShowMonthSelector ] = useState<boolean>( false );
     const [ showYearSelector, setShowYearSelector ] = useState<boolean>( false );
     const [ calendarInput, setCalendarInput ] = useState<ICalendarInput>( { [ DatePickerTextField.day ]: selectedDate.getDate().toString(), [ DatePickerTextField.month ]: ( selectedMonth + 1 ).toString(), [ DatePickerTextField.year ]: selectedYear.toString() } );
-    //// Translate hook and tokens
+    //// refs hooks to dropdown
+    const yearSelectedRef = useRef<HTMLDivElement>(null);
+    const monthSelectedRef = useRef<HTMLDivElement>(null);
+    //// Translate hook
     const { getTranslation } = useTranslation();
+
+    useEffect( () => {
+        if( showYearSelector ) {
+            scrollToRef( yearSelectedRef );
+        }
+    }, [ showYearSelector ] )
+
+    useEffect( () => {
+        if( showMonthSelector ) {
+            scrollToRef( monthSelectedRef );
+        }
+    }, [showMonthSelector] )
+
+    //// Translate tokens
     const monthTokens = [ 
         getTranslation( "_datePicker", "#(January)" ), 
         getTranslation( "_datePicker", "#(February)" ), 
@@ -162,6 +180,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                             key={ i }
                             className={ "DatePickerSelectorField" + ( selectedYear === year ? " DatePickerSelectorSelected" : " pointer_cursor" ) }
                             onClick={ () => { updateYear( year ) } }
+                            ref = { selectedYear === year ? yearSelectedRef : undefined }
                         >
                             { year }
                         </div>
@@ -186,6 +205,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                             className={ "DatePickerSelectorField" + ( selectedMonth === i ? " DatePickerSelectorSelected" : " pointer_cursor" ) }
                             key={ i }
                             onClick={ () => { updateMonth( i ) } }
+                            ref = { selectedMonth === i ? monthSelectedRef : undefined }
                         >
                             { month }
                         </div>
