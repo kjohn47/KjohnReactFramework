@@ -26,7 +26,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                     if ( currentAppContext.translations === {} || currentAppContext.translations[ action.payload.globalLanguage ] === undefined ) {
                         resolve(
                             fetchGetHandler<ITranslation>(
-                                `${ apiServerUrl }/${ AvailableServices.Translation }/${ action.payload.globalLanguage }.json` )
+                                `${ apiServerUrl }/${ AvailableServices.Translation }/${ action.payload.globalLanguage }` )
                                 .then( data =>
                                     setCurrentAppContext( {
                                         ...currentAppContext,

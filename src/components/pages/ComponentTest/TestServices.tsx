@@ -11,11 +11,11 @@ export interface IResult {
   text: string;
 }
 
-const TestServices: React.FC = () => { 
+const TestServices: React.FC = () => {
   const [ isLoading, setIsLoading ] = useState<boolean>( false );
   const [ serviceResponse, serviceHandler ] = useServiceCaller<IResult, IResult>( serverCallTest );
   const [ serviceResponse2, serviceHandler2 ] = useServiceCaller<IResult, IResult>( serverCallTest, ErrorCodes.GenericError, true );
-  const serviceHandler3 = useServiceCaller<IResult, IResult>( serverCallTest )[ 1 ];
+  const [ serviceResponse3, serviceHandler3 ] = useServiceCaller<IResult, IResult>( serverCallTest );
 
   const loadService2 = () => {
     setIsLoading( true );
@@ -32,7 +32,7 @@ const TestServices: React.FC = () => {
     </div>
     <div>
       {
-        serviceResponse !== null && serviceResponse !== undefined && serviceResponse.id + " : " + serviceResponse.text
+        serviceResponse !== undefined && serviceResponse.id + " : " + serviceResponse.text
       }
     </div>
     <hr />
@@ -47,7 +47,7 @@ const TestServices: React.FC = () => {
     </Loader>
     <div>
       {
-        serviceResponse2 !== null && serviceResponse2 !== undefined && serviceResponse2.id + " : " + serviceResponse2.text
+        serviceResponse2 !== undefined && serviceResponse2.id + " : " + serviceResponse2.text
       }
     </div>
     <hr />
@@ -57,6 +57,11 @@ const TestServices: React.FC = () => {
           { "Call Error" }
         </Button>
       </WithTooltip>
+    </div>
+    <div>
+      {
+        serviceResponse3 !== undefined && serviceResponse3.id + " : " + serviceResponse3.text
+      }
     </div>
   </div> );
 }
