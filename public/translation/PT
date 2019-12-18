@@ -1,0 +1,36 @@
+{
+    "_generic": {
+        "#(loadingText)": "A Carregar!",
+        "#(goBackToHome)": "Voltar para Homepage",
+        "#(goBackToHomeToolTip)": "Carregue no botão para retomar para a homepage.",
+        "#(cardDetails)": "Ver detalhes"
+    },
+    "_tableText": {
+        "#(edit)": "Editar",
+        "#(remove)": "Remover"
+    },
+    "_TestPage" : {
+        "#(TestPage Title)": "Página de Teste de Componentes"
+    },
+    "_datePicker": { 
+        "#(January)": "Janeiro",
+        "#(February)": "Fevereiro",
+        "#(March)": "Março",
+        "#(April)": "Abril", 
+        "#(May)": "Maio",
+        "#(June)": "Junho",
+        "#(July)": "Julho",
+        "#(August)": "Agosto",
+        "#(September)": "Setembro",
+        "#(October)": "Outubro",
+        "#(November)": "Novembro",
+        "#(December)": "Dezembro",
+        "#(Mon)": "Seg",
+        "#(Tue)": "Ter",
+        "#(Wed)": "Qua", 
+        "#(Thu)": "Qui",
+        "#(Fri)": "Sex",
+        "#(Sat)": "Sab",
+        "#(Sun)": "Dom"
+    }
+}

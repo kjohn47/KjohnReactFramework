@@ -134,4 +134,77 @@
             border-color: $SecondaryColor;
         }
         /* FieldSet */
+
+        /* DatePicker */
+        .DatePickerDiv {
+          .DatePickerCalendar {
+              border-color: $DatePicker_Border;
+              .DatePickerRow {
+                  &:first-child {
+                      background-color: $MainColor;
+                  }
+                  .DatePickerDay{
+                      background-color: $SecondaryColor;
+                      color: $TextColor;
+                  }
+                  .DatePickerSelectable {
+                    &:hover {
+                      background-color: $DatePicker_DaySelect;
+                      color: $DatePicker_LinkColor;
+                    }
+                  }
+                  .DatePickerWeek{
+                      color: $DatePicker_Header_Text;
+                      background-color: $MainColor;
+                  }
+                  .DatePickerHeader {
+                      color: $DatePicker_Header_Text;
+                      background-color: $MainColor;
+                      .DatePickerArrow {
+                          &:hover {
+                              color: $DatePicker_LinkColor;
+                          }
+                      }
+                      .DatePickerText {
+                          &:hover {
+                              color: $DatePicker_LinkColor;
+                          }
+                      }
+                      .DatePickerTextSelected {
+                          color: $DatePicker_LinkColor;
+                      }
+                      .DatePickerSelector {
+                          background-color: $SecondaryColor;
+                          border-color: $DatePicker_Border;
+                          .DatePickerSelectorField {
+                              background-color: $MainColor;
+                              &:hover {
+                                  background-color: $SecondaryColor;
+                              }
+                          }
+                          .DatePickerSelectorSelected {
+                              background-color: $SecondaryColor;
+                          }
+                      }
+                  }
+                  .DatePickerDisabled {
+                      color: $DatePicker_Disabled_Text;
+                      background-color: $DatePicker_Disabled;
+                  }
+                  .DatePickerSelected {
+                      background-color: $MainColor;
+                      color: $DatePicker_Selected_Text;
+                  }
+              }
+          }
+          .DatePickerInputGroup {
+              border-color: $DatePicker_Border;
+              .DatePickerButton {
+                  &:hover {
+                      color: $LinkColor;
+                  }
+              }
+          }
       }
+      /*DatePicker*/
+    }
