@@ -15,12 +15,17 @@ export const AppContext = createContext<AppContextType>( [ initialAppConfig, () 
 export const LoginContext = createContext<LoginContextType>( [ undefined, () => { } ] );
 
 export const AppProvider: React.FC = ( { children } ) => {
+    const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
     const [ appLanguage, setAppLanguage ] = useState( initialLanguage );
     const [ login, setLogin ] = useLogin( initialLogin );
     return (
             <AppLanguageContext.Provider value = { [ appLanguage, setAppLanguage ] }>
                 <LoginContext.Provider value={ [ login, setLogin ] } >
-                    <InitializeAppContext appLanguage = {appLanguage}>
+                    <InitializeAppContext 
+                        appLanguage = {appLanguage}
+                        firstLoad = {firstLoad}
+                        setFirstLoad = {setFirstLoad}
+                    >
                         { children }
                     </InitializeAppContext>
                 </LoginContext.Provider>
@@ -28,24 +33,22 @@ export const AppProvider: React.FC = ( { children } ) => {
     )
 }
 
-const InitializeAppContext: React.FC<{appLanguage: AppLanguage}> = ( props ) => {
-    const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
+const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>>}> = ( props ) => {    
     const [ appContext, setAppContext ] = useAppContext( initialAppConfig );
     const [ error, setError ] = useError( initialError );
     const [ loading, setLoading ] = useState( false );
 
     useEffect( () => {
-        if ( !firstLoad ) {
+        if ( !props.firstLoad ) {
+            props.setFirstLoad( true );
             //// load loken data for first selected language
             Promise.resolve(
                 setAppContext( { type: ContextActions.ChangeLanguage, payload: { globalLanguage: props.appLanguage } } )
-            ).then( () =>
-                setFirstLoad( true )
             )
         }
-    }, [ firstLoad, appContext, setAppContext, props.appLanguage ] );
+    }, [ props, appContext, setAppContext ] );
     return (
-        firstLoad ?
+        props.firstLoad ?
                 <AppContext.Provider value={ [ appContext, setAppContext ] } >
                     <ErrorContext.Provider value={ [ error, setError ] }>
                         <LoadingContext.Provider value={ [ loading, setLoading ] }>
