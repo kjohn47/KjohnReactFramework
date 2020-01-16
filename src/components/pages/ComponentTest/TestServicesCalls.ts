@@ -19,7 +19,7 @@ export const serverCallTest: ( fetchHandler: (query: string) => Promise<IResult 
         .then( () => {
             return {
                 id: request.id,
-                text: request.text + " - "
+                text: request.text + " - " + context.appLanguage
             }
         } );
 }
