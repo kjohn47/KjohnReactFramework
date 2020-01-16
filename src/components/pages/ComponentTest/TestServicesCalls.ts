@@ -1,14 +1,12 @@
-import { ServiceType } from "../../../common/services/serviceCallerInterfaces";
-import { fetchGetHandler } from "../../../common/services/fetchHandler";
+import { ServiceType, IServiceError } from "../../../common/services/serviceCallerInterfaces";
 import { ContextActions, AppLanguage } from "../../../common/context/appContextEnums";
 import { IResult } from "./TestServices";
-import { apiServerUrl } from "../../../common/config/configuration";
 
 const delay = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) );
 
-export const serverCallTest: ServiceType<IResult, IResult> = async ( context, request, response ) => {
+export const serverCallTest: ( fetchHandler: (query: string) => Promise<IResult | IServiceError> ) => ServiceType<IResult, IResult> = ( fetchHandler ) => async ( context, request, response ) => {
     if ( request === undefined ) {
-        return fetchGetHandler<IResult>( `${ apiServerUrl }/test`, "df234423gf.dgdfgdfgdfdg4353fgdfgdf.756dfgdf" );
+        return fetchHandler( "/test" );
     }
 
     context.appContext.Set( {
@@ -21,7 +19,7 @@ export const serverCallTest: ServiceType<IResult, IResult> = async ( context, re
         .then( () => {
             return {
                 id: request.id,
-                text: request.text + " - " + context.appContext.Get.globalLanguage.toString()
+                text: request.text + " - "
             }
         } );
 }

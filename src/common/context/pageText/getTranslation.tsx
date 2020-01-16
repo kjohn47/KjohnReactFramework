@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { AppContext } from "../../config/appConfig"
+import { AppContext, AppLanguageContext } from "../../config/appConfig"
 import { ITranslations } from "../appContextInterfaces";
 import { AppLanguage } from "../appContextEnums";
 
@@ -19,8 +19,9 @@ const getToken: ( process: string, token: string, translations: ITranslations, l
 
 const useTranslation: () => { getTranslation: ( process: string, token: string, args?: string[] ) => string } = () => {
     const [ appContext ] = useContext( AppContext );
+    const [ appLanguage ] = useContext( AppLanguageContext );
     const getTranslation: ( process: string, token: string, args?: string[] ) => string = ( process, token, args?) => {
-        let textOut = getToken( process, token, appContext.translations, appContext.globalLanguage );
+        let textOut = getToken( process, token, appContext.translations, appLanguage );
         if ( args && args.length > 0 ) {
             args.forEach( ( arg, i ) => {
                 textOut = textOut.replace( `{${ i }}`, arg );
