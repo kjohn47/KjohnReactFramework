@@ -1,14 +1,14 @@
-import { AppContext } from "../../config/appConfig";
+import { AppLanguageContext } from "../../config/appConfig";
 import { useContext } from "react";
 import { IErrorData } from "./pageErrorsInterfaces";
 import { ErrorCodes } from "../appErrorEnums";
 import pageErrors from "./pageErrorsTranslation";
 
 const useErrorTranslation: () => { getErrorData: ( errorCode?: ErrorCodes ) => IErrorData } = () => {
-    const currentLanguage = useContext( AppContext )[ 0 ].globalLanguage;
+    const [ appLanguage ] = useContext( AppLanguageContext );
     const getErrorData: ( errorCode?: ErrorCodes ) => IErrorData = ( errorCode ) => {
 
-        return pageErrors[ errorCode || ErrorCodes.GenericError ][ currentLanguage ];
+        return pageErrors[ errorCode || ErrorCodes.GenericError ][ appLanguage ];
     }
     return { getErrorData };
 };

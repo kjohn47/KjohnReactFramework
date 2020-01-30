@@ -1,9 +1,11 @@
 import { ILoginAction, ILogin } from '../context/loginContextInterfaces';
 import { IAppContext, IContextAction } from '../context/appContextInterfaces';
+import { AppLanguage } from '../context/appContextEnums';
 
 export interface IContext {
     appContext: IAppContextObject;
-    userContext?: IAppUserObject;      
+    appLanguage: AppLanguage;
+    userContext?: IAppUserObject;
 }
 
 interface IAppContextObject {
