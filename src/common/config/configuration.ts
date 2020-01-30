@@ -27,13 +27,14 @@ export const initialError: IError = {
 
 //// Get language from cookie or storage
 export const initialAppConfig: IAppContext = {
-    globalLanguage: lastSavedLang,
     globalTheme: lastSavedTheme,
     selectedPage: pageRoute.selectedPage,
     queryString: pageRoute.queryString,
     adminOptions: currentUser !== undefined && getTokenData( currentUser.userSessionToken ).isAdmin,
     translations: {}
 }
+
+export const initialLanguage: AppLanguage = lastSavedLang;
 
 //// Get from cookie or storage
 export const initialLogin: ILogin | undefined = currentUser;
@@ -42,6 +43,7 @@ export const initialLogin: ILogin | undefined = currentUser;
 export const mobileWidth: number = 480;
 
 //// Api host server url
+//export const apiServerUrl: string = "https://localhost:44378";
 export const apiServerUrl: string = "";
 
 //// Show caught error from service

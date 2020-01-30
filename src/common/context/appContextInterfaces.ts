@@ -19,7 +19,6 @@ export interface ITranslations {
 }
 
 export interface IAppContext {
-    globalLanguage: AppLanguage;
     selectedPage: KnownPages;
     queryString?: string;
     adminOptions: boolean;
@@ -28,5 +27,5 @@ export interface IAppContext {
 }
 
 export type LoadingType = [ boolean, React.Dispatch<React.SetStateAction<boolean>> ];
-
+export type AppLanguageType = [ AppLanguage, React.Dispatch<React.SetStateAction<AppLanguage>> ];
 export type AppContextType = [ IAppContext, ( ( action: IContextAction ) => void ) ];

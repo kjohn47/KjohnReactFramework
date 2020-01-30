@@ -5,6 +5,7 @@ import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../common/WithToo
 import Button, { ButtonTypes } from '../../common/Button';
 import Loader from '../../common/Loader';
 import { serverCallTest } from './TestServicesCalls';
+import { useFetchGetHandler } from '../../../common/services/fetchHandler';
 
 export interface IResult {
   id: number;
@@ -12,10 +13,11 @@ export interface IResult {
 }
 
 const TestServices: React.FC = () => {
+  const fetchHandler = useFetchGetHandler<IResult>("localhost");
   const [ isLoading, setIsLoading ] = useState<boolean>( false );
-  const [ serviceResponse, serviceHandler ] = useServiceCaller<IResult, IResult>( serverCallTest );
-  const [ serviceResponse2, serviceHandler2 ] = useServiceCaller<IResult, IResult>( serverCallTest, ErrorCodes.GenericError, true );
-  const [ serviceResponse3, serviceHandler3 ] = useServiceCaller<IResult, IResult>( serverCallTest );
+  const [ serviceResponse, serviceHandler ] = useServiceCaller<IResult, IResult>( serverCallTest( fetchHandler ) );
+  const [ serviceResponse2, serviceHandler2 ] = useServiceCaller<IResult, IResult>( serverCallTest( fetchHandler ), ErrorCodes.GenericError, true );
+  const [ serviceResponse3, serviceHandler3 ] = useServiceCaller<IResult, IResult>( serverCallTest( fetchHandler ) );  
 
   const loadService2 = () => {
     setIsLoading( true );
