@@ -5,11 +5,11 @@ import Layout from './Layout';
 import SessionHandler from './SessionHandler';
 import { injectProps } from '../../common/functions/misc';
 import Footer from './Footer';
-import Menu from './Menu';
+import Menu, { IMenuProps } from './Menu';
 
 export interface IKRFProps {
   Routes: IPageHandleProps;
-  MenuProps: any;
+  MenuProps: IMenuProps;
   FooterProps: any;
 }
 

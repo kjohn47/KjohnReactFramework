@@ -24,6 +24,23 @@ const pageRoutes: IPageHandleProps = {
 
 export const pageComponents: IKRFProps = {
     Routes: pageRoutes,
-    MenuProps: {},
+    MenuProps: {
+        Brand: "KRF",
+        MenuNav: [
+            {
+                Title: "Test1",
+                /*SubMenus: [
+                    {
+                        Title: "SubTest1",
+                        Link: KnownPages.Home
+                    }
+                ]*/
+            },
+            {
+                Title: "Test2",
+                Link: KnownPages.Test
+            }
+        ]
+    },
     FooterProps: {}
 }
