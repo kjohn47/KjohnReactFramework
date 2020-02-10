@@ -11,8 +11,10 @@ interface IAuthTokenPayload {
     isAdmin: boolean;
 }
 
+const appPrefix = process.env.REACT_APP_SESSION_PREFIX ? process.env.REACT_APP_SESSION_PREFIX : 'KRF_';
+
 export const getLastSelectedLanguage: () => AppLanguage = () => {
-    let storedLanguage: string | null = localStorage.getItem( AppStorageKeys.APPLANGUAGE );
+    let storedLanguage: string | null = localStorage.getItem( appPrefix + AppStorageKeys.APPLANGUAGE );
 
     if ( storedLanguage !== null ) {
         return storedLanguage === AppLanguage.PT ? AppLanguage.PT : AppLanguage.EN;
@@ -23,11 +25,11 @@ export const getLastSelectedLanguage: () => AppLanguage = () => {
 }
 
 export const setLastSelectedLanguage: ( language: AppLanguage ) => void = ( language ) => {
-    localStorage.setItem( AppStorageKeys.APPLANGUAGE, language );
+    localStorage.setItem( appPrefix + AppStorageKeys.APPLANGUAGE, language );
 }
 
 export const getAppTheme: () => AppGlobalTheme = () => {
-    let storedTheme: string | null = localStorage.getItem( AppStorageKeys.APPTHEME );
+    let storedTheme: string | null = localStorage.getItem( appPrefix + AppStorageKeys.APPTHEME );
 
     if ( storedTheme !== null ) {
         return storedTheme as AppGlobalTheme;
@@ -38,23 +40,23 @@ export const getAppTheme: () => AppGlobalTheme = () => {
 }
 
 export const setAppTheme: ( language: AppGlobalTheme ) => void = ( theme ) => {
-    localStorage.setItem( AppStorageKeys.APPTHEME, theme );
+    localStorage.setItem( appPrefix + AppStorageKeys.APPTHEME, theme );
 }
 
 export const setUserSession: ( userData: ILogin, permanent?: boolean ) => void = ( userData, permanent ) => {
     if ( permanent ) {
-        localStorage.setItem( AppStorageKeys.USERDATA, JSON.stringify( userData ) );
+        localStorage.setItem( appPrefix + AppStorageKeys.USERDATA, JSON.stringify( userData ) );
     }
     else {
-        sessionStorage.setItem( AppStorageKeys.USERDATA, JSON.stringify( userData ) );
+        sessionStorage.setItem( appPrefix + AppStorageKeys.USERDATA, JSON.stringify( userData ) );
     }
 }
 
 export const updateUserSession: ( userDate: ILogin ) => void = ( userData ) => {
-    let storedUser: string | null = localStorage.getItem( AppStorageKeys.USERDATA );
+    let storedUser: string | null = localStorage.getItem( appPrefix + AppStorageKeys.USERDATA );
 
     if ( storedUser === null ) {
-        storedUser = sessionStorage.getItem( AppStorageKeys.USERDATA );
+        storedUser = sessionStorage.getItem( appPrefix + AppStorageKeys.USERDATA );
         if ( storedUser !== null )
             setUserSession( userData );
     }
@@ -76,10 +78,10 @@ const validateStoredUser: ( storedUser: ILogin ) => boolean = ( storedUser ) => 
 }
 
 export const getUserSession: () => ILogin | undefined = () => {
-    let storedUser: string | null = localStorage.getItem( AppStorageKeys.USERDATA );
+    let storedUser: string | null = localStorage.getItem( appPrefix + AppStorageKeys.USERDATA );
 
     if ( storedUser === null ) {
-        storedUser = sessionStorage.getItem( AppStorageKeys.USERDATA );
+        storedUser = sessionStorage.getItem( appPrefix + AppStorageKeys.USERDATA );
     }
 
     if ( storedUser !== null ) {
@@ -92,8 +94,8 @@ export const getUserSession: () => ILogin | undefined = () => {
 }
 
 export const clearUserSession: () => void = () => {
-    localStorage.removeItem( AppStorageKeys.USERDATA );
-    sessionStorage.removeItem( AppStorageKeys.USERDATA );
+    localStorage.removeItem( appPrefix + AppStorageKeys.USERDATA );
+    sessionStorage.removeItem( appPrefix + AppStorageKeys.USERDATA );
 }
 
 export const getTokenData: ( token: string ) => IAuthTokenPayload = ( token ) => {

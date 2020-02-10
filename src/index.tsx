@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './styles/index.scss';
 import App from './components/main/App';
 import * as serviceWorker from './serviceWorker';
+import { pageRoutes } from './common/functions/pageRoutes';
 
-ReactDOM.render( <App />, document.getElementById( 'root' ) );
+ReactDOM.render( <App {...pageRoutes}/>, document.getElementById( 'root' ) );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

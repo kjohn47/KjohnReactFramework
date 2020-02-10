@@ -3,9 +3,25 @@ import { AppContext, ErrorContext, LoadingContext } from "../../common/config/ap
 import { KnownPages } from "../../common/context/appContextEnums";
 import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
 import Loader from "../common/Loader";
-import { getKnownPage } from "../../common/functions/getKnownPage";
+import ErrorPage from "./ErrorPage";
 
-const PageHandler: React.FC = () => {
+export interface IRoure<TRouteProps> {
+    Route: string;
+    Component: React.ComponentType;
+    Props?: TRouteProps;
+}
+
+export interface IPageHandleProps {
+    Routes: {
+        Home: {
+            Component: React.ComponentType;
+            Props?: any;
+        };
+        KnownRoutes?: IRoure<any>[];
+    };
+}
+
+const PageHandler: React.FC<IPageHandleProps> = ({Routes}) => {
     const [ appContext ] = useContext( AppContext );
     const [ errorContext, setErrorContext ] = useContext( ErrorContext );
     const isLoading = useContext( LoadingContext )[ 0 ];
@@ -13,7 +29,26 @@ const PageHandler: React.FC = () => {
 
     let Output: React.ComponentType | undefined;
 
-    Output = getKnownPage( selectedPage );
+    if( selectedPage.toLowerCase() === KnownPages.Home.toLowerCase() )
+    {
+        Output = Routes.Home.Component;
+        Output.defaultProps = Routes.Home.Props;
+    }
+    else if( selectedPage.toLowerCase() === KnownPages.Error.toLowerCase())
+    {
+        Output = ErrorPage;
+    }
+    else
+    {
+        let route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[0];        
+        if( route )
+        {
+            Output = route.Component;
+            Output.defaultProps = route.Props;
+        }
+    }
+    
+    //getKnownPage( selectedPage );
 
     if ( Output === undefined ) {
         setErrorContext( {
