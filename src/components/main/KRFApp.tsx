@@ -3,19 +3,23 @@ import { AppProvider } from '../../common/config/appConfig';
 import PageHandler, { IPageHandleProps } from './PageHandler';
 import Layout from './Layout';
 import SessionHandler from './SessionHandler';
-import Menu from './Menu';
-import Footer from './Footer';
 
-const App: React.FC<IPageHandleProps> = (props) =>
+export interface IKRFProps {
+  Routes: IPageHandleProps;
+  Menu: React.ComponentType;
+  Footer: React.ComponentType;
+}
+
+const KRFApp: React.FC<IKRFProps> = (props) =>
   <AppProvider>
     <SessionHandler>
-      <Layout MenuComponent={ Menu } FooterComponent={ Footer } >
+      <Layout MenuComponent={ props.Menu } FooterComponent={ props.Footer } >
         <PageHandler
-          {...props}
+          {...props.Routes}
         />
       </Layout>
     </SessionHandler>
   </AppProvider>
 
 
-export default App;
+export default KRFApp;

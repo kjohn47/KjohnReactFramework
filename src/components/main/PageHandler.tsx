@@ -5,7 +5,7 @@ import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
 import Loader from "../common/Loader";
 import ErrorPage from "./ErrorPage";
 
-export interface IRoure<TRouteProps> {
+interface IRoure<TRouteProps> {
     Route: string;
     Component: React.ComponentType;
     Props?: TRouteProps;
