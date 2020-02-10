@@ -5,7 +5,6 @@ import { setLastSelectedLanguage, setAppTheme } from "../functions/sessionStorag
 import { LoginContext, AppLanguageContext } from "../config/appConfig";
 import { LoginActions } from "./loginContextEnums";
 import { ITranslation } from "./pageText/pageTranslationInterfaces";
-import { apiServerUrl } from "../config/configuration";
 import { AvailableServices } from "../services/servicesEnums";
 import { useFetchGetHandler } from "../services/fetchHandler";
 import { IServiceError } from "../services/serviceCallerInterfaces";
@@ -14,7 +13,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
     const [ currentUser, setCurrentUser ] = useContext( LoginContext );
     const setAppLanguage = useContext( AppLanguageContext )[1];
-    const getTranslation = useFetchGetHandler<ITranslation>(`${ apiServerUrl }/${ AvailableServices.Translation }`);
+    const getTranslation = useFetchGetHandler<ITranslation>(`${ AvailableServices.Translation }`);
 
     const changeAppConfig = ( action: IContextAction ) => new Promise<void | IServiceError>( ( resolve ) => {
         switch ( action.type ) {
@@ -27,7 +26,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
 
                     if ( currentAppContext.translations === {} || currentAppContext.translations[ action.payload.globalLanguage ] === undefined ) {
                         resolve(
-                            getTranslation( `/${ action.payload.globalLanguage }` )                                
+                            getTranslation( `/${ action.payload.globalLanguage }` )
                                 .then( data => 
                                     setCurrentAppContext( {
                                         ...currentAppContext,

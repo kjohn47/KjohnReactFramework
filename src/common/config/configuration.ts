@@ -44,7 +44,7 @@ export const mobileWidth: number = 480;
 
 //// Api host server url
 //export const apiServerUrl: string = "https://localhost:44378";
-export const apiServerUrl: string = "";
+export const apiServerUrl: string = "/";
 
 //// Show caught error from service
 export const showDetailedErrors: boolean = true;
