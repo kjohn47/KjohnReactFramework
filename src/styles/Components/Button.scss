@@ -1,4 +1,4 @@
-/* Button Component Style */
+// Button Component Style
 .page_button {
   min-width: 100px;
   text-align: center;
@@ -26,7 +26,7 @@
   }
 }
 
-/* Selected from options */
+// Selected from options
 .page_button_danger {
   border-color: $Button_Danger_Secondary;
   background-color: $Button_Danger_Main;

@@ -1,6 +1,6 @@
-   /* ---- General colors ---- */
+   // ---- General colors ----
   
-    /* Page Selector */
+    // Page Selector
     .PageSelector_Highlight {
         color: $LinkColor;
         text-decoration: none;
@@ -8,18 +8,18 @@
           text-decoration: underline;
         }
       }
-      /* Page Selector */
+      // Page Selector
     
-      /* Load Spinner */
+      // Load Spinner
       .LoadSpinnerColor {
         border-top-color: $MainColor;
         border-bottom-color: $MainColor;
         border-left-color: $SecondaryColor;
         border-right-color: $SecondaryColor;
       }
-      /* Load Spinner */
+      // Load Spinner
     
-      /* Button Component */
+      // Button Component
       .page_button_color {
         border-color: $MainColor;
         background: $Button;
@@ -32,9 +32,9 @@
           box-shadow: 0 0 4px $Button;
         }
       }
-      /* Button Component */
+      // Button Component
     
-      /* Input Text */
+      // Input Text
       .inputTextDiv {
         .inputText_Color {
           border-color: $Input_Border;
@@ -43,20 +43,20 @@
           }
         }
       }
-      /* Input Text */
-    
-      /* ---- Menu and Footer Colors ---- */
+      // Input Text
+  
+      // ---- Menu and Footer Colors ----
       .PageMenuColor {
         background-color: $MainColor;
         color: $MenuTextColor;
       }
     
-      /* ---- Content Colors ---- */
+      // ---- Content Colors ----
       .PageContentColor {
-        /* -- All Content -- */
+        // -- All Content --
         color: $TextColor;
         
-        /* Table Component */
+        // Table Component
         .TableDiv {
           .TableContent {
             .TableHeaderCellColor {
@@ -65,9 +65,9 @@
             }
           }
         }
-        /* Table Component */
+        // Table Component
 
-        /* Card Component */
+        // Card Component
         .CardComponent {
           border-color: $CardBorderColor;
           background-color: $CardBackground;
@@ -78,15 +78,15 @@
             }
           }
         }
-        /* Card Component */
+        // Card Component
 
-        /* Page Header */
+        // Page Header
         .PageHeaderDiv {
           border-bottom-color: $MainColor;
           color: $MainColor;
         }
-        /* Page Header */
-        /* Page Side Menu */
+        // Page Header
+        // Page Side Menu
         .SideMenuPage {
           .SideMenuColumn {    
               .SideMenuColumnContent {
@@ -124,8 +124,8 @@
               }
           }
         }
-        /* Page Side Menu */
-        /* FieldSet */
+        // Page Side Menu
+        // FieldSet
         .FieldSetTitle {
           color: $MainColor;
         }
@@ -133,9 +133,9 @@
         .FieldSetContent {
             border-color: $SecondaryColor;
         }
-        /* FieldSet */
+        // FieldSet
 
-        /* DatePicker */
+        // DatePicker
         .DatePickerDiv {
           .DatePickerCalendar {
               border-color: $DatePicker_Border;
@@ -206,5 +206,5 @@
               }
           }
       }
-      /*DatePicker*/
+      //DatePicker
     }
