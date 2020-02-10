@@ -5,6 +5,7 @@ import { IPageHandleProps } from "../../components/main/PageHandler";
 import { IKRFProps } from "../../components/main/KRFApp";
 import Menu from "../../components/main/Menu";
 import Footer from "../../components/main/Footer";
+import { injectProps } from "../functions/misc";
 
 //To be moved
 
@@ -26,6 +27,6 @@ const pageRoutes: IPageHandleProps = {
 
 export const pageComponents: IKRFProps = {
     Routes: pageRoutes,
-    Menu: Menu,
-    Footer: Footer
+    Menu: injectProps(Menu, {}),
+    Footer: injectProps(Footer, {})
 }

@@ -4,6 +4,7 @@ import { KnownPages } from "../../common/context/appContextEnums";
 import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
 import Loader from "../common/Loader";
 import ErrorPage from "./ErrorPage";
+import { injectProps } from "../../common/functions/misc";
 
 interface IRoure<TRouteProps> {
     Route: string;
@@ -31,8 +32,7 @@ const PageHandler: React.FC<IPageHandleProps> = ({Routes}) => {
 
     if( selectedPage.toLowerCase() === KnownPages.Home.toLowerCase() )
     {
-        Output = Routes.Home.Component;
-        Output.defaultProps = Routes.Home.Props;
+        Output = injectProps( Routes.Home.Component, Routes.Home.Props );        
     }
     else if( selectedPage.toLowerCase() === KnownPages.Error.toLowerCase())
     {
@@ -43,8 +43,7 @@ const PageHandler: React.FC<IPageHandleProps> = ({Routes}) => {
         let route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[0];        
         if( route )
         {
-            Output = route.Component;
-            Output.defaultProps = route.Props;
+            Output = injectProps( route.Component, route.Props );
         }
     }
     

@@ -3,7 +3,7 @@ import { AppContext, AppLanguageContext } from '../../common/config/appConfig';
 import { ContextActions, AppLanguage } from '../../common/context/appContextEnums';
 import Button from '../common/Button';
 
-const Menu: React.FC = () => {
+const Menu: React.FC = ( props ) => {
   const setAppContext = useContext( AppContext )[1];
   const [ appLanguage ] = useContext( AppLanguageContext );
 
