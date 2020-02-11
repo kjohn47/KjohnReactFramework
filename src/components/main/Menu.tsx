@@ -77,7 +77,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       </Column>
       <Column full={ ColumnNumber.C1 } reference={ langMenuRef }>
         <div className="menuLanguageCol pointer_cursor" onClick={ () => setToogleLang( !toogleLang ) }>
-          <span className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
+          <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
         </div>
         { toogleLang && <SubMenu
           unToogle={ () => setToogleLang( false ) }
@@ -122,7 +122,7 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
     return <span className='menuSpan pointer_cursor'>{ menu.Title }</span>
   }
 
-  return <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef }>
+  return <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef } tabIndex={ 0 }>
     { makeMenu( props.Menu ) }
   </Column>
 }

@@ -6,6 +6,9 @@
       .menuItemColSel {
           border-color: $Menu_Border;
           background-color: $Menu_Background;
+          &:focus {
+            box-shadow: 0 0 4px $Menu_SubBorder;
+          }
       }
       .menuItemCol {
         &:hover {
@@ -35,7 +38,7 @@
         &:after {
             border-bottom-color: $Menu_SubBorder;
         }
-        .subMenuCol {  
+        .subMenuCol {
             &:hover {
               background-color: $Menu_SubHover;
               color: $Menu_SubTextHover;

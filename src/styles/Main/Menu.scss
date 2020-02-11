@@ -6,17 +6,18 @@
 
   .menuItemColSel {
       border: 1px solid;
-      border-radius: 5px 5px 0 0;
+      border-radius: 4px 4px 10px 10px;
   }
   
   .menuItemCol {
     max-width: 100px;  
     box-sizing: border-box;
     text-align: center;
+    outline: 0;
     &:hover {
         border: 1px solid ;
-        border-radius: 5px 5px 0 0;
-    }
+        border-radius: 4px 4px 10px 10px;
+    }    
 
     .menuSpan {
         padding-top: 10px;
@@ -49,9 +50,10 @@
         padding-top: 10px;
         display: inline-block;        
         height: 100%;
+        outline: 0;
         &:hover {
             border: 1px solid ;
-            border-radius: 5px 5px 0 0;
+            border-radius: 4px 4px 10px 10px;
         }
     }
   }
