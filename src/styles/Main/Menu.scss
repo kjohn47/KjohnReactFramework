@@ -1,0 +1,118 @@
+.menuRow {
+    height: 40px;  
+  .menuItemRow {
+    height: 100%;
+  }
+
+  .menuItemColSel {
+      border: 1px solid;
+      border-radius: 5px 5px 0 0;
+  }
+  
+  .menuItemCol {
+    max-width: 100px;  
+    box-sizing: border-box;
+    text-align: center;
+    &:hover {
+        border: 1px solid ;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .menuSpan {
+        padding-top: 10px;
+        height: 100%;
+      }
+  }  
+  
+  .menuBrand {
+    font-weight: bold;
+    font-size: larger;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 8px;
+    &:hover {
+        border: 0;
+        border-radius: 0;
+    }
+  }
+  
+  .menuLanguageCol {     
+    text-align: right;    
+    height: 100%;
+    display: inline-block;
+    font-weight: bold;
+    & span {
+        text-align: center;
+        padding-right: 15px;
+        padding-left: 15px;
+        box-sizing: border-box;
+        padding-top: 10px;
+        display: inline-block;        
+        height: 100%;
+        &:hover {
+            border: 1px solid ;
+            border-radius: 5px 5px 0 0;
+        }
+    }
+  }
+
+  .subMenuDrop {
+    min-width: 150px;
+    border-radius: 6px;
+    position: absolute;
+    top: 42px;
+    left: 25%;
+    margin-left: -75%;
+    z-index: 1;
+    border-width: 2px;
+    border-style: solid;  
+    &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        top: -20px;
+        left: calc( 100% - 25px ); 
+    }
+    .subMenuCol {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        box-sizing: border-box;
+    }
+  
+    .subMenuLine {
+      box-sizing: border-box;
+      border-bottom: solid 1px;
+      margin-top: 1px;
+      margin-bottom: 2px;
+      height: 1px;
+    }
+  
+    .disabledMenuItem {    
+      cursor: default; 
+    }
+    
+    & .RowDiv:first-child .subMenuCol {
+        border-radius: 5px 5px 0 0;
+    }  
+
+    & .RowDiv:last-child .subMenuCol {
+        border-radius: 0 0 5px 5px;
+    }
+  }
+
+  .subMenuDropLang {
+    left: 70%;
+    margin-left: -35%;
+    min-width: 45px;
+    &:after {
+        left: calc( 75% - 10px ); 
+    }
+  }
+}

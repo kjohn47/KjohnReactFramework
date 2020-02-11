@@ -30,6 +30,7 @@ interface IColumn {
     tablet?: ColumnNumber;
     mobile?: ColumnNumber;
     className?: string;
+    reference?: any;
 }
 
 const getCssString: ( config: IColumn ) => string = ( config ) => {
@@ -52,7 +53,7 @@ const getCssString: ( config: IColumn ) => string = ( config ) => {
 const Column: React.FC<IColumn> = ( props ) => {
     let css = getCssString( props );
     return (
-        <div className={ css } >
+        <div className={ css } ref = {props.reference}>
             { props.children }
         </div>
     )

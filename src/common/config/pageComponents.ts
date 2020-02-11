@@ -29,16 +29,35 @@ export const pageComponents: IKRFProps = {
         MenuNav: [
             {
                 Title: "Test1",
-                /*SubMenus: [
+                SubMenus: [
                     {
                         Title: "SubTest1",
                         Link: KnownPages.Home
+                    },
+                    {
+                        
+                    },
+                    {
+                        Title: "SubTest2",
+                        Link: KnownPages.Test
                     }
-                ]*/
+                ]
             },
             {
                 Title: "Test2",
-                Link: KnownPages.Test
+                SubMenus: [
+                    {
+                        Title: "SubTest1",
+                        Link: KnownPages.Home
+                    },
+                    {
+                        
+                    },
+                    {
+                        Title: "SubTest2",
+                        Link: KnownPages.Test
+                    }
+                ]
             }
         ]
     },

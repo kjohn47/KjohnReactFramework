@@ -1,5 +1,62 @@
    // ---- General colors ----
   
+    // Page Menu
+
+    .menuRow {
+      .menuItemColSel {
+          border-color: $Menu_Border;
+          background-color: $Menu_Background;
+      }
+      .menuItemCol {
+        &:hover {
+            border-color: $Menu_Border;
+            background-color: $Menu_Background;
+        }
+      }
+
+      .menuLanguageCol {
+        & span {
+            &:hover {
+                border-color: $Menu_Border;
+                background-color: $Menu_Background;
+            }
+        }
+      }
+      .menuBrand {
+        &:hover {
+            background-color: transparent;
+        }
+      }
+
+      .subMenuDrop {
+        background-color: $Menu_SubBackground;
+        color: $Menu_SubText;
+        border-color: $Menu_SubBorder;
+        &:after {
+            border-bottom-color: $Menu_SubBorder;
+        }
+        .subMenuCol {  
+            &:hover {
+              background-color: $Menu_SubHover;
+              color: $Menu_SubTextHover;
+            }
+        }
+
+        .subMenuLine {
+          border-color: $Menu_SubSeparator;
+        }
+
+        .disabledMenuItem {    
+          background-color: $Menu_SubDisabled;
+          &:hover {
+              background-color: $Menu_SubDisabled;
+              color: $Menu_SubText;
+          }
+        }
+      }
+    }
+    // Page Menu
+
     // Page Selector
     .PageSelector_Highlight {
         color: $LinkColor;

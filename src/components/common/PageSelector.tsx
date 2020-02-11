@@ -8,6 +8,7 @@ interface IPageSelector {
     queryParams?: object;
     className?: string;
     highlight?: boolean;
+    action?: () => void;
 }
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
@@ -36,6 +37,11 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
                 queryString: JSON.stringify( queryParams )
             }
         } );
+
+        if(props.action)
+        {
+            props.action();
+        }
     }
 
     return (

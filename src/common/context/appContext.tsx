@@ -18,33 +18,34 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
     const changeAppConfig = ( action: IContextAction ) => new Promise<void | IServiceError>( ( resolve ) => {
         switch ( action.type ) {
             case ContextActions.ChangeLanguage: {
-                if ( action.payload.globalLanguage !== undefined ) {                   
+                if ( action.payload.globalLanguage !== undefined ) {   
+                    let globalLanguage: string = action.payload.globalLanguage.toString();
                     if ( currentUser )
                         setCurrentUser( { type: LoginActions.UpdateUserLanguage, userLanguage: action.payload.globalLanguage } );
                     else
                         setLastSelectedLanguage( action.payload.globalLanguage );
 
-                    if ( currentAppContext.translations === {} || currentAppContext.translations[ action.payload.globalLanguage ] === undefined ) {
+                    if ( currentAppContext.translations === {} || currentAppContext.translations[ globalLanguage ] === undefined ) {
                         resolve(
-                            getTranslation( `/${ action.payload.globalLanguage }` )
+                            getTranslation( `/${ globalLanguage }` )
                                 .then( data => 
                                     setCurrentAppContext( {
                                         ...currentAppContext,
                                         translations: {
                                             ...currentAppContext.translations,
-                                            [ action.payload.globalLanguage as AppLanguage ]: data
+                                            [globalLanguage]: data as ITranslation
                                         }
-                                    } )                                
+                                    } )
                                 )
                                 .then(() => 
-                                    setAppLanguage(action.payload.globalLanguage as AppLanguage)
+                                    setAppLanguage(globalLanguage as AppLanguage)
                                 )
                                 .catch( () =>
-                                    setAppLanguage(action.payload.globalLanguage as AppLanguage)
+                                    setAppLanguage(globalLanguage as AppLanguage)
                                 ) );
                     }
                     else {
-                       setAppLanguage(action.payload.globalLanguage as AppLanguage);
+                       setAppLanguage(globalLanguage as AppLanguage);
                     }
                 }
                 break;

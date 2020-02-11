@@ -13,9 +13,8 @@ export interface IContextPayload {
     queryString?: string;
 }
 
-export interface ITranslations {
-    [ AppLanguage.PT ]?: ITranslation;
-    [ AppLanguage.EN ]?: ITranslation;
+export interface ITranslations {    
+    [ key: string ]: ITranslation;
 }
 
 export interface IAppContext {
