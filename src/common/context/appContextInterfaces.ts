@@ -11,6 +11,7 @@ export interface IContextPayload {
     pageTheme?: AppGlobalTheme;
     selectedPage?: KnownPages;
     queryString?: string;
+    forceReload?:boolean;
 }
 
 export interface ITranslations {    
@@ -23,6 +24,7 @@ export interface IAppContext {
     adminOptions: boolean;
     globalTheme: AppGlobalTheme;
     translations: ITranslations;
+    forceReload?: boolean;
 }
 
 export type LoadingType = [ boolean, React.Dispatch<React.SetStateAction<boolean>> ];

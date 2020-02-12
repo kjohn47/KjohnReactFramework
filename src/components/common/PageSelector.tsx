@@ -8,6 +8,7 @@ interface IPageSelector {
     queryParams?: object;
     className?: string;
     highlight?: boolean;
+    forceReload?: boolean;
     action?: () => void;
 }
 
@@ -34,7 +35,8 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
             type: ContextActions.ChangePage,
             payload: {
                 selectedPage: page,
-                queryString: JSON.stringify( queryParams )
+                queryString: JSON.stringify( queryParams ),
+                forceReload: props.forceReload
             }
         } );
 

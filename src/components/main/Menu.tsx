@@ -61,7 +61,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
     <Row className='menuRow'>
       <Column full={ ColumnNumber.C14 }>
         <Row className='menuItemRow'>
-          { props.Brand && <Column className='menuItemCol menuBrand'><PageSelector page={ KnownPages.Home }>{ props.Brand }</PageSelector></Column> }
+          { props.Brand && <Column className='menuItemCol menuBrand'><PageSelector page={ KnownPages.Home } forceReload>{ props.Brand }</PageSelector></Column> }
           {
             props.MenuNav && props.MenuNav.map( ( menu, i ) =>
               <MenuItem key={ 'menu_' + i } Menu={ menu } />

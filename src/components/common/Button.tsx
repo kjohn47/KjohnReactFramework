@@ -16,6 +16,7 @@ interface IButton {
     queryParams?: object;
     buttonType?: ButtonTypes;
     className?: string;
+    forceReload?: boolean;
     onClick?(): void;
 }
 
@@ -30,6 +31,7 @@ const Button: React.FC<IButton> = ( props ) => {
                     page={ props.page }
                     queryParams={ props.queryParams }
                     className="page_Button_PageSelector"
+                    forceReload = {props.forceReload}
                 >
                     { props.children }
                 </PageSelector>

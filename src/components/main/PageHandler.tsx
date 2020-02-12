@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext, ErrorContext, LoadingContext } from "../../common/config/appConfig";
-import { KnownPages } from "../../common/context/appContextEnums";
+import { KnownPages, ContextActions } from "../../common/context/appContextEnums";
 import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
 import Loader from "../common/Loader";
 import ErrorPage from "./ErrorPage";
@@ -22,33 +22,76 @@ export interface IPageHandleProps {
     };
 }
 
+const usePageSelector: ( selectedComponent: React.ComponentType | undefined ) => [ React.ComponentType | undefined, ( newComponent: React.ComponentType | undefined ) => Promise<void> ] = ( selectedComponent ) => {
+    const [ component, setComponent ] = useState<React.ComponentType | undefined>( selectedComponent );
+
+    const setSelectedComponent =
+        ( newComponent: React.ComponentType | undefined ) => new Promise<void>( ( resolve ) => {
+            resolve( setComponent( newComponent ) );
+        } )
+
+    return [ component, setSelectedComponent ]
+}
+
 const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
-    const [ appContext ] = useContext( AppContext );
+    const [ appContext, setAppContext ] = useContext( AppContext );
     const [ errorContext, setErrorContext ] = useContext( ErrorContext );
     const isLoading = useContext( LoadingContext )[ 0 ];
-    const [ output, setOutput ] = useState<React.ComponentType>();
+    const [ output, setOutput ] = usePageSelector( undefined );
+    const [ lastPage, setLastPage ] = useState<string>();
+    const [ queryString, setQueryString ] = useState<string | undefined>( undefined );
 
     useEffect( () => {
         if ( !errorContext.hasError ) {
             let selectedPage = appContext.selectedPage;
-            if ( selectedPage.toLowerCase() === KnownPages.Home.toLowerCase() ) {
-                setOutput( injectProps( Routes.Home.Component, Routes.Home.Props ) );
-            }
-            else {
-                let route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];
-                if ( route ) {
-                    setOutput( injectProps( route.Component, route.Props ) );
+            if ( lastPage !== selectedPage || queryString !== appContext.queryString || appContext.forceReload ) {
+                let tempPromise: Promise<void>;
+                if ( appContext.forceReload || queryString !== appContext.queryString ) {
+                    tempPromise = setOutput( undefined )
                 }
                 else {
-                    setErrorContext( {
-                        type: ErrorActions.ActivateError,
-                        errorCode: ErrorCodes.PageNotFound,
-                        errorDescription: "Not Found: 404"
-                    } );
+                    tempPromise = new Promise<void>( ( resolve ) => resolve() );
                 }
+
+                setLastPage( selectedPage );
+                setQueryString( appContext.queryString );
+
+                tempPromise.then( () => {
+                    if ( selectedPage.toLowerCase() === KnownPages.Home.toLowerCase() ) {
+                        setOutput( injectProps( Routes.Home.Component, Routes.Home.Props ) );
+                    }
+                    else {
+                        let route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];
+                        if ( route ) {
+                            setOutput( injectProps( route.Component, route.Props ) );
+                        }
+                        else {
+                            setErrorContext( {
+                                type: ErrorActions.ActivateError,
+                                errorCode: ErrorCodes.PageNotFound,
+                                errorDescription: "Not Found: 404"
+                            } );
+                        }
+                    }
+                } ).finally( () => {
+                    if ( appContext.forceReload ) {
+                        setAppContext( {
+                            type: ContextActions.ForceReloadDisable,
+                            payload: {}
+                        } )
+                    }
+                } )
             }
         }
-    }, [ appContext.selectedPage, appContext.queryString, Routes, setErrorContext, errorContext.hasError ] )
+        // eslint-disable-next-line
+    }, [
+        appContext.selectedPage,
+        appContext.queryString,
+        setErrorContext,
+        errorContext.hasError,
+        appContext.forceReload,
+        setAppContext
+    ] )
 
     return (
         <Loader isLoading={ isLoading } bigLoader paddingTop >
