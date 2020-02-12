@@ -1,6 +1,66 @@
-   /* ---- General colors ---- */
+   // ---- General colors ----
   
-    /* Page Selector */
+    // Page Menu
+
+    .menuRow {
+      .menuItemColSel {
+          border-color: $Menu_Border;
+          background-color: $Menu_Background;
+          &:focus {
+            box-shadow: 0 0 4px $Menu_SubBorder;
+          }
+      }
+      .menuItemCol {
+        &:hover {
+            border-color: $Menu_Border;
+            background-color: $Menu_Background;
+        }
+      }
+
+      .menuLanguageCol {
+        & span {
+            &:hover {
+                border-color: $Menu_Border;
+                background-color: $Menu_Background;
+            }
+        }
+      }
+      .menuBrand {
+        &:hover {
+            background-color: transparent;
+        }
+      }
+
+      .subMenuDrop {
+        background-color: $Menu_SubBackground;
+        color: $Menu_SubText;
+        border-color: $Menu_SubBorder;
+        &:after {
+            border-bottom-color: $Menu_SubBorder;
+        }
+        .subMenuCol {
+            &:hover {
+              background-color: $Menu_SubHover;
+              color: $Menu_SubTextHover;
+            }
+        }
+
+        .subMenuLine {
+          border-color: $Menu_SubSeparator;
+        }
+
+        .disabledMenuItem {    
+          background-color: $Menu_SubDisabled;
+          &:hover {
+              background-color: $Menu_SubDisabled;
+              color: $Menu_SubText;
+          }
+        }
+      }
+    }
+    // Page Menu
+
+    // Page Selector
     .PageSelector_Highlight {
         color: $LinkColor;
         text-decoration: none;
@@ -8,18 +68,18 @@
           text-decoration: underline;
         }
       }
-      /* Page Selector */
+      // Page Selector
     
-      /* Load Spinner */
+      // Load Spinner
       .LoadSpinnerColor {
         border-top-color: $MainColor;
         border-bottom-color: $MainColor;
         border-left-color: $SecondaryColor;
         border-right-color: $SecondaryColor;
       }
-      /* Load Spinner */
+      // Load Spinner
     
-      /* Button Component */
+      // Button Component
       .page_button_color {
         border-color: $MainColor;
         background: $Button;
@@ -32,9 +92,9 @@
           box-shadow: 0 0 4px $Button;
         }
       }
-      /* Button Component */
+      // Button Component
     
-      /* Input Text */
+      // Input Text
       .inputTextDiv {
         .inputText_Color {
           border-color: $Input_Border;
@@ -43,20 +103,20 @@
           }
         }
       }
-      /* Input Text */
-    
-      /* ---- Menu and Footer Colors ---- */
+      // Input Text
+  
+      // ---- Menu and Footer Colors ----
       .PageMenuColor {
         background-color: $MainColor;
         color: $MenuTextColor;
       }
     
-      /* ---- Content Colors ---- */
+      // ---- Content Colors ----
       .PageContentColor {
-        /* -- All Content -- */
+        // -- All Content --
         color: $TextColor;
         
-        /* Table Component */
+        // Table Component
         .TableDiv {
           .TableContent {
             .TableHeaderCellColor {
@@ -65,9 +125,9 @@
             }
           }
         }
-        /* Table Component */
+        // Table Component
 
-        /* Card Component */
+        // Card Component
         .CardComponent {
           border-color: $CardBorderColor;
           background-color: $CardBackground;
@@ -78,15 +138,15 @@
             }
           }
         }
-        /* Card Component */
+        // Card Component
 
-        /* Page Header */
+        // Page Header
         .PageHeaderDiv {
           border-bottom-color: $MainColor;
           color: $MainColor;
         }
-        /* Page Header */
-        /* Page Side Menu */
+        // Page Header
+        // Page Side Menu
         .SideMenuPage {
           .SideMenuColumn {    
               .SideMenuColumnContent {
@@ -124,8 +184,8 @@
               }
           }
         }
-        /* Page Side Menu */
-        /* FieldSet */
+        // Page Side Menu
+        // FieldSet
         .FieldSetTitle {
           color: $MainColor;
         }
@@ -133,9 +193,9 @@
         .FieldSetContent {
             border-color: $SecondaryColor;
         }
-        /* FieldSet */
+        // FieldSet
 
-        /* DatePicker */
+        // DatePicker
         .DatePickerDiv {
           .DatePickerCalendar {
               border-color: $DatePicker_Border;
@@ -204,7 +264,10 @@
                       color: $LinkColor;
                   }
               }
+              .DatePickerButtonSelected {
+                color: $LinkColor;
+              }
           }
       }
-      /*DatePicker*/
+      //DatePicker
     }

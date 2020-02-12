@@ -6,7 +6,7 @@ const delay = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) 
 
 export const serverCallTest: ( fetchHandler: (query: string) => Promise<IResult | IServiceError> ) => ServiceType<IResult, IResult> = ( fetchHandler ) => async ( context, request, response ) => {
     if ( request === undefined ) {
-        return fetchHandler( "/test" );
+        return fetchHandler( "test" );
     }
 
     context.appContext.Set( {

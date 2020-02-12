@@ -1,4 +1,4 @@
 export enum AvailableServices {
-    Translation = "translations",
-    LoadHomePage = "loadHomePage"
+    Translation = "Homepage/translations",
+    HomePage = "Homepage/homepage"
 }

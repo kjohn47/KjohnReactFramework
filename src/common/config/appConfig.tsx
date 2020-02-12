@@ -40,10 +40,11 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
 
     useEffect( () => {
         if ( !props.firstLoad ) {
-            props.setFirstLoad( true );
             //// load loken data for first selected language
             Promise.resolve(
                 setAppContext( { type: ContextActions.ChangeLanguage, payload: { globalLanguage: props.appLanguage } } )
+            ).finally(
+                () => props.setFirstLoad( true )
             )
         }
     }, [ props, appContext, setAppContext ] );
