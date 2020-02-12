@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
-import App from './components/main/App';
+import KRFApp from './components/main/KRFApp';
 import * as serviceWorker from './serviceWorker';
+import { pageComponents } from './common/config/pageComponents';
 
-ReactDOM.render( <App />, document.getElementById( 'root' ) );
+ReactDOM.render( <KRFApp {...pageComponents}/>, document.getElementById( 'krfRoot' ) );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

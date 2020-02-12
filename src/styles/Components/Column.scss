@@ -1,4 +1,4 @@
-/* Column component styles */
+// Column component styles
 .ColumnDiv {
     display: inline-flex;
     flex-flow: column wrap;
@@ -8,7 +8,7 @@
     max-width: 100%;
 }
 
-/* config full */
+// config full
 @for $i from 1 through 20 {
     .ColumnDivFull-#{$i} {
         max-width: ($i * 5%);
@@ -16,7 +16,7 @@
     }
 }
 
-/* Config Large */
+// Config Large 
 
 @media( max-width: 1600px ) {
     @for $i from 1 through 20 {
@@ -27,7 +27,7 @@
     }
 }
 
-/* Config Medium */
+// Config Medium
 
 @media( max-width: 1024px ) {
     @for $i from 1 through 20 {
@@ -38,7 +38,7 @@
     }
 }
 
-/* Config Tablet */
+// Config Tablet
 
 @media( max-width: 640px ) {
     @for $i from 1 through 20 {
@@ -49,7 +49,7 @@
     }
 }
 
-/* Config Mobile */
+// Config Mobile
 
 @media( max-width: 480px ) {
     @for $i from 1 through 20 {

@@ -1,4 +1,4 @@
-/* Input text config */
+// Input text config
 .inputTextDiv {
     height: 65px;
     .inputText {
@@ -15,7 +15,7 @@
         box-sizing: border-box;
     }
 
-    /* validation colors */
+    // validation colors
     .inputTextValid {
         border-color: $TextInputValid;
         &:focus {
@@ -29,7 +29,7 @@
             box-shadow: 0 0 3px $TextInputInvalid;
         }
     }    
-    /* validation text*/
+    // validation text
 
     .inputTextValidation {
         font-size: small;

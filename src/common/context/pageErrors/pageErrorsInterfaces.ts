@@ -1,4 +1,3 @@
-import { AppLanguage } from "../appContextEnums";
 import { ErrorCodes } from "../appErrorEnums";
 
 export interface IErrorData {
@@ -7,8 +6,7 @@ export interface IErrorData {
 }
 
 interface IErrorTranstation {
-    [ AppLanguage.EN ]: IErrorData;
-    [ AppLanguage.PT ]: IErrorData;
+    [ key: string ]: IErrorData;    
 }
 
 //Add new errors here

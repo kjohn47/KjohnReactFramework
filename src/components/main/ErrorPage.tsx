@@ -36,7 +36,7 @@ const ErrorPage: React.FC = () => {
                 <Row className="ErrorPageRedirect">
                     <Column>
                         <WithTooltip toolTipText={ getTranslation( "_generic", "#(goBackToHomeToolTip)" ) } toolTipPosition={ ToolTipPosition.Bottom } className="ErrorPageReturnTooltip">
-                            <Button page={ KnownPages.Home } >{ getTranslation( "_generic", "#(goBackToHome)" ) }</Button>
+                            <Button page={ KnownPages.Home } forceReload >{ getTranslation( "_generic", "#(goBackToHome)" ) }</Button>
                         </WithTooltip>
                     </Column>
                 </Row>

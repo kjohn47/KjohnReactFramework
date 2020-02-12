@@ -1,6 +1,6 @@
-/* ------------- Grey --------------- */
+// ------------- Grey ------------------------
 .PageLayoutColor_Grey {
-  /*-------------- Grey Colors ---------------*/
+  //-------------- Grey Colors ---------------
   $MainColor: #313131;
   $SecondaryColor: #a0a0a0;
   $MenuTextColor: #ffffff;
@@ -27,7 +27,18 @@
   $DatePicker_Disabled_Text: #6d6d6d;
   $DatePicker_Disabled: #BBBBBB;
   $DatePicker_Selected_Text: #FFFFFF;
-  /*------------------------------------------*/
+
+  $Menu_Border:#5a5a5a;
+  $Menu_Background:#797676;
+  $Menu_SubBackground: #ffffffec;
+  $Menu_SubBorder: #6b6b6be1;
+  $Menu_SubText: #000000;
+  $Menu_SubHover: #a0a0a0d7;
+  $Menu_SubTextHover: #313131;
+  $Menu_SubSeparator: #313131;
+  $Menu_SubDisabled: #bbbbbbc0;
+
+  //------------------------------------------
    @import "./ThemeTree";
  }
- /*------------------------------------*/
+ //-------------------------------------------

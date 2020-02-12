@@ -1,6 +1,6 @@
-/* -------------- Red --------------- */
+// -------------- Red ------------------------
 .PageLayoutColor_Red {
-  /*-------------- Red Colors ----------------*/
+  //-------------- Red Colors ----------------
   $MainColor: #491111;
   $SecondaryColor: #a73f3f;
   $MenuTextColor: #ffffff;
@@ -27,7 +27,18 @@
   $DatePicker_Disabled_Text: #351717;
   $DatePicker_Disabled: #eea0a0;
   $DatePicker_Selected_Text: #FFFFFF;
-  /*------------------------------------------*/
+
+  $Menu_Border:#881d1d;
+  $Menu_Background:#ee8787cc;
+  $Menu_SubBackground: #ffffffec;
+  $Menu_SubBorder: #660e0ee1;
+  $Menu_SubText: #000000;
+  $Menu_SubHover: #722525;
+  $Menu_SubTextHover: #eea0a0;
+  $Menu_SubSeparator: #eea0a0;
+  $Menu_SubDisabled: #bbbbbbc0;
+
+  //------------------------------------------
   @import "./ThemeTree";
 }
-/*------------------------------------*/
+//--------------------------------------------
