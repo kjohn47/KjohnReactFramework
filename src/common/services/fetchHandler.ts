@@ -1,6 +1,7 @@
 import { IServiceError } from "./serviceCallerInterfaces";
 import { useContext, useState, useEffect } from "react";
 import { LoginContext, AppLanguageContext } from "../config/appConfig";
+import { apiServerUrl } from "../config/configuration";
 
 const handleErrors = ( response: Response ) => {
     if ( !response.ok ) {
@@ -35,7 +36,7 @@ export const useFetchGetHandler = <FetchDataType> ( serviceUrl: string ) =>
 
     const Get = ( query: string = "" ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
                 resolve(
-                    fetch( serviceUrl + query, {
+                    fetch( apiServerUrl + serviceUrl + query, {
                         method: 'GET',
                         headers: header,
                         mode: 'cors',
@@ -77,7 +78,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
 
         const Post = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
                 resolve(
-                    fetch( serviceUrl + query, {
+                    fetch( apiServerUrl + serviceUrl + query, {
                         method: 'POST',
                         headers: header,
                         mode: 'cors',
@@ -92,7 +93,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
 
         const Put = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
                 resolve(
-                    fetch( serviceUrl + query, {
+                    fetch( apiServerUrl + serviceUrl + query, {
                         method: 'PUT',
                         headers: header,
                         mode: 'cors',
@@ -107,7 +108,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
 
         const Delete = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
                 resolve(
-                    fetch( serviceUrl + query, {
+                    fetch( apiServerUrl + serviceUrl + query, {
                         method: 'DELETE',
                         headers: header,
                         mode: 'cors',

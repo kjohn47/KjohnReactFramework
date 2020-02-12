@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/main/App';
+import KRFApp from './components/main/KRFApp';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<KRFApp />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

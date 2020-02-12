@@ -24,12 +24,12 @@ export enum AppStorageKeys {
 export enum ContextActions {
     ChangeLanguage = "ChangeLanguage",
     ChangeTheme = "ChangeTheme",
-    ChangePage = "ChangePage"
+    ChangePage = "ChangePage",
+    ForceReloadDisable = "ForceReloadDisable"
 }
 
 //Add pages to be used on project (Components) - also add to switch case on PageHandler
 export enum KnownPages {
     Home = "Home",
-    Test = "Test",
-    Error = "Error"
+    Test = "Test"
 }

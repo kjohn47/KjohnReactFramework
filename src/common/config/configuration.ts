@@ -4,6 +4,7 @@ import { ILogin } from "../context/loginContextInterfaces";
 import { AppLanguage, AppGlobalTheme } from "../context/appContextEnums";
 import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme } from "../functions/sessionStorage";
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
+import { trueFalseParser } from "../functions/misc";
 
 let currentUser: ILogin | undefined = getUserSession();
 let lastSavedLang: AppLanguage = currentUser !== undefined ? currentUser.appLanguage : getLastSelectedLanguage();
@@ -40,11 +41,11 @@ export const initialLanguage: AppLanguage = lastSavedLang;
 export const initialLogin: ILogin | undefined = currentUser;
 
 //// Width for mobile dimensions
-export const mobileWidth: number = 480;
+export const mobileWidth: number = process.env.REACT_APP_MOBILE_WIDTH ? parseInt(process.env.REACT_APP_MOBILE_WIDTH) : 480;
 
 //// Api host server url
 //export const apiServerUrl: string = "https://localhost:44378";
-export const apiServerUrl: string = "";
+export const apiServerUrl: string = process.env.REACT_APP_API_SRV_URL ? process.env.REACT_APP_API_SRV_URL : "/";
 
 //// Show caught error from service
-export const showDetailedErrors: boolean = true;
+export const showDetailedErrors: boolean = process.env.REACT_APP_ERROR_DETAIL ? trueFalseParser(process.env.REACT_APP_ERROR_DETAIL) : false;
