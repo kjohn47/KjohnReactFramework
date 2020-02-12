@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, AppLanguageContext } from '../../common/config/appConfig';
+import { AppContext, AppLanguageContext, ErrorContext } from '../../common/config/appConfig';
 import { ContextActions, AppLanguage, KnownPages } from '../../common/context/appContextEnums';
 import PageSelector from '../common/PageSelector';
 import Row from '../common/Row';
@@ -60,8 +60,8 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
   return (
     <Row className='menuRow'>
       <Column full={ ColumnNumber.C14 }>
-        <Row className='menuItemRow'>
-          { props.Brand && <Column className='menuItemCol menuBrand'><PageSelector page={ KnownPages.Home } forceReload>{ props.Brand }</PageSelector></Column> }
+        <Row className='menuItemRow noselect'>
+          { props.Brand && <Column className='menuItemCol menuBrand noselect'><PageSelector page={ KnownPages.Home } forceReload>{ props.Brand }</PageSelector></Column> }
           {
             props.MenuNav && props.MenuNav.map( ( menu, i ) =>
               <MenuItem key={ 'menu_' + i } Menu={ menu } />
@@ -76,7 +76,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
         }
       </Column>
       <Column full={ ColumnNumber.C1 } reference={ langMenuRef }>
-        <div className="menuLanguageCol pointer_cursor" onClick={ () => setToogleLang( !toogleLang ) }>
+        <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
           <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
         </div>
         { toogleLang && <SubMenu
@@ -129,13 +129,14 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
 
 const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle: () => void }> = ( props ) => {
   const [ appContext ] = useContext( AppContext );
+  const [ errorContext ] = useContext( ErrorContext );
   const [ globalLang ] = useContext( AppLanguageContext );
 
   const makeSubMenu = ( subMenu: ISubMenuItem ) => {
     if ( !subMenu.Title || subMenu.Title === '' ) {
       return <Column className='subMenuLine'></Column>
     }
-    if ( subMenu.Link && subMenu.Link !== appContext.selectedPage ) {
+    if ( subMenu.Link && ( subMenu.Link !== appContext.selectedPage || errorContext.hasError ) ) {
       return <Column className='subMenuCol'>
         {
           <PageSelector page={ subMenu.Link } action={ props.unToogle }>{ subMenu.Title }</PageSelector>

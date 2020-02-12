@@ -37,78 +37,76 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     const [ showYearSelector, setShowYearSelector ] = useState<boolean>( false );
     const [ calendarInput, setCalendarInput ] = useState<ICalendarInput>( { [ DatePickerTextField.day ]: selectedDate.getDate().toString(), [ DatePickerTextField.month ]: ( selectedMonth + 1 ).toString(), [ DatePickerTextField.year ]: selectedYear.toString() } );
     //// refs hooks to dropdown
-    const yearSelectedRef = useRef<HTMLDivElement>(null);
-    const monthSelectedRef = useRef<HTMLDivElement>(null);
-    const datePickerRef = useRef<HTMLDivElement>(null);
+    const yearSelectedRef = useRef<HTMLDivElement>( null );
+    const monthSelectedRef = useRef<HTMLDivElement>( null );
+    const datePickerRef = useRef<HTMLDivElement>( null );
     //// Translate hook
     const { getTranslation } = useTranslation();
     ////handle click out event to close calendar
     const handleClickOut: ( event: any ) => void = ( event ) => {
-        if( !props.calendarVisible && showCalendar && ( datePickerRef !== null && datePickerRef.current !== null && !datePickerRef.current.contains( event.target ) ) ) {
-            setShowCalendar(false);
+        if ( !props.calendarVisible && showCalendar && ( datePickerRef !== null && datePickerRef.current !== null && !datePickerRef.current.contains( event.target ) ) ) {
+            setShowCalendar( false );
             setShowYearSelector( false );
             setShowMonthSelector( false );
             setSelectedMonth( selectedDate.getMonth() );
             setSelectedYear( selectedDate.getFullYear() );
         }
-        if( showYearSelector && yearSelectedRef !== null && yearSelectedRef.current !== null && yearSelectedRef.current.parentElement !== null && !yearSelectedRef.current.parentElement.contains( event.target )
-            && yearSelectedRef.current.parentElement.previousElementSibling !== null && !yearSelectedRef.current.parentElement.previousElementSibling.contains( event.target ) )
-        {
+        if ( showYearSelector && yearSelectedRef !== null && yearSelectedRef.current !== null && yearSelectedRef.current.parentElement !== null && !yearSelectedRef.current.parentElement.contains( event.target )
+            && yearSelectedRef.current.parentElement.previousElementSibling !== null && !yearSelectedRef.current.parentElement.previousElementSibling.contains( event.target ) ) {
             setShowYearSelector( false );
         }
-        if( showMonthSelector && monthSelectedRef !== null && monthSelectedRef.current !== null && monthSelectedRef.current.parentElement !== null && !monthSelectedRef.current.parentElement.contains( event.target )
-            && monthSelectedRef.current.parentElement.previousElementSibling !== null && !monthSelectedRef.current.parentElement.previousElementSibling.contains( event.target ) )
-        {
+        if ( showMonthSelector && monthSelectedRef !== null && monthSelectedRef.current !== null && monthSelectedRef.current.parentElement !== null && !monthSelectedRef.current.parentElement.contains( event.target )
+            && monthSelectedRef.current.parentElement.previousElementSibling !== null && !monthSelectedRef.current.parentElement.previousElementSibling.contains( event.target ) ) {
             setShowMonthSelector( false );
         }
     }
 
     //// useEffect hooks
     useEffect( () => {
-        if( showYearSelector ) {
+        if ( showYearSelector ) {
             scrollToRef( yearSelectedRef );
         }
     }, [ showYearSelector ] )
 
     useEffect( () => {
-        if( showMonthSelector ) {
+        if ( showMonthSelector ) {
             scrollToRef( monthSelectedRef );
         }
-    }, [showMonthSelector] )
+    }, [ showMonthSelector ] )
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener("mousedown", handleClickOut);
+        document.addEventListener( "mousedown", handleClickOut );
         // return function to be called when unmounted
         return () => {
-            document.removeEventListener("mousedown", handleClickOut);
+            document.removeEventListener( "mousedown", handleClickOut );
         };
         //eslint-disable-next-line
-    },[ showCalendar, showYearSelector, showMonthSelector ] )
+    }, [ showCalendar, showYearSelector, showMonthSelector ] )
 
     //// Translate tokens
-    const monthTokens = [ 
-        getTranslation( "_datePicker", "#(January)" ), 
-        getTranslation( "_datePicker", "#(February)" ), 
-        getTranslation( "_datePicker", "#(March)" ), 
-        getTranslation( "_datePicker", "#(April)" ), 
-        getTranslation( "_datePicker", "#(May)" ), 
-        getTranslation( "_datePicker", "#(June)" ), 
-        getTranslation( "_datePicker", "#(July)" ), 
-        getTranslation( "_datePicker", "#(August)" ), 
-        getTranslation( "_datePicker", "#(September)" ), 
-        getTranslation( "_datePicker", "#(October)" ), 
-        getTranslation( "_datePicker", "#(November)" ), 
-        getTranslation( "_datePicker", "#(December)" ) 
+    const monthTokens = [
+        getTranslation( "_datePicker", "#(January)" ),
+        getTranslation( "_datePicker", "#(February)" ),
+        getTranslation( "_datePicker", "#(March)" ),
+        getTranslation( "_datePicker", "#(April)" ),
+        getTranslation( "_datePicker", "#(May)" ),
+        getTranslation( "_datePicker", "#(June)" ),
+        getTranslation( "_datePicker", "#(July)" ),
+        getTranslation( "_datePicker", "#(August)" ),
+        getTranslation( "_datePicker", "#(September)" ),
+        getTranslation( "_datePicker", "#(October)" ),
+        getTranslation( "_datePicker", "#(November)" ),
+        getTranslation( "_datePicker", "#(December)" )
     ];
     const weekToken = [
-        getTranslation( "_datePicker", "#(Mon)" ), 
-        getTranslation( "_datePicker", "#(Tue)" ), 
-        getTranslation( "_datePicker", "#(Wed)" ), 
-        getTranslation( "_datePicker", "#(Thu)" ), 
-        getTranslation( "_datePicker", "#(Fri)" ), 
-        getTranslation( "_datePicker", "#(Sat)" ), 
-        getTranslation( "_datePicker", "#(Sun)" ) 
+        getTranslation( "_datePicker", "#(Mon)" ),
+        getTranslation( "_datePicker", "#(Tue)" ),
+        getTranslation( "_datePicker", "#(Wed)" ),
+        getTranslation( "_datePicker", "#(Thu)" ),
+        getTranslation( "_datePicker", "#(Fri)" ),
+        getTranslation( "_datePicker", "#(Sat)" ),
+        getTranslation( "_datePicker", "#(Sun)" )
     ];
     //// updates the date and returns on getSelectedDate to parent
     const selectNewDate: ( year: number, month: number, day: number ) => void = ( year, month, day ) => {
@@ -209,7 +207,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                             key={ i }
                             className={ "DatePickerSelectorField" + ( selectedYear === year ? " DatePickerSelectorSelected" : " pointer_cursor" ) }
                             onClick={ () => { updateYear( year ) } }
-                            ref = { selectedYear === year ? yearSelectedRef : undefined }
+                            ref={ selectedYear === year ? yearSelectedRef : undefined }
                         >
                             { year }
                         </div>
@@ -234,7 +232,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                             className={ "DatePickerSelectorField" + ( selectedMonth === i ? " DatePickerSelectorSelected" : " pointer_cursor" ) }
                             key={ i }
                             onClick={ () => { updateMonth( i ) } }
-                            ref = { selectedMonth === i ? monthSelectedRef : undefined }
+                            ref={ selectedMonth === i ? monthSelectedRef : undefined }
                         >
                             { month }
                         </div>
@@ -270,7 +268,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                     onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.year ) } }
                     onBlur={ () => updateDateFromInput() }
                 />
-                <span className="DatePickerButton pointer_cursor noselect" onClick={ () => { showHideCalendar() } } >[ v ]</span>
+                <span className={ "DatePickerButton pointer_cursor noselect" + ( showCalendar ? ' DatePickerButtonSelected' : '' ) } onClick={ () => { showHideCalendar() } } >[ v ]</span>
             </div>
         )
     }
@@ -382,7 +380,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     }
     //// Returns date picker
     return (
-        <div className="DatePickerDiv" ref = { datePickerRef }>
+        <div className="DatePickerDiv" ref={ datePickerRef }>
             { !props.calendarVisible && createInputGroup() }
             { showCalendar && createCalendar() }
         </div>
