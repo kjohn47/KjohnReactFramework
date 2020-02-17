@@ -1,23 +1,11 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, AppLanguageContext, ErrorContext } from '../../common/config/appConfig';
+import { AppContext, AppLanguageContext } from '../../common/config/appConfig';
 import { ContextActions, AppLanguage, KnownPages } from '../../common/context/appContextEnums';
 import PageSelector from '../common/PageSelector';
 import Row from '../common/Row';
 import Column, { ColumnNumber } from '../common/Column';
-
-interface IMenuItem {
-  Title: string;
-  Link?: KnownPages;
-  Action?: () => void;
-  SubMenus?: ISubMenuItem[];
-}
-
-interface ISubMenuItem {
-  Title?: string;
-  Link?: KnownPages;
-  Action?: () => void;
-  Reloadable?: boolean;
-}
+import MenuItem, { IMenuItem } from './MenuComponents/MenuItem';
+import SubMenu, { ISubMenuItem } from './MenuComponents/SubMenu';
 
 export interface IMenuProps {
   Brand?: string;
@@ -88,84 +76,6 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       </Column>
     </Row>
   );
-}
-
-const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
-  const [ toogle, setToogle ] = useState<boolean>( false );
-  const subMenuRef = useRef<HTMLDivElement>( null );
-
-  const handleClickOut: ( event: any ) => void = ( event ) => {
-    if ( toogle && subMenuRef != null && subMenuRef.current !== null && !subMenuRef.current.contains( event.target ) ) {
-      setToogle( false );
-    }
-  }
-
-  useEffect( () => {
-    // add when mounted
-    document.addEventListener( "mousedown", handleClickOut );
-    // return function to be called when unmounted
-    return () => {
-      document.removeEventListener( "mousedown", handleClickOut );
-    };
-    //eslint-disable-next-line
-  }, [ toogle ] )
-
-  const makeMenu = ( menu: IMenuItem ) => {
-    if ( menu.Link ) {
-      return <PageSelector page={ menu.Link } className='menuSpan pointer_cursor'>{ menu.Title }</PageSelector>
-    }
-    if ( menu.SubMenus ) {
-      return <>
-        <span className='menuSpan pointer_cursor' onClick={ () => setToogle( !toogle ) }>{ menu.Title }</span>
-        { toogle && <SubMenu subMenu={ menu.SubMenus } unToogle={ () => setToogle( false ) } /> }
-      </>
-    }
-    return <span className='menuSpan pointer_cursor'>{ menu.Title }</span>
-  }
-
-  return <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef } tabIndex={ 0 }>
-    { makeMenu( props.Menu ) }
-  </Column>
-}
-
-const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle: () => void }> = ( props ) => {
-  const [ appContext ] = useContext( AppContext );
-  const [ errorContext ] = useContext( ErrorContext );
-  const [ globalLang ] = useContext( AppLanguageContext );
-
-  const makeSubMenu = ( subMenu: ISubMenuItem ) => {
-    if ( !subMenu.Title || subMenu.Title === '' ) {
-      return <Column className='subMenuLine'></Column>
-    }
-    if ( subMenu.Link && ( subMenu.Link !== appContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
-      return <Column className={ 'subMenuCol' + ( subMenu.Reloadable && subMenu.Link === appContext.selectedPage ? ' disabledMenuItem pointer_cursor subMenuReloadable' : '' ) }>
-        {
-          <PageSelector page={ subMenu.Link } action={ props.unToogle } forceReload={ subMenu.Reloadable }>{ subMenu.Title }</PageSelector>
-        }
-      </Column>
-    }
-    if ( subMenu.Action ) {
-      return <Column className={ 'subMenuCol' + ( globalLang === subMenu.Title ? ' disabledMenuItem' : ' pointer_cursor' ) }>
-        <span onClick={ () => { subMenu.Action && subMenu.Action(); props.unToogle(); } }>
-          { subMenu.Title }
-        </span>
-      </Column>
-    }
-    return <Column className='subMenuCol disabledMenuItem'>
-      <span>
-        { subMenu.Title }
-      </span>
-    </Column>
-  }
-  return (
-    <div className={ 'subMenuDrop' + ( props.className ? ' ' + props.className : '' ) }>
-      { props.subMenu.map( ( subMenu, i ) =>
-        <Row key={ 'SubMenu_' + i }>
-          { makeSubMenu( subMenu ) }
-        </Row>
-      ) }
-    </div>
-  )
 }
 
 export default Menu;
