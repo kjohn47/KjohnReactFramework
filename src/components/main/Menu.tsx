@@ -1,11 +1,12 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { AppContext, AppLanguageContext } from '../../common/config/appConfig';
 import { ContextActions, AppLanguage, KnownPages } from '../../common/context/appContextEnums';
-import PageSelector from '../common/PageSelector';
 import Row from '../common/Row';
 import Column, { ColumnNumber } from '../common/Column';
-import MenuItem, { IMenuItem } from './MenuComponents/MenuItem';
+import { IMenuItem } from './MenuComponents/MenuItem';
 import SubMenu, { ISubMenuItem } from './MenuComponents/SubMenu';
+import LoginForm from './MenuComponents/LoginForm';
+import MenusBar from './MenuComponents/MenusBar';
 
 export interface IMenuProps {
   Brand?: string;
@@ -49,20 +50,10 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
   return (
     <Row className='menuRow'>
       <Column full={ ColumnNumber.C14 }>
-        <Row className='menuItemRow noselect'>
-          { props.Brand && <Column className='menuItemCol menuBrand noselect'><PageSelector page={ KnownPages.Home } forceReload>{ props.Brand }</PageSelector></Column> }
-          {
-            props.MenuNav && props.MenuNav.map( ( menu, i ) =>
-              <MenuItem key={ 'menu_' + i } Menu={ menu } />
-            )
-          }
-        </Row>
+        <MenusBar {...props} />
       </Column>
       <Column full={ ColumnNumber.C5 }>
-        {
-          // login Form
-          // user Menu
-        }
+        <LoginForm />
       </Column>
       <Column full={ ColumnNumber.C1 } reference={ langMenuRef }>
         <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
