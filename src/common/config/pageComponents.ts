@@ -39,7 +39,8 @@ export const pageComponents: IKRFProps = {
                     },
                     {
                         Title: "SubTest2",
-                        Link: KnownPages.Test
+                        Link: KnownPages.Test,
+                        Reloadable: true
                     }
                 ]
             },
@@ -48,7 +49,8 @@ export const pageComponents: IKRFProps = {
                 SubMenus: [
                     {
                         Title: "SubTest1",
-                        Link: KnownPages.Home
+                        Link: KnownPages.Home,
+                        Reloadable: true
                     },
                     {
                         

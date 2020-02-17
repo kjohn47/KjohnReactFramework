@@ -16,6 +16,7 @@ interface ISubMenuItem {
   Title?: string;
   Link?: KnownPages;
   Action?: () => void;
+  Reloadable?: boolean;
 }
 
 export interface IMenuProps {
@@ -136,10 +137,10 @@ const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle:
     if ( !subMenu.Title || subMenu.Title === '' ) {
       return <Column className='subMenuLine'></Column>
     }
-    if ( subMenu.Link && ( subMenu.Link !== appContext.selectedPage || errorContext.hasError ) ) {
-      return <Column className='subMenuCol'>
+    if ( subMenu.Link && ( subMenu.Link !== appContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
+      return <Column className={ 'subMenuCol' + ( subMenu.Reloadable && subMenu.Link === appContext.selectedPage ? ' disabledMenuItem pointer_cursor subMenuReloadable' : '' ) }>
         {
-          <PageSelector page={ subMenu.Link } action={ props.unToogle }>{ subMenu.Title }</PageSelector>
+          <PageSelector page={ subMenu.Link } action={ props.unToogle } forceReload={ subMenu.Reloadable }>{ subMenu.Title }</PageSelector>
         }
       </Column>
     }

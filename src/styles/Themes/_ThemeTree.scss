@@ -56,6 +56,11 @@
               color: $Menu_SubText;
           }
         }
+
+        .subMenuReloadable:hover {
+          background-color: $Menu_SubHover;
+          color: $Menu_SubTextHover;
+        }
       }
     }
     // Page Menu
