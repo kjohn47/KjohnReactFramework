@@ -5,13 +5,18 @@ import InputText from '../../common/InputText';
 import Button, { ButtonTypes } from '../../common/Button';
 
 const LoginForm: React.FC = () => {
-    return (
-            <Row>
-            <Column full = { ColumnNumber.C8}><InputText name = "login" /></Column>
-            <Column full = { ColumnNumber.C8}><InputText name = "password" /></Column>
-            <Column full = { ColumnNumber.C4}><Button buttonType = { ButtonTypes.Default } className = "loginMenuButton">Login</Button></Column>
+    const renderInlineForm = () => {
+        return (
+            <Row className = "menuLoginFormRow">
+                <Column full = { ColumnNumber.C8}><InputText name = "login" /></Column>
+                <Column full = { ColumnNumber.C8}><InputText name = "password" /></Column>
+                <Column full = { ColumnNumber.C4}><Button buttonType = { ButtonTypes.Default } className = "loginMenuButton">Login</Button></Column>
             </Row>
         );
+    }
+    return (
+        renderInlineForm()
+    )
 }
 
 export default LoginForm;
