@@ -3,6 +3,7 @@ import { KnownPages } from '../../../common/context/appContextEnums';
 import PageSelector from '../../common/PageSelector';
 import Column from '../../common/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
+import useTranslation from '../../../common/context/pageText/getTranslation';
 
 export interface IMenuItem {
     Title: string;
@@ -13,6 +14,7 @@ export interface IMenuItem {
 
 const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
     const [ toogle, setToogle ] = useState<boolean>( false );
+    const { getTranslation } = useTranslation();
     const subMenuRef = useRef<HTMLDivElement>( null );
 
     const handleClickOut: ( event: any ) => void = ( event ) => {
@@ -32,16 +34,17 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
     }, [ toogle ] )
 
     const makeMenu = ( menu: IMenuItem ) => {
+        let translatedTitle = menu.Title.startsWith( "#(" ) ? getTranslation( "_menu", menu.Title ) : menu.Title;
         if ( menu.Link ) {
-            return <PageSelector page={ menu.Link } className='menuSpan pointer_cursor'>{ menu.Title }</PageSelector>
+            return <PageSelector page={ menu.Link } className='menuSpan pointer_cursor'>{ translatedTitle }</PageSelector>
         }
         if ( menu.SubMenus ) {
             return <>
-                <span className='menuSpan pointer_cursor' onClick={ () => setToogle( !toogle ) }>{ menu.Title }</span>
+                <span className='menuSpan pointer_cursor' onClick={ () => setToogle( !toogle ) }>{ translatedTitle }</span>
                 { toogle && <SubMenu subMenu={ menu.SubMenus } unToogle={ () => setToogle( false ) } /> }
             </>
         }
-        return <span className='menuSpan pointer_cursor'>{ menu.Title }</span>
+        return <span className='menuSpan pointer_cursor'>{ translatedTitle }</span>
     }
 
     return <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef } tabIndex={ 0 }>

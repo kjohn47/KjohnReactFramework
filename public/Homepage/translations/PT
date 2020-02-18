@@ -32,5 +32,22 @@
         "#(Fri)": "Sex",
         "#(Sat)": "Sab",
         "#(Sun)": "Dom"
+    },
+    "_brand": {
+        "#(krf)": "KRF"
+    },
+    "_menu": {
+        "#(Test1)": "Teste 1",
+        "#(Test2)": "Teste 2"
+    },
+    "_submenu": {
+        "#(SubTest1)": "Sub-Menu 1",
+        "#(SubTest2)": "Sub-Menu 2"
+    },
+    "_loginform": {
+        "#(Username)": "Utilizador",
+        "#(Password)": "Palavra-Passe",
+        "#(LoginButton)": "Entrar",
+        "#(LoginDrop)": "Entrar"
     }
 }

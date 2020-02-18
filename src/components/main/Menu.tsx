@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { AppContext, AppLanguageContext, LoginContext } from '../../common/config/appConfig';
-import { ContextActions, AppLanguage, KnownPages } from '../../common/context/appContextEnums';
+import { ContextActions, AppLanguage } from '../../common/context/appContextEnums';
 import Row from '../common/Row';
 import Column, { ColumnNumber } from '../common/Column';
 import { IMenuItem } from './MenuComponents/MenuItem';
@@ -51,19 +51,19 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
   return (
     <Row className='menuRow'>
       {
-        loginContext &&
+        loginContext !== undefined ?
         <Column full={ ColumnNumber.C17 } medium={ ColumnNumber.C15 } mobile={ ColumnNumber.C10 }>
           <MenusBar { ...props } />
-        </Column> ||
+        </Column> :
         <Column full={ ColumnNumber.C14 } medium={ ColumnNumber.C15 } mobile={ ColumnNumber.C10 }>
           <MenusBar { ...props } />
         </Column>
       }
       {
-        loginContext &&
+        loginContext !== undefined ?
         <Column full={ ColumnNumber.C2 } medium={ ColumnNumber.C3 } mobile={ ColumnNumber.C6 } className="loginMenuCol">
           <>UserMenuComponent</>
-        </Column> ||
+        </Column> :
         <Column full={ ColumnNumber.C5 } medium={ ColumnNumber.C3 } mobile={ ColumnNumber.C6 } className="loginMenuCol">
           <LoginForm />
         </Column>
