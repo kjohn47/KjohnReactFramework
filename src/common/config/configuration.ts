@@ -42,6 +42,8 @@ export const initialLogin: ILogin | undefined = currentUser;
 
 //// Width for mobile dimensions
 export const mobileWidth: number = process.env.REACT_APP_MOBILE_WIDTH ? parseInt(process.env.REACT_APP_MOBILE_WIDTH) : 480;
+export const mobileWidthLoginForm: number = process.env.REACT_APP_MOBILE_WIDTH_LOGIN ? parseInt(process.env.REACT_APP_MOBILE_WIDTH_LOGIN) : 600;
+export const mobileWidthMenu: number = process.env.REACT_APP_MOBILE_WIDTH_MENU ? parseInt(process.env.REACT_APP_MOBILE_WIDTH_MENU) : 576;
 
 //// Api host server url
 //export const apiServerUrl: string = "https://localhost:44378";
