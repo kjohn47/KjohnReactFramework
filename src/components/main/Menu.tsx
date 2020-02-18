@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, AppLanguageContext } from '../../common/config/appConfig';
+import { AppContext, AppLanguageContext, LoginContext } from '../../common/config/appConfig';
 import { ContextActions, AppLanguage, KnownPages } from '../../common/context/appContextEnums';
 import Row from '../common/Row';
 import Column, { ColumnNumber } from '../common/Column';
@@ -15,6 +15,7 @@ export interface IMenuProps {
 
 const Menu: React.FC<IMenuProps> = ( props ) => {
   const setAppContext = useContext( AppContext )[ 1 ];
+  const [ loginContext ] = useContext( LoginContext );
   const [ appLanguage ] = useContext( AppLanguageContext );
   const [ toogleLang, setToogleLang ] = useState<boolean>( false );
   const langMenuRef = useRef<HTMLDivElement>( null );
@@ -49,13 +50,25 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
 
   return (
     <Row className='menuRow'>
-      <Column full={ ColumnNumber.C14 }>
-        <MenusBar {...props} />
-      </Column>
-      <Column full={ ColumnNumber.C5 }>
-        <LoginForm />
-      </Column>
-      <Column full={ ColumnNumber.C1 } reference={ langMenuRef }>
+      {
+        loginContext &&
+        <Column full={ ColumnNumber.C17 } medium={ ColumnNumber.C15 } mobile={ ColumnNumber.C10 }>
+          <MenusBar { ...props } />
+        </Column> ||
+        <Column full={ ColumnNumber.C14 } medium={ ColumnNumber.C15 } mobile={ ColumnNumber.C10 }>
+          <MenusBar { ...props } />
+        </Column>
+      }
+      {
+        loginContext &&
+        <Column full={ ColumnNumber.C2 } medium={ ColumnNumber.C3 } mobile={ ColumnNumber.C6 } className="loginMenuCol">
+          <>UserMenuComponent</>
+        </Column> ||
+        <Column full={ ColumnNumber.C5 } medium={ ColumnNumber.C3 } mobile={ ColumnNumber.C6 } className="loginMenuCol">
+          <LoginForm />
+        </Column>
+      }
+      <Column full={ ColumnNumber.C1 } medium={ ColumnNumber.C2 } mobile={ ColumnNumber.C4 } reference={ langMenuRef }>
         <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
           <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
         </div>
