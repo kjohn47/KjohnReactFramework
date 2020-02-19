@@ -7,6 +7,8 @@ import useWindowSize from '../../../common/functions/windowResize';
 import { useState, useEffect } from 'react';
 import { mobileWidthLoginForm, mobileWidthMenu } from '../../../common/config/configuration';
 import useTranslation from '../../../common/context/pageText/getTranslation';
+import PageSelector from '../../common/PageSelector';
+import { KnownPages } from '../../../common/context/appContextEnums';
 
 const LoginForm: React.FC = () => {
     const [ width ] = useWindowSize();
@@ -46,9 +48,14 @@ const LoginForm: React.FC = () => {
     const renderInlineForm = () => {
         return (
             <Row className="menuLoginFormRow">
-                <Column full={ ColumnNumber.C8 }><InputText name="login" placeHolder={ getTranslation( "_loginform", "#(Username)" ) } /></Column>
-                <Column full={ ColumnNumber.C8 }><InputText name="password" placeHolder={ getTranslation( "_loginform", "#(Password)" ) } /></Column>
-                <Column full={ ColumnNumber.C4 }><Button buttonType={ ButtonTypes.Default } className="loginMenuButton">{ getTranslation( "_loginform", "#(LoginButton)" ) }</Button></Column>
+                <Column full={ ColumnNumber.C7 }><InputText name="login" placeHolder={ getTranslation( "_loginform", "#(Username)" ) } /></Column>
+                <Column full={ ColumnNumber.C7 }><InputText name="password" placeHolder={ getTranslation( "_loginform", "#(Password)" ) } /></Column>
+                <Column full={ ColumnNumber.C3 } className = "loginMenuLink">
+                    <PageSelector page = { KnownPages.Home }>{ getTranslation( "_loginform", "#(LoginButton)" ) }</PageSelector>
+                </Column>
+                <Column full={ ColumnNumber.C3 } className = "loginMenuLink">
+                    <PageSelector page = { KnownPages.Home }>Novo</PageSelector>
+                </Column>
             </Row>
         );
     }
@@ -59,6 +66,21 @@ const LoginForm: React.FC = () => {
                 <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setMenuToogle( !menuToogle ) }>
                     <span tabIndex={ 0 } className={ ( menuToogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
                 </div>
+                { menuToogle && <div className="loginMenuDrop">
+                    <Row className="menuLoginFormRow">
+                        <Column>
+                        <Row>
+                            <Column><InputText name="login" placeHolder={ getTranslation( "_loginform", "#(Username)" ) } /></Column>
+                        </Row>
+                        <Row>
+                            <Column><InputText name="password" placeHolder={ getTranslation( "_loginform", "#(Password)" ) } /></Column>
+                        </Row>
+                        <Row>
+                            <Column><Button buttonType={ ButtonTypes.Default } className="loginMenuButton">{ getTranslation( "_loginform", "#(LoginButton)" ) }</Button></Column>
+                        </Row>
+                        </Column>
+                    </Row>
+                </div> }
             </div>
         )
     }
