@@ -62,7 +62,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       {
         loginContext !== undefined ?
         <Column full={ ColumnNumber.C2 } medium={ ColumnNumber.C6 } tablet={ ColumnNumber.C9 } mobile={ ColumnNumber.C9 } className="loginMenuCol">
-          <>UserMenuComponent</>
+          <>UserMenu</>
         </Column> :
         <Column full={ ColumnNumber.C6 } medium={ ColumnNumber.C7 } tablet={ ColumnNumber.C9 } mobile={ ColumnNumber.C9 } className="loginMenuCol">
           <LoginForm />

@@ -11,10 +11,14 @@
         }
       }
 
+      .subMenuLine {
+        border-color: $Menu_SubSeparator;
+      }
+
       .loginMenuCollapsed {
         background-color: $Menu_Background;
         &:after {
-          border-bottom-color: $Menu_SubBorder;
+          border-bottom-color: $Menu_Background;
         }
       }
 
@@ -58,10 +62,6 @@
               background-color: $Menu_SubHover;
               color: $Menu_SubTextHover;
             }
-        }
-
-        .subMenuLine {
-          border-color: $Menu_SubSeparator;
         }
 
         .disabledMenuItem {    

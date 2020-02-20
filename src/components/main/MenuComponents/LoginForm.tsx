@@ -36,14 +36,30 @@ const LoginForm: React.FC = () => {
     }, [ menuToogle ] )
 
     useEffect( () => {
-        if ( width <= mobileWidthLoginForm )
+        if ( width <= mobileWidthLoginForm && width > mobileWidthMenu )
+        {
             setDropDown( true );
-        else
-            setDropDown( false );
-        if ( width <= mobileWidthMenu )
+            if(menuCollapse)
+            {
+                setMenuToogle(false);
+                setMenuCollapse( false );
+            }
+        }
+        else if ( width <= mobileWidthMenu )
+        {
+            if(menuDropDown)
+            {
+                setMenuToogle(false);
+                setDropDown( false );
+            }
             setMenuCollapse( true );
+        }
         else
+        {
+            setDropDown( false );
             setMenuCollapse( false );
+            setMenuToogle(false);
+        }
     }, [ width ] );
 
     const renderInlineForm = () => {
