@@ -11,12 +11,12 @@
   }
 
   .loginMenuDrop {
-    background-color: grey;
     text-align: left;
-    min-width: 250px;
-    min-height: 150px;
+    min-width: 320px;
+    min-height: 180px;
     border-radius: 6px;
     position: absolute;
+    padding-top: 10px;
     top: 42px;
     right: -25%;
     margin-right: 25%;
@@ -38,18 +38,52 @@
     }
   }
 
+  .loginMenuCollapsed {
+    text-align: left;
+    border-radius: 20px;
+    .inputTextDiv {
+      height: auto;
+    }
+    .loginMenuBtnRow {
+      text-align: center;
+      margin: auto;
+      .loginMenuButtonCol{
+        .page_button {
+          min-width: 80px;
+          box-sizing: border-box;
+          padding: 0px;
+          margin: auto;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 6px;
+        border-style: solid;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        top: -10px;
+        right: calc( 0% + 15px ); 
+    }
+  }
+
   .menuLoginFormRow {
     height: 40px;
     .loginMenuLink {
       min-width: 40px;
       height: 40px;
-      font-weight: bold;
+      //font-weight: bold;
       box-sizing: border-box;
       padding-top: 10px;      
       text-align: center;
       &:hover {
         text-decoration: underline;
-      }    
+      }
     }
   }
 
@@ -87,7 +121,7 @@
     }
   }
   
-  .menuLanguageCol {     
+  .menuLanguageCol {
     text-align: right;    
     height: 40px;
     display: inline-block;

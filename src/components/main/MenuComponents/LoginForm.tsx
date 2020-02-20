@@ -9,6 +9,7 @@ import { mobileWidthLoginForm, mobileWidthMenu } from '../../../common/config/co
 import useTranslation from '../../../common/context/pageText/getTranslation';
 import PageSelector from '../../common/PageSelector';
 import { KnownPages } from '../../../common/context/appContextEnums';
+import WithLabel from '../../common/WithLabel';
 
 const LoginForm: React.FC = () => {
     const [ width ] = useWindowSize();
@@ -50,11 +51,11 @@ const LoginForm: React.FC = () => {
             <Row className="menuLoginFormRow">
                 <Column full={ ColumnNumber.C7 }><InputText name="login" placeHolder={ getTranslation( "_loginform", "#(Username)" ) } /></Column>
                 <Column full={ ColumnNumber.C7 }><InputText name="password" placeHolder={ getTranslation( "_loginform", "#(Password)" ) } /></Column>
-                <Column full={ ColumnNumber.C3 } className = "loginMenuLink">
-                    <PageSelector page = { KnownPages.Home }>{ getTranslation( "_loginform", "#(LoginButton)" ) }</PageSelector>
+                <Column full={ ColumnNumber.C3 } className="loginMenuLink">
+                    <span onClick={ () => { } } className="pointer_cursor">{ getTranslation( "_loginform", "#(LoginButton)" ) }</span>
                 </Column>
-                <Column full={ ColumnNumber.C3 } className = "loginMenuLink">
-                    <PageSelector page = { KnownPages.Home }>Novo</PageSelector>
+                <Column full={ ColumnNumber.C3 } className="loginMenuLink">
+                    <PageSelector page={ KnownPages.Home }>{ getTranslation( "_loginform", "#(NewLogin)" ) }</PageSelector>
                 </Column>
             </Row>
         );
@@ -67,17 +68,33 @@ const LoginForm: React.FC = () => {
                     <span tabIndex={ 0 } className={ ( menuToogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
                 </div>
                 { menuToogle && <div className="loginMenuDrop">
-                    <Row className="menuLoginFormRow">
+                    <Row>
                         <Column>
-                        <Row>
-                            <Column><InputText name="login" placeHolder={ getTranslation( "_loginform", "#(Username)" ) } /></Column>
-                        </Row>
-                        <Row>
-                            <Column><InputText name="password" placeHolder={ getTranslation( "_loginform", "#(Password)" ) } /></Column>
-                        </Row>
-                        <Row>
-                            <Column><Button buttonType={ ButtonTypes.Default } className="loginMenuButton">{ getTranslation( "_loginform", "#(LoginButton)" ) }</Button></Column>
-                        </Row>
+                            <Row>
+                                <Column>
+                                    <WithLabel inline text={ getTranslation( "_loginform", "#(Username)" ) }>
+                                        <InputText name="login" />
+                                    </WithLabel>
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column>
+                                    <WithLabel inline text={ getTranslation( "_loginform", "#(Password)" ) }>
+                                        <InputText name="password" />
+                                    </WithLabel>
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column></Column>
+                                <Column>
+                                    <Button buttonType={ ButtonTypes.Information }>{ getTranslation( "_loginform", "#(NewLogin)" ) }</Button>
+                                </Column>
+                                <Column></Column>
+                                <Column>
+                                    <Button buttonType={ ButtonTypes.Confirmation }>{ getTranslation( "_loginform", "#(LoginButton)" ) }</Button>
+                                </Column>
+                                <Column></Column>
+                            </Row>
                         </Column>
                     </Row>
                 </div> }
@@ -87,7 +104,39 @@ const LoginForm: React.FC = () => {
 
     const renderCollapsedForm = () => {
         return (
-            <>Collapsed</>
+            <div ref={ loginMenuRef }>
+                <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setMenuToogle( !menuToogle ) }>
+                    <span tabIndex={ 0 } className={ ( menuToogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
+                </div>
+                { menuToogle &&
+                    <Row className="loginMenuCollapsed">
+                        <Column>
+                            <Row>
+                                <Column>
+                                    <WithLabel text={ getTranslation( "_loginform", "#(Username)" ) }>
+                                        <InputText name="login" />
+                                    </WithLabel>
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column>
+                                    <WithLabel text={ getTranslation( "_loginform", "#(Password)" ) }>
+                                        <InputText name="password" />
+                                    </WithLabel>
+                                </Column>
+                            </Row>
+                            <Row className="loginMenuBtnRow">
+                                <Column className="loginMenuButtonCol">
+                                    <Button buttonType={ ButtonTypes.Information }>{ getTranslation( "_loginform", "#(NewLogin)" ) }</Button>
+                                </Column>
+                                <Column className="loginMenuButtonCol">
+                                    <Button buttonType={ ButtonTypes.Confirmation }>{ getTranslation( "_loginform", "#(LoginButton)" ) }</Button>
+                                </Column>
+                            </Row>
+                        </Column>
+                    </Row>
+                }
+            </div>
         )
     }
 

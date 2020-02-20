@@ -48,6 +48,7 @@
         "#(Username)": "Utilizador",
         "#(Password)": "Palavra-Passe",
         "#(LoginButton)": "Entrar",
-        "#(LoginDrop)": "Entrar"
+        "#(LoginDrop)": "Entrar",
+        "#(NewLogin)": "Registar"
     }
 }

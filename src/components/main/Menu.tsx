@@ -52,23 +52,23 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
     <Row className='menuRow'>
       {
         loginContext !== undefined ?
-        <Column full={ ColumnNumber.C17 } medium={ ColumnNumber.C15 } mobile={ ColumnNumber.C10 }>
+        <Column full={ ColumnNumber.C17 } medium={ ColumnNumber.C12 } tablet={ ColumnNumber.C9 } mobile={ ColumnNumber.C9 }>
           <MenusBar { ...props } />
         </Column> :
-        <Column full={ ColumnNumber.C14 } medium={ ColumnNumber.C15 } mobile={ ColumnNumber.C10 }>
+        <Column full={ ColumnNumber.C13 } medium={ ColumnNumber.C11 } tablet={ ColumnNumber.C9 }  mobile={ ColumnNumber.C9 }>
           <MenusBar { ...props } />
         </Column>
       }
       {
         loginContext !== undefined ?
-        <Column full={ ColumnNumber.C2 } medium={ ColumnNumber.C3 } mobile={ ColumnNumber.C6 } className="loginMenuCol">
+        <Column full={ ColumnNumber.C2 } medium={ ColumnNumber.C6 } tablet={ ColumnNumber.C9 } mobile={ ColumnNumber.C9 } className="loginMenuCol">
           <>UserMenuComponent</>
         </Column> :
-        <Column full={ ColumnNumber.C5 } medium={ ColumnNumber.C3 } mobile={ ColumnNumber.C6 } className="loginMenuCol">
+        <Column full={ ColumnNumber.C6 } medium={ ColumnNumber.C7 } tablet={ ColumnNumber.C9 } mobile={ ColumnNumber.C9 } className="loginMenuCol">
           <LoginForm />
         </Column>
       }
-      <Column full={ ColumnNumber.C1 } medium={ ColumnNumber.C2 } mobile={ ColumnNumber.C4 } reference={ langMenuRef }>
+      <Column full={ ColumnNumber.C1 } medium={ ColumnNumber.C2 } tablet={ ColumnNumber.C2 } mobile={ ColumnNumber.C2 } reference={ langMenuRef }>
         <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
           <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
         </div>

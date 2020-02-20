@@ -3,6 +3,21 @@
     // Page Menu
 
     .menuRow {
+      .loginMenuDrop{
+        border-color: $Menu_SubBorder;
+        background-color: $SecondaryColor;
+        &:after {
+          border-bottom-color: $Menu_SubBorder;
+        }
+      }
+
+      .loginMenuCollapsed {
+        background-color: $Menu_Background;
+        &:after {
+          border-bottom-color: $Menu_SubBorder;
+        }
+      }
+
       .menuItemColSel {
           border-color: $Menu_Border;
           background-color: $Menu_Background;

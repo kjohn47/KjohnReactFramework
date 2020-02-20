@@ -47,7 +47,8 @@
     "_loginform": {
         "#(Username)": "Username",
         "#(Password)": "Password",
-        "#(LoginButton)": "Login",
-        "#(LoginDrop)": "Login"
+        "#(LoginButton)": "Sign In",
+        "#(LoginDrop)": "Login",
+        "#(NewLogin)": "Sign Up"
     }
 }
