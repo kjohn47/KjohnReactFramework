@@ -34,7 +34,8 @@ const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: bo
       setMenuCollapse( false );
       props.setToogle( false );
     }
-  }, [ width, maxWidth ] );
+    //eslint-disable-next-line
+  }, [ width ] );
 
   useEffect( () => {
     // add when mounted

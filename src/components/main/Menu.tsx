@@ -7,6 +7,7 @@ import { IMenuItem } from './MenuComponents/MenuItem';
 import SubMenu, { ISubMenuItem } from './MenuComponents/SubMenu';
 import LoginForm from './MenuComponents/LoginForm';
 import MenusBar from './MenuComponents/MenusBar';
+import UserMenu from './MenuComponents/UserMenu';
 
 export interface IMenuProps {
   Brand?: string;
@@ -63,7 +64,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       {
         loginContext !== undefined ?
           <Column full={ ColumnNumber.C2 } medium={ ColumnNumber.C6 } tablet={ menuToogle ? ColumnNumber.C5 : ColumnNumber.C14 } className="loginMenuCol">
-            <>UserMenu</>
+            <UserMenu />
           </Column> :
           <Column full={ ColumnNumber.C6 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C5 : ColumnNumber.C14 } className="loginMenuCol">
             <LoginForm />

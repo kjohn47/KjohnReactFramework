@@ -36,30 +36,26 @@ const LoginForm: React.FC = () => {
     }, [ menuToogle ] )
 
     useEffect( () => {
-        if ( width <= mobileWidthLoginForm && width > mobileWidthMenu )
-        {
+        if ( width <= mobileWidthLoginForm && width > mobileWidthMenu ) {
             setDropDown( true );
-            if(menuCollapse)
-            {
-                setMenuToogle(false);
+            if ( menuCollapse ) {
+                setMenuToogle( false );
                 setMenuCollapse( false );
             }
         }
-        else if ( width <= mobileWidthMenu )
-        {
-            if(menuDropDown)
-            {
-                setMenuToogle(false);
+        else if ( width <= mobileWidthMenu ) {
+            if ( menuDropDown ) {
+                setMenuToogle( false );
                 setDropDown( false );
             }
             setMenuCollapse( true );
         }
-        else
-        {
+        else {
             setDropDown( false );
             setMenuCollapse( false );
-            setMenuToogle(false);
+            setMenuToogle( false );
         }
+        //eslint-disable-next-line
     }, [ width ] );
 
     const renderInlineForm = () => {
@@ -77,12 +73,20 @@ const LoginForm: React.FC = () => {
         );
     }
 
-    const renderDropDownForm = () => {
+    const LoginFormWrapper: React.FC = ( props ) => {
         return (
             <div ref={ loginMenuRef }>
                 <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setMenuToogle( !menuToogle ) }>
                     <span tabIndex={ 0 } className={ ( menuToogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
                 </div>
+                { props.children }
+            </div>
+        )
+    }
+
+    const renderDropDownForm = () => {
+        return (
+            <LoginFormWrapper>
                 { menuToogle && <div className="loginMenuDrop">
                     <Row>
                         <Column>
@@ -114,16 +118,13 @@ const LoginForm: React.FC = () => {
                         </Column>
                     </Row>
                 </div> }
-            </div>
+            </LoginFormWrapper>
         )
     }
 
     const renderCollapsedForm = () => {
         return (
-            <div ref={ loginMenuRef }>
-                <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setMenuToogle( !menuToogle ) }>
-                    <span tabIndex={ 0 } className={ ( menuToogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
-                </div>
+            <LoginFormWrapper>
                 { menuToogle &&
                     <Row className="loginMenuCollapsed">
                         <Column>
@@ -152,7 +153,7 @@ const LoginForm: React.FC = () => {
                         </Column>
                     </Row>
                 }
-            </div>
+            </LoginFormWrapper>
         )
     }
 
