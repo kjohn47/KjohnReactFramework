@@ -3,6 +3,13 @@ import { AppContext, LoginContext } from '../../../common/config/appConfig';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 import useWindowSize from '../../../common/functions/windowResize';
 import { mobileWidthMenu, mobileWidthLoginForm } from '../../../common/config/configuration';
+import Row from '../../common/Row';
+import Column from '../../common/Column';
+import WithLabel from '../../common/WithLabel';
+import InputText from '../../common/InputText';
+import Button, { ButtonTypes } from '../../common/Button';
+import SubMenu from './SubMenu';
+import SubMenuMobile from './SubMenuMobile';
 
 const UserMenu: React.FC = () => {
     const [ appContext ] = useContext( AppContext );
@@ -55,17 +62,21 @@ const UserMenu: React.FC = () => {
 
     const renderDropDown = () => {
         return (
-            <>
-                NORMAL MENU
-            </>
+            <SubMenu subMenu={ [ { Title: "test1" }, { Title: "Teste2" }, {}, { Title: "Test3" } ] } unToogle={ () => setToogle( false ) } />
         )
     }
 
     const renderCollapsed = () => {
         return (
-            <>
-                COLLAPSED MENU
-            </>
+            <Row>
+                <Column className="collapsedMenuGroup">
+                    <Row>
+                        <Column className="collapsedMenuItem pointer_cursor noselect" >
+                            <span className="collapsedMenuItemInner">Teste 1</span>
+                        </Column>
+                    </Row>
+                </Column>
+            </Row>
         )
     }
 
