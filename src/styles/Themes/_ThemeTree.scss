@@ -3,39 +3,41 @@
     // Page Menu
 
     .menuRow {
-
       .collapsedMenuGroup {
-        background-color: lightslategray;
+        background-color: $Menu_Background;
         .collapsedMenuItem {
-          border-bottom-color: lightgray;      
+          border-bottom-color: $Menu_Border;
           &:hover {
-            background-color: lightseagreen;
+            background-color: $Menu_SubHover;
           }
         }
     
         .collapsedMenuItemSelected {
-          background-color: gray;
+          background-color: $Menu_MenuSubOpen;
           .collapsedSubMenuGroup {
-            background-color: white;
-            color: black;
+            background-color: $Menu_SubBackground;
+            color: $TextColor;
             .collapsedSubMenuItem {
               &:hover {
-                background-color: lightgray;
+                background-color: $Menu_SubTextHover;
               }
             }
             .disabledMenuItem {    
-              background-color: lightgray;
+              background-color: $Menu_SubDisabled;
+              &:hover {
+                background-color: $Menu_SubDisabled;
+              }
             }
           }
           &:hover {
-            background-color: gray;
+            background-color: $Menu_MenuSubOpen;
           }
           &:after {
-            border-bottom-color: red;
+            border-bottom-color: $Menu_SubBackground;
           }
         }
         &:after {
-            border-bottom-color: red;
+            border-bottom-color: $SecondaryColor;
         }
       }
 
