@@ -11,10 +11,10 @@ import { mobileWidthMenu } from '../../../common/config/configuration';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 import MenuItemMobile from './MenuItemMobile';
 
-const MenusBar: React.FC<IMenuProps> = ( props ) => {
+const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: boolean ) => void }> = ( props ) => {
   const [ width ] = useWindowSize();
   const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
-  const [ menuToogle, setMenuToogle ] = useState<boolean>( false );
+
   const { getTranslation } = useTranslation();
   const menuRef = useRef<HTMLDivElement>( null );
 
@@ -22,8 +22,8 @@ const MenusBar: React.FC<IMenuProps> = ( props ) => {
   const maxWidth: number = numMenus <= 3 ? mobileWidthMenu : mobileWidthMenu + ( 100 * numMenus - 3 );
 
   const handleClickOut: ( event: any ) => void = ( event ) => {
-    if ( menuToogle && menuRef != null && menuRef.current !== null && !menuRef.current.contains( event.target ) ) {
-      setMenuToogle( false );
+    if ( props.toogle && menuRef != null && menuRef.current !== null && !menuRef.current.contains( event.target ) ) {
+      props.setToogle( false );
     }
   }
 
@@ -32,7 +32,7 @@ const MenusBar: React.FC<IMenuProps> = ( props ) => {
       setMenuCollapse( true );
     else {
       setMenuCollapse( false );
-      setMenuToogle( false );
+      props.setToogle( false );
     }
   }, [ width, maxWidth ] );
 
@@ -44,7 +44,7 @@ const MenusBar: React.FC<IMenuProps> = ( props ) => {
       document.removeEventListener( "mousedown", handleClickOut );
     };
     //eslint-disable-next-line
-  }, [ menuToogle ] )
+  }, [ props.toogle ] )
 
   const renderInLineMenus = () => {
     return <Row className='menuItemRow noselect'>
@@ -60,24 +60,24 @@ const MenusBar: React.FC<IMenuProps> = ( props ) => {
   const renderCollapsedMenu = () => {
     return (
       <div ref={ menuRef }>
-        <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setMenuToogle( !menuToogle ) }>
-          <span tabIndex={ 0 } className={ ( menuToogle ? 'menuItemColSel' : '' ) }>
+        <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => props.setToogle( !props.toogle ) }>
+          <span tabIndex={ 0 } className={ ( props.toogle ? 'menuItemColSel' : '' ) }>
             <div className="menuCollapsed">|||</div>
           </span>
         </div>
-        { menuToogle &&
+        { props.toogle &&
           <Row>
             <Column className="collapsedMenuGroup">
               { props.Brand &&
                 <Row>
                   <Column className="collapsedMenuItem collapseMenuBrand">
-                    <PageSelector page={ KnownPages.Home } forceReload action={ () => setMenuToogle( false ) }>{ props.Brand.startsWith( "#(" ) ? getTranslation( "_brand", props.Brand ) : props.Brand }</PageSelector>
+                    <PageSelector page={ KnownPages.Home } forceReload action={ () => props.setToogle( false ) }>{ props.Brand.startsWith( "#(" ) ? getTranslation( "_brand", props.Brand ) : props.Brand }</PageSelector>
                   </Column>
                 </Row>
               }
               {
                 props.MenuNav && props.MenuNav.map( ( menu, i ) =>
-                  <MenuItemMobile { ...menu } key={ "_menu_" + i } collapseFunc={ () => setMenuToogle( false ) } />
+                  <MenuItemMobile { ...menu } key={ "_menu_" + i } collapseFunc={ () => props.setToogle( false ) } />
                 )
               }
             </Column>

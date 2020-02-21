@@ -59,7 +59,8 @@
         .page_button {
           min-width: 80px;
           box-sizing: border-box;
-          padding: 0px;
+          padding: 5px;
+          padding-bottom: 25px;
           margin: auto;
           margin-bottom: 10px;
         }
@@ -135,36 +136,36 @@
   .collapsedMenuGroup {
     text-align: left;
     border-radius: 20px;
-    background-color: lightslategray;
     .collapsedMenuItem {
-      min-height: 30px;
+      min-height: 45px;
       box-sizing: border-box;
       font-weight: bold;
-      padding: 10px;
       padding-left: 30px;
-      border-bottom: 1px dotted lightgray;
-      &:hover {
-        background-color: lightseagreen;
-      }
-      .collapseMenuSign {
-        text-align: right;
-        padding-right: 10px;
+      border-bottom: 1px dotted;
+      .collapsedMenuItemInner {
+        min-height: 20px;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        margin-right: 10px;
+        .collapseMenuSign {
+          text-align: right;
+          padding-right: 10px;
+          box-sizing: border-box;
+        }
       }
     }
 
     .collapsedMenuItemSelected {
-      background-color: gray;
       .collapsedSubMenuGroup {
-        margin-top: 10px;
+        margin-bottom: 10px;
         border-radius: 10px;
-        background-color: white;
-        color: black;
+        margin-right: 10px;
         font-weight: normal;
         .collapsedSubMenuItem {
           padding: 10px;
-          &:hover {
-            background-color: lightgray;
-          }
+        }
+        .disabledMenuItem {    
+          cursor: default; 
         }        
         & .RowDiv:first-child .collapsedSubMenuItem {
           border-radius: 9px 9px 0 0;
@@ -172,9 +173,6 @@
         & .RowDiv:last-child .collapsedSubMenuItem {
           border-radius: 0 0 9px 9px;
         }
-      }
-      &:hover {
-        background-color: gray;
       }
       &:after {
         content: "";
@@ -186,13 +184,14 @@
         border-right-color: transparent;
         border-top-color: transparent;
         border-left-color: transparent;
-        top: 28px;
+        top: 33px;
         left: calc( 0% + 40px ); 
       }
     }
 
     .collapseMenuBrand {
       font-size: larger;
+      padding: 10px;
       padding-left: 20px;
     }
     &:after {

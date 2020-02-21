@@ -44,7 +44,7 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
                 { toogle && <SubMenu subMenu={ menu.SubMenus } unToogle={ () => setToogle( false ) } /> }
             </>
         }
-        return <span className='menuSpan pointer_cursor'>{ translatedTitle }</span>
+        return <span onClick={ menu.Action } className='menuSpan pointer_cursor'>{ translatedTitle }</span>
     }
 
     return <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef } tabIndex={ 0 }>

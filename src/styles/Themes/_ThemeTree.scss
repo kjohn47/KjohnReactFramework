@@ -3,6 +3,42 @@
     // Page Menu
 
     .menuRow {
+
+      .collapsedMenuGroup {
+        background-color: lightslategray;
+        .collapsedMenuItem {
+          border-bottom-color: lightgray;      
+          &:hover {
+            background-color: lightseagreen;
+          }
+        }
+    
+        .collapsedMenuItemSelected {
+          background-color: gray;
+          .collapsedSubMenuGroup {
+            background-color: white;
+            color: black;
+            .collapsedSubMenuItem {
+              &:hover {
+                background-color: lightgray;
+              }
+            }
+            .disabledMenuItem {    
+              background-color: lightgray;
+            }
+          }
+          &:hover {
+            background-color: gray;
+          }
+          &:after {
+            border-bottom-color: red;
+          }
+        }
+        &:after {
+            border-bottom-color: red;
+        }
+      }
+
       .loginMenuDrop{
         border-color: $Menu_SubBorder;
         background-color: $SecondaryColor;
