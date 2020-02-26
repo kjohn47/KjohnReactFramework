@@ -71,14 +71,14 @@ const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: bo
             <Column className="collapsedMenuGroup">
               { props.Brand &&
                 <Row>
-                  <Column className="collapsedMenuItem collapseMenuBrand">
+                  <Column className={ "collapsedMenuItem collapseMenuBrand" + ( props.MenuNav && props.MenuNav.length > 0 ? "" : " collapsedMenuSingleItem" ) }>
                     <PageSelector page={ KnownPages.Home } forceReload action={ () => props.setToogle( false ) }>{ props.Brand.startsWith( "#(" ) ? getTranslation( "_brand", props.Brand ) : props.Brand }</PageSelector>
                   </Column>
                 </Row>
               }
               {
                 props.MenuNav && props.MenuNav.map( ( menu, i ) =>
-                  <MenuItemMobile { ...menu } key={ "_menu_" + i } collapseFunc={ () => props.setToogle( false ) } />
+                  <MenuItemMobile { ...menu } key={ "_menu_" + i } collapseFunc={ () => props.setToogle( false ) } IsSingle={ !props.Brand && props.MenuNav && props.MenuNav.length === 1 } />
                 )
               }
             </Column>

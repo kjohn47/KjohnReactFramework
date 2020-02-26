@@ -1,15 +1,12 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { AppContext, LoginContext } from '../../../common/config/appConfig';
-import useTranslation from '../../../common/context/pageText/getTranslation';
 import useWindowSize from '../../../common/functions/windowResize';
 import { mobileWidthMenu, mobileWidthLoginForm } from '../../../common/config/configuration';
 import Row from '../../common/Row';
 import Column from '../../common/Column';
-import WithLabel from '../../common/WithLabel';
-import InputText from '../../common/InputText';
-import Button, { ButtonTypes } from '../../common/Button';
-import SubMenu from './SubMenu';
-import SubMenuMobile from './SubMenuMobile';
+import SubMenu, { ISubMenuItem } from './SubMenu';
+import { KnownPages } from '../../../common/context/appContextEnums';
+import MenuItemMobile from './MenuItemMobile';
 
 const UserMenu: React.FC = () => {
     const [ appContext ] = useContext( AppContext );
@@ -18,7 +15,6 @@ const UserMenu: React.FC = () => {
     const [ shortName, setShortName ] = useState<boolean>( false );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
     const [ width ] = useWindowSize();
-    const { getTranslation } = useTranslation();
     const userMenuRef = useRef<HTMLDivElement>( null );
 
     const handleClickOut: ( event: any ) => void = ( event ) => {
@@ -61,20 +57,31 @@ const UserMenu: React.FC = () => {
     }, [ width ] );
 
     const renderDropDown = () => {
+        const menus: ISubMenuItem[] = [
+            { Title: "#(User)", Link: KnownPages.Home }
+        ];
+
+        if ( appContext.adminOptions ) {
+            menus.push( { Title: "#(Administracao)", Link: KnownPages.Home } );
+        }
+
+        menus.push( {} );
+        menus.push( { Title: "#(Logout)", Action: () => null } )
+
         return (
-            <SubMenu subMenu={ [ { Title: "test1" }, { Title: "Teste2" }, {}, { Title: "Test3" } ] } unToogle={ () => setToogle( false ) } />
+            <div className="userSubMenuDrop">
+                <SubMenu subMenu={ menus } unToogle={ () => setToogle( false ) } />
+            </div>
         )
     }
 
     const renderCollapsed = () => {
         return (
             <Row>
-                <Column className="collapsedMenuGroup">
-                    <Row>
-                        <Column className="collapsedMenuItem pointer_cursor noselect" >
-                            <span className="collapsedMenuItemInner">Teste 1</span>
-                        </Column>
-                    </Row>
+                <Column className="collapsedMenuGroup collapsedMenuGroupUserMenu">
+                    <MenuItemMobile Title="#(User)" Link={ KnownPages.Home } collapseFunc={ () => { setToogle( false ) } } />
+                    { appContext.adminOptions && <MenuItemMobile Title="#(Administracao)" Link={ KnownPages.Home } collapseFunc={ () => { setToogle( false ) } } /> }
+                    <MenuItemMobile Title="#(Logout)" Action={ () => null } collapseFunc={ () => { setToogle( false ) } } />
                 </Column>
             </Row>
         )

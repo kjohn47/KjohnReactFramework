@@ -11,7 +11,7 @@ const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => vo
     const [ errorContext ] = useContext( ErrorContext );
     const { getTranslation } = useTranslation();
 
-    const makeSubMenu = ( subMenu: ISubMenuItem ) => {
+    const makeSubMenu = ( subMenu: ISubMenuItem, isSingle: boolean = false ) => {
         if ( !subMenu.Title || subMenu.Title === '' ) {
             return (
                 <Column className='subMenuLine'></Column>
@@ -20,13 +20,13 @@ const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => vo
         let translatedTitle = subMenu.Title.startsWith( "#(" ) ? getTranslation( "_submenu", subMenu.Title ) : subMenu.Title;
         if ( subMenu.Link && ( subMenu.Link !== appContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
             return (
-                <Column className={ "collapsedSubMenuItem" + ( subMenu.Reloadable && subMenu.Link === appContext.selectedPage ? ' disabledMenuItem pointer_cursor' : '' ) }>
+                <Column className={ "collapsedSubMenuItem" + ( isSingle ? " collapsedSubMenuSingleItem" : "" ) + ( subMenu.Reloadable && subMenu.Link === appContext.selectedPage ? ' disabledMenuItem pointer_cursor' : '' ) }>
                     <PageSelector page={ subMenu.Link } action={ props.collapseFunc } forceReload={ subMenu.Reloadable }>{ translatedTitle }</PageSelector>
                 </Column>
             )
         }
         return (
-            <Column className={ "collapsedSubMenuItem pointer_cursor" + ( !subMenu.Action ? " disabledMenuItem" : "" ) }>
+            <Column className={ "collapsedSubMenuItem pointer_cursor" + ( isSingle ? " collapsedSubMenuSingleItem" : "" ) + ( !subMenu.Action ? " disabledMenuItem" : "" ) }>
                 <span onClick={ () => { if ( subMenu.Action ) { props.collapseFunc(); subMenu.Action(); } } } >{ translatedTitle }</span>
             </Column>
         )
@@ -37,7 +37,7 @@ const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => vo
             {
                 props.SubMenus.map( ( subMenu, i ) =>
                     <Row key={ 'sub_menu_' + i }>
-                        { makeSubMenu( subMenu ) }
+                        { makeSubMenu( subMenu, props.SubMenus.length === 1 ) }
                     </Row>
                 )
             }

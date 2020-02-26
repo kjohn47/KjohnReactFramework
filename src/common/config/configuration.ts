@@ -6,15 +6,7 @@ import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme } fr
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
 import { trueFalseParser } from "../functions/misc";
 
-let currentUser: ILogin | undefined = 
-{
-    appLanguage: AppLanguage.PT,
-    appTheme: AppGlobalTheme.Default,
-    authTokenHash: "null",
-    name: "John",
-    surname: "Doe",
-    userSessionToken: "aaa.bbb.ccc"
-};//getUserSession();
+let currentUser: ILogin | undefined = getUserSession();
 
 let lastSavedLang: AppLanguage = currentUser !== undefined ? currentUser.appLanguage : getLastSelectedLanguage();
 let lastSavedTheme: AppGlobalTheme = currentUser !== undefined ? currentUser.appTheme : getAppTheme();
@@ -40,7 +32,7 @@ export const initialAppConfig: IAppContext = {
     globalTheme: lastSavedTheme,
     selectedPage: pageRoute.selectedPage,
     queryString: pageRoute.queryString,
-    adminOptions: true,//currentUser !== undefined && getTokenData( currentUser.userSessionToken ).isAdmin,
+    adminOptions: currentUser !== undefined && getTokenData( currentUser.userSessionToken ).isAdmin,
     translations: {}
 }
 

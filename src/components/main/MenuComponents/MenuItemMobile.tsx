@@ -7,7 +7,7 @@ import SubMenuMobile from './SubMenuMobile';
 import PageSelector from '../../common/PageSelector';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 
-const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void }> = ( props ) => {
+const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?: boolean; }> = ( props ) => {
     const [ subMenuCollapsed, setSubMenuCollapsed ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
 
@@ -15,14 +15,14 @@ const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void }> = ( pro
         let translatedTitle = props.Title.startsWith( "#(" ) ? getTranslation( "_menu", props.Title ) : props.Title;
         if ( props.Link ) {
             return (
-                <Column className="collapsedMenuItem pointer_cursor noselect" >
+                <Column className={ "collapsedMenuItem pointer_cursor noselect" + ( props.IsSingle ? " collapsedMenuSingleItem" : "" ) } >
                     <PageSelector className="collapsedMenuItemInner" action={ props.collapseFunc } page={ props.Link }>{ translatedTitle }</PageSelector>
                 </Column>
             )
         }
         if ( props.SubMenus ) {
             return (
-                <Column className={ "collapsedMenuItem pointer_cursor noselect" + ( subMenuCollapsed ? " collapsedMenuItemSelected" : "" ) }>
+                <Column className={ "collapsedMenuItem pointer_cursor noselect" + ( props.IsSingle ? " collapsedMenuSingleItem" : "" ) + ( subMenuCollapsed ? " collapsedMenuItemSelected" : "" ) }>
                     <div className="collapsedMenuItemInner" onClick={ () => setSubMenuCollapsed( !subMenuCollapsed ) }>
                         <Row>
                             <Column full={ ColumnNumber.C16 }>{ translatedTitle }</Column>
@@ -36,7 +36,7 @@ const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void }> = ( pro
             )
         }
         return (
-            <Column className="collapsedMenuItem pointer_cursor noselect" >
+            <Column className={ "collapsedMenuItem pointer_cursor noselect" + ( props.IsSingle ? " collapsedMenuSingleItem" : "" ) } >
                 <span className="collapsedMenuItemInner" onClick={ () => { props.collapseFunc(); props.Action && props.Action(); } }>{ translatedTitle }</span>
             </Column>
         )
