@@ -12,6 +12,10 @@
           }
         }
     
+        .collapsedMenuLinkSelected {
+          background-color: $Menu_MenuSubOpen;
+        }
+
         .collapsedMenuItemSelected {
           background-color: $Menu_MenuSubOpen;
           .collapsedSubMenuGroup {

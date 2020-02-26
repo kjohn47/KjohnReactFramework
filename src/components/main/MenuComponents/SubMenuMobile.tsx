@@ -17,7 +17,7 @@ const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => vo
                 <Column className='subMenuLine'></Column>
             )
         }
-        let translatedTitle = subMenu.Title.startsWith( "#(" ) ? getTranslation( "_submenu", subMenu.Title ) : subMenu.Title;
+        let translatedTitle = subMenu.Title.startsWith( "#(" ) ? getTranslation( "_menu", subMenu.Title ) : subMenu.Title;
         if ( subMenu.Link && ( subMenu.Link !== appContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
             return (
                 <Column className={ "collapsedSubMenuItem" + ( isSingle ? " collapsedSubMenuSingleItem" : "" ) + ( subMenu.Reloadable && subMenu.Link === appContext.selectedPage ? ' disabledMenuItem pointer_cursor' : '' ) }>

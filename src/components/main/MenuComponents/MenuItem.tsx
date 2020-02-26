@@ -10,6 +10,7 @@ export interface IMenuItem {
     Link?: KnownPages;
     Action?: () => void;
     SubMenus?: ISubMenuItem[];
+    Reloadable?: boolean;
 }
 
 const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
@@ -36,7 +37,7 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
     const makeMenu = ( menu: IMenuItem ) => {
         let translatedTitle = menu.Title.startsWith( "#(" ) ? getTranslation( "_menu", menu.Title ) : menu.Title;
         if ( menu.Link ) {
-            return <PageSelector page={ menu.Link } className='menuSpan pointer_cursor'>{ translatedTitle }</PageSelector>
+            return <PageSelector forceReload={ menu.Reloadable } page={ menu.Link } className='menuSpan pointer_cursor'>{ translatedTitle }</PageSelector>
         }
         if ( menu.SubMenus ) {
             return <>

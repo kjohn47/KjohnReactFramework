@@ -37,10 +37,11 @@
         "#(krf)": "KRF"
     },
     "_menu": {
+        "#(User)": "Utilizador",
+        "#(Administration)": "Administração",
+        "#(Logout)": "Sair",
         "#(Test1)": "Teste 1",
-        "#(Test2)": "Teste 2"
-    },
-    "_submenu": {
+        "#(Test2)": "Teste 2",
         "#(SubTest1)": "Sub-Menu 1",
         "#(SubTest2)": "Sub-Menu 2"
     },

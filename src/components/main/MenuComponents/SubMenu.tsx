@@ -23,7 +23,7 @@ const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle:
         if ( !subMenu.Title || subMenu.Title === '' ) {
             return <Column className='subMenuLine'></Column>
         }
-        let translatedTitle = subMenu.Title.startsWith( "#(" ) ? getTranslation( "_submenu", subMenu.Title ) : subMenu.Title;
+        let translatedTitle = subMenu.Title.startsWith( "#(" ) ? getTranslation( "_menu", subMenu.Title ) : subMenu.Title;
         if ( subMenu.Link && ( subMenu.Link !== appContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
             return <Column className={ 'subMenuCol' + ( subMenu.Reloadable && subMenu.Link === appContext.selectedPage ? ' disabledMenuItem pointer_cursor subMenuReloadable' : '' ) }>
                 {

@@ -20,6 +20,10 @@
       width: 100px;
       margin-left: auto;
       margin-right: 0px;
+      .subMenuDrop {
+        left: unset;
+        right: 20px;
+      }
     }
   }
 
@@ -266,7 +270,7 @@
     margin-left: -75%;
     z-index: 1;
     border-width: 2px;
-    border-style: solid;  
+    border-style: solid;
     &:after {
         content: "";
         position: absolute;

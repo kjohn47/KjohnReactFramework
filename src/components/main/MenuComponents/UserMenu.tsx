@@ -8,7 +8,15 @@ import SubMenu, { ISubMenuItem } from './SubMenu';
 import { KnownPages } from '../../../common/context/appContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 
-const UserMenu: React.FC = () => {
+export interface IUserCustomMenu {
+    Title?: string;
+    Action?: () => void;
+    Link?: KnownPages;
+    Reloadable?: boolean;
+    AdminOnly?: boolean;
+}
+
+const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[] }> = ( props ) => {
     const [ appContext ] = useContext( AppContext );
     const [ userContext ] = useContext( LoginContext );
     const [ toogle, setToogle ] = useState<boolean>( false );
@@ -58,11 +66,20 @@ const UserMenu: React.FC = () => {
 
     const renderDropDown = () => {
         const menus: ISubMenuItem[] = [
-            { Title: "#(User)", Link: KnownPages.Home }
+            { Title: "#(User)", Link: KnownPages.UserSettings }
         ];
 
+        if ( props.CustomMenus ) {
+            props.CustomMenus.forEach( ( menu ) => {
+                if(!menu.AdminOnly || appContext.adminOptions)
+                {
+                    menus.push( { Title: menu.Title, Action: menu.Action, Link: menu.Link, Reloadable: menu.Reloadable } );
+                }
+            } );
+        }
+
         if ( appContext.adminOptions ) {
-            menus.push( { Title: "#(Administracao)", Link: KnownPages.Home } );
+            menus.push( { Title: "#(Administracao)", Link: KnownPages.Administration } );
         }
 
         menus.push( {} );
@@ -79,8 +96,22 @@ const UserMenu: React.FC = () => {
         return (
             <Row>
                 <Column className="collapsedMenuGroup collapsedMenuGroupUserMenu">
-                    <MenuItemMobile Title="#(User)" Link={ KnownPages.Home } collapseFunc={ () => { setToogle( false ) } } />
-                    { appContext.adminOptions && <MenuItemMobile Title="#(Administracao)" Link={ KnownPages.Home } collapseFunc={ () => { setToogle( false ) } } /> }
+                    <MenuItemMobile Title="#(User)" Link={ KnownPages.UserSettings } collapseFunc={ () => { setToogle( false ) } } />
+                    {
+                        props.CustomMenus && props.CustomMenus.map( ( menu, i ) =>
+                            menu.Title && ( !menu.AdminOnly || appContext.adminOptions ) ?
+                            <MenuItemMobile
+                                key={ i }
+                                Title={ menu.Title }
+                                collapseFunc={ () => setToogle( false ) }
+                                Action={ menu.Action }
+                                Link={ menu.Link }
+                                Reloadable={ menu.Reloadable }
+                            />
+                            : null
+                        )
+                    }
+                    { appContext.adminOptions && <MenuItemMobile Title="#(Administracao)" Link={ KnownPages.Administration } collapseFunc={ () => { setToogle( false ) } } /> }
                     <MenuItemMobile Title="#(Logout)" Action={ () => null } collapseFunc={ () => { setToogle( false ) } } />
                 </Column>
             </Row>

@@ -6,8 +6,11 @@ import { useState } from 'react';
 import SubMenuMobile from './SubMenuMobile';
 import PageSelector from '../../common/PageSelector';
 import useTranslation from '../../../common/context/pageText/getTranslation';
+import { AppContext, ErrorContext } from '../../../common/config/appConfig';
 
 const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?: boolean; }> = ( props ) => {
+    const [ appContext ] = React.useContext( AppContext );
+    const [ errorContext ] = React.useContext( ErrorContext );
     const [ subMenuCollapsed, setSubMenuCollapsed ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
 
@@ -15,8 +18,11 @@ const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?
         let translatedTitle = props.Title.startsWith( "#(" ) ? getTranslation( "_menu", props.Title ) : props.Title;
         if ( props.Link ) {
             return (
-                <Column className={ "collapsedMenuItem pointer_cursor noselect" + ( props.IsSingle ? " collapsedMenuSingleItem" : "" ) } >
-                    <PageSelector className="collapsedMenuItemInner" action={ props.collapseFunc } page={ props.Link }>{ translatedTitle }</PageSelector>
+                <Column
+                    className={ "collapsedMenuItem pointer_cursor noselect" +
+                        ( props.IsSingle ? " collapsedMenuSingleItem" : "" ) +
+                        ( props.Link === appContext.selectedPage && !errorContext.hasError ? " collapsedMenuLinkSelected" : "" ) } >
+                    <PageSelector className="collapsedMenuItemInner" action={ props.collapseFunc } page={ props.Link } forceReload={ props.Reloadable }>{ translatedTitle }</PageSelector>
                 </Column>
             )
         }
