@@ -30,13 +30,15 @@
 
   $Menu_Border:#d85012;
   $Menu_Background:#ec9f73cc;
-  $Menu_SubBackground: #ffffffec;
+  $Menu_SubBackground: #fad4a8ec;
   $Menu_SubBorder: #e04f15e1;
   $Menu_SubText: #000000;
-  $Menu_SubHover: #f89053d7;
-  $Menu_SubTextHover: #1d0b00;
+  $Menu_SubHover: #6b2c01;
+  $Menu_SubTextHover: #ffab76;
   $Menu_SubSeparator: #ddb19a;
-  $Menu_SubDisabled: #bbbbbbc0;
+  $Menu_SubDisabled: #dbd7d7c0;
+  $Menu_MenuSubOpen: #ffa33acc;
+
   //------------------------------------------
    @import "./ThemeTree";
  }
