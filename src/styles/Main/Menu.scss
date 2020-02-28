@@ -1,16 +1,121 @@
 .menuRow {
-    height: 40px;  
+    min-height: 40px;
   .menuItemRow {
-    height: 100%;
+    height: 40px;
+  }
+
+  .subMenuLine {
+    box-sizing: border-box;
+    border-bottom: solid 1px;
+    margin-top: 1px;
+    margin-bottom: 2px;
+    height: 1px;
+  }
+
+  .loginMenuCol {
+    margin-right: 0;
+    text-align: right;
+    .userSubMenuDrop{
+      text-align: left;
+      width: 100px;
+      margin-left: auto;
+      margin-right: 0px;
+      .subMenuDrop {
+        left: unset;
+        right: 20px;
+      }
+    }
+  }
+
+  .loginMenuDrop {
+    text-align: left;
+    min-width: 320px;
+    min-height: 180px;
+    border-radius: 6px;
+    position: absolute;
+    padding-top: 10px;
+    top: 42px;
+    right: -25%;
+    margin-right: 25%;
+    z-index: 1;
+    border-width: 2px;
+    border-style: solid;  
+    &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        top: -20px;
+        right: calc( 0% + 5px ); 
+    }
+  }
+
+  .loginMenuCollapsed {
+    margin-top: 5px;
+    text-align: left;
+    border-radius: 20px;
+    .inputTextDiv {
+      height: auto;
+    }
+    .loginMenuBtnRow {
+      text-align: center;
+      margin: auto;
+      .loginMenuButtonCol{
+        .page_button {
+          min-width: 80px;
+          box-sizing: border-box;
+          padding: 5px;
+          padding-bottom: 25px;
+          margin: auto;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 6px;
+        border-style: solid;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        top: -12px;
+        right: calc( 0% + 15px ); 
+    }
+  }
+
+  .menuLoginFormRow {
+    height: 40px;
+    .loginMenuLink {
+      min-width: 40px;
+      height: 40px;      
+      box-sizing: border-box;
+      padding-top: 10px;      
+      text-align: center;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .menuItemColSel {
       border: 1px solid;
       border-radius: 4px 4px 10px 10px;
   }
+
+  .menuCollapsed {
+    writing-mode: vertical-rl;
+  }
   
   .menuItemCol {
-    max-width: 100px;  
+    max-width: 100px;
     box-sizing: border-box;
     text-align: center;
     outline: 0;
@@ -21,7 +126,8 @@
 
     .menuSpan {
         padding-top: 10px;
-        height: 100%;
+        height: 40px;
+        box-sizing: border-box;
       }
   }  
   
@@ -37,9 +143,107 @@
     }
   }
   
-  .menuLanguageCol {     
+  .collapsedMenuGroup {
+    text-align: left;
+    border-radius: 20px;
+    .collapsedMenuItem {
+      min-height: 45px;
+      box-sizing: border-box;
+      font-weight: bold;
+      padding-left: 30px;
+      border-bottom: 1px dotted;
+      .collapsedMenuItemInner {
+        min-height: 20px;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        margin-right: 10px;
+        .collapseMenuSign {
+          text-align: right;
+          padding-right: 10px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    .collapsedMenuItemSelected {
+      .collapsedSubMenuGroup {
+        margin-bottom: 10px;
+        border-radius: 10px;
+        margin-right: 10px;
+        font-weight: normal;
+        .collapsedSubMenuItem {
+          padding: 10px;
+        }
+        .disabledMenuItem {    
+          cursor: default; 
+        }
+        & .RowDiv:first-child .collapsedSubMenuItem {
+          border-radius: 9px 9px 0 0;
+        }
+        & .RowDiv:last-child .collapsedSubMenuItem {
+          border-radius: 0 0 9px 9px;
+        }
+        & .RowDiv .collapsedSubMenuSingleItem {
+          border-radius: 9px 9px 9px 9px !important;
+        }
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 6px;
+        border-style: solid;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        top: 33px;
+        left: calc( 0% + 40px ); 
+      }
+    }
+
+    .collapseMenuBrand {
+      font-size: larger;
+      padding: 10px;
+      padding-left: 20px;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-width: 6px;
+      border-style: solid;
+      border-right-color: transparent;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      top: -11px;
+      left: calc( 0% + 15px ); 
+    }
+    & .RowDiv:first-child .collapsedMenuItem {
+      border-radius: 21px 21px 0 0;
+    }
+    & .RowDiv:last-child .collapsedMenuItem {
+      border-radius: 0 0 21px 21px;
+      border-bottom: 0;
+    }
+    & .RowDiv:last-child .collapsedMenuSingleItem {
+      border-radius: 21px 21px 21px 21px;
+      border-bottom: 0;
+    }
+  }
+
+  .collapsedMenuGroupUserMenu {
+    margin-top: 5px;
+    &:after {
+      left: unset;
+      right: calc( 0% + 40px ); 
+    }
+  }
+  
+  .menuLanguageCol {
     text-align: right;    
-    height: 100%;
+    height: 40px;
     display: inline-block;
     font-weight: bold;
     & span {
@@ -63,11 +267,10 @@
     border-radius: 6px;
     position: absolute;
     top: 42px;
-    left: 25%;
     margin-left: -75%;
     z-index: 1;
     border-width: 2px;
-    border-style: solid;  
+    border-style: solid;
     &:after {
         content: "";
         position: absolute;
@@ -86,14 +289,6 @@
         padding-bottom: 5px;
         padding-left: 5px;
         box-sizing: border-box;
-    }
-  
-    .subMenuLine {
-      box-sizing: border-box;
-      border-bottom: solid 1px;
-      margin-top: 1px;
-      margin-bottom: 2px;
-      height: 1px;
     }
   
     .disabledMenuItem {    

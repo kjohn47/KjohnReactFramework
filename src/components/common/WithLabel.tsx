@@ -31,19 +31,19 @@ const WithLabel: React.FC<IWithLabel> = ( props ) => {
                     :
                     <Row className="inlineLabelRow">
                         <Column
-                            full={ ColumnNumber.C4 }
-                            large={ ColumnNumber.C5 }
-                            medium={ ColumnNumber.C7 }
-                            tablet={ ColumnNumber.C9 }
+                            full={ ColumnNumber.C6 }
+                            large={ ColumnNumber.C8 }
+                            medium={ ColumnNumber.C10 }
+                            tablet={ ColumnNumber.C10 }
                             mobile={ ColumnNumber.C20 }
                         >
                             <label className="withLable_lable_inline" htmlFor={ props.htmlFor }>{ props.text }</label>
                         </Column>
                         <Column
-                            full={ ColumnNumber.C16 }
-                            large={ ColumnNumber.C15 }
-                            medium={ ColumnNumber.C13 }
-                            tablet={ ColumnNumber.C11 }
+                            full={ ColumnNumber.C14 }
+                            large={ ColumnNumber.C12 }
+                            medium={ ColumnNumber.C10 }
+                            tablet={ ColumnNumber.C10 }
                             mobile={ ColumnNumber.C20 }
                         >
                             { props.children }
