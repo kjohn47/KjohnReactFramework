@@ -5,6 +5,7 @@ import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
 import Loader from "../common/Loader";
 import ErrorPage from "./ErrorPage";
 import { injectProps } from "../../common/functions/misc";
+import { withLogin } from "../../common/functions/checkLogin";
 
 interface IRoure<TRouteProps> {
     Route: string;
@@ -59,6 +60,12 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
                 tempPromise.then( () => {
                     if ( selectedPage.toLowerCase() === KnownPages.Home.toLowerCase() ) {
                         setOutput( injectProps( Routes.Home.Component, Routes.Home.Props ) );
+                    }
+                    else if ( selectedPage.toLowerCase() === KnownPages.UserSettings.toLowerCase() ) {
+                        setOutput( withLogin( () => <></> ) ); //user menu component
+                    }
+                    else if ( appContext.adminOptions && selectedPage.toLowerCase() === KnownPages.Administration.toLowerCase() ) {
+                        setOutput( withLogin( () => <></> ) ); //Administration component
                     }
                     else {
                         let route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];

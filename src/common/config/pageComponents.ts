@@ -25,36 +25,38 @@ const pageRoutes: IPageHandleProps = {
 export const pageComponents: IKRFProps = {
     Routes: pageRoutes,
     MenuProps: {
-        Brand: "KRF",
+        Brand: "#(krf)",
         MenuNav: [
             {
-                Title: "Test1",
+                Title: "#(Test1)",
                 SubMenus: [
                     {
-                        Title: "SubTest1",
+                        Title: "#(SubTest1)",
                         Link: KnownPages.Home
                     },
                     {
                         
                     },
                     {
-                        Title: "SubTest2",
-                        Link: KnownPages.Test
+                        Title: "#(SubTest2)",
+                        Link: KnownPages.Test,
+                        Reloadable: true
                     }
                 ]
             },
             {
-                Title: "Test2",
+                Title: "#(Test2)",
                 SubMenus: [
                     {
-                        Title: "SubTest1",
-                        Link: KnownPages.Home
+                        Title: "#(SubTest1)",
+                        Link: KnownPages.Home,
+                        Reloadable: true
                     },
                     {
                         
                     },
                     {
-                        Title: "SubTest2",
+                        Title: "#(SubTest2)",
                         Link: KnownPages.Test
                     }
                 ]

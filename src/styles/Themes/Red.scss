@@ -29,14 +29,15 @@
   $DatePicker_Selected_Text: #FFFFFF;
 
   $Menu_Border:#881d1d;
-  $Menu_Background:#ee8787cc;
-  $Menu_SubBackground: #ffffffec;
+  $Menu_Background:#fd8989cc;
+  $Menu_SubBackground: #fcd6d6d5;
   $Menu_SubBorder: #660e0ee1;
   $Menu_SubText: #000000;
   $Menu_SubHover: #722525;
-  $Menu_SubTextHover: #eea0a0;
+  $Menu_SubTextHover: #fd8b8b;
   $Menu_SubSeparator: #eea0a0;
-  $Menu_SubDisabled: #bbbbbbc0;
+  $Menu_SubDisabled: #d3cfcfc0;
+  $Menu_MenuSubOpen: #ffb1b1d3;
 
   //------------------------------------------
   @import "./ThemeTree";

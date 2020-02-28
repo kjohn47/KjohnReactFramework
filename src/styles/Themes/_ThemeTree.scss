@@ -3,6 +3,67 @@
     // Page Menu
 
     .menuRow {
+      .collapsedMenuGroup {
+        background-color: $Menu_Background;
+        .collapsedMenuItem {
+          border-bottom-color: $Menu_Border;
+          &:hover {
+            background-color: $Menu_SubHover;
+          }
+        }
+    
+        .collapsedMenuLinkSelected {
+          background-color: $Menu_MenuSubOpen;
+        }
+
+        .collapsedMenuItemSelected {
+          background-color: $Menu_MenuSubOpen;
+          .collapsedSubMenuGroup {
+            background-color: $Menu_SubBackground;
+            color: $TextColor;
+            .collapsedSubMenuItem {
+              &:hover {
+                background-color: $Menu_SubTextHover;
+              }
+            }
+            .disabledMenuItem {    
+              background-color: $Menu_SubDisabled;
+              &:hover {
+                background-color: $Menu_SubDisabled;
+              }
+            }
+          }
+          &:hover {
+            background-color: $Menu_MenuSubOpen;
+          }
+          &:after {
+            border-bottom-color: $Menu_SubBackground;
+          }
+        }
+        &:after {
+            border-bottom-color: $SecondaryColor;
+        }
+      }
+
+      .loginMenuDrop{
+        border-color: $Menu_SubBorder;
+        background-color: $SecondaryColor;
+        &:after {
+          border-bottom-color: $Menu_SubBorder;
+        }
+      }
+
+      .subMenuLine {
+        border-color: $Menu_SubSeparator;
+      }
+
+      .loginMenuCollapsed {
+        background-color: $Menu_Background;
+        &:after {
+          border-bottom-color: $Menu_Background;
+        }
+      }
+
       .menuItemColSel {
           border-color: $Menu_Border;
           background-color: $Menu_Background;
@@ -45,16 +106,17 @@
             }
         }
 
-        .subMenuLine {
-          border-color: $Menu_SubSeparator;
-        }
-
         .disabledMenuItem {    
           background-color: $Menu_SubDisabled;
           &:hover {
               background-color: $Menu_SubDisabled;
               color: $Menu_SubText;
           }
+        }
+
+        .subMenuReloadable:hover {
+          background-color: $Menu_SubHover;
+          color: $Menu_SubTextHover;
         }
       }
     }

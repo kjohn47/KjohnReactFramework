@@ -32,5 +32,24 @@
         "#(Fri)": "Fri",
         "#(Sat)": "Sat",
         "#(Sun)": "Sun"
+    },
+    "_brand": {
+        "#(krf)": "KRF"
+    },
+    "_menu": {
+        "#(User)": "User",
+        "#(Administration)": "Administration",
+        "#(Logout)": "Logout",
+        "#(Test1)": "Test 1",
+        "#(Test2)": "Test 2",
+        "#(SubTest1)": "Submenu 1",
+        "#(SubTest2)": "Submenu 2"
+    },
+    "_loginform": {
+        "#(Username)": "Username",
+        "#(Password)": "Password",
+        "#(LoginButton)": "Sign In",
+        "#(LoginDrop)": "Login",
+        "#(NewLogin)": "Sign Up"
     }
 }
