@@ -11,6 +11,7 @@ import TestTextInput from './TestTextInput';
 import TestServices from './TestServices';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 import TestDatePicker from './TestDatePicker';
+import TestTabGroup from './TestTabGroup';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -47,6 +48,10 @@ const Test: React.FC = () => {
                 {
                   title: "Table component",
                   component: <TestTable />
+                },
+                {
+                  title: "Tab Group",
+                  component: <TestTabGroup />
                 }
               ]
             },
