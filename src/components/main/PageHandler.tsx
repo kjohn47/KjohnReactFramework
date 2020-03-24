@@ -11,6 +11,7 @@ interface IRoure<TRouteProps> {
     Route: string;
     Component: React.ComponentType;
     Props?: TRouteProps;
+    NeedAuth?: boolean;
 }
 
 export interface IPageHandleProps {
@@ -70,7 +71,14 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
                     else {
                         let route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];
                         if ( route ) {
-                            setOutput( injectProps( route.Component, route.Props ) );
+                            if(route.NeedAuth)
+                            {
+                                setOutput( withLogin( injectProps( route.Component, route.Props ) ) );
+                            }
+                            else
+                            {
+                                setOutput( injectProps( route.Component, route.Props ) );
+                            }
                         }
                         else {
                             setErrorContext( {

@@ -1,0 +1,44 @@
+.TabGroup {
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    .TabGroupTabRow {
+        .TabItem {
+            height: 45px;
+            padding: 5px;
+            border: 1px solid black;
+            max-width: 150px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+            margin-left: 2px;
+            box-sizing: border-box;
+            background-color: teal;
+            color: white;
+            &:hover {
+                background-color: slategray;
+            }
+        }
+        .SelectedTab {
+            background-color: slategray;
+            color: white;
+            border-bottom: 0;
+        }
+    }
+    .TabGroupContentRow {
+        margin-left: 2px;
+        padding: 10px;
+        padding-top: 15px;
+        border: 1px solid gray;
+        min-height: 200px;
+        box-sizing: border-box;
+        border-radius: 0 0 10px 10px;
+    }
+}
+
+@media ( max-width: 380px ) {
+    .TabGroup {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
