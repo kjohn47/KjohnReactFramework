@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AppContext, ErrorContext, LoadingContext, LoginContext } from "../../common/config/appConfig";
+import { AppContext, ErrorContext, LoadingContext } from "../../common/config/appConfig";
 import { KnownPages, ContextActions } from "../../common/context/appContextEnums";
 import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
 import Loader from "../common/Loader";
@@ -40,7 +40,6 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
     const [ appContext, setAppContext ] = useContext( AppContext );
     const [ errorContext, setErrorContext ] = useContext( ErrorContext );
     const isLoading = useContext( LoadingContext )[ 0 ];
-    const [ loginContext ] = useContext( LoginContext );
     const [ output, setOutput ] = usePageSelector( undefined );
     const [ lastPage, setLastPage ] = useState<string>();
     const [ queryString, setQueryString ] = useState<string | undefined>( undefined );
@@ -85,18 +84,17 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                         setOutput( injectProps( Routes.Home.Component, Routes.Home.Props ) );
                     }
                     else if ( selectedPage.toLowerCase() === KnownPages.UserSettings.toLowerCase() ) {
-                        setOutput( withLogin( () => <></>, loginContext ) ); //user menu component
+                        setOutput( withLogin( () => <></> ) ); //user menu component
                     }
                     else if ( appContext.adminOptions && selectedPage.toLowerCase() === KnownPages.Administration.toLowerCase() ) {
-                        setOutput( withLogin( () => <></>, loginContext ) ); //Administration component
+                        setOutput( withLogin( () => <></> ) ); //Administration component
                     }
                     else {
                         const route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];
                         if ( route ) {
                             if(route.NeedAuth)
                             {
-                                const component = injectProps( route.Component, route.Props );
-                                setOutput( withLogin( component, loginContext ) );
+                                setOutput( withLogin( injectProps( route.Component, route.Props ) ) );
                             }
                             else
                             {
