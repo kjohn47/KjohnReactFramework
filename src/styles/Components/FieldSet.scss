@@ -18,13 +18,14 @@
                 border-radius: 15px;
                 display: inline-block; 
                 position: relative; 
-                z-index: 10; 
+                z-index: 1; 
                 min-width: 120px;
             }
         }
     }
 
     .FieldSetContent {
+        z-index: 0;
         box-sizing: border-box;
         margin: 5px;
         padding: 15px;
