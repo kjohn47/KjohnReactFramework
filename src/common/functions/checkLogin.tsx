@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
-import { LoginContext } from "../config/appConfig";
+import React from "react";
+import { ILogin } from "../context/loginContextInterfaces";
 
-export const withLogin = ( Component: React.ComponentType ): React.ComponentType => {
+export const withLogin = ( Component: React.ComponentType, loginData: ILogin | undefined = undefined ): React.ComponentType => {
     const WithLogin: React.FC = () => {
-        const [ loginContext ] = useContext( LoginContext );
         return (
-            loginContext === undefined ?
+            loginData === undefined ?
                 <div>Please make login</div>
                 :
                 <Component />
