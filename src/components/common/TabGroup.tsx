@@ -7,10 +7,10 @@ export interface ITabGroup {
     Tabs: ITabItem<any>[]
 }
 
-export interface ITabItem<propType> {
+export interface ITabItem<TProps> {
         Title: string;
-        Component: React.ComponentType<propType>
-        Props?: propType;
+        Component: React.ComponentType<TProps>
+        Props?: TProps;
 }
 
 const TabGroup: React.FC<ITabGroup> = (props) => {

@@ -248,12 +248,19 @@
         }
         // Page Side Menu
         // FieldSet
-        .FieldSetTitle {
-          color: $MainColor;
-        }
-        
-        .FieldSetContent {
-            border-color: $SecondaryColor;
+        .FieldSet {
+          .FieldSetTitle {
+            color: $MainColor;
+            & div {
+              & span {
+                border-color: $SecondaryColor;  
+              }
+            }
+          }
+          
+          .FieldSetContent {
+              border-color: $SecondaryColor;
+          }
         }
         // FieldSet
 
@@ -332,4 +339,25 @@
           }
       }
       //DatePicker
+      //TabGroup
+      .TabGroup {
+        .TabGroupTabRow {
+            .TabItem {
+                border-color: $Menu_Border;
+                background-color: $MainColor;
+                color: $MenuTextColor;
+                &:hover {
+                    background-color: $SecondaryColor;
+                }
+            }
+            .SelectedTab {
+                background-color: $SecondaryColor;
+                border-bottom-color: $SecondaryColor;
+            }
+        }
+        .TabGroupContentRow {
+            border-color: $SecondaryColor;
+        }
+      }
+      //TabGroup
     }

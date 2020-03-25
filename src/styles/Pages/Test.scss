@@ -16,4 +16,11 @@
       margin: 5px;
     }
   }
+  .TestTabGroup {
+    .TabGroup {
+      .TabGroupContentRow {
+          min-height: calc(100vh - 350px);
+      }
+    }
+  }
 }

@@ -7,18 +7,18 @@ import ErrorPage from "./ErrorPage";
 import { injectProps } from "../../common/functions/misc";
 import { withLogin } from "../../common/functions/checkLogin";
 
-interface IRoure<TRouteProps> {
+export interface IRoure<TRouteProps> {
     Route: string;
-    Component: React.ComponentType;
+    Component: React.ComponentType<TRouteProps>;
     Props?: TRouteProps;
     NeedAuth?: boolean;
 }
 
-export interface IPageHandleProps {
+export interface IPageHandleProps<THomeProps> {
     Routes: {
         Home: {
-            Component: React.ComponentType;
-            Props?: any;
+            Component: React.ComponentType<THomeProps>;
+            Props?: THomeProps;
         };
         KnownRoutes?: IRoure<any>[];
     };
@@ -35,7 +35,7 @@ const usePageSelector: ( selectedComponent: React.ComponentType | undefined ) =>
     return [ component, setSelectedComponent ]
 }
 
-const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
+const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
     const [ appContext, setAppContext ] = useContext( AppContext );
     const [ errorContext, setErrorContext ] = useContext( ErrorContext );
     const isLoading = useContext( LoadingContext )[ 0 ];
@@ -69,7 +69,7 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
                         setOutput( withLogin( () => <></> ) ); //Administration component
                     }
                     else {
-                        let route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];
+                        const route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];
                         if ( route ) {
                             if(route.NeedAuth)
                             {
