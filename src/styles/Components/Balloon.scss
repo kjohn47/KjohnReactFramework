@@ -1,0 +1,96 @@
+.BalloonComponent {
+    display: block;
+    box-sizing: border-box;
+    .Balloon {
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
+        padding: 15px;
+        padding-top: 0px;
+        border: 1px solid;
+        border-radius: 20px;
+        min-width: 270px;
+        min-height: 30px;
+        background-color: white;
+        border-color: black;
+
+        .BalloonTitle {
+            display: inline-block;
+            width: 85%;
+            font-weight: 550;
+            padding-top: 10px;
+        }
+        .BalloonClose {
+            display: inline-block;
+            width: 15%;
+            font-weight: bold;
+            text-align: right;
+            padding-top: 10px;
+            cursor: pointer;
+            & :hover {
+                color: teal;
+            }
+        }
+        .BalloonContent {
+            box-sizing: border-box;
+            padding-top: 5px;
+        }
+    }
+
+    .BalloonFloat {
+        z-index: 2;
+        position: absolute;
+    }
+
+    .BalloonArrow {
+        &:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-width: 10px;
+            border-color: black;
+            border-style: solid;
+        }
+    }
+
+    .BalloonArrow_Right {
+        &:after {
+            border-right-color: transparent;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            top: 12px;
+            right: -20px;
+        }
+    }
+
+    .BalloonArrow_Left {
+        &:after {
+            border-left-color: transparent;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            top: 12px;
+            left: -20px;
+        }
+    }
+
+    .BalloonArrow_Top {
+        &:after {
+            border-left-color: transparent;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            top: -20px;
+            left: calc( 50% - 8px );
+        }
+    }
+
+    .BalloonArrow_Bottom {
+        &:after {
+            border-left-color: transparent;
+            border-bottom-color: transparent;
+            border-right-color: transparent;
+            bottom: -20px;
+            left: calc( 50% - 8px );
+        }
+    }
+}

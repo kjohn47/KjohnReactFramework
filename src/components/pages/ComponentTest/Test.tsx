@@ -12,6 +12,9 @@ import TestServices from './TestServices';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 import TestDatePicker from './TestDatePicker';
 import TestTabGroup from './TestTabGroup';
+import TestBalloon from './TestBalloon';
+import TestToolTip from './TestToolTip';
+import TestFieldSet from './TestFieldSet';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -50,14 +53,26 @@ const Test: React.FC = () => {
                   component: <TestTable />
                 },
                 {
+                  title: "Tooltips",
+                  component: <TestToolTip />
+                },
+                {
                   title: "Tab Group",
                   component: <TestTabGroup />
+                },
+                {
+                  title: "Balloon",
+                  component: <TestBalloon />
                 }
               ]
             },
             {
               title: "Inputs",
               submenus: [
+                {
+                  title: "FieldSet",
+                  component: <TestFieldSet />
+                },
                 {
                   title: "Text input component",
                   component: <TestTextInput />
