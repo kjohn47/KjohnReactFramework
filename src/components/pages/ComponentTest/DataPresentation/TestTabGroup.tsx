@@ -1,5 +1,5 @@
 import React from 'react';
-import TabGroup, { ITabItem } from '../../common/TabGroup';
+import TabGroup, { ITabItem } from '../../../common/TabGroup';
 
 const TestTabGroup: React.FC = () => {
 

@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react';
-import Column from '../../common/Column';
-import Row from '../../common/Row';
-import WithTooltip, { ToolTipColor, ToolTipPosition } from '../../common/WithTooltip';
-import FieldSet from '../../common/FieldSet';
+import Column from '../../../common/Column';
+import Row from '../../../common/Row';
+import WithTooltip, { ToolTipColor, ToolTipPosition } from '../../../common/WithTooltip';
+import FieldSet from '../../../common/FieldSet';
 
 const TestToolTip: React.FC = () => {
     const commonStyle: CSSProperties = {display: "inline-block", position: "relative", minWidth:"150px", height:"45px", paddingTop: "15px"};

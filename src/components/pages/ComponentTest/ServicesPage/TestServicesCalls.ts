@@ -1,5 +1,5 @@
-import { ServiceType, IServiceError } from "../../../common/services/serviceCallerInterfaces";
-import { ContextActions, AppLanguage } from "../../../common/context/appContextEnums";
+import { ServiceType, IServiceError } from "../../../../common/services/serviceCallerInterfaces";
+import { ContextActions, AppLanguage } from "../../../../common/context/appContextEnums";
 import { IResult } from "./TestServices";
 
 const delay = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) );

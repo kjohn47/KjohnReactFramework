@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useServiceCaller } from '../../../common/services/serviceCaller';
-import { ErrorCodes } from '../../../common/context/appErrorEnums';
-import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
-import Button, { ButtonTypes } from '../../common/Button';
-import Loader from '../../common/Loader';
+import { useServiceCaller } from '../../../../common/services/serviceCaller';
+import { ErrorCodes } from '../../../../common/context/appErrorEnums';
+import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../../common/WithTooltip';
+import Button, { ButtonTypes } from '../../../common/Button';
+import Loader from '../../../common/Loader';
 import { serverCallTest } from './TestServicesCalls';
-import { useFetchGetHandler } from '../../../common/services/fetchHandler';
+import { useFetchGetHandler } from '../../../../common/services/fetchHandler';
 
 export interface IResult {
   id: number;

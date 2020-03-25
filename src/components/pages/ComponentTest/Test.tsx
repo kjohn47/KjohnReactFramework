@@ -3,18 +3,19 @@ import Column from '../../common/Column';
 import Row from '../../common/Row';
 import PageHeader from '../../common/PageHeader';
 import SideMenuPage from '../../common/SideMenuPage';
-import TestHash from './TestHash';
-import TestCards from './TestCards';
-import TestTable from './TestTable';
-import TestButtons from './TestButtons';
-import TestTextInput from './TestTextInput';
-import TestServices from './TestServices';
+import TestCards from './DataPresentation/TestCards';
+import TestTable from './DataPresentation/TestTable';
+import TestButtons from './Inputs/TestButtons';
+import TestTextInput from './Inputs/TestTextInput';
+import TestServices from './ServicesPage/TestServices';
 import useTranslation from '../../../common/context/pageText/getTranslation';
-import TestDatePicker from './TestDatePicker';
-import TestTabGroup from './TestTabGroup';
-import TestBalloon from './TestBalloon';
-import TestToolTip from './TestToolTip';
-import TestFieldSet from './TestFieldSet';
+import TestDatePicker from './Inputs/TestDatePicker';
+import TestTabGroup from './DataPresentation/TestTabGroup';
+import TestBalloon from './DataPresentation/TestBalloon';
+import TestToolTip from './DataPresentation/TestToolTip';
+import TestFieldSet from './Inputs/TestFieldSet';
+import TestLoader from './ServicesPage/TestLoader';
+import TestThemes from './ServicesPage/TestThemes';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -29,11 +30,15 @@ const Test: React.FC = () => {
           presentationComponent={ <span>Welcome to test page of components</span> }
           menus={ [
             {
-              title: "Hash and Services",
+              title: "Page and Services",
               submenus: [
                 {
-                  title: "Test hash",
-                  component: <TestHash />
+                  title: "Test Themes",
+                  component: <TestThemes />
+                },
+                {
+                  title: "Loader",
+                  component: < TestLoader />
                 },
                 {
                   title: "Call Services",
@@ -72,6 +77,10 @@ const Test: React.FC = () => {
                 {
                   title: "FieldSet",
                   component: <TestFieldSet />
+                },
+                {
+                  title: "Label",
+                  component: () => <></>
                 },
                 {
                   title: "Text input component",

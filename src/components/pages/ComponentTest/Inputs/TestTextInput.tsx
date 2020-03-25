@@ -1,10 +1,10 @@
 import React from 'react';
-import Row from '../../common/Row';
-import Column, { ColumnNumber } from '../../common/Column';
-import WithLabel from '../../common/WithLabel';
-import InputText from '../../common/InputText';
-import { AppRegex } from '../../../common/config/regexEnum';
-import FieldSet from '../../common/FieldSet';
+import Row from '../../../common/Row';
+import Column, { ColumnNumber } from '../../../common/Column';
+import WithLabel from '../../../common/WithLabel';
+import InputText from '../../../common/InputText';
+import { AppRegex } from '../../../../common/config/regexEnum';
+import FieldSet from '../../../common/FieldSet';
 
 const TestTextInput: React.FC = () =>
     <FieldSet Title="Text Inputs">

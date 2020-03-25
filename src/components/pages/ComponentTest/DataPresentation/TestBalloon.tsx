@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Column from '../../common/Column';
-import Row from '../../common/Row';
-import Balloon, { BallonArrowEnum } from '../../common/Balloon';
+import Column from '../../../common/Column';
+import Row from '../../../common/Row';
+import Balloon, { BallonArrowEnum } from '../../../common/Balloon';
 
 const TestBalloon: React.FC = () => {
     const [balloon1, setBalloon1] = useState<boolean>(false);

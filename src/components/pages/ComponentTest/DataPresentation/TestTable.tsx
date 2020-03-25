@@ -1,7 +1,7 @@
 import React from 'react'
-import Table from '../../common/Table'
-import { ToolTipColor } from '../../common/WithTooltip'
-import { KnownPages } from '../../../common/context/appContextEnums'
+import Table from '../../../common/Table'
+import { ToolTipColor } from '../../../common/WithTooltip'
+import { KnownPages } from '../../../../common/context/appContextEnums'
 
 const TestTable: React.FC = () =>
     <Table

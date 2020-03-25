@@ -1,7 +1,7 @@
 import React from 'react';
-import Row from '../../common/Row';
-import Column from '../../common/Column';
-import FieldSet from '../../common/FieldSet';
+import Row from '../../../common/Row';
+import Column from '../../../common/Column';
+import FieldSet from '../../../common/FieldSet';
 
 const TestFieldSet: React.FC = () => {
     return (
