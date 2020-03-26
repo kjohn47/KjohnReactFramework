@@ -4,8 +4,7 @@ import { ErrorCodes } from '../../../../common/context/appErrorEnums';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../../common/WithTooltip';
 import Button, { ButtonTypes } from '../../../common/Button';
 import Loader from '../../../common/Loader';
-import { serverCallTest } from './TestServicesCalls';
-import { useFetchGetHandler } from '../../../../common/services/fetchHandler';
+import { useServerCallTest } from './TestServicesHooks';
 
 export interface IResult {
   id: number;
@@ -13,11 +12,11 @@ export interface IResult {
 }
 
 const TestServices: React.FC = () => {
-  const fetchHandler = useFetchGetHandler<IResult>("localhost");
+  const getData = useServerCallTest();
   const [ isLoading, setIsLoading ] = useState<boolean>( false );
-  const [ serviceResponse, serviceHandler ] = useServiceCaller<IResult, IResult>( serverCallTest( fetchHandler ) );
-  const [ serviceResponse2, serviceHandler2 ] = useServiceCaller<IResult, IResult>( serverCallTest( fetchHandler ), ErrorCodes.GenericError, true );
-  const [ serviceResponse3, serviceHandler3 ] = useServiceCaller<IResult, IResult>( serverCallTest( fetchHandler ) );  
+  const [ serviceResponse, serviceHandler ] = useServiceCaller<IResult, IResult>( getData );
+  const [ serviceResponse2, serviceHandler2 ] = useServiceCaller<IResult, IResult>( getData, ErrorCodes.GenericError, true );
+  const [ serviceResponse3, serviceHandler3 ] = useServiceCaller<IResult, IResult>( getData );  
 
   const loadService2 = () => {
     setIsLoading( true );
