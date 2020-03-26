@@ -12,7 +12,8 @@ export enum BalloonColorEnum {
     Warning = "Warning",
     Confirmation = "Confirmation",
     Cancelation = "Cancelation",
-    Information = "Information"
+    Information = "Information",
+    Default = "Default"
 }
 
 export interface IBalloonProps {
@@ -27,16 +28,19 @@ export interface IBalloonProps {
 const Balloon: React.FC<IBalloonProps> = (props) => {
     return (
         (!props.IsFloating || ( props.IsFloating && props.IsVisible) ) ?
-        <div className = "BalloonComponent">
+        <div className = {"BalloonComponent"}>
             <div className={ "Balloon" + 
                 ( props.IsFloating ? 
                   " BalloonFloat" + 
                         (props.Arrow ? 
-                            "BalloonFloat" + 
+                            " BalloonFloat_" + 
                                 props.Arrow : "") : "" ) + 
                         ( props.Arrow ? 
                             " BalloonArrow BalloonArrow_" + 
-                                props.Arrow : "" ) }>
+                                props.Arrow : "" ) +
+                        (props.Color ? 
+                            " Balloon_" + props.Color : "" )
+                }>
                 { 
                     ( props.Title || ( props.Close && props.IsFloating ) ) && 
                     <div className="BalloonTitle">
