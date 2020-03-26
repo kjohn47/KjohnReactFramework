@@ -16,6 +16,7 @@ import TestToolTip from './DataPresentation/TestToolTip';
 import TestFieldSet from './Inputs/TestFieldSet';
 import TestLoader from './ServicesPage/TestLoader';
 import TestThemes from './ServicesPage/TestThemes';
+import TestLabel from './Inputs/TestLabel';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -33,7 +34,7 @@ const Test: React.FC = () => {
               title: "Page and Services",
               submenus: [
                 {
-                  title: "Test Themes",
+                  title: "Themes",
                   component: <TestThemes />
                 },
                 {
@@ -41,7 +42,7 @@ const Test: React.FC = () => {
                   component: < TestLoader />
                 },
                 {
-                  title: "Call Services",
+                  title: "Services/Error",
                   component: < TestServices />
                 }
               ]
@@ -50,11 +51,11 @@ const Test: React.FC = () => {
               title: "Data Presentation",
               submenus: [
                 {
-                  title: "Cards components",
+                  title: "Cards List",
                   component: <TestCards />
                 },
                 {
-                  title: "Table component",
+                  title: "Table",
                   component: <TestTable />
                 },
                 {
@@ -80,10 +81,10 @@ const Test: React.FC = () => {
                 },
                 {
                   title: "Label",
-                  component: () => <></>
+                  component: <TestLabel />
                 },
                 {
-                  title: "Text input component",
+                  title: "Text Inputs",
                   component: <TestTextInput />
                 },
                 {
