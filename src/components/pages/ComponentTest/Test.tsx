@@ -40,6 +40,10 @@ const Test: React.FC = () => {
                   component: <TestThemes />
                 },
                 {
+                  title: "Page Header",
+                  component: <TestPageHeader />
+                },
+                {
                   title: "Loader",
                   component: < TestLoader />
                 },
@@ -52,10 +56,6 @@ const Test: React.FC = () => {
             {
               title: "Data Presentation",
               submenus: [
-                {
-                  title: "Page Header",
-                  component: <TestPageHeader />
-                },
                 {
                   title: "Cards List",
                   component: <TestCards />
