@@ -11,7 +11,7 @@ const TestAlert: React.FC = () => {
         <Row>
             <Column>
                 <FieldSet Title="Alert Behaviour">
-                    <div style={{fontWeight:"bold"}} className="pointer_cursor" onClick={() => setAlert(true)}>Click to open Alert here</div>
+                    <div style={{fontWeight:"bold"}}><span onClick={() => setAlert(true)} className="pointer_cursor">Click to open Alert here</span></div>
                     <Alert IsVisible = {alert} Close={() => setAlert(false)}>This is a open Alert</Alert>
                 </FieldSet>
                 <FieldSet Title="Alert Colors">

@@ -18,6 +18,7 @@ import TestLoader from './ServicesPage/TestLoader';
 import TestThemes from './ServicesPage/TestThemes';
 import TestLabel from './Inputs/TestLabel';
 import TestAlert from './DataPresentation/TestAlert';
+import TestPageHeader from './DataPresentation/TestPageHeader';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -51,6 +52,10 @@ const Test: React.FC = () => {
             {
               title: "Data Presentation",
               submenus: [
+                {
+                  title: "Page Header",
+                  component: <TestPageHeader />
+                },
                 {
                   title: "Cards List",
                   component: <TestCards />
