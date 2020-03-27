@@ -5,6 +5,7 @@ import { injectProps } from '../../common/functions/misc';
 
 export interface ITabGroup {
     Tabs: ITabItem<any>[]
+    DefaultIndex?: number;
 }
 
 export interface ITabItem<TProps> {
@@ -14,7 +15,7 @@ export interface ITabItem<TProps> {
 }
 
 const TabGroup: React.FC<ITabGroup> = (props) => {
-    const [selectedIndex, setSelectedIndex] = useState<number>(0);
+    const [selectedIndex, setSelectedIndex] = useState<number>( props.DefaultIndex ? props.DefaultIndex : 0);
     const [selectedComponent, setSelectedComponent] = useState<React.ComponentType | undefined>(undefined);
     const indexHandle: (index: number) => void = (index) =>
     {
@@ -25,7 +26,7 @@ const TabGroup: React.FC<ITabGroup> = (props) => {
     }
 
     useEffect(() => {
-        if(props.Tabs.length > 0)
+        if(props.Tabs.length > 0 && (!props.DefaultIndex || props.DefaultIndex < props.Tabs.length))
         {
             setSelectedComponent(injectProps(props.Tabs[selectedIndex].Component, props.Tabs[selectedIndex].Props));
         }
