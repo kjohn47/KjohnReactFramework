@@ -432,4 +432,19 @@
         }
       }
       //Balloon
+
+      //Alert
+      .Alert_Default {
+        color: $Button_Text;
+        background-color: $Button;
+        border-color: $MainColor;
+        .AlertCloseDiv{            
+            .AlertClose {
+                &:hover {
+                    color: $Button_Hover;
+                }
+            }
+        }
+    }
+      //Alert
 }

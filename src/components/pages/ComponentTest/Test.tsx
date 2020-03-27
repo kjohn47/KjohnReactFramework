@@ -17,6 +17,7 @@ import TestFieldSet from './Inputs/TestFieldSet';
 import TestLoader from './ServicesPage/TestLoader';
 import TestThemes from './ServicesPage/TestThemes';
 import TestLabel from './Inputs/TestLabel';
+import TestAlert from './DataPresentation/TestAlert';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -69,6 +70,10 @@ const Test: React.FC = () => {
                 {
                   title: "Balloon",
                   component: <TestBalloon />
+                },
+                {
+                  title: "Alert",
+                  component: <TestAlert />
                 }
               ]
             },
