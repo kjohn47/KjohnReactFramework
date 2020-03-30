@@ -1,97 +1,99 @@
 // Button Component Style
-.page_button {
-  min-width: 100px;
-  text-align: center;
-  border-width: 1px;    
-  border-style: solid;
-  height: 25px;
-  cursor: pointer;
-  vertical-align: middle;
-  border-radius: 25px 25px;
-  padding: 9px 12px 5px 12px;
-  display: inline-block;
-  position: relative;
-  outline: 0;
-  
-  .page_Button_PageSelector {
-    display: inline-block;
-    left: -10px;
-    position: relative;
-    top: -10px;
-    vertical-align: middle;
+.ButtonComponent {
+  .page_button {
+    min-width: 100px;
     text-align: center;
-    padding-top: 10px;
-    height: 115%;
-    width: 110%;
+    border-width: 1px;    
+    border-style: solid;
+    height: 25px;
+    cursor: pointer;
+    vertical-align: middle;
+    border-radius: 25px 25px;
+    padding: 9px 12px 5px 12px;
+    display: inline-block;
+    position: relative;
+    outline: 0;
+    
+    .page_Button_PageSelector {
+      display: inline-block;
+      left: -10px;
+      position: relative;
+      top: -10px;
+      vertical-align: middle;
+      text-align: center;
+      padding-top: 10px;
+      height: 115%;
+      width: 110%;
+    }
   }
-}
 
-// Selected from options
-.page_button_danger {
-  border-color: $Button_Danger_Secondary;
-  background-color: $Button_Danger_Main;
-  color: $Button_Danger_Text;
-  &:hover {
-    background-color: $Button_Danger_Secondary;
-    color: $Button_Danger_Text_Hover;
+  // Selected from options
+  .page_button_danger {
+    border-color: $Button_Danger_Secondary;
+    background-color: $Button_Danger_Main;
+    color: $Button_Danger_Text;
+    &:hover {
+      background-color: $Button_Danger_Secondary;
+      color: $Button_Danger_Text_Hover;
+    }
+    &:focus {
+      box-shadow: 0 0 4px $Button_Danger_Main;
+    }
   }
-  &:focus {
-    box-shadow: 0 0 4px $Button_Danger_Main;
-  }
-}
 
-.page_button_Warning {
-  border-color: $Button_Warning_Secondary;
-  background-color: $Button_Warning_Main;
-  color: $Button_Warning_Text;
-  &:hover {      
-    background-color: $Button_Warning_Secondary;
-    color: $Button_Warning_Text_Hover;
+  .page_button_Warning {
+    border-color: $Button_Warning_Secondary;
+    background-color: $Button_Warning_Main;
+    color: $Button_Warning_Text;
+    &:hover {      
+      background-color: $Button_Warning_Secondary;
+      color: $Button_Warning_Text_Hover;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 4px $Button_Warning_Main;
+    }
   }
-  
-  &:focus {
-    box-shadow: 0 0 4px $Button_Warning_Main;
-  }
-}
 
-.page_button_Confirmation {
-  border-color: $Button_Confirmation_Secondary;
-  background-color: $Button_Confirmation_Main;
-  color: $Button_Confirmation_Text;
-  &:hover {      
-    background-color: $Button_Confirmation_Secondary;
-    color: $Button_Confirmation_Text_Hover;
+  .page_button_Confirmation {
+    border-color: $Button_Confirmation_Secondary;
+    background-color: $Button_Confirmation_Main;
+    color: $Button_Confirmation_Text;
+    &:hover {      
+      background-color: $Button_Confirmation_Secondary;
+      color: $Button_Confirmation_Text_Hover;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 4px $Button_Confirmation_Main;
+    }
   }
-  
-  &:focus {
-    box-shadow: 0 0 4px $Button_Confirmation_Main;
-  }
-}
 
-.page_button_Cancelation {
-  border-color: $Button_Cancelation_Secondary;
-  background-color: $Button_Cancelation_Main;
-  color: $Button_Cancelation_Text;
-  &:hover {
-    background-color: $Button_Cancelation_Secondary;
-    color: $Button_Cancelation_Text_Hover;
+  .page_button_Cancelation {
+    border-color: $Button_Cancelation_Secondary;
+    background-color: $Button_Cancelation_Main;
+    color: $Button_Cancelation_Text;
+    &:hover {
+      background-color: $Button_Cancelation_Secondary;
+      color: $Button_Cancelation_Text_Hover;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 4px $Button_Cancelation_Main;
+    }
   }
-  
-  &:focus {
-    box-shadow: 0 0 4px $Button_Cancelation_Main;
-  }
-}
 
-.page_button_Information {
-  border-color: $Button_Information_Secondary;
-  background-color: $Button_Information_Main;
-  color: $Button_Information_Text;
-  &:hover {
-    background-color: $Button_Information_Secondary;
-    color: $Button_Information_Text_Hover;
-  }
-  
-  &:focus {
-    box-shadow: 0 0 4px $Button_Information_Main;
+  .page_button_Information {
+    border-color: $Button_Information_Secondary;
+    background-color: $Button_Information_Main;
+    color: $Button_Information_Text;
+    &:hover {
+      background-color: $Button_Information_Secondary;
+      color: $Button_Information_Text_Hover;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 4px $Button_Information_Main;
+    }
   }
 }

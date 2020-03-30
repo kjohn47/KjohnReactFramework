@@ -1,6 +1,6 @@
 import React from 'react';
 import PageSelector from './PageSelector';
-import { KnownPages } from '../../common/context/appContextEnums';
+import { KnownPages } from '../../common/context/routeContextEnums';
 
 export enum ButtonTypes {
     Default = "page_button_color",
@@ -25,18 +25,20 @@ const Button: React.FC<IButton> = ( props ) => {
     css = props.className !== undefined ? css + " " + props.className : css;
 
     return (
-        <div tabIndex={ 0 } className={ css } onClick={ props.onClick }>
-            { props.page !== undefined &&
-                <PageSelector
-                    page={ props.page }
-                    queryParams={ props.queryParams }
-                    className="page_Button_PageSelector"
-                    forceReload = {props.forceReload}
-                >
-                    { props.children }
-                </PageSelector>
-            }
-            { !props.page && props.children }
+        <div className="ButtonComponent">
+            <div tabIndex={ 0 } className={ css } onClick={ props.onClick }>
+                { props.page !== undefined &&
+                    <PageSelector
+                        page={ props.page }
+                        queryParams={ props.queryParams }
+                        className="page_Button_PageSelector"
+                        forceReload = {props.forceReload}
+                    >
+                        { props.children }
+                    </PageSelector>
+                }
+                { !props.page && props.children }
+            </div>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 .menuRow {
     min-height: 40px;
+    z-index: 100;
   .menuItemRow {
     height: 40px;
   }
@@ -93,6 +94,9 @@
 
   .menuLoginFormRow {
     height: 40px;
+    .inputTextDiv{
+      margin-top: 3px;
+    }
     .loginMenuLink {
       min-width: 40px;
       height: 40px;      

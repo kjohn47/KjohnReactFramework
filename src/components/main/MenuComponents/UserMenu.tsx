@@ -5,7 +5,7 @@ import { mobileWidthMenu, mobileWidthLoginForm } from '../../../common/config/co
 import Row from '../../common/Row';
 import Column from '../../common/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
-import { KnownPages } from '../../../common/context/appContextEnums';
+import { KnownPages } from '../../../common/context/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 
 export interface IUserCustomMenu {

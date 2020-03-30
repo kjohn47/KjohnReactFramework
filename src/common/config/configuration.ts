@@ -5,8 +5,18 @@ import { AppLanguage, AppGlobalTheme } from "../context/appContextEnums";
 import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme } from "../functions/sessionStorage";
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
 import { trueFalseParser } from "../functions/misc";
+import { IRouteContext } from "../context/routeContextInterfaces";
 
 let currentUser: ILogin | undefined = getUserSession();
+
+/*let currentUser: ILogin | undefined = {
+    appLanguage: AppLanguage.PT,
+    appTheme: AppGlobalTheme.Default,
+    authTokenHash: "",
+    name: "John",
+    surname: "Doe",
+    userSessionToken: ""
+};*/
 
 let lastSavedLang: AppLanguage = currentUser !== undefined ? currentUser.appLanguage : getLastSelectedLanguage();
 let lastSavedTheme: AppGlobalTheme = currentUser !== undefined ? currentUser.appTheme : getAppTheme();
@@ -30,10 +40,13 @@ export const initialError: IError = {
 //// Get language from cookie or storage
 export const initialAppConfig: IAppContext = {
     globalTheme: lastSavedTheme,
-    selectedPage: pageRoute.selectedPage,
-    queryString: pageRoute.queryString,
     adminOptions: currentUser !== undefined && getTokenData( currentUser.userSessionToken ).isAdmin,
     translations: {}
+}
+
+export const initialRouteConfig: IRouteContext = {
+    selectedPage: pageRoute.selectedPage,
+    queryString: pageRoute.queryString
 }
 
 export const initialLanguage: AppLanguage = lastSavedLang;

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ErrorContext, AppContext } from "../../common/config/appConfig";
-import { KnownPages } from "../../common/context/appContextEnums";
+import { KnownPages } from "../../common/context/routeContextEnums";
 import Button from "../common/Button";
 import WithTooltip, { ToolTipPosition } from "../common/WithTooltip";
 import PageHeader from "../common/PageHeader";

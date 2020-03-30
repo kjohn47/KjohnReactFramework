@@ -8,7 +8,7 @@ import Footer from './Footer';
 import Menu, { IMenuProps } from './Menu';
 
 export interface IKRFProps {
-  Routes: IPageHandleProps;
+  Routes: IPageHandleProps<any>;
   MenuProps: IMenuProps;
   FooterProps: any;
 }

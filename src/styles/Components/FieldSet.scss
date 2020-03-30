@@ -1,14 +1,37 @@
-.FieldSetTitle {
-    box-sizing: border-box;
-    padding-top: 10px;
-    padding-left: 20px;
-    font-weight: bold;
-}
+.FieldSet
+{
+    .FieldSetTitle {
+        box-sizing: border-box;
+        padding-top: 10px;
+        padding-left: 20px;
+        font-weight: bold;
+        top: 20px;
+        & div {
+            display: inline-block;
+            position: relative;
+            max-width: 90%;
+            & span {
+                background: white; 
+                border-width: 1px 1px 0 1px; 
+                border-style: solid;
+                padding: 5px 15px 7px 15px; 
+                border-radius: 15px;
+                display: inline-block; 
+                position: relative; 
+                z-index: 1; 
+                min-width: 120px;
+            }
+        }
+    }
 
-.FieldSetContent {
-    box-sizing: border-box;
-    margin: 5px;
-    padding: 15px;
-    border: 1px solid gray;
-    border-radius: 15px;
+    .FieldSetContent {
+        box-sizing: border-box;
+        margin: 5px;
+        padding: 15px;
+        border: 1px solid gray;
+        border-radius: 15px;
+        padding-top: 25px;
+        padding-bottom: 30px;
+        min-height: 50px;
+    }
 }

@@ -4,11 +4,13 @@ import Row from '../../common/Row';
 import Column from '../../common/Column';
 import PageSelector from '../../common/PageSelector';
 import useTranslation from '../../../common/context/pageText/getTranslation';
-import { AppContext, ErrorContext } from '../../../common/config/appConfig';
+import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../common/config/appConfig';
 
 const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => void }> = ( props ) => {
     const [ appContext ] = useContext( AppContext );
+    const [ routeContext ] = React.useContext( RouteContext );
     const [ errorContext ] = useContext( ErrorContext );
+    const [ userContext ] = useContext(LoginContext);
     const { getTranslation } = useTranslation();
 
     const makeSubMenu = ( subMenu: ISubMenuItem, isSingle: boolean = false ) => {
@@ -18,9 +20,9 @@ const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => vo
             )
         }
         let translatedTitle = subMenu.Title.startsWith( "#(" ) ? getTranslation( "_menu", subMenu.Title ) : subMenu.Title;
-        if ( subMenu.Link && ( subMenu.Link !== appContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
+        if ( subMenu.Link && ( subMenu.Link !== routeContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
             return (
-                <Column className={ "collapsedSubMenuItem" + ( isSingle ? " collapsedSubMenuSingleItem" : "" ) + ( subMenu.Reloadable && subMenu.Link === appContext.selectedPage ? ' disabledMenuItem pointer_cursor' : '' ) }>
+                <Column className={ "collapsedSubMenuItem" + ( isSingle ? " collapsedSubMenuSingleItem" : "" ) + ( subMenu.Reloadable && subMenu.Link === routeContext.selectedPage ? ' disabledMenuItem pointer_cursor' : '' ) }>
                     <PageSelector page={ subMenu.Link } action={ props.collapseFunc } forceReload={ subMenu.Reloadable }>{ translatedTitle }</PageSelector>
                 </Column>
             )
@@ -36,9 +38,13 @@ const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => vo
         <div className="collapsedSubMenuGroup">
             {
                 props.SubMenus.map( ( subMenu, i ) =>
-                    <Row key={ 'sub_menu_' + i }>
-                        { makeSubMenu( subMenu, props.SubMenus.length === 1 ) }
-                    </Row>
+                    ( (!subMenu.AdminOnly && !subMenu.AuthOnly) || 
+                    (!subMenu.AdminOnly && userContext) ||
+                    appContext.adminOptions ) ? 
+                        <Row key={ 'sub_menu_' + i }>
+                            { makeSubMenu( subMenu, props.SubMenus.length === 1 ) }
+                        </Row>
+                        : null
                 )
             }
         </div>

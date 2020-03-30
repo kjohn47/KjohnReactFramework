@@ -10,10 +10,11 @@
     "@types/react-dom": "16.9.2",
     "@types/sha.js": "^2.4.0",
     "jsonwebtoken": "^8.5.1",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "react": "^16.10.2",
+    "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^3.4.0",
     "sha.js": "^2.4.11",
     "typescript": "3.6.4"
   },
@@ -35,7 +36,8 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "edge >= 14"
     ]
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
-import CardList from '../../common/CardList';
-import { ICard } from '../../common/Card';
-import { KnownPages } from '../../../common/context/appContextEnums';
-import CardContent from '../../common/CardContent';
+import CardList from '../../../common/CardList';
+import { ICard } from '../../../common/Card';
+import { KnownPages } from '../../../../common/context/routeContextEnums';
+import CardContent from '../../../common/CardContent';
 
 const TestCards: React.FC = () => {
   const getCardItem: ( id: number ) => ICard = ( id ) => {
@@ -39,7 +39,7 @@ const TestCards: React.FC = () => {
       }
     >
       Test of list of cards
-        </CardList>
+    </CardList>
   );
 }
 
