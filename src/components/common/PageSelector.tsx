@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import { KnownPages, ContextActions } from "../../common/context/appContextEnums";
-import { AppContext, ErrorContext } from "../../common/config/appConfig";
-import { ErrorActions } from "../../common/context/appErrorEnums";
+import { KnownPages, RouteActions } from "../../common/context/routeContextEnums";
+import { RouteContext } from "../../common/config/appConfig";
 
 interface IPageSelector {
     page: KnownPages;
@@ -13,13 +12,8 @@ interface IPageSelector {
 }
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
-    const setAppContext = useContext( AppContext )[ 1 ];
-    const setErrorContext = useContext( ErrorContext )[ 1 ];
+    const setRoute = useContext( RouteContext )[ 1 ];
     const setPage = ( page: KnownPages, queryParams?: any ) => {
-
-        setErrorContext( {
-            type: ErrorActions.RemoveError
-        } );
 
         let queryString = queryParams === undefined ? "" : "?" + new URLSearchParams( queryParams ).toString();
 
@@ -31,8 +25,8 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
             window.history.pushState( {}, "", "/" + page.toString() + queryString );
         }
 
-        setAppContext( {
-            type: ContextActions.ChangePage,
+        setRoute( {
+            type: RouteActions.ChangePage,
             payload: {
                 selectedPage: page,
                 queryString: JSON.stringify( queryParams ),

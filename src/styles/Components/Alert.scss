@@ -1,0 +1,87 @@
+.AlertComponent {
+    padding-bottom: 10px;
+
+    .Alert {
+        box-sizing: border-box;
+        border: 1px solid;
+        border-radius: 15px;
+        padding: 15px;
+
+        .AlertCloseable {
+            display: inline-block;
+            width: calc( 100% - 15px);
+        }
+
+        .AlertCloseDiv{
+            display: inline-block;
+            width: 15px;
+            text-align: right;
+            vertical-align: top;
+        }
+    }
+
+    .Alert_Danger {
+        color: $Button_Danger_Text;
+        background-color: $Button_Danger_Main;
+        border-color: $Button_Danger_Secondary;
+        .AlertCloseDiv{            
+            .AlertClose {
+                &:hover {
+                    color: $Button_Danger_Secondary;
+                }
+            }
+        }
+    }
+
+    .Alert_Information {
+        color: $Button_Information_Text;
+        background-color: $Button_Information_Main;
+        border-color: $Button_Information_Secondary;
+        .AlertCloseDiv{            
+            .AlertClose {
+                &:hover {
+                    color: $Button_Information_Secondary;
+                }
+            }
+        }
+    }
+
+    .Alert_Confirmation {
+        color: $Button_Confirmation_Text;
+        background-color: $Button_Confirmation_Main;
+        border-color: $Button_Confirmation_Secondary;
+        .AlertCloseDiv{            
+            .AlertClose {
+                &:hover {
+                    color: $Button_Confirmation_Secondary;
+                }
+            }
+        }
+    }
+
+    .Alert_Warning {
+        color: $Button_Warning_Text;
+        background-color: $Button_Warning_Main;
+        border-color: $Button_Warning_Secondary;
+        .AlertCloseDiv{            
+            .AlertClose {
+                &:hover {
+                    color: $Button_Warning_Secondary;
+                }
+            }
+        }
+    }
+
+    .Alert_Cancelation {
+        color: $Button_Cancelation_Text;
+        background-color: $Button_Cancelation_Main;
+        border-color: $Button_Cancelation_Secondary;
+        .AlertCloseDiv{            
+            .AlertClose {
+                &:hover {
+                    color: $Button_Cancelation_Secondary;
+                }
+            }
+        }
+    }
+}

@@ -5,13 +5,16 @@ import { useAppContext } from "../context/appContext";
 import { LoadingType, AppContextType, AppLanguageType } from "../context/appContextInterfaces";
 import { useLogin } from "../context/loginContext";
 import { LoginContextType } from "../context/loginContextInterfaces";
-import { initialAppConfig, initialLogin, initialError, initialLanguage } from "./configuration";
+import { initialAppConfig, initialLogin, initialError, initialLanguage, initialRouteConfig } from "./configuration";
 import { ContextActions, AppLanguage } from "../context/appContextEnums";
+import { RouteContextType } from "../context/routeContextInterfaces";
+import { useRouteContext } from "../context/routeContext";
 
 export const AppLanguageContext = createContext<AppLanguageType>( [ initialLanguage, () => {} ] );
 export const ErrorContext = createContext<ErrorContextType>( [ initialError, () => { } ] );
 export const LoadingContext = createContext<LoadingType>( [ false, () => { } ] );
 export const AppContext = createContext<AppContextType>( [ initialAppConfig, () => { } ] );
+export const RouteContext = createContext<RouteContextType>( [ initialRouteConfig, () => { } ] );
 export const LoginContext = createContext<LoginContextType>( [ undefined, () => { } ] );
 
 export const AppProvider: React.FC = ( { children } ) => {
@@ -35,6 +38,7 @@ export const AppProvider: React.FC = ( { children } ) => {
 
 const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>>}> = ( props ) => {    
     const [ appContext, setAppContext ] = useAppContext( initialAppConfig );
+    const [ routeContext, setRouteContext ] = useRouteContext( initialRouteConfig );
     const [ error, setError ] = useError( initialError );
     const [ loading, setLoading ] = useState( false );
 
@@ -51,13 +55,25 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
     return (
         props.firstLoad ?
                 <AppContext.Provider value={ [ appContext, setAppContext ] } >
-                    <ErrorContext.Provider value={ [ error, setError ] }>
-                        <LoadingContext.Provider value={ [ loading, setLoading ] }>
-                            { props.children }
-                        </LoadingContext.Provider>
-                    </ErrorContext.Provider>
+                    <RouteContext.Provider value = { [ routeContext, setRouteContext ] }>
+                        <ErrorContext.Provider value={ [ error, setError ] }>
+                            <LoadingContext.Provider value={ [ loading, setLoading ] }>
+                                { props.children }
+                            </LoadingContext.Provider>
+                        </ErrorContext.Provider>
+                    </RouteContext.Provider >
                 </AppContext.Provider>
             :
-            <></>
+                <div className={ "LoadingDiv LoadingPadding" }>
+                    <div 
+                        className={ "LoaderSpinner BigSpinner" } 
+                        style={{
+                            borderTopColor: "gray",
+                            borderBottomColor: "gray",
+                            borderLeftColor: "black",
+                            borderRightColor: "black"
+                        }} 
+                    />
+                </div>
     )
 }

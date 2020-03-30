@@ -1,7 +1,7 @@
 import React from "react";
 import Column, { ColumnNumber } from "./Column";
 import Row from "./Row";
-import { KnownPages } from "../../common/context/appContextEnums";
+import { KnownPages } from "../../common/context/routeContextEnums";
 import PageSelector from "./PageSelector";
 import useTranslation from "../../common/context/pageText/getTranslation";
 

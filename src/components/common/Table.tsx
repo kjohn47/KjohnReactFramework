@@ -1,7 +1,7 @@
 import React from "react";
 import Row from "./Row";
 import Column from "./Column";
-import { KnownPages } from "../../common/context/appContextEnums";
+import { KnownPages } from "../../common/context/routeContextEnums";
 import PageSelector from "./PageSelector";
 import WithTooltip, { ToolTipColor, ToolTipPosition } from "./WithTooltip";
 import useTranslation from "../../common/context/pageText/getTranslation";

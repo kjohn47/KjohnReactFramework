@@ -1,8 +1,8 @@
 import React from 'react';
-import Row from '../../common/Row';
-import Column from '../../common/Column';
-import DatePicker from '../../common/DatePicker';
-import FieldSet from '../../common/FieldSet';
+import Row from '../../../common/Row';
+import Column from '../../../common/Column';
+import DatePicker from '../../../common/DatePicker';
+import FieldSet from '../../../common/FieldSet';
 
 const TestDatePicker: React.FC = () => {
     const today = new Date();

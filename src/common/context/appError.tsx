@@ -17,12 +17,12 @@ export const useError: ( initialState: IError ) => ErrorContextType = ( initialS
                 break;
             }
             case ErrorActions.RemoveError: {
-                setError( {
-                    ...error,
-                    hasError: false,
-                    errorDescription: undefined,
-                    errorCode: undefined
-                } );
+                if( error.hasError )
+                    setError( {
+                        hasError: false,
+                        errorDescription: undefined,
+                        errorCode: undefined
+                    } );
                 break;
             }
         }
