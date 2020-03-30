@@ -3,14 +3,22 @@ import Column from '../../common/Column';
 import Row from '../../common/Row';
 import PageHeader from '../../common/PageHeader';
 import SideMenuPage from '../../common/SideMenuPage';
-import TestHash from './TestHash';
-import TestCards from './TestCards';
-import TestTable from './TestTable';
-import TestButtons from './TestButtons';
-import TestTextInput from './TestTextInput';
-import TestServices from './TestServices';
+import TestCards from './DataPresentation/TestCards';
+import TestTable from './DataPresentation/TestTable';
+import TestButtons from './Inputs/TestButtons';
+import TestTextInput from './Inputs/TestTextInput';
+import TestServices from './ServicesPage/TestServices';
 import useTranslation from '../../../common/context/pageText/getTranslation';
-import TestDatePicker from './TestDatePicker';
+import TestDatePicker from './Inputs/TestDatePicker';
+import TestTabGroup from './DataPresentation/TestTabGroup';
+import TestBalloon from './DataPresentation/TestBalloon';
+import TestToolTip from './DataPresentation/TestToolTip';
+import TestFieldSet from './Inputs/TestFieldSet';
+import TestLoader from './ServicesPage/TestLoader';
+import TestThemes from './ServicesPage/TestThemes';
+import TestLabel from './Inputs/TestLabel';
+import TestAlert from './DataPresentation/TestAlert';
+import TestPageHeader from './DataPresentation/TestPageHeader';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -25,14 +33,22 @@ const Test: React.FC = () => {
           presentationComponent={ <span>Welcome to test page of components</span> }
           menus={ [
             {
-              title: "Hash and Services",
+              title: "Page and Services",
               submenus: [
                 {
-                  title: "Test hash",
-                  component: <TestHash />
+                  title: "Themes",
+                  component: <TestThemes />
                 },
                 {
-                  title: "Call Services",
+                  title: "Page Header",
+                  component: <TestPageHeader />
+                },
+                {
+                  title: "Loader",
+                  component: < TestLoader />
+                },
+                {
+                  title: "Services/Error",
                   component: < TestServices />
                 }
               ]
@@ -41,12 +57,28 @@ const Test: React.FC = () => {
               title: "Data Presentation",
               submenus: [
                 {
-                  title: "Cards components",
+                  title: "Cards List",
                   component: <TestCards />
                 },
                 {
-                  title: "Table component",
+                  title: "Table",
                   component: <TestTable />
+                },
+                {
+                  title: "Tooltips",
+                  component: <TestToolTip />
+                },
+                {
+                  title: "Tab Group",
+                  component: <TestTabGroup />
+                },
+                {
+                  title: "Balloon",
+                  component: <TestBalloon />
+                },
+                {
+                  title: "Alert",
+                  component: <TestAlert />
                 }
               ]
             },
@@ -54,7 +86,15 @@ const Test: React.FC = () => {
               title: "Inputs",
               submenus: [
                 {
-                  title: "Text input component",
+                  title: "FieldSet",
+                  component: <TestFieldSet />
+                },
+                {
+                  title: "Label",
+                  component: <TestLabel />
+                },
+                {
+                  title: "Text Inputs",
                   component: <TestTextInput />
                 },
                 {

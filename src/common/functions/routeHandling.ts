@@ -1,4 +1,4 @@
-import { KnownPages } from "../context/appContextEnums";
+import { KnownPages } from "../context/routeContextEnums";
 
 export const getQueryStringParams = <IQueryType> ( queryString: string ): IQueryType => {
     let queryParams: URLSearchParams = new URLSearchParams( queryString );

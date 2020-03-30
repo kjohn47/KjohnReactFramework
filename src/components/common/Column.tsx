@@ -32,6 +32,7 @@ interface IColumn {
     className?: string;
     reference?: any;
     tabIndex?:number;
+    onClick?:()=>void;
 }
 
 const getCssString: ( config: IColumn ) => string = ( config ) => {
@@ -54,7 +55,7 @@ const getCssString: ( config: IColumn ) => string = ( config ) => {
 const Column: React.FC<IColumn> = ( props ) => {
     let css = getCssString( props );
     return (
-        <div className={ css } ref = {props.reference} tabIndex = {props.tabIndex}>
+        <div className={ css } ref = {props.reference} tabIndex = {props.tabIndex} onClick = {props.onClick}>
             { props.children }
         </div>
     )

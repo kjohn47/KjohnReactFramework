@@ -5,5 +5,6 @@ export enum ErrorActions {
 
 export enum ErrorCodes {
     GenericError = "GenericError",
-    PageNotFound = "PageNotFound"
+    PageNotFound = "PageNotFound",
+    AdminOnlyError = "AdminOnlyError"
 }

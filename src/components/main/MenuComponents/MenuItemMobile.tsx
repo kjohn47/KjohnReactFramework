@@ -6,11 +6,13 @@ import { useState } from 'react';
 import SubMenuMobile from './SubMenuMobile';
 import PageSelector from '../../common/PageSelector';
 import useTranslation from '../../../common/context/pageText/getTranslation';
-import { AppContext, ErrorContext } from '../../../common/config/appConfig';
+import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../common/config/appConfig';
 
 const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?: boolean; }> = ( props ) => {
     const [ appContext ] = React.useContext( AppContext );
+    const [ routeContext ] = React.useContext( RouteContext );
     const [ errorContext ] = React.useContext( ErrorContext );
+    const [userContext] = React.useContext(LoginContext);
     const [ subMenuCollapsed, setSubMenuCollapsed ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
 
@@ -21,7 +23,7 @@ const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?
                 <Column
                     className={ "collapsedMenuItem pointer_cursor noselect" +
                         ( props.IsSingle ? " collapsedMenuSingleItem" : "" ) +
-                        ( props.Link === appContext.selectedPage && !errorContext.hasError ? " collapsedMenuLinkSelected" : "" ) } >
+                        ( props.Link === routeContext.selectedPage && !errorContext.hasError ? " collapsedMenuLinkSelected" : "" ) } >
                     <PageSelector className="collapsedMenuItemInner" action={ props.collapseFunc } page={ props.Link } forceReload={ props.Reloadable }>{ translatedTitle }</PageSelector>
                 </Column>
             )
@@ -48,11 +50,13 @@ const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?
         )
     };
 
-    return (
-        <Row>
-            { makeMenuItem() }
-        </Row>
-    )
+    return ( (!props.AdminOnly && !props.AuthOnly) || 
+             (!props.AdminOnly && userContext) ||
+             appContext.adminOptions ) ? 
+                <Row>
+                    { makeMenuItem() }
+                </Row>
+                : null
 }
 
 export default MenuItemMobile;

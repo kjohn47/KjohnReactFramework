@@ -142,16 +142,18 @@
       // Load Spinner
     
       // Button Component
-      .page_button_color {
-        border-color: $MainColor;
-        background: $Button;
-        color: $Button_Text;
-        &:hover {
-          background: $Button_Hover;
-          color: $Button_Text_Hover;
-        }
-        &:focus {
-          box-shadow: 0 0 4px $Button;
+      .ButtonComponent {
+        .page_button_color {
+          border-color: $MainColor;
+          background: $Button;
+          color: $Button_Text;
+          &:hover {
+            background: $Button_Hover;
+            color: $Button_Text_Hover;
+          }
+          &:focus {
+            box-shadow: 0 0 4px $Button;
+          }
         }
       }
       // Button Component
@@ -248,12 +250,19 @@
         }
         // Page Side Menu
         // FieldSet
-        .FieldSetTitle {
-          color: $MainColor;
-        }
-        
-        .FieldSetContent {
-            border-color: $SecondaryColor;
+        .FieldSet {
+          .FieldSetTitle {
+            color: $MainColor;
+            & div {
+              & span {
+                border-color: $SecondaryColor;  
+              }
+            }
+          }
+          
+          .FieldSetContent {
+              border-color: $SecondaryColor;
+          }
         }
         // FieldSet
 
@@ -332,4 +341,112 @@
           }
       }
       //DatePicker
+      //TabGroup
+      .TabGroup {
+        .TabGroupTabRow {
+            .TabItem {
+                border-color: $Menu_Border;
+                background-color: $MainColor;
+                color: $MenuTextColor;
+                &:hover {
+                    background-color: $SecondaryColor;
+                }
+            }
+            .SelectedTab {
+                background-color: $SecondaryColor;
+                border-bottom-color: $SecondaryColor;
+            }
+        }
+        .TabGroupContentRow {
+            border-color: $SecondaryColor;
+        }
+      }
+      //TabGroup
+
+      //Balloon
+      .BalloonComponent {
+        .Balloon {
+          background-color: white;
+          border-color: $MainColor;
+          color: $TextColor;
+          &:after {
+            border-color: $MainColor;
+          }
+        }    
+        .BalloonClose {
+          & :hover {
+              color: $LinkColor;
+          }
+        }
+
+        .Balloon_Default {
+          background-color: $BalloonBackground;
+          border-color: $MainColor;
+          color: $MainColor;
+          &:after {
+            border-color: $MainColor;
+          }
+        }
+
+        .Balloon_Danger {
+          background-color: $Button_Danger_Main;
+          border-color: $Button_Danger_Secondary;
+          color: $Button_Danger_Text;
+          &:after {
+            border-color: $Button_Danger_Secondary;
+          }
+        }
+
+        .Balloon_Information {
+          background-color: $Button_Information_Main;
+          border-color: $Button_Information_Secondary;
+          color: $Button_Information_Text;
+          &:after {
+            border-color: $Button_Information_Secondary;
+          }
+        }
+
+        .Balloon_Warning {
+          background-color: $Button_Warning_Main;
+          border-color: $Button_Warning_Secondary;
+          color: $Button_Warning_Text;
+          &:after {
+            border-color: $Button_Warning_Secondary;
+          }
+        }
+
+        .Balloon_Confirmation {
+          background-color: $Button_Confirmation_Main;
+          border-color: $Button_Confirmation_Secondary;
+          color: $Button_Confirmation_Text;
+          &:after {
+            border-color: $Button_Confirmation_Secondary;
+          }
+        }
+
+        .Balloon_Cancelation {
+          background-color: $Button_Cancelation_Main;
+          border-color: $Button_Cancelation_Secondary;
+          color: $Button_Cancelation_Text;
+          &:after {
+            border-color: $Button_Cancelation_Secondary;
+          }
+        }
+      }
+      //Balloon
+
+      //Alert
+      .Alert_Default {
+        color: $Button_Text;
+        background-color: $Button;
+        border-color: $MainColor;
+        .AlertCloseDiv{            
+            .AlertClose {
+                &:hover {
+                    color: $Button_Hover;
+                }
+            }
+        }
     }
+      //Alert
+}

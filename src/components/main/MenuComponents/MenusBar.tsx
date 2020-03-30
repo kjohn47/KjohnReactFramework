@@ -3,7 +3,7 @@ import Row from '../../common/Row';
 import Column from '../../common/Column';
 import MenuItem from './MenuItem';
 import PageSelector from '../../common/PageSelector';
-import { KnownPages } from '../../../common/context/appContextEnums';
+import { KnownPages } from '../../../common/context/routeContextEnums';
 import { IMenuProps } from '../Menu';
 import useWindowSize from '../../../common/functions/windowResize';
 import { useState, useRef, useEffect } from 'react';

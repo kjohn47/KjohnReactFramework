@@ -2,85 +2,85 @@
 //--- Colors that are fixed on component ----
 //-------------------------------------------
 //--- Page Generic ---
-$Disabled_Text: #757575;
+$Disabled_Text: rgb(117, 117, 117);
 //--- Page Generic ---
 
 //--- Button Types ---
-$Button_Confirmation_Main: #009c3c;
-$Button_Confirmation_Secondary: #003300;
-$Button_Confirmation_Text: #ffffff;
-$Button_Confirmation_Text_Hover: #ffffff;
+$Button_Confirmation_Main: rgb(0, 156, 60);
+$Button_Confirmation_Secondary: rgb(0, 51, 0);
+$Button_Confirmation_Text: rgb(255, 255, 255);
+$Button_Confirmation_Text_Hover: rgb(255, 255, 255);
 
-$Button_Warning_Main: #fab12a;
-$Button_Warning_Secondary: #D75600;
-$Button_Warning_Text: #000000;
-$Button_Warning_Text_Hover: #ffffff;
+$Button_Warning_Main: rgb(250, 177, 42);
+$Button_Warning_Secondary: rgb(215, 86, 0);
+$Button_Warning_Text: rgb(0, 0, 0);
+$Button_Warning_Text_Hover: rgb(255, 255, 255);
 
-$Button_Danger_Main: #df293b;
-$Button_Danger_Secondary: #660202;
-$Button_Danger_Text: #ffffff;
-$Button_Danger_Text_Hover: #ffffff;
+$Button_Danger_Main: rgb(223, 41, 59);
+$Button_Danger_Secondary: rgb(102, 2, 2);
+$Button_Danger_Text: rgb(255, 255, 255);
+$Button_Danger_Text_Hover: rgb(255, 255, 255);
 
-$Button_Cancelation_Main: #a8a8a8;
-$Button_Cancelation_Secondary: #3b3b3b;
-$Button_Cancelation_Text: #000000;
-$Button_Cancelation_Text_Hover: #ffffff;
+$Button_Cancelation_Main: rgb(168, 168, 168);
+$Button_Cancelation_Secondary: rgb(59, 59, 59);
+$Button_Cancelation_Text: rgb(0, 0, 0);
+$Button_Cancelation_Text_Hover: rgb(255, 255, 255);
 
-$Button_Information_Main: #1b73e6;
-$Button_Information_Secondary: #02469e;
-$Button_Information_Text: #ffffff;
-$Button_Information_Text_Hover: #ffffff;
+$Button_Information_Main: rgb(27, 115, 230);
+$Button_Information_Secondary: rgb(2, 70, 158);
+$Button_Information_Text: rgb(255, 255, 255);
+$Button_Information_Text_Hover: rgb(255, 255, 255);
 //--- Button Types ---
 
 //----- ToolTip ------
-$ToolTip_Default: #fce35a;
-$ToolTip_Default_Text: #000000;
+$ToolTip_Default: rgb(252, 227, 90);
+$ToolTip_Default_Text: rgb(0, 0, 0);
 
-$ToolTip_Red: #ffa4a4;
-$ToolTip_Red_Text: #660202;
+$ToolTip_Red: rgb(255, 164, 164);
+$ToolTip_Red_Text: rgb(102, 2, 2);
 
-$ToolTip_Green: #98FFC8;
-$ToolTip_Green_Text: #003300;
+$ToolTip_Green: rgb(153, 255, 201);
+$ToolTip_Green_Text: rgb(0, 51, 0);
 
-$ToolTip_Blue: #a9e2ff;
-$ToolTip_Blue_Text: #02469e;
+$ToolTip_Blue: rgb(169, 226, 255);
+$ToolTip_Blue_Text: rgb(2, 70, 158);
 
-$ToolTip_Yellow: #FFFD9B;
-$ToolTip_Yellow_Text: #D75600;
+$ToolTip_Yellow: rgb(255, 253, 153);
+$ToolTip_Yellow_Text: rgb(215, 86, 0);
 
-$ToolTip_Grey: #708090;
-$ToolTip_Grey_Text: #ffffff;
+$ToolTip_Grey: rgb(111, 128, 144);
+$ToolTip_Grey_Text: rgb(255, 255, 255);
 //----- ToolTip ------
 
 //---- Text Input ----
-$TextInputValid: #008000;
-$TextInputInvalid: #f00000;
+$TextInputValid: rgb(0, 128, 0);
+$TextInputInvalid: rgb(240, 0, 0);
 //---- Text Input ----
 
 //------ Links -------
-$EditLink: #0b6dff;
-$EditLink_Hover: #0432ff;
-$RemoveLink: #ff4343;
-$RemoveLink_Hover: #ac1515;
+$EditLink: rgb(11, 109, 255);
+$EditLink_Hover: rgb(4, 50, 255);
+$RemoveLink: rgb(255, 67, 67);
+$RemoveLink_Hover: rgb(172, 21, 21);
 //------ Links -------
 
 //------ Table -------
-$Table_Highlight_Even: #e7e7e7;
-$Table_Highlight_Odd: #f7f5f5;
-$Table_Border: #000000;
-$Table_Border_Header: #708090;
+$Table_Highlight_Even: rgb(231, 231, 231);
+$Table_Highlight_Odd: rgb(247, 245, 245);
+$Table_Border: rgb(0, 0, 0);
+$Table_Border_Header: rgb(112, 128, 144);
 //------ Table -------
 
 //--- Page Header ----
-$PageTitleError: #f00000;
+$PageTitleError: rgb(240, 0, 0);
 //--- Page Header ----
 
 // Card Fixed Colors
-$CardImageBackground: #969696;
-$CardImageBorder: #969696;
-$CardContentBorder: #cfcfcf;
-$CardContentBackground: #ffffff;
-$CardFooterText: #757575;
+$CardImageBackground: rgb(150, 150, 150);
+$CardImageBorder: rgb(150, 150, 150);
+$CardContentBorder: rgb(207, 207, 207);
+$CardContentBackground: rgb(255, 255, 255);
+$CardFooterText: rgb(117, 117, 117);
 // Card Fixed Colors
 //-------------------------------------------
 //- End Colors that are fixed on component --

@@ -1,43 +1,45 @@
 // ------------ Orange -----------------------
 .PageLayoutColor_Orange {
   //------------- Orange Colors --------------
-  $MainColor: #ce4e1b;
-  $SecondaryColor: #ec9f73;
-  $MenuTextColor: #ffffff;
-  $TextColor: #1d0b00;
-  $LinkColor: #da5f19;
+  $MainColor: rgb(206, 78, 27);
+  $SecondaryColor: rgb(236, 159, 115);
+  $MenuTextColor: rgb(255, 255, 255);
+  $TextColor: rgb(29, 11, 0);
+  $LinkColor: rgb(218, 95, 25);
 
-  $Button: #db581c;
-  $Button_Text: #ffffff;
-  $Button_Hover: #f89053;
-  $Button_Text_Hover: #ffffff;
+  $Button: rgb(219, 88, 28);
+  $Button_Text: rgb(255, 255, 255);
+  $Button_Hover: rgb(248, 144, 83);
+  $Button_Text_Hover: rgb(255, 255, 255);
 
-  $Input_Border: #c75919;
-  $Input_Focus: #f89053;
+  $Input_Border: rgb(199, 89, 25);
+  $Input_Focus: rgb(248, 144, 83);
 
-  $Table_Header_Text: #ffffff;
+  $Table_Header_Text: rgb(255, 255, 255);
 
-  $CardBorderColor: #ce5d1b;
-  $CardBackground: #ffeee080;
+  $CardBorderColor: rgb(206, 93, 27);
+  $CardBackground: rgba(255, 238, 224, 0.502);
 
-  $DatePicker_Border: #d8611d;
-  $DatePicker_DaySelect: #e97e40;
-  $DatePicker_Header_Text: #FFFFFF;
-  $DatePicker_LinkColor: #fccbaf;
-  $DatePicker_Disabled_Text: #4d3223;
-  $DatePicker_Disabled: #ddb19a;
-  $DatePicker_Selected_Text: #FFFFFF;
+  $DatePicker_Border: rgb(216, 97, 29);
+  $DatePicker_DaySelect: rgb(233, 126, 64);
+  $DatePicker_Header_Text: rgb(255, 255, 255);
+  $DatePicker_LinkColor: rgb(252, 203, 175);
+  $DatePicker_Disabled_Text: rgb(77, 50, 35);
+  $DatePicker_Disabled: rgb(221, 177, 154);
+  $DatePicker_Selected_Text: rgb(255, 255, 255);
 
-  $Menu_Border:#d85012;
-  $Menu_Background:#ec9f73cc;
-  $Menu_SubBackground: #fad4a8ec;
-  $Menu_SubBorder: #e04f15e1;
-  $Menu_SubText: #000000;
-  $Menu_SubHover: #6b2c01;
-  $Menu_SubTextHover: #ffab76;
-  $Menu_SubSeparator: #ddb19a;
-  $Menu_SubDisabled: #dbd7d7c0;
-  $Menu_MenuSubOpen: #ffa33acc;
+  $Menu_Border:rgb(216, 80, 18);
+  $Menu_Background:rgba(236, 159, 115, 0.8);
+  $Menu_SubBackground: rgba(250, 212, 168, 0.925);
+  $Menu_SubBorder: rgba(224, 79, 21, 0.882);
+  $Menu_SubText: rgb(0, 0, 0);
+  $Menu_SubHover: rgb(107, 44, 1);
+  $Menu_SubTextHover: rgb(255, 171, 118);
+  $Menu_SubSeparator: rgb(221, 177, 154);
+  $Menu_SubDisabled: rgba(219, 215, 215, 0.753);
+  $Menu_MenuSubOpen: rgba(255, 163, 58, 0.8);
+
+  $BalloonBackground: rgb(255, 233, 208);
 
   //------------------------------------------
    @import "./ThemeTree";
