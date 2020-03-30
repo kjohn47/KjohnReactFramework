@@ -58,6 +58,16 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
                     </ErrorContext.Provider>
                 </AppContext.Provider>
             :
-            <></>
+                <div className={ "LoadingDiv LoadingPadding" }>
+                    <div 
+                        className={ "LoaderSpinner BigSpinner" } 
+                        style={{
+                            borderTopColor: "gray",
+                            borderBottomColor: "gray",
+                            borderLeftColor: "black",
+                            borderRightColor: "black"
+                        }} 
+                    />
+                </div>
     )
 }
