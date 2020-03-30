@@ -1,4 +1,4 @@
-import { KnownPages } from "../context/appContextEnums";
+import { KnownPages } from "../context/routeContextEnums";
 import Test from "../../components/pages/ComponentTest/Test";
 import { IPageHandleProps } from "../../components/main/PageHandler";
 import { IKRFProps } from "../../components/main/KRFApp";
@@ -13,7 +13,7 @@ const pageRoutes: IPageHandleProps<any> = {
             {
                 Component: Test,
                 Route: KnownPages.Test,
-                NeedAuth: true
+                AdminOnly: true
             }
         ]
     }

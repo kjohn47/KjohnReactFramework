@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AppContext, ErrorContext, LoadingContext } from "../../common/config/appConfig";
-import { KnownPages, ContextActions } from "../../common/context/appContextEnums";
+import { AppContext, ErrorContext, LoadingContext, RouteContext } from "../../common/config/appConfig";
+import { KnownPages } from "../../common/context/routeContextEnums";
 import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
 import Loader from "../common/Loader";
 import ErrorPage from "./ErrorPage";
 import { injectProps } from "../../common/functions/misc";
 import { withLogin } from "../../common/functions/checkLogin";
 import { getRouteUrlAndQuery } from "../../common/functions/routeHandling";
+import { RouteActions } from "../../common/context/routeContextEnums";
 
 export interface IRoure<TRouteProps> {
     Route: string;
     Component: React.ComponentType<TRouteProps>;
     Props?: TRouteProps;
     NeedAuth?: boolean;
+    AdminOnly?: boolean;
 }
 
 export interface IPageHandleProps<THomeProps> {
@@ -37,7 +39,8 @@ const usePageSelector: ( selectedComponent: React.ComponentType | undefined ) =>
 }
 
 const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
-    const [ appContext, setAppContext ] = useContext( AppContext );
+    const [ appContext ] = useContext( AppContext );
+    const [ routeContext, setRouteContext ] = useContext( RouteContext );
     const [ errorContext, setErrorContext ] = useContext( ErrorContext );
     const isLoading = useContext( LoadingContext )[ 0 ];
     const [ output, setOutput ] = usePageSelector( undefined );
@@ -46,8 +49,11 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
 
     const listenToPopstate = () => {
         const route = getRouteUrlAndQuery();
-        setAppContext( {
-            type: ContextActions.ChangePage,
+        setErrorContext({
+            type: ErrorActions.RemoveError
+        });
+        setRouteContext( {
+            type: RouteActions.ChangePage,
             payload: {
                 selectedPage: route.selectedPage,
                 queryString: route.queryString,
@@ -65,11 +71,26 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
     }, [])
 
     useEffect( () => {
+        if( errorContext.hasError )
+        {
+            if( routeContext.forceReload || lastPage !== routeContext.selectedPage || queryString !== routeContext.queryString ) 
+            {
+                setErrorContext({
+                    type: ErrorActions.RemoveError
+                });
+            }
+            else
+            {
+                setOutput(undefined);
+                setLastPage(KnownPages.ErrorPage);
+            }
+        }
+
         if ( !errorContext.hasError ) {
-            let selectedPage = appContext.selectedPage;
-            if ( lastPage !== selectedPage || queryString !== appContext.queryString || appContext.forceReload ) {
+            let selectedPage = routeContext.selectedPage;
+            if ( lastPage !== selectedPage || queryString !== routeContext.queryString || routeContext.forceReload ) {
                 let tempPromise: Promise<void>;
-                if ( appContext.forceReload || queryString !== appContext.queryString ) {
+                if ( routeContext.forceReload || queryString !== routeContext.queryString ) {
                     tempPromise = setOutput( undefined )
                 }
                 else {
@@ -77,7 +98,7 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                 }
 
                 setLastPage( selectedPage );
-                setQueryString( appContext.queryString );
+                setQueryString( routeContext.queryString );
 
                 tempPromise.then( () => {
                     if ( selectedPage.toLowerCase() === KnownPages.Home.toLowerCase() ) {
@@ -92,9 +113,16 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                     else {
                         const route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];
                         if ( route ) {
-                            if(route.NeedAuth)
+                            if(route.NeedAuth || route.AdminOnly)
                             {
-                                setOutput( withLogin( injectProps( route.Component, route.Props ) ) );
+                                if(route.AdminOnly)
+                                {
+                                    setOutput( withLogin( injectProps( route.Component, route.Props ), route.AdminOnly ) );
+                                }
+                                else
+                                {
+                                    setOutput( withLogin( injectProps( route.Component, route.Props ) ) );
+                                }
                             }
                             else
                             {
@@ -110,9 +138,9 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                         }
                     }
                 } ).finally( () => {
-                    if ( appContext.forceReload ) {
-                        setAppContext( {
-                            type: ContextActions.ForceReloadDisable,
+                    if ( routeContext.forceReload ) {
+                        setRouteContext( {
+                            type: RouteActions.ForceReloadDisable,
                             payload: {}
                         } )
                     }
@@ -121,12 +149,8 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
         }
         // eslint-disable-next-line
     }, [
-        appContext.selectedPage,
-        appContext.queryString,
-        setErrorContext,
-        errorContext.hasError,
-        appContext.forceReload,
-        setAppContext
+        routeContext,
+        errorContext
     ] )
 
     return (

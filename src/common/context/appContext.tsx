@@ -64,23 +64,6 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                 }
                 break;
             }
-            case ContextActions.ChangePage: {
-                if ( action.payload.selectedPage !== undefined )
-                    setCurrentAppContext( {
-                        ...currentAppContext,
-                        selectedPage: action.payload.selectedPage,
-                        queryString: action.payload.queryString,
-                        forceReload: action.payload.forceReload
-                    } );
-                break;
-            }
-            case ContextActions.ForceReloadDisable: {
-                setCurrentAppContext({
-                    ...currentAppContext,
-                    forceReload: false
-                })
-                break;
-            }
         }
     } )
 

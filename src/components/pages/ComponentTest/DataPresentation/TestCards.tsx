@@ -1,7 +1,7 @@
 import React from 'react';
 import CardList from '../../../common/CardList';
 import { ICard } from '../../../common/Card';
-import { KnownPages } from '../../../../common/context/appContextEnums';
+import { KnownPages } from '../../../../common/context/routeContextEnums';
 import CardContent from '../../../common/CardContent';
 
 const TestCards: React.FC = () => {

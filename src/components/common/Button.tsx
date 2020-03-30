@@ -1,6 +1,6 @@
 import React from 'react';
 import PageSelector from './PageSelector';
-import { KnownPages } from '../../common/context/appContextEnums';
+import { KnownPages } from '../../common/context/routeContextEnums';
 
 export enum ButtonTypes {
     Default = "page_button_color",

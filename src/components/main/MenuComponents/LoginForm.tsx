@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { mobileWidthLoginForm, mobileWidthMenu } from '../../../common/config/configuration';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 import PageSelector from '../../common/PageSelector';
-import { KnownPages } from '../../../common/context/appContextEnums';
+import { KnownPages } from '../../../common/context/routeContextEnums';
 import WithLabel from '../../common/WithLabel';
 
 const LoginForm: React.FC = () => {

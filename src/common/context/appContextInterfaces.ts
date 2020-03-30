@@ -1,4 +1,4 @@
-import { ContextActions, AppLanguage, KnownPages, AppGlobalTheme } from "./appContextEnums";
+import { ContextActions, AppLanguage, AppGlobalTheme } from "./appContextEnums";
 import { ITranslation } from "./pageText/pageTranslationInterfaces";
 
 export interface IContextAction {
@@ -9,9 +9,6 @@ export interface IContextAction {
 export interface IContextPayload {
     globalLanguage?: AppLanguage;
     pageTheme?: AppGlobalTheme;
-    selectedPage?: KnownPages;
-    queryString?: string;
-    forceReload?:boolean;
 }
 
 export interface ITranslations {    
@@ -19,12 +16,9 @@ export interface ITranslations {
 }
 
 export interface IAppContext {
-    selectedPage: KnownPages;
-    queryString?: string;
     adminOptions: boolean;
     globalTheme: AppGlobalTheme;
     translations: ITranslations;
-    forceReload?: boolean;
 }
 
 export type LoadingType = [ boolean, React.Dispatch<React.SetStateAction<boolean>> ];

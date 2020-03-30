@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { KnownPages } from '../../../common/context/appContextEnums';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { KnownPages } from '../../../common/context/routeContextEnums';
 import PageSelector from '../../common/PageSelector';
 import Column from '../../common/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
 import useTranslation from '../../../common/context/pageText/getTranslation';
+import { LoginContext, AppContext } from '../../../common/config/appConfig';
 
 export interface IMenuItem {
     Title: string;
@@ -11,9 +12,13 @@ export interface IMenuItem {
     Action?: () => void;
     SubMenus?: ISubMenuItem[];
     Reloadable?: boolean;
+    AuthOnly?: boolean;
+    AdminOnly?: boolean;
 }
 
 const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
+    const [ appContext ] = React.useContext( AppContext );
+    const [ userContext ] = useContext(LoginContext);
     const [ toogle, setToogle ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
     const subMenuRef = useRef<HTMLDivElement>( null );
@@ -48,9 +53,13 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
         return <span onClick={ menu.Action } className='menuSpan pointer_cursor'>{ translatedTitle }</span>
     }
 
-    return <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef } tabIndex={ 0 }>
-        { makeMenu( props.Menu ) }
-    </Column>
+    return ( (!props.Menu.AdminOnly && !props.Menu.AuthOnly) || 
+             (!props.Menu.AdminOnly && userContext) ||
+             appContext.adminOptions ) ? 
+                <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef } tabIndex={ 0 }>
+                    { makeMenu( props.Menu ) }
+                </Column> 
+                : null
 }
 
 export default MenuItem;
