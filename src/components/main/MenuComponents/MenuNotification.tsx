@@ -13,7 +13,9 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
                         ToolTipPosition: ToolTipPosition.Left,
                         ToolTipColor: ToolTipColor.Blue,
                         forcePosition: true
-                    }}>
+                    }}
+                    OnClick={() => {}}
+                    >
                     10
                 </Badge>
             </div>

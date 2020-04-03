@@ -168,6 +168,22 @@
         }
       }
       // Input Text
+
+      //Badge
+      .BadgeComponent {
+        .BadgeComponentColor_Default {
+          background-color: $Button;
+          border-color: $Button_Hover;
+          color: $Button_Text;
+        }
+        .BadgeComponentColorClick_Default {
+          &:hover {
+            background-color: $Button_Hover;
+            color: $Button_Text_Hover;
+          }
+        }
+      }
+      //Badge
   
       // ---- Menu and Footer Colors ----
       .PageMenuColor {
@@ -448,5 +464,5 @@
             }
         }
     }
-      //Alert
+    //Alert
 }

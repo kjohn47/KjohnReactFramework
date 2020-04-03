@@ -1,10 +1,19 @@
 import React from 'react';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from './WithTooltip';
 
+export enum BadgeColorEnum {
+    Default = "Default",
+    Danger = "Danger",
+    Warning = "Warning",
+    Information = "Information",
+    Cancelation = "Cancelation",
+    Confirmation = "Confirmation"
+}
+
 interface IBadge {
     OnClick?: () => void;
     ClassName?: string;
-    Color?: string;
+    Color?: BadgeColorEnum;
     ToolTip?: {
         TooltipText: string;
         ToolTipPosition?: ToolTipPosition;
@@ -14,16 +23,24 @@ interface IBadge {
 }
 
 const Badge: React.FC<IBadge> = ({OnClick, ClassName, ToolTip, Color, children}) => {
-    const RenderBadge: React.FC = () => <div className = { "BadgeComponent noselect" + ( ClassName ? ` ${ClassName}` : "" ) } onClick = {OnClick}>{children}</div>
+    const _color = Color ? `${Color}` : BadgeColorEnum.Default;
+    const RenderBadge: React.FC = () => <div 
+                        className = { `BadgeComponent_Inner noselect BadgeComponentColor_${_color}` + 
+                        ( OnClick !== undefined ? ` BadgeComponentColorClick_${_color}` : "" ) +
+                        ( ClassName ? ` ${ClassName}` : "" ) } 
+                        onClick = {OnClick}
+                        >
+                            {children}
+                        </div>
  
-    return ToolTip ? 
-        <div>
+    return <div className="BadgeComponent">
+        {ToolTip ? 
             <WithTooltip toolTipText={ToolTip.TooltipText} toolTipPosition={ToolTip.ToolTipPosition} toolTipColor = {ToolTip.ToolTipColor} forcePosition= {ToolTip.forcePosition}>
                 <RenderBadge />
             </WithTooltip> 
-        </div> : 
-        <RenderBadge />
-    
+         : 
+        <RenderBadge />}
+        </div>
 }
 
 export default Badge;

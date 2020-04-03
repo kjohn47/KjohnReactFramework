@@ -1,13 +1,76 @@
 .BadgeComponent {
-    padding: 5px;
-    border: 1px solid;
-    border-radius: 10px;
-    font-size: small;
-    min-width: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
+    .ToolTip {
+        .ToolTip_Text_Left {
+            margin-right: 5px;
+        }
+    }
+    .BadgeComponent_Inner {
+        padding: 5px;
+        border: 1px solid;
+        border-radius: 10px;
+        font-size: small;
+        min-width: 15px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 
-    background-color: royalblue;
-    border-color: darkblue;
-    color: white;
+    .BadgeComponentColor_Danger {
+        background-color: $Button_Danger_Main;
+        border-color: $Button_Danger_Secondary;
+        color: $Button_Danger_Text;
+    }
+    .BadgeComponentColorClick_Danger {
+        &:hover {
+        background-color: $Button_Danger_Secondary;
+        color: $Button_Danger_Text_Hover;
+        }
+    }
+
+    .BadgeComponentColor_Warning {
+        background-color: $Button_Warning_Main;
+        border-color: $Button_Warning_Secondary;
+        color: $Button_Warning_Text;
+    }
+    .BadgeComponentColorClick_Warning {
+        &:hover {
+        background-color: $Button_Warning_Secondary;
+        color: $Button_Warning_Text_Hover;
+        }
+    }
+
+    .BadgeComponentColor_Confirmation {
+        background-color: $Button_Confirmation_Main;
+        border-color: $Button_Confirmation_Secondary;
+        color: $Button_Confirmation_Text;
+    }
+    .BadgeComponentColorClick_Confirmation {
+        &:hover {
+        background-color: $Button_Confirmation_Secondary;
+        color: $Button_Confirmation_Text_Hover;
+        }
+    }
+
+    .BadgeComponentColor_Information {
+        background-color: $Button_Information_Main;
+        border-color: $Button_Information_Secondary;
+        color: $Button_Information_Text;
+    }
+    .BadgeComponentColorClick_Information {
+        &:hover {
+        background-color: $Button_Information_Secondary;
+        color: $Button_Information_Text_Hover;
+        }
+    }
+
+    .BadgeComponentColor_Cancelation {
+        background-color: $Button_Cancelation_Main;
+        border-color: $Button_Cancelation_Secondary;
+        color: $Button_Cancelation_Text;
+    }
+    .BadgeComponentColorClick_Cancelation {
+        &:hover {
+        background-color: $Button_Cancelation_Secondary;
+        color: $Button_Cancelation_Text_Hover;
+        }
+    }
 }
