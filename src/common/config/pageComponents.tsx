@@ -22,6 +22,7 @@ const pageRoutes: IPageHandleProps<any> = {
 export const pageComponents: IKRFProps = {
     Routes: pageRoutes,
     MenuProps: {
+        EnableNotifications: true,
         Brand: "#(krf)",
         MenuNav: [
             {
