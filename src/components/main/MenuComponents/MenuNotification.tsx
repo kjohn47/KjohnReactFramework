@@ -1,16 +1,21 @@
 import React from 'react';
+import Badge from '../../common/Badge';
+import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
 
 const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
     
     return (
-            <div ref={reference} className="MenuNotifications" style ={{
-                padding: '5px',
-                border: '1px solid black',
-                borderRadius: '100%',
-                fontSize: 'small',
-                minWidth: '30px'
-            }}>
-                10
+            <div ref={reference} className="MenuNotifications">
+                <Badge 
+                    ClassName="pointer_cursor" 
+                    ToolTip={{
+                        TooltipText: "Notifications",
+                        ToolTipPosition: ToolTipPosition.Left,
+                        ToolTipColor: ToolTipColor.Blue,
+                        forcePosition: true
+                    }}>
+                    10
+                </Badge>
             </div>
     )
 }

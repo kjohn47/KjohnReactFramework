@@ -56,7 +56,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
     <Row className='menuRow'>
       {
         loginContext !== undefined ?
-          <Column full={ ColumnNumber.C17 } medium={ ColumnNumber.C12 } tablet={ menuToogle ? ColumnNumber.C13 : ColumnNumber.C4 }>
+          <Column full={ ColumnNumber.C16 } medium={ ColumnNumber.C11 } tablet={ menuToogle ? ColumnNumber.C12 : ColumnNumber.C4 }>
             <MenusBar { ...props } toogle={ menuToogle } setToogle={ ( toogleVal ) => { setMenuToogle( toogleVal ) } } />
           </Column> :
           <Column full={ ColumnNumber.C13 } medium={ ColumnNumber.C11 } tablet={ menuToogle ? ColumnNumber.C13 : ColumnNumber.C4 }>
@@ -65,7 +65,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       }
       {
         loginContext !== undefined ?
-          <Column full={ ColumnNumber.C2 } medium={ ColumnNumber.C6 } tablet={ menuToogle ? ColumnNumber.C5 : ColumnNumber.C14 } className="loginMenuCol">
+          <Column full={ ColumnNumber.C3 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C6 : ColumnNumber.C14 } className="loginMenuCol">
               <UserMenu NotificationsEnabled = {props.EnableNotifications} CustomMenus = { props.CustomUserMenu }/>
           </Column> :
           <Column full={ ColumnNumber.C6 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C5 : ColumnNumber.C14 } className="loginMenuCol">

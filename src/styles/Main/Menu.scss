@@ -22,6 +22,12 @@
       display: inline-block;
       margin: 5px;
       vertical-align: top;
+      .ToolTip 
+      {
+        .ToolTip_Text {
+            margin-right: 5px;
+        }
+      }
     }
 
     .userSubMenuDrop{
@@ -44,7 +50,7 @@
     position: absolute;
     padding-top: 10px;
     top: 42px;
-    right: 15%;
+    right: 15px;
     z-index: 1;
     border-width: 2px;
     border-style: solid;  
@@ -59,7 +65,7 @@
         border-top-color: transparent;
         border-left-color: transparent;
         top: -20px;
-        right: calc( 15% + 5px ); 
+        right: 5px; 
     }
   }
 
