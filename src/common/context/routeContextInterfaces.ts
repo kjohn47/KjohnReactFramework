@@ -6,13 +6,13 @@ export interface IRouteAction {
 }
 
 export interface IRoutePayload {
-    selectedPage?: KnownPages;
+    selectedPage?: KnownPages | string;
     queryString?: string;
     forceReload?: boolean;
 }
 
 export interface IRouteContext {
-    selectedPage: KnownPages;
+    selectedPage: KnownPages | string;
     queryString?: string;
     forceReload?: boolean;
 }

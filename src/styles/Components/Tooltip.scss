@@ -12,6 +12,7 @@
     .ToolTip_Text {
         visibility: hidden;
         min-width: 100px;
+        max-width: 175px;
         text-align: center;
         border-radius: 6px;
         padding: 5px 5px;
@@ -77,6 +78,7 @@
     }
 
     .ToolTip_Text_Left {
+        top: 0px;
         right: 110%;
         min-width: 100px;
         &:after {    
@@ -89,7 +91,8 @@
     }
 
     .ToolTip_Text_Right {
-        left: 110%;
+        top: 0px;
+        left: 115%;
         &:after {
             border-left-color: transparent;
             border-top-color: transparent;
@@ -100,25 +103,27 @@
     }
 
     .ToolTip_Text_Top {
-        top: -55px;
-        left: 0;
+        bottom: calc(100% + 10px);
+        margin: auto;
         &:after {
             border-right-color: transparent;
             border-left-color: transparent;
             border-bottom-color: transparent;
-            bottom: -20px;
+            bottom: -18px;
             left: calc( 50% - 10px );
         }
     }
 
     .ToolTip_Text_Bottom {
-        bottom: -60px;
-        left: 0;
+        top: calc(100% + 10px);
+        left: -50%;
+        right: -50%;
+        margin: auto;
         &:after {
             border-right-color: transparent;
             border-top-color: transparent;
             border-left-color: transparent;
-            top: -20px;
+            top: -18px;
             left: calc( 50% - 10px );
         }
     }
