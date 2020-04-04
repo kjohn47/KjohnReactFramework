@@ -3,7 +3,7 @@ import { KnownPages, RouteActions } from "../../common/context/routeContextEnums
 import { RouteContext } from "../../common/config/appConfig";
 
 interface IPageSelector {
-    page: KnownPages;
+    page: KnownPages | string;
     queryParams?: object;
     className?: string;
     highlight?: boolean;
@@ -13,7 +13,7 @@ interface IPageSelector {
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
     const setRoute = useContext( RouteContext )[ 1 ];
-    const setPage = ( page: KnownPages, queryParams?: any ) => {
+    const setPage = ( page: KnownPages | string, queryParams?: any ) => {
 
         let queryString = queryParams === undefined ? "" : "?" + new URLSearchParams( queryParams ).toString();
 

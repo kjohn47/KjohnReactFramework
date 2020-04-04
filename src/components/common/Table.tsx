@@ -7,7 +7,7 @@ import WithTooltip, { ToolTipColor, ToolTipPosition } from "./WithTooltip";
 import useTranslation from "../../common/context/pageText/getTranslation";
 
 export interface ITableCell {
-    page?: KnownPages;
+    page?: KnownPages | string;
     query?: object;
     onClick?: () => void;
     text: string;

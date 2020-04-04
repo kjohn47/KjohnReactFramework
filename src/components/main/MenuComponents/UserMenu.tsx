@@ -7,6 +7,7 @@ import Column from '../../common/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
 import { KnownPages } from '../../../common/context/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
+import MenuNotification from './MenuNotification';
 
 export interface IUserCustomMenu {
     Title?: string;
@@ -16,7 +17,7 @@ export interface IUserCustomMenu {
     AdminOnly?: boolean;
 }
 
-const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[] }> = ( props ) => {
+const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; }> = ( props ) => {
     const [ appContext ] = useContext( AppContext );
     const [ userContext ] = useContext( LoginContext );
     const [ toogle, setToogle ] = useState<boolean>( false );
@@ -24,9 +25,12 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[] }> = ( props ) => {
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
     const [ width ] = useWindowSize();
     const userMenuRef = useRef<HTMLDivElement>( null );
+    const notificationRef = useRef<HTMLDivElement>( null );
 
     const handleClickOut: ( event: any ) => void = ( event ) => {
-        if ( toogle && userMenuRef != null && userMenuRef.current !== null && !userMenuRef.current.contains( event.target ) ) {
+        if ( toogle && 
+            ( ( userMenuRef != null && userMenuRef.current !== null && !userMenuRef.current.contains( event.target ) ) ||
+              ( notificationRef != null && notificationRef.current !== null && notificationRef.current.contains( event.target ) ) ) ) {
             setToogle( false );
         }
     }
@@ -120,14 +124,15 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[] }> = ( props ) => {
 
 
     return (
-        <div ref={ userMenuRef }>
-            <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogle( !toogle ) }>
-                <span tabIndex={ 0 } className={ ( toogle ? 'menuItemColSel' : '' ) }>
-                    { userContext && ( `${ userContext.name } ${ shortName ? `${ userContext.surname.charAt( 0 ) }.` : userContext.surname }` ) }
-                </span>
+            <div ref={ userMenuRef }>
+                { props.NotificationsEnabled && <MenuNotification reference = {notificationRef}/>}
+                <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogle( !toogle ) }>
+                    <span tabIndex={ 0 } className={ ( toogle ? 'menuItemColSel' : '' ) }>
+                        { userContext && ( `${ userContext.name } ${ shortName ? `${ userContext.surname.charAt( 0 ) }.` : userContext.surname }` ) }
+                    </span>
+                </div>
+                { toogle && ( menuCollapse ? renderCollapsed() : renderDropDown() ) }
             </div>
-            { toogle && ( menuCollapse ? renderCollapsed() : renderDropDown() ) }
-        </div>
     )
 }
 

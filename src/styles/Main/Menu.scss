@@ -16,6 +16,48 @@
   .loginMenuCol {
     margin-right: 0;
     text-align: right;
+    box-sizing: border-box;
+    .MenuNotifications {
+      position: relative;
+      box-sizing: border-box;
+      display: inline-block;
+      margin: 5px;
+      vertical-align: top;
+      .NotificationsDropArrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        top: 20px;
+        right: 5px;
+
+        border-bottom-color: black;
+      }
+      .NotificationsDrop {
+        position: absolute;
+        padding-top: 5px;
+        padding-Bottom: 5px;
+        text-align: left;
+        min-width: 150px;
+        max-width: 200px;
+        max-height: 280px;
+        border: 2px solid;
+        border-radius: 5px;
+        margin: auto;
+        right: -5px;
+        top: 37px;
+        overflow-y: auto;
+
+        border-color: black;
+        color: black;
+        background-color: white;
+      }
+    }
+
     .userSubMenuDrop{
       text-align: left;
       width: 100px;
@@ -36,8 +78,7 @@
     position: absolute;
     padding-top: 10px;
     top: 42px;
-    right: -25%;
-    margin-right: 25%;
+    right: 15px;
     z-index: 1;
     border-width: 2px;
     border-style: solid;  
@@ -52,7 +93,7 @@
         border-top-color: transparent;
         border-left-color: transparent;
         top: -20px;
-        right: calc( 0% + 5px ); 
+        right: 5px; 
     }
   }
 
@@ -112,6 +153,7 @@
   .menuItemColSel {
       border: 1px solid;
       border-radius: 4px 4px 10px 10px;
+      box-sizing: border-box;
   }
 
   .menuCollapsed {
@@ -252,14 +294,15 @@
     font-weight: bold;
     & span {
         text-align: center;
-        padding-right: 15px;
-        padding-left: 15px;
+        padding-right: 10px;
+        padding-left: 10px;
         box-sizing: border-box;
         padding-top: 10px;
         display: inline-block;        
         height: 100%;
         outline: 0;
         &:hover {
+            box-sizing: border-box;
             border: 1px solid ;
             border-radius: 4px 4px 10px 10px;
         }
@@ -309,11 +352,10 @@
   }
 
   .subMenuDropLang {
-    left: 70%;
-    margin-left: -35%;
+    right: 5px;
     min-width: 45px;
     &:after {
-        left: calc( 75% - 10px ); 
+        right: 15px; 
     }
   }
 }

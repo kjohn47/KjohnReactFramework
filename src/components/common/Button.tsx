@@ -12,7 +12,7 @@ export enum ButtonTypes {
 }
 
 interface IButton {
-    page?: KnownPages;
+    page?: KnownPages | string;
     queryParams?: object;
     buttonType?: ButtonTypes;
     className?: string;

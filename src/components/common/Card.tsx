@@ -12,7 +12,7 @@ export interface ICard {
     cardContent?: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements;
     footerText?: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements;
     onClick?: () => {};
-    detailsPage?: KnownPages;
+    detailsPage?: KnownPages | string;
     detailsQuery?: object;
     detailsLinkText?: string;
 }

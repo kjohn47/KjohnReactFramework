@@ -9,14 +9,21 @@ import Menu, { IMenuProps } from './Menu';
 
 export interface IKRFProps {
   Routes: IPageHandleProps<any>;
-  MenuProps: IMenuProps;
-  FooterProps: any;
+  CustomMenuComponent?: React.ComponentType;
+  CustomFooterComponent?: React.ComponentType;
+  MenuProps?: IMenuProps;
+  FooterProps?: any;
 }
 
 const KRFApp: React.FC<IKRFProps> = (props) =>
   <AppProvider>
     <SessionHandler>
-      <Layout MenuComponent={ injectProps(Menu, props.MenuProps) } FooterComponent={ injectProps(Footer, props.FooterProps) } >
+      <Layout 
+        MenuComponent={ props.CustomMenuComponent ? props.CustomMenuComponent : injectProps(Menu, props.MenuProps) } 
+        FooterComponent={ props.CustomFooterComponent ? props.CustomFooterComponent : injectProps(Footer, props.FooterProps) } 
+        IsCustomMenu={ props.CustomMenuComponent !== undefined }
+        IsCustomFooter={ props.CustomFooterComponent !== undefined }
+      >
         <PageHandler
           {...props.Routes}
         />

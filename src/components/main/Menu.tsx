@@ -7,11 +7,13 @@ import { IMenuItem } from './MenuComponents/MenuItem';
 import SubMenu, { ISubMenuItem } from './MenuComponents/SubMenu';
 import LoginForm from './MenuComponents/LoginForm';
 import MenusBar from './MenuComponents/MenusBar';
-import UserMenu from './MenuComponents/UserMenu';
+import UserMenu, { IUserCustomMenu } from './MenuComponents/UserMenu';
 
 export interface IMenuProps {
   Brand?: string;
   MenuNav?: IMenuItem[];
+  EnableNotifications?: boolean;
+  CustomUserMenu?: IUserCustomMenu[];
 }
 
 const Menu: React.FC<IMenuProps> = ( props ) => {
@@ -54,7 +56,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
     <Row className='menuRow'>
       {
         loginContext !== undefined ?
-          <Column full={ ColumnNumber.C17 } medium={ ColumnNumber.C12 } tablet={ menuToogle ? ColumnNumber.C13 : ColumnNumber.C4 }>
+          <Column full={ ColumnNumber.C16 } medium={ ColumnNumber.C11 } tablet={ menuToogle ? ColumnNumber.C12 : ColumnNumber.C4 }>
             <MenusBar { ...props } toogle={ menuToogle } setToogle={ ( toogleVal ) => { setMenuToogle( toogleVal ) } } />
           </Column> :
           <Column full={ ColumnNumber.C13 } medium={ ColumnNumber.C11 } tablet={ menuToogle ? ColumnNumber.C13 : ColumnNumber.C4 }>
@@ -63,16 +65,18 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       }
       {
         loginContext !== undefined ?
-          <Column full={ ColumnNumber.C2 } medium={ ColumnNumber.C6 } tablet={ menuToogle ? ColumnNumber.C5 : ColumnNumber.C14 } className="loginMenuCol">
-            <UserMenu />
+          <Column full={ ColumnNumber.C3 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C6 : ColumnNumber.C14 } className="loginMenuCol">
+              <UserMenu NotificationsEnabled = {props.EnableNotifications} CustomMenus = { props.CustomUserMenu }/>
           </Column> :
           <Column full={ ColumnNumber.C6 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C5 : ColumnNumber.C14 } className="loginMenuCol">
             <LoginForm />
           </Column>
       }
       <Column full={ ColumnNumber.C1 } medium={ ColumnNumber.C2 } tablet={ ColumnNumber.C2 } reference={ langMenuRef }>
-        <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
-          <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
+        <div style={{textAlign:"right"}}>
+          <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
+            <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
+          </div>
         </div>
         { toogleLang && <SubMenu
           unToogle={ () => setToogleLang( false ) }
