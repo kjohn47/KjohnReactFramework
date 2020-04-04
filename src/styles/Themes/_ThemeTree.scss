@@ -119,6 +119,15 @@
           color: $Menu_SubTextHover;
         }
       }
+
+      .MenuNotifications {
+        .BadgeComponent {
+          .Notification_Badge_Clicked {
+            background-color: $Button_Hover;
+            color: $Button_Text_Hover;
+          }
+        }
+      }
     }
     // Page Menu
 

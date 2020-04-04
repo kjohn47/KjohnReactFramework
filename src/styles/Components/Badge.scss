@@ -1,15 +1,26 @@
 .BadgeComponent {
+    display: inline-block;
     .ToolTip {
         .ToolTip_Text_Left {
             margin-right: 5px;
         }
+
+        .ToolTip_Text_Top {
+            margin-left: -32px;
+        }
+
+        .ToolTip_Text_Bottom {
+            margin-left: -12px;
+        }
     }
     .BadgeComponent_Inner {
+        display: inline-block;
         padding: 5px;
         border: 1px solid;
         border-radius: 10px;
         font-size: small;
         min-width: 15px;
+        max-width: 50px;
         margin-left: 5px;
         margin-right: 5px;
     }

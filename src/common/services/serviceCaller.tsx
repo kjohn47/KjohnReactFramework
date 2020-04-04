@@ -35,7 +35,7 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
         }
     } )
 
-    return [ serviceResponse, serviceHandler ];
+    return [ serviceResponse, serviceHandler, setServiceResponse ];
 }
 
 const callService = async <IServiceRequest, IServiceResponse> ( service: ServiceType<IServiceRequest, IServiceResponse>, context: IContext, serviceRequest?: IServiceRequest, serviceResponse?: IServiceResponse ) => {

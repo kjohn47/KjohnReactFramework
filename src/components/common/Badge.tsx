@@ -26,7 +26,7 @@ const Badge: React.FC<IBadge> = ({OnClick, ClassName, ToolTip, Color, children})
     const _color = Color ? `${Color}` : BadgeColorEnum.Default;
     const RenderBadge: React.FC = () => <div 
                         className = { `BadgeComponent_Inner noselect BadgeComponentColor_${_color}` + 
-                        ( OnClick !== undefined ? ` BadgeComponentColorClick_${_color}` : "" ) +
+                        ( OnClick !== undefined ? ` pointer_cursor BadgeComponentColorClick_${_color}` : "" ) +
                         ( ClassName ? ` ${ClassName}` : "" ) } 
                         onClick = {OnClick}
                         >
