@@ -19,6 +19,7 @@ import TestThemes from './ServicesPage/TestThemes';
 import TestLabel from './Inputs/TestLabel';
 import TestAlert from './DataPresentation/TestAlert';
 import TestPageHeader from './DataPresentation/TestPageHeader';
+import TestBadge from './DataPresentation/TestBadge';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -79,6 +80,10 @@ const Test: React.FC = () => {
                 {
                   title: "Alert",
                   component: <TestAlert />
+                },
+                {
+                  title: "Badge",
+                  component: <TestBadge />
                 }
               ]
             },

@@ -23,18 +23,21 @@ interface ITooltipProps {
     toolTipPosition?: ToolTipPosition;
     toolTipColor?: ToolTipColor;
     className?: string;
+    forcePosition?: boolean;
 }
 
 const WithTooltip: React.FC<ITooltipProps> = ( props ) => {
     const [ width ] = useWindowSize();
 
-    let css = "ToolTip_Text " + ( props.toolTipPosition && width > mobileWidth ? props.toolTipPosition : "ToolTip_Text_Bottom" ) + " " + ( props.toolTipColor ? props.toolTipColor : "ToolTip_Text_Default" );
+    let css = "ToolTip_Text " + ( props.toolTipPosition && (props.forcePosition || width > mobileWidth) ? props.toolTipPosition : "ToolTip_Text_Bottom" ) + " " + ( props.toolTipColor ? props.toolTipColor : "ToolTip_Text_Default" );
     let toolTipContainerCss = "ToolTip";
     toolTipContainerCss = props.className !== undefined ? toolTipContainerCss + " " + props.className : toolTipContainerCss;
+    const childOnTop: boolean = props.toolTipPosition === undefined || (!props.forcePosition && width < mobileWidth) || props.toolTipPosition === ToolTipPosition.Bottom || props.toolTipPosition === ToolTipPosition.Right;
     return (
         <div className={ toolTipContainerCss }>
-            { props.children }
+            { childOnTop && props.children }
             <span className={ css } >{ props.toolTipText }</span>
+            { !childOnTop && props.children }
         </div>
     );
 }

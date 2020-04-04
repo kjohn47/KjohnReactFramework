@@ -9,7 +9,7 @@ import { IRouteContext } from "../context/routeContextInterfaces";
 
 let currentUser: ILogin | undefined = getUserSession();
 
-/*let currentUser: ILogin | undefined = {
+/*currentUser = {
     appLanguage: AppLanguage.PT,
     appTheme: AppGlobalTheme.Default,
     authTokenHash: "",
@@ -38,9 +38,10 @@ export const initialError: IError = {
 }
 
 //// Get language from cookie or storage
+const tokenData = ( currentUser !== undefined && getTokenData( currentUser.userSessionToken ) ) || undefined;
 export const initialAppConfig: IAppContext = {
     globalTheme: lastSavedTheme,
-    adminOptions: currentUser !== undefined && getTokenData( currentUser.userSessionToken ).isAdmin,
+    adminOptions: tokenData !== undefined && tokenData.isAdmin,
     translations: {}
 }
 
