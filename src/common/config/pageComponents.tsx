@@ -14,6 +14,16 @@ const pageRoutes: IPageHandleProps<any> = {
                 Component: Test,
                 Route: KnownPages.Test,
                 AdminOnly: true
+            },
+            {
+                Component: Test,
+                Route: `TestRouteId/:id`,
+                AdminOnly: true
+            },
+            {
+                Component: Test,
+                Route: `TestRouteComplex/:id/Add/:uuid`,
+                AdminOnly: true
             }
         ]
     }

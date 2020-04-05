@@ -4,13 +4,13 @@ import { KnownPages } from "../../common/context/routeContextEnums";
 import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
 import Loader from "../common/Loader";
 import ErrorPage from "./ErrorPage";
-import { injectProps } from "../../common/functions/misc";
+import { injectProps, IDictionary, PageType } from "../../common/functions/misc";
 import { withLogin } from "../../common/functions/checkLogin";
 import { getRouteUrlAndQuery } from "../../common/functions/routeHandling";
 import { RouteActions } from "../../common/context/routeContextEnums";
 
 export interface IRoure<TRouteProps> {
-    Route: string;
+    Route: PageType;
     Component: React.ComponentType<TRouteProps>;
     Props?: TRouteProps;
     NeedAuth?: boolean;
@@ -45,7 +45,7 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
     const isLoading = useContext( LoadingContext )[ 0 ];
     const [ output, setOutput ] = usePageSelector( undefined );
     const [ lastPage, setLastPage ] = useState<string>();
-    const [ queryString, setQueryString ] = useState<string | undefined>( undefined );
+    const [ queryString, setQueryString ] = useState<IDictionary<string> | undefined>( undefined );
 
     const listenToPopstate = () => {
         const route = getRouteUrlAndQuery();
@@ -99,6 +99,7 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
 
                 setLastPage( selectedPage );
                 setQueryString( routeContext.queryString );
+                let routeParams: IDictionary<string> | undefined = undefined;
 
                 tempPromise.then( () => {
                     if ( selectedPage.toLowerCase() === KnownPages.Home.toLowerCase() ) {
@@ -111,7 +112,36 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                         setOutput( withLogin( () => <></> ) ); //Administration component
                     }
                     else {
-                        const route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => r.Route.toLowerCase() === selectedPage.toLowerCase() )[ 0 ];
+                        const route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => {
+                            if( r.Route.includes('/:') )
+                            {
+                                const paramsRoute = selectedPage.split('/');
+                                const paramsComponent = r.Route.split('/');
+                                if(paramsRoute.length === paramsComponent.length)
+                                {
+                                    let validResult: boolean = true;
+                                    routeParams = {};
+                                    paramsComponent.forEach( (param, i) => {
+                                        if (param.startsWith(':') && paramsRoute[i] !== "")
+                                        {
+                                            routeParams = { ...routeParams, [param.substr(1)]: paramsRoute[i] };
+                                        }
+                                        else
+                                        {
+                                            validResult = (param.toLowerCase() === paramsRoute[i].toLowerCase());
+                                            if (!validResult)
+                                            {
+                                                routeParams = undefined;
+                                                return;
+                                            }
+                                        }
+                                    });
+                                    return validResult;
+                                }
+                                return false;
+                            }
+                            return selectedPage.toLowerCase() === r.Route.toLowerCase() || selectedPage.toLowerCase() === `${r.Route.toLowerCase()}/`;
+                        })[ 0 ];
                         if ( route ) {
                             if(route.NeedAuth || route.AdminOnly)
                             {
@@ -141,7 +171,17 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                     if ( routeContext.forceReload ) {
                         setRouteContext( {
                             type: RouteActions.ForceReloadDisable,
-                            payload: {}
+                            payload: {
+                                routeParams: routeParams
+                            }
+                        } )
+                    }
+                    else if( routeParams ){
+                        setRouteContext( {
+                            type: RouteActions.UpdateRouteParams,
+                            payload: {
+                                routeParams: routeParams
+                            }
                         } )
                     }
                 } )
@@ -152,7 +192,6 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
         routeContext,
         errorContext
     ] )
-
     return (
         <Loader isLoading={ isLoading } bigLoader paddingTop >
             { !errorContext.hasError && output ? output : <ErrorPage /> }

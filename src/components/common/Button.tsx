@@ -1,6 +1,6 @@
 import React from 'react';
 import PageSelector from './PageSelector';
-import { KnownPages } from '../../common/context/routeContextEnums';
+import { IDictionary, PageType } from '../../common/functions/misc';
 
 export enum ButtonTypes {
     Default = "page_button_color",
@@ -12,8 +12,8 @@ export enum ButtonTypes {
 }
 
 interface IButton {
-    page?: KnownPages | string;
-    queryParams?: object;
+    page?: PageType;
+    queryParams?: IDictionary<string>;
     buttonType?: ButtonTypes;
     className?: string;
     forceReload?: boolean;

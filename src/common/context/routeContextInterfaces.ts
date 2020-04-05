@@ -1,4 +1,5 @@
 import { RouteActions, KnownPages } from "./routeContextEnums";
+import { IDictionary, PageType } from "../functions/misc";
 
 export interface IRouteAction {
     type: RouteActions;
@@ -6,15 +7,17 @@ export interface IRouteAction {
 }
 
 export interface IRoutePayload {
-    selectedPage?: KnownPages | string;
-    queryString?: string;
+    selectedPage?: PageType;
+    queryString?: IDictionary<string>;
     forceReload?: boolean;
+    routeParams?: IDictionary<string>;
 }
 
 export interface IRouteContext {
-    selectedPage: KnownPages | string;
-    queryString?: string;
+    selectedPage: PageType;
+    queryString?: IDictionary<string>;
     forceReload?: boolean;
+    routeParams?: IDictionary<string>;
 }
 
 export type RouteContextType = [ IRouteContext, ( ( action: IRouteAction ) => void ) ];

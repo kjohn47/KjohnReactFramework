@@ -1,6 +1,7 @@
 //Add new actions here
 export enum RouteActions {
     ChangePage = "ChangePage",
+    UpdateRouteParams = "UpdateRouteParams",
     ForceReloadDisable = "ForceReloadDisable"
 }
 

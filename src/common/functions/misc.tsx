@@ -1,4 +1,11 @@
 import React from 'react';
+import { KnownPages } from '../context/routeContextEnums';
+
+export interface IDictionary<TValue> {
+    [key: string]: TValue;
+}
+
+export type PageType = KnownPages | string;
 
 export const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => { 
     if( ref !== null && ref.current !== null && ref.current.parentElement)

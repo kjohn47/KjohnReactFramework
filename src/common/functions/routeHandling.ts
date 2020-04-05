@@ -1,14 +1,20 @@
 import { KnownPages } from "../context/routeContextEnums";
+import { IDictionary } from "./misc";
 
-export const getQueryStringParams = <IQueryType> ( queryString: string ): IQueryType => {
-    let queryParams: URLSearchParams = new URLSearchParams( queryString );
-    let result: { [ key: string ]: any } = {}
+export const getQueryStringParams = ( queryString: string ) => {
+    if(queryString.length > 0)
+    {
+        let queryParams: URLSearchParams = new URLSearchParams( queryString );
+        let result: IDictionary<string> = {};
 
-    queryParams.forEach( ( val, key ) => {
-        result[ key ] = val;
-    } );
+        
+        queryParams.forEach( ( val, key ) => {
+            result[ key ] = val;
+        } );
 
-    return result as IQueryType;
+        return result;
+    }
+    return undefined;
 }
 
 
@@ -20,7 +26,7 @@ export const getRouteUrlAndQuery = () => {
         };
     }
     return {
-        selectedPage: window.location.pathname.substring( 1 ) as KnownPages,
-        queryString: JSON.stringify( getQueryStringParams<any>( window.location.search.substring( 1 ) ) )
+        selectedPage: window.location.pathname.substring( 1 ),
+        queryString:  getQueryStringParams( window.location.search.substring( 1 ) )
     }
 }

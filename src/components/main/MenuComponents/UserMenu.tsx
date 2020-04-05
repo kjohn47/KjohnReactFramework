@@ -8,11 +8,12 @@ import SubMenu, { ISubMenuItem } from './SubMenu';
 import { KnownPages } from '../../../common/context/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 import MenuNotification from './MenuNotification';
+import { PageType } from '../../../common/functions/misc';
 
 export interface IUserCustomMenu {
     Title?: string;
     Action?: () => void;
-    Link?: KnownPages;
+    Link?: PageType;
     Reloadable?: boolean;
     AdminOnly?: boolean;
 }
