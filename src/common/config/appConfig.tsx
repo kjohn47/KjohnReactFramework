@@ -51,7 +51,8 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
                 () => props.setFirstLoad( true )
             )
         }
-    }, [ props, appContext, setAppContext ] );
+        // eslint-disable-next-line
+    }, [] );
     return (
         props.firstLoad ?
                 <AppContext.Provider value={ [ appContext, setAppContext ] } >
