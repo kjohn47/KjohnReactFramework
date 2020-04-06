@@ -18,6 +18,7 @@ export interface IRouteContext {
     queryString?: IDictionary<string>;
     forceReload?: boolean;
     routeParams?: IDictionary<string>;
+    routeReady: boolean;
 }
 
 export type RouteContextType = [ IRouteContext, ( ( action: IRouteAction ) => void ) ];

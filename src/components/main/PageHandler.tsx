@@ -100,7 +100,7 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                 setLastPage( selectedPage );
                 setQueryString( routeContext.queryString );
                 let routeParams: IDictionary<string> | undefined = undefined;
-
+                let withError: boolean = false;
                 tempPromise.then( () => {
                     if ( selectedPage.toLowerCase() === KnownPages.Home.toLowerCase() ) {
                         setOutput( injectProps( Routes.Home.Component, Routes.Home.Props ) );
@@ -160,6 +160,7 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                             }
                         }
                         else {
+                            withError = true;
                             setErrorContext( {
                                 type: ErrorActions.ActivateError,
                                 errorCode: ErrorCodes.PageNotFound,
@@ -168,21 +169,23 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                         }
                     }
                 } ).finally( () => {
-                    if ( routeContext.forceReload ) {
-                        setRouteContext( {
-                            type: RouteActions.ForceReloadDisable,
-                            payload: {
-                                routeParams: routeParams
-                            }
-                        } )
-                    }
-                    else if( routeParams ){
-                        setRouteContext( {
-                            type: RouteActions.UpdateRouteParams,
-                            payload: {
-                                routeParams: routeParams
-                            }
-                        } )
+                    if (!withError) {
+                        if ( routeContext.forceReload ) {
+                            setRouteContext( {
+                                type: RouteActions.ForceReloadDisable,
+                                payload: {
+                                    routeParams: routeParams
+                                }
+                            } )
+                        }
+                        else {
+                            setRouteContext( {
+                                type: RouteActions.UpdateRouteParams,
+                                payload: {
+                                    routeParams: routeParams
+                                }
+                            } )
+                        }
                     }
                 } )
             }
@@ -192,9 +195,10 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
         routeContext,
         errorContext
     ] )
+
     return (
-        <Loader isLoading={ isLoading } bigLoader paddingTop >
-            { !errorContext.hasError && output ? output : <ErrorPage /> }
+        <Loader isLoading={ isLoading || ( !routeContext.routeReady && !errorContext.hasError ) } bigLoader paddingTop >
+            { !errorContext.hasError && output ? ( routeContext.routeReady ? output : <></> ) : <ErrorPage /> }
         </Loader>
     );
 }

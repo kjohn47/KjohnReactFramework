@@ -14,14 +14,16 @@ export const useRouteContext: ( initialRoute: IRouteContext ) => RouteContextTyp
                         selectedPage: action.payload.selectedPage,
                         queryString: action.payload.queryString,
                         forceReload: action.payload.forceReload,
-                        routeParams: undefined
+                        routeParams: undefined,
+                        routeReady: false
                     } );
                 break;
             }
             case RouteActions.UpdateRouteParams: {
                 setRouteContext({
                     ...routeContext,
-                    routeParams: action.payload.routeParams
+                    routeParams: action.payload.routeParams,
+                    routeReady: true
                 })
                 break;
             }
@@ -29,7 +31,8 @@ export const useRouteContext: ( initialRoute: IRouteContext ) => RouteContextTyp
                 setRouteContext({
                     ...routeContext,
                     forceReload: false,
-                    routeParams: action.payload.routeParams
+                    routeParams: action.payload.routeParams,
+                    routeReady: true
                 })
                 break;
             }
