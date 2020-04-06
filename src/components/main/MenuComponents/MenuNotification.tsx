@@ -1,49 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import Badge from '../../common/Badge';
-import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
 import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/PageSelector';
 import { KnownPages } from '../../../common/context/routeContextEnums';
+import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
+
+//Fake date, should come from service
+const notDate = new Date();
+notDate.setDate( notDate.getDate() - 7 );
+//---------------------------------------
 
 const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
     const [open, setOpen] = useState<boolean>(false);
-    const [notifications, setNotifications] = useState([
-        {
-            id: 1,
-            title: "Test 1",
-            isViewed: false
-        },
-        {
-            id: 2,
-            title: "Test 2",
-            isViewed: false
-        },
-        {
-            id: 3,
-            title: "Test 3",
-            isViewed: true
-        },
-        {
-            id: 4,
-            title: "Test 4",
-            isViewed: true
-        }
-    ])
+    //mock notification list
+    const [notifications, setNotifications] = useState( {
+        dateFrom: notDate.toLocaleDateString(),
+        unRead: 2,
+        olderThanWeekUnread: 100,
+        notificationList: [
+            {
+                id: 1,
+                title: "Test 1",
+                isViewed: false
+            },
+            {
+                id: 2,
+                title: "Test 2",
+                isViewed: false
+            },
+            {
+                id: 3,
+                title: "Test 3",
+                isViewed: true
+            },
+            {
+                id: 4,
+                title: "Test 4",
+                isViewed: true
+            }
+        ]
+    })
 
-    const readNotifications = () => {
+    const readNotifications = ( updateOld: boolean = false) => {
         if(open) {
-            setNotifications([
-                ...notifications.map((notification) => {
-                    notification.isViewed = true;
-                    return notification;
-                })
-            ])
+            setNotifications({
+                ...notifications,
+                    unRead: 0,
+                    olderThanWeekUnread: updateOld ? 0 : notifications.olderThanWeekUnread,
+                    notificationList: [ ...notifications.notificationList.map((notification) => {
+                        notification.isViewed = true;
+                        return notification;
+                    })
+                ]
+            })
             setOpen( false );
         }
         else 
         {
             setOpen( true );
         }
+    }
+
+    const removeNotification: ( id: number ) => void = (id) => {
+        setNotifications({
+            ...notifications,
+            unRead: notifications.notificationList.find( n => n.id === id && !n.isViewed ) ? notifications.unRead - 1 : notifications.unRead,
+            notificationList: [...notifications.notificationList.filter( n => n.id !== id )]
+        })
     }
 
     const handleClickOut: ( event: any ) => void = ( event ) => {
@@ -60,7 +83,7 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
             document.removeEventListener( "mousedown", handleClickOut );
         };
         //eslint-disable-next-line
-    }, [ open ] )
+    }, [ open, notifications ] )
 
     return (
         <div ref={reference} className="MenuNotifications">
@@ -74,20 +97,32 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
                 ClassName={ open ? "Notification_Badge_Clicked" : undefined}
                 OnClick={() => readNotifications() }
                 >
-                {notifications.filter( x => !x.isViewed ).length}
+                {notifications.unRead}
             </Badge>
             {open && <>
                 <div className="NotificationsDropArrow"/>
-                <div className="NotificationsDrop">
+                <div className="NotificationsDrop KRFScroll">
+                    <div className="NotificationHeader">
+                        <div>Notifications List</div>
+                        <div style={{fontSize: 'smaller', fontWeight: 'normal'}}>{ notifications.dateFrom + " - " + new Date().toLocaleDateString() }</div>
+                    </div>
                     {
-                        notifications.map( (notification, i) => (
-                            <MenuNotificationItem key={i}>
+                        notifications.notificationList.map( (notification, i) => (
+                            <MenuNotificationItem key={i} IsViewed = {notification.isViewed} DeleteItem = {() => {removeNotification(notification.id)}}>
                                 {notification.title}
                             </MenuNotificationItem>
                         ))
                     }
-                    <div>
-                        <PageSelector page={KnownPages.Test}>Ver Todas</PageSelector>
+                    {notifications.olderThanWeekUnread > 0 && 
+                        <MenuNotificationItem>
+                            <PageSelector page={KnownPages.Test} action={ () => { readNotifications(true) } }>
+                                There are <span style={{fontWeight:'bold'}}>
+                                    {notifications.olderThanWeekUnread}
+                                </span> unreaded notifications from dates previous to {notifications.dateFrom}, click here to check full unread list
+                            </PageSelector>
+                        </MenuNotificationItem>}
+                    <div className="NotificationViewAll">
+                        <PageSelector className="NotificationViewAllLink" page={KnownPages.Test}  action={ () => { readNotifications(true) } } >View All</PageSelector>
                     </div>
                 </div>
             </>}

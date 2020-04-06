@@ -42,19 +42,68 @@
         padding-top: 5px;
         padding-Bottom: 5px;
         text-align: left;
-        min-width: 150px;
-        max-width: 200px;
+        min-width: 230px;
+        max-width: 230px;
         max-height: 280px;
         border: 2px solid;
         border-radius: 5px;
         margin: auto;
-        right: -5px;
+        right: -50px;
         top: 37px;
         overflow-y: auto;
 
         border-color: black;
         color: black;
-        background-color: white;
+        background-color: lightblue;
+
+        .NotificationHeader {
+          padding: 5px 10px 10px 10px;
+          display: block;
+          font-size: small;
+          border-bottom: dotted 1px;
+          font-weight: bold;
+          box-sizing: border-box;
+        }
+
+        .NotificationItem {
+          padding: 5px 10px;
+          border-bottom: dotted 1px;
+
+          border-bottom-color: black;
+          .NotificationItemText {
+            display: inline-block;
+            font-size: small;
+            padding-top: 5px;
+            padding-bottom: 5px;
+          }
+          .NotificationItemTextDel {
+            width: 85%;
+          }
+          .NotificationItemDel {
+            display: inline-block;
+            text-align: right;
+            vertical-align: top;
+            width: 15%;
+            .NotificationItemCross {
+              font-size: smaller;
+            }
+          }
+        }
+
+        .NotificationItemNew {
+          background-color: lightskyblue;
+        }
+      }
+
+      .NotificationViewAll {
+        text-align: right;
+        padding: 5px 10px;
+        .NotificationViewAllLink {
+          font-size: smaller;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
     }
 

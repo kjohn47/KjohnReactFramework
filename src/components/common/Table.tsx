@@ -84,7 +84,7 @@ const Table: React.FC<ITableContent> = ( props ) => {
     }
 
     return (
-        <div className="TableDiv">
+        <div className="TableDiv KRFScroll">
             { props.title &&
                 <Row>
                     <Column>
