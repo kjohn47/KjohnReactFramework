@@ -4,8 +4,9 @@ import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/PageSelector';
 import { KnownPages } from '../../../common/context/routeContextEnums';
 import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
-import { AppContext } from '../../../common/config/appConfig';
-import { AppGlobalTheme } from '../../../common/context/appContextEnums';
+import { AppContext, AppLanguageContext } from '../../../common/config/appConfig';
+import { AppGlobalTheme, AppLanguage } from '../../../common/context/appContextEnums';
+import useTranslation from '../../../common/context/pageText/getTranslation';
 
 //Fake date, should come from service
 const notDate = new Date();
@@ -13,6 +14,9 @@ notDate.setDate( notDate.getDate() - 7 );
 //---------------------------------------
 
 const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
+    const [appContext] = useContext(AppContext);
+    const [appLanguage] = useContext(AppLanguageContext);
+    const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
     //mock notification list
     const [notifications, setNotifications] = useState( {
@@ -22,27 +26,38 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
         notificationList: [
             {
                 id: 1,
-                title: "Test 1",
+                title: {
+                    [AppLanguage.PT]: "Teste 1",
+                    [AppLanguage.EN]: "Test 1"
+                },
                 isViewed: false
             },
             {
                 id: 2,
-                title: "Test 2",
+                title: {
+                    [AppLanguage.PT]: "Teste 2",
+                    [AppLanguage.EN]: "Test 2"
+                },
                 isViewed: false
             },
             {
                 id: 3,
-                title: "Test 3",
+                title: {
+                    [AppLanguage.PT]: "Teste 3",
+                    [AppLanguage.EN]: "Test 3"
+                },
                 isViewed: true
             },
             {
-                id: 4,
-                title: "Test 4",
+                id: 4, 
+                title: {
+                    [AppLanguage.PT]: "Teste 4",
+                    [AppLanguage.EN]: "Test 4"
+                },
                 isViewed: true
             }
         ]
     })
-    const [appContext] = useContext(AppContext);
 
     const readNotifications = ( updateOld: boolean = false) => {
         if(open) {
@@ -115,7 +130,7 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
         <div ref={reference} className="MenuNotifications">
             <Badge 
                 ToolTip={{
-                    TooltipText: "Notifications",
+                    TooltipText: getTranslation("_notificationMenu", "#(Tooltip)"),
                     ToolTipPosition: ToolTipPosition.Left,
                     ToolTipColor: getTooltipColor(),
                     forcePosition: true
@@ -129,26 +144,32 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
                 <div className="NotificationsDropArrow"/>
                 <div className="NotificationsDrop KRFScroll">
                     <div className="NotificationHeader">
-                        <div>Notifications List</div>
-                        <div style={{fontSize: 'smaller', fontWeight: 'normal'}}>{ notifications.dateFrom + " - " + new Date().toLocaleDateString() }</div>
+                        <div>
+                            {getTranslation("_notificationMenu", "#(NotificationHeader)")}
+                        </div>
+                        <div style={{fontSize: 'smaller', fontWeight: 'normal'}}>
+                            {getTranslation("_notificationMenu", "#(FromDateToDate)", [notifications.dateFrom, new Date().toLocaleDateString()])}
+                        </div>
                     </div>
                     {
                         notifications.notificationList.map( (notification, i) => (
                             <MenuNotificationItem key={i} IsViewed = {notification.isViewed} DeleteItem = {() => {removeNotification(notification.id)}}>
-                                {notification.title}
+                                {notification.title[appLanguage] !== undefined ? notification.title[appLanguage] : notification.title[AppLanguage.PT]}
                             </MenuNotificationItem>
                         ))
                     }
                     {notifications.olderThanWeekUnread > 0 && 
                         <MenuNotificationItem>
                             <PageSelector page={KnownPages.Test} action={ () => { readNotifications(true) } } highlight>
-                                <span className="NotificationOlderLink">There are <span style={{fontWeight:'bold'}}>
-                                    {notifications.olderThanWeekUnread}
-                                </span> unreaded notifications from dates previous to {notifications.dateFrom}, click here to check full unread list</span>
+                                <span className="NotificationOlderLink">
+                                    {getTranslation("_notificationMenu", "#(OldUnreadedNotification)",[notifications.olderThanWeekUnread.toString(), notifications.dateFrom])}
+                                </span>
                             </PageSelector>
                         </MenuNotificationItem>}
                     <div className="NotificationViewAll">
-                        <PageSelector className="NotificationViewAllLink" page={KnownPages.Test}  action={ () => { readNotifications(true) }} highlight >View All</PageSelector>
+                        <PageSelector className="NotificationViewAllLink" page={KnownPages.Test}  action={ () => { readNotifications(true) }} highlight >
+                            {getTranslation("_notificationMenu", "#(ViewAll)")}
+                        </PageSelector>
                     </div>
                 </div>
             </>}
