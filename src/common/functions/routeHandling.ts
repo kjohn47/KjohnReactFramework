@@ -22,7 +22,7 @@ export const getRouteUrlAndQuery = () => {
     if ( window.location.pathname.substring( 1 ) === "" ) {
         return {
             selectedPage: KnownPages.Home,
-            queryString: undefined
+            queryString: getQueryStringParams( window.location.search.substring( 1 ) )
         };
     }
     return {
