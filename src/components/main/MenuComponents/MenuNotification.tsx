@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Badge from '../../common/Badge';
 import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/PageSelector';
 import { KnownPages } from '../../../common/context/routeContextEnums';
 import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
+import { AppContext } from '../../../common/config/appConfig';
+import { AppGlobalTheme } from '../../../common/context/appContextEnums';
 
 //Fake date, should come from service
 const notDate = new Date();
@@ -40,6 +42,7 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
             }
         ]
     })
+    const [appContext] = useContext(AppContext);
 
     const readNotifications = ( updateOld: boolean = false) => {
         if(open) {
@@ -85,13 +88,36 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
         //eslint-disable-next-line
     }, [ open, notifications ] )
 
+    const getTooltipColor: () => ToolTipColor = () => {
+        switch(appContext.globalTheme) {
+            case (AppGlobalTheme.Green) : {
+                return ToolTipColor.Green;
+            }
+            case (AppGlobalTheme.Red) : {
+                return ToolTipColor.Red;
+            }
+            case (AppGlobalTheme.Pink) : {
+                return ToolTipColor.Red;
+            }
+            case (AppGlobalTheme.Grey) : {
+                return ToolTipColor.Grey;
+            }
+            case (AppGlobalTheme.Orange) : {
+                return ToolTipColor.Yellow;
+            }
+            default: {
+                return ToolTipColor.Blue;
+            }
+        }
+    }
+
     return (
         <div ref={reference} className="MenuNotifications">
             <Badge 
                 ToolTip={{
                     TooltipText: "Notifications",
                     ToolTipPosition: ToolTipPosition.Left,
-                    ToolTipColor: ToolTipColor.Blue,
+                    ToolTipColor: getTooltipColor(),
                     forcePosition: true
                 }}
                 ClassName={ open ? "Notification_Badge_Clicked" : undefined}
@@ -115,14 +141,14 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
                     }
                     {notifications.olderThanWeekUnread > 0 && 
                         <MenuNotificationItem>
-                            <PageSelector page={KnownPages.Test} action={ () => { readNotifications(true) } }>
-                                There are <span style={{fontWeight:'bold'}}>
+                            <PageSelector page={KnownPages.Test} action={ () => { readNotifications(true) } } highlight>
+                                <span className="NotificationOlderLink">There are <span style={{fontWeight:'bold'}}>
                                     {notifications.olderThanWeekUnread}
-                                </span> unreaded notifications from dates previous to {notifications.dateFrom}, click here to check full unread list
+                                </span> unreaded notifications from dates previous to {notifications.dateFrom}, click here to check full unread list</span>
                             </PageSelector>
                         </MenuNotificationItem>}
                     <div className="NotificationViewAll">
-                        <PageSelector className="NotificationViewAllLink" page={KnownPages.Test}  action={ () => { readNotifications(true) } } >View All</PageSelector>
+                        <PageSelector className="NotificationViewAllLink" page={KnownPages.Test}  action={ () => { readNotifications(true) }} highlight >View All</PageSelector>
                     </div>
                 </div>
             </>}
