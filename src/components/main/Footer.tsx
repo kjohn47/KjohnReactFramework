@@ -4,7 +4,7 @@ import Row from "../common/Row";
 
 const Footer: React.FC = () => 
 {
-    const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+    const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
     return (
         <div className="FooterComponent" onMouseEnter={() => {setIsCollapsed(false)}} onMouseLeave={() => {setIsCollapsed(true)}}>
             {isCollapsed ? 

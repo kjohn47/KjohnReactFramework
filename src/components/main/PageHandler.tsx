@@ -86,7 +86,7 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
             }
         }
 
-        else if ( !routeContext.routeReady ) {
+        else if ( !routeContext.routeReady  || lastPage === KnownPages.ErrorPage ) {
             let selectedPage = routeContext.selectedPage;
             if ( lastPage !== selectedPage || queryString !== routeContext.queryString || routeContext.forceReload ) {
                 let tempPromise: Promise<void>;

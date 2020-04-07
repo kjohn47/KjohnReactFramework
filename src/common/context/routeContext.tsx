@@ -9,14 +9,17 @@ export const useRouteContext: ( initialRoute: IRouteContext ) => RouteContextTyp
         switch ( action.type ) {
             case RouteActions.ChangePage: {
                 if ( action.payload.selectedPage !== undefined )
+                {
+                    let isReady: boolean = ( !action.payload.forceReload && ( routeContext.queryString === action.payload.queryString && routeContext.selectedPage === action.payload.selectedPage ) );
                     setRouteContext( {
                         ...routeContext,
                         selectedPage: action.payload.selectedPage,
                         queryString: action.payload.queryString,
                         forceReload: action.payload.forceReload,
                         routeParams: undefined,
-                        routeReady: false
+                        routeReady: isReady
                     } );
+                }
                 break;
             }
             case RouteActions.UpdateRouteParams: {
