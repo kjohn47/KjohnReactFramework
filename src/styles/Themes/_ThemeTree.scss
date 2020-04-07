@@ -127,6 +127,33 @@
             color: $Button_Text_Hover;
           }
         }
+        .NotificationsDropArrow {
+          border-bottom-color: $Menu_SubBorder;
+        }
+        .NotificationsDrop {
+          border-color: $Menu_SubBorder;
+          color: $Menu_Border;
+          background-color: $Menu_NotificationBg;
+          .NotificationHeader {
+            border-bottom-color: $Menu_Border;
+          }
+          .NotificationItem {
+            border-bottom-color: $Menu_Border;
+            .NotificationOlderLink {
+              color: $Menu_Border;
+            }
+          }
+          .NotificationItemNew {
+            background-color: $Menu_NotificationBgNew
+          }
+          .NotificationItemDel {
+            .NotificationItemCross {
+              &:hover {
+                color: $LinkColor;
+              }
+            }
+          }
+        }
       }
     }
     // Page Menu

@@ -1,9 +1,9 @@
 import React from "react";
 import Column, { ColumnNumber } from "./Column";
 import Row from "./Row";
-import { KnownPages } from "../../common/context/routeContextEnums";
 import PageSelector from "./PageSelector";
 import useTranslation from "../../common/context/pageText/getTranslation";
+import { IDictionary, PageType } from "../../common/functions/misc";
 
 export interface ICard {
     className?: string;
@@ -12,8 +12,8 @@ export interface ICard {
     cardContent?: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements;
     footerText?: string | React.ComponentType | JSX.Element | JSX.IntrinsicElements;
     onClick?: () => {};
-    detailsPage?: KnownPages | string;
-    detailsQuery?: object;
+    detailsPage?: PageType;
+    detailsQuery?: IDictionary<string>;
     detailsLinkText?: string;
 }
 

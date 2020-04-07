@@ -8,11 +8,13 @@ import SubMenu, { ISubMenuItem } from './MenuComponents/SubMenu';
 import LoginForm from './MenuComponents/LoginForm';
 import MenusBar from './MenuComponents/MenusBar';
 import UserMenu, { IUserCustomMenu } from './MenuComponents/UserMenu';
+import { PageType } from '../../common/functions/misc';
 
 export interface IMenuProps {
   Brand?: string;
   MenuNav?: IMenuItem[];
   EnableNotifications?: boolean;
+  NotificationsRoute?: PageType;
   CustomUserMenu?: IUserCustomMenu[];
 }
 
@@ -66,7 +68,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       {
         loginContext !== undefined ?
           <Column full={ ColumnNumber.C3 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C6 : ColumnNumber.C14 } className="loginMenuCol">
-              <UserMenu NotificationsEnabled = {props.EnableNotifications} CustomMenus = { props.CustomUserMenu }/>
+              <UserMenu NotificationsEnabled = {props.EnableNotifications} CustomMenus = { props.CustomUserMenu } NotificationsRoute= { props.NotificationsRoute }/>
           </Column> :
           <Column full={ ColumnNumber.C6 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C5 : ColumnNumber.C14 } className="loginMenuCol">
             <LoginForm />

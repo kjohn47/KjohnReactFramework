@@ -9,6 +9,9 @@ import { initialAppConfig, initialLogin, initialError, initialLanguage, initialR
 import { ContextActions, AppLanguage } from "../context/appContextEnums";
 import { RouteContextType } from "../context/routeContextInterfaces";
 import { useRouteContext } from "../context/routeContext";
+import DotsLoader, { DotsLoaderNrBall, DotsLoaderColor, DotsLoaderSize } from "../../components/common/DotsLoader";
+import Column from "../../components/common/Column";
+import Row from "../../components/common/Row";
 
 export const AppLanguageContext = createContext<AppLanguageType>( [ initialLanguage, () => {} ] );
 export const ErrorContext = createContext<ErrorContextType>( [ initialError, () => { } ] );
@@ -51,7 +54,8 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
                 () => props.setFirstLoad( true )
             )
         }
-    }, [ props, appContext, setAppContext ] );
+        // eslint-disable-next-line
+    }, [] );
     return (
         props.firstLoad ?
                 <AppContext.Provider value={ [ appContext, setAppContext ] } >
@@ -64,16 +68,10 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
                     </RouteContext.Provider >
                 </AppContext.Provider>
             :
-                <div className={ "LoadingDiv LoadingPadding" }>
-                    <div 
-                        className={ "LoaderSpinner BigSpinner" } 
-                        style={{
-                            borderTopColor: "gray",
-                            borderBottomColor: "gray",
-                            borderLeftColor: "black",
-                            borderRightColor: "black"
-                        }} 
-                    />
-                </div>
+            <Row>
+                <Column className="LoadingPadding">
+                    <DotsLoader DotsNumber={DotsLoaderNrBall.Three} Color={DotsLoaderColor.Black} Size= {DotsLoaderSize.Big}/>
+                </Column>
+            </Row>
     )
 }
