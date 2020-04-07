@@ -8,16 +8,17 @@ import SubMenu, { ISubMenuItem } from './SubMenu';
 import { KnownPages } from '../../../common/context/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 import MenuNotification from './MenuNotification';
+import { PageType } from '../../../common/functions/misc';
 
 export interface IUserCustomMenu {
     Title?: string;
     Action?: () => void;
-    Link?: KnownPages;
+    Link?: PageType;
     Reloadable?: boolean;
     AdminOnly?: boolean;
 }
 
-const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; }> = ( props ) => {
+const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType}> = ( props ) => {
     const [ appContext ] = useContext( AppContext );
     const [ userContext ] = useContext( LoginContext );
     const [ toogle, setToogle ] = useState<boolean>( false );
@@ -125,7 +126,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
 
     return (
             <div ref={ userMenuRef }>
-                { props.NotificationsEnabled && <MenuNotification reference = {notificationRef}/>}
+                { props.NotificationsEnabled && props.NotificationsRoute && <MenuNotification reference = {notificationRef} Route= { props.NotificationsRoute ? props.NotificationsRoute : "" }/>}
                 <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogle( !toogle ) }>
                     <span tabIndex={ 0 } className={ ( toogle ? 'menuItemColSel' : '' ) }>
                         { userContext && ( `${ userContext.name } ${ shortName ? `${ userContext.surname.charAt( 0 ) }.` : userContext.surname }` ) }

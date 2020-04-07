@@ -51,5 +51,12 @@
         "#(LoginButton)": "Entrar",
         "#(LoginDrop)": "Entrar",
         "#(NewLogin)": "Registar"
+    },
+    "_notificationMenu": {
+        "#(Tooltip)": "Notificações",
+        "#(NotificationHeader)": "Lista de Notificações",
+        "#(FromDateToDate)": "De {0} até {1}",
+        "#(OldUnreadedNotification)": "Existem {0} notificações por ler de datas anteriores a {1}, clique aqui para vêr lista de não lidas",
+         "#(ViewAll)": "Ver Todas"
     }
 }

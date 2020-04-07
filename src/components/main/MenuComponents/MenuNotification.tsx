@@ -1,49 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Badge from '../../common/Badge';
-import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
 import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/PageSelector';
-import { KnownPages } from '../../../common/context/routeContextEnums';
+import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
+import { AppContext, AppLanguageContext } from '../../../common/config/appConfig';
+import { AppGlobalTheme, AppLanguage } from '../../../common/context/appContextEnums';
+import useTranslation from '../../../common/context/pageText/getTranslation';
+import { useNotificationService } from '../../../Services/NotificationServices';
+import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/DotsLoader';
 
-const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
+const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference, Route}) => {
+    const [appContext] = useContext(AppContext);
+    const [appLanguage] = useContext(AppLanguageContext);
+    const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
-    const [notifications, setNotifications] = useState([
-        {
-            id: 1,
-            title: "Test 1",
-            isViewed: false
-        },
-        {
-            id: 2,
-            title: "Test 2",
-            isViewed: false
-        },
-        {
-            id: 3,
-            title: "Test 3",
-            isViewed: true
-        },
-        {
-            id: 4,
-            title: "Test 4",
-            isViewed: true
-        }
-    ])
+    const NotificationsService = useNotificationService(true);
 
-    const readNotifications = () => {
+    const readNotifications = ( updateOld: boolean = false) => {
         if(open) {
-            setNotifications([
-                ...notifications.map((notification) => {
-                    notification.isViewed = true;
-                    return notification;
-                })
-            ])
+            if( !NotificationsService.Loading )
+                updateOld ? NotificationsService.ReadAll() : NotificationsService.ReadCurrent();
             setOpen( false );
         }
         else 
         {
             setOpen( true );
         }
+    }
+
+    const removeNotification: ( id: string ) => void = (id) => {
+        if( !NotificationsService.Loading )
+            NotificationsService.DeleteNotification(id);
     }
 
     const handleClickOut: ( event: any ) => void = ( event ) => {
@@ -60,34 +47,84 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
             document.removeEventListener( "mousedown", handleClickOut );
         };
         //eslint-disable-next-line
-    }, [ open ] )
+    }, [ open, NotificationsService ] )
+
+    const getTooltipColor: () => ToolTipColor = () => {
+        switch(appContext.globalTheme) {
+            case (AppGlobalTheme.Green) : {
+                return ToolTipColor.Green;
+            }
+            case (AppGlobalTheme.Red) : {
+                return ToolTipColor.Red;
+            }
+            case (AppGlobalTheme.Pink) : {
+                return ToolTipColor.Red;
+            }
+            case (AppGlobalTheme.Grey) : {
+                return ToolTipColor.Grey;
+            }
+            case (AppGlobalTheme.Orange) : {
+                return ToolTipColor.Yellow;
+            }
+            default: {
+                return ToolTipColor.Blue;
+            }
+        }
+    }
 
     return (
         <div ref={reference} className="MenuNotifications">
             <Badge 
                 ToolTip={{
-                    TooltipText: "Notifications",
+                    TooltipText: getTranslation("_notificationMenu", "#(Tooltip)"),
                     ToolTipPosition: ToolTipPosition.Left,
-                    ToolTipColor: ToolTipColor.Blue,
+                    ToolTipColor: getTooltipColor(),
                     forcePosition: true
                 }}
                 ClassName={ open ? "Notification_Badge_Clicked" : undefined}
                 OnClick={() => readNotifications() }
                 >
-                {notifications.filter( x => !x.isViewed ).length}
+                { (NotificationsService.Loading || !NotificationsService.Notifications ) ?
+                        <div style={{paddingLeft: "5px"}}>
+                            <DotsLoader DotsNumber={DotsLoaderNrBall.Two} Size={DotsLoaderSize.Small} Color={DotsLoaderColor.White}/>
+                        </div>
+                        : NotificationsService.Notifications.UnreadCount}
             </Badge>
             {open && <>
                 <div className="NotificationsDropArrow"/>
-                <div className="NotificationsDrop">
+                <div className="NotificationsDrop KRFScroll">
+                    <div className="NotificationHeader">
+                        <div>
+                            {getTranslation("_notificationMenu", "#(NotificationHeader)")}
+                        </div>
+                        <div style={{fontSize: 'smaller', fontWeight: 'normal'}}>
+                            {getTranslation("_notificationMenu", "#(FromDateToDate)", NotificationsService.Notifications ? [ NotificationsService.Notifications.From, NotificationsService.Notifications.To ] : ["", ""])}
+                        </div>
+                    </div>
                     {
-                        notifications.map( (notification, i) => (
-                            <MenuNotificationItem key={i}>
-                                {notification.title}
+                        NotificationsService.Notifications && NotificationsService.Notifications.Notifications.map( (notification, i) => (
+                            <MenuNotificationItem 
+                                key={i + "#" + notification.ID} 
+                                IsViewed = {notification.IsViewed} 
+                                DeleteItem = {() => {removeNotification(notification.ID)}}
+                                Loading = {NotificationsService.Loading}
+                            >
+                                {notification.Text[appLanguage] !== undefined ? notification.Text[appLanguage] : notification.Text[AppLanguage.PT]}
                             </MenuNotificationItem>
                         ))
                     }
-                    <div>
-                        <PageSelector page={KnownPages.Test}>Ver Todas</PageSelector>
+                    {NotificationsService.Notifications && NotificationsService.Notifications.OlderUnreadCount > 0 && 
+                        <MenuNotificationItem>
+                            <PageSelector page={`${Route}?unreadOnly=true`} action={ () => { readNotifications(true) } } highlight>
+                                <span className="NotificationOlderLink">
+                                    {getTranslation("_notificationMenu", "#(OldUnreadedNotification)",[NotificationsService.Notifications.OlderUnreadCount.toString(), NotificationsService.Notifications.From])}
+                                </span>
+                            </PageSelector>
+                        </MenuNotificationItem>}
+                    <div className="NotificationViewAll">
+                        <PageSelector className="NotificationViewAllLink" page={Route}  action={ () => { readNotifications(true) }} highlight >
+                            {getTranslation("_notificationMenu", "#(ViewAll)")}
+                        </PageSelector>
                     </div>
                 </div>
             </>}

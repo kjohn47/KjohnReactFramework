@@ -1,14 +1,14 @@
 import React from "react";
 import Row from "./Row";
 import Column from "./Column";
-import { KnownPages } from "../../common/context/routeContextEnums";
 import PageSelector from "./PageSelector";
 import WithTooltip, { ToolTipColor, ToolTipPosition } from "./WithTooltip";
 import useTranslation from "../../common/context/pageText/getTranslation";
+import { IDictionary, PageType } from "../../common/functions/misc";
 
 export interface ITableCell {
-    page?: KnownPages | string;
-    query?: object;
+    page?: PageType;
+    query?: IDictionary<string>;
     onClick?: () => void;
     text: string;
     toolTip?: string;
@@ -84,7 +84,7 @@ const Table: React.FC<ITableContent> = ( props ) => {
     }
 
     return (
-        <div className="TableDiv">
+        <div className="TableDiv KRFScroll">
             { props.title &&
                 <Row>
                     <Column>

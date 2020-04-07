@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { KnownPages } from '../../../common/context/routeContextEnums';
 import PageSelector from '../../common/PageSelector';
 import Column from '../../common/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 import { LoginContext, AppContext } from '../../../common/config/appConfig';
+import { PageType } from '../../../common/functions/misc';
 
 export interface IMenuItem {
     Title: string;
-    Link?: KnownPages;
+    Link?: PageType;
     Action?: () => void;
     SubMenus?: ISubMenuItem[];
     Reloadable?: boolean;
