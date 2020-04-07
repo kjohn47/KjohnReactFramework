@@ -47,7 +47,8 @@ export const initialAppConfig: IAppContext = {
 
 export const initialRouteConfig: IRouteContext = {
     selectedPage: pageRoute.selectedPage,
-    queryString: pageRoute.queryString
+    queryString: pageRoute.queryString,
+    routeReady: false
 }
 
 export const initialLanguage: AppLanguage = lastSavedLang;

@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { KnownPages, RouteActions } from "../../common/context/routeContextEnums";
 import { RouteContext } from "../../common/config/appConfig";
+import { IDictionary, PageType } from "../../common/functions/misc";
 
 interface IPageSelector {
-    page: KnownPages | string;
-    queryParams?: object;
+    page: PageType;
+    queryParams?: IDictionary<string>;
     className?: string;
     highlight?: boolean;
     forceReload?: boolean;
@@ -13,10 +14,8 @@ interface IPageSelector {
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
     const setRoute = useContext( RouteContext )[ 1 ];
-    const setPage = ( page: KnownPages | string, queryParams?: any ) => {
-
+    const setPage = ( page: PageType, queryParams?: IDictionary<string> ) => {
         let queryString = queryParams === undefined ? "" : "?" + new URLSearchParams( queryParams ).toString();
-
         if ( page === KnownPages.Home || page.toString() === "" || page.toString() === "/" ) {
             page = KnownPages.Home;
             window.history.pushState( {}, "", "/" + ( queryString !== "" ? page.toString() + queryString : "" ) );
@@ -29,7 +28,7 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
             type: RouteActions.ChangePage,
             payload: {
                 selectedPage: page,
-                queryString: JSON.stringify( queryParams ),
+                queryString: queryParams,
                 forceReload: props.forceReload
             }
         } );

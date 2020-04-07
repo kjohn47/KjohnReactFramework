@@ -1,0 +1,82 @@
+.BallLoaderComponent {
+    position: relative;
+    display: block;
+
+    .ball-loader{
+    position: absolute;
+    margin: auto;
+    left: 50%;
+    right: 50%;
+    bottom: 10px;
+    transform: translateX(-50%) translateY(-50%);
+    }
+
+    .ball-loader-ball{
+    will-change: transform;
+    border-radius: 50%;
+    position: absolute;
+    animation: grow 1s ease-in-out infinite alternate;
+
+    &.ball1{
+        left:0;
+        transform-origin: 100% 50%;
+    }
+    &.ball2{
+        left:50%;
+        transform: translateX(-50%) scale(1);
+        animation-delay: 0.33s;
+    }
+    &.ball3{
+        right:0;
+        animation-delay: 0.66s;
+    }
+    }
+
+    @keyframes grow{
+        to{
+            transform: translateX(-50%) scale(0);
+        }
+    }
+
+    .ball-loader_Small {
+        width: 15px;
+        .ball-loader-ball{
+            height: 4px;
+            width: 4px;
+        }
+    }
+
+    .ball-loader_Medium {
+        width: 40px;
+        .ball-loader-ball{
+            height: 12px;
+            width: 12px;
+        }
+    }
+
+    .ball-loader_Big {
+        width: 100px;
+        .ball-loader-ball{
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    .ball-loader_Black {
+        .ball-loader-ball{
+            background-color: rgb(0, 0, 0);
+        }
+    }
+
+    .ball-loader_White {
+        .ball-loader-ball{
+            background-color: rgb(255, 255, 255);
+        }
+    }
+
+    .ball-loader_Grey {
+        .ball-loader-ball{
+            background-color: rgb(127, 127, 127);
+        }
+    }
+}

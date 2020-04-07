@@ -51,5 +51,12 @@
         "#(LoginButton)": "Sign In",
         "#(LoginDrop)": "Login",
         "#(NewLogin)": "Sign Up"
+    },
+    "_notificationMenu": {
+        "#(Tooltip)": "Notifications",
+        "#(NotificationHeader)": "Notification List",
+        "#(FromDateToDate)": "From {0} to {1}",
+        "#(OldUnreadedNotification)": "There are {0} unreaded notifications from dates previous to {1}, click here to check full unread list",
+         "#(ViewAll)": "View All"
     }
 }
