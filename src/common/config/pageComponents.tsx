@@ -33,6 +33,7 @@ export const pageComponents: IKRFProps = {
     Routes: pageRoutes,
     MenuProps: {
         EnableNotifications: true,
+        NotificationsRoute: KnownPages.Notifications,
         Brand: "#(krf)",
         MenuNav: [
             {

@@ -11,5 +11,6 @@ export enum KnownPages {
     UserSettings = "Usersettings",
     Administration = "Administration",
     Test = "Test",
+    Notifications = "Notifications",
     ErrorPage = "ErrorPage"
 }

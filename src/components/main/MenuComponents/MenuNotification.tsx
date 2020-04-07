@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import Badge from '../../common/Badge';
 import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/PageSelector';
-import { KnownPages } from '../../../common/context/routeContextEnums';
 import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
 import { AppContext, AppLanguageContext } from '../../../common/config/appConfig';
 import { AppGlobalTheme, AppLanguage } from '../../../common/context/appContextEnums';
@@ -10,17 +9,11 @@ import useTranslation from '../../../common/context/pageText/getTranslation';
 import { useNotificationService } from '../../../Services/NotificationServices';
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/DotsLoader';
 
-//Fake date, should come from service
-const notDate = new Date();
-notDate.setDate( notDate.getDate() - 7 );
-//---------------------------------------
-
-const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
+const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference, Route}) => {
     const [appContext] = useContext(AppContext);
     const [appLanguage] = useContext(AppLanguageContext);
     const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
-    //mock notification list
     const NotificationsService = useNotificationService(true);
 
     const readNotifications = ( updateOld: boolean = false) => {
@@ -111,7 +104,7 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
                     {
                         NotificationsService.Notifications && NotificationsService.Notifications.Notifications.map( (notification, i) => (
                             <MenuNotificationItem 
-                                key={i} 
+                                key={i + "#" + notification.ID} 
                                 IsViewed = {notification.IsViewed} 
                                 DeleteItem = {() => {removeNotification(notification.ID)}}
                                 Loading = {NotificationsService.Loading}
@@ -122,14 +115,14 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
                     }
                     {NotificationsService.Notifications && NotificationsService.Notifications.OlderUnreadCount > 0 && 
                         <MenuNotificationItem>
-                            <PageSelector page={KnownPages.Test} action={ () => { readNotifications(true) } } highlight>
+                            <PageSelector page={`${Route}?unreadOnly=true`} action={ () => { readNotifications(true) } } highlight>
                                 <span className="NotificationOlderLink">
                                     {getTranslation("_notificationMenu", "#(OldUnreadedNotification)",[NotificationsService.Notifications.OlderUnreadCount.toString(), NotificationsService.Notifications.From])}
                                 </span>
                             </PageSelector>
                         </MenuNotificationItem>}
                     <div className="NotificationViewAll">
-                        <PageSelector className="NotificationViewAllLink" page={KnownPages.Test}  action={ () => { readNotifications(true) }} highlight >
+                        <PageSelector className="NotificationViewAllLink" page={Route}  action={ () => { readNotifications(true) }} highlight >
                             {getTranslation("_notificationMenu", "#(ViewAll)")}
                         </PageSelector>
                     </div>
