@@ -8,6 +8,7 @@ import { AppContext, AppLanguageContext } from '../../../common/config/appConfig
 import { AppGlobalTheme, AppLanguage } from '../../../common/context/appContextEnums';
 import useTranslation from '../../../common/context/pageText/getTranslation';
 import { useNotificationService } from '../../../Services/NotificationServices';
+import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/DotsLoader';
 
 //Fake date, should come from service
 const notDate = new Date();
@@ -24,7 +25,8 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
 
     const readNotifications = ( updateOld: boolean = false) => {
         if(open) {
-            updateOld ? NotificationsService.ReadAll() : NotificationsService.ReadCurrent();
+            if( !NotificationsService.Loading )
+                updateOld ? NotificationsService.ReadAll() : NotificationsService.ReadCurrent();
             setOpen( false );
         }
         else 
@@ -34,7 +36,8 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
     }
 
     const removeNotification: ( id: string ) => void = (id) => {
-        NotificationsService.DeleteNotification(id);
+        if( !NotificationsService.Loading )
+            NotificationsService.DeleteNotification(id);
     }
 
     const handleClickOut: ( event: any ) => void = ( event ) => {
@@ -51,7 +54,7 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
             document.removeEventListener( "mousedown", handleClickOut );
         };
         //eslint-disable-next-line
-    }, [ open, NotificationsService.Notifications ] )
+    }, [ open, NotificationsService ] )
 
     const getTooltipColor: () => ToolTipColor = () => {
         switch(appContext.globalTheme) {
@@ -88,7 +91,11 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
                 ClassName={ open ? "Notification_Badge_Clicked" : undefined}
                 OnClick={() => readNotifications() }
                 >
-                {NotificationsService.Notifications ? NotificationsService.Notifications.UnreadCount : 0}
+                { (NotificationsService.Loading || !NotificationsService.Notifications ) ?
+                        <div style={{paddingLeft: "5px"}}>
+                            <DotsLoader DotsNumber={DotsLoaderNrBall.Two} Size={DotsLoaderSize.Small} Color={DotsLoaderColor.White}/>
+                        </div>
+                        : NotificationsService.Notifications.UnreadCount}
             </Badge>
             {open && <>
                 <div className="NotificationsDropArrow"/>
@@ -103,7 +110,12 @@ const MenuNotification: React.FC<{reference: any}> = ({reference}) => {
                     </div>
                     {
                         NotificationsService.Notifications && NotificationsService.Notifications.Notifications.map( (notification, i) => (
-                            <MenuNotificationItem key={i} IsViewed = {notification.IsViewed} DeleteItem = {() => {removeNotification(notification.ID)}}>
+                            <MenuNotificationItem 
+                                key={i} 
+                                IsViewed = {notification.IsViewed} 
+                                DeleteItem = {() => {removeNotification(notification.ID)}}
+                                Loading = {NotificationsService.Loading}
+                            >
                                 {notification.Text[appLanguage] !== undefined ? notification.Text[appLanguage] : notification.Text[AppLanguage.PT]}
                             </MenuNotificationItem>
                         ))

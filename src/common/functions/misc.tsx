@@ -15,3 +15,5 @@ export const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
 export const trueFalseParser = (str: string) => str.toLowerCase() === 'true' ? true : false;
 
 export const injectProps: <TProps>(Wrapped: React.ComponentType<TProps>, props: TProps) => React.ComponentType = ( Wrapped, props ) => () => <Wrapped {...props} />
+
+export const delayedPromise = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) );

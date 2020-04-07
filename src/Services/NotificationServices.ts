@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { IDictionary } from '../common/functions/misc';
+import { IDictionary, delayedPromise } from '../common/functions/misc';
 import { ServiceType, IServiceError } from '../common/services/serviceCallerInterfaces';
 import { useServiceCaller } from '../common/services/serviceCaller';
 //import { useFetchGetHandler, useFetchPostHandler } from '../common/services/fetchHandler';
@@ -37,6 +37,7 @@ interface INotificationPostBody {
 
 interface IuseNotificationReturn {
     Notifications?: INotifications,
+    Loading: boolean;
     ReadCurrent: () => void;
     ReadAll: () => void;
     GetNotifications: () => void;
@@ -47,30 +48,35 @@ export const useNotificationService: ( IsMenu: boolean ) => IuseNotificationRetu
     const {NotificationHandler} = useNotificationHandler(IsMenu);
     const [Notifications, Service] = useServiceCaller<INotificationRequest, INotifications>(NotificationHandler, undefined, true);
     const [started, setStarted] = useState<boolean>(false);
+    const [Loading, setLoading] = useState<boolean>(false);
 
     const ReadCurrent: () => void = () => {
+        setLoading(true);
         Service({
             Type: NotificationRequestType.ReadCurrent
-        })
+        }).then(() => setLoading(false))
     };
 
     const ReadAll: () => void = () => {
+        setLoading(true);
         Service({
             Type: NotificationRequestType.ReadAll
-        })
+        }).then(() => setLoading(false))
     };
 
     const GetNotifications: () => void = () => {
+        setLoading(true);
         Service({
             Type: NotificationRequestType.Get
-        })
+        }).then(() => setLoading(false))
     };
 
     const DeleteNotification: (id: string) => void = ( id ) => {
+        setLoading(true);
         Service({
             Type: NotificationRequestType.Delete,
             ID: id
-        })
+        }).then(() => setLoading(false))
     };
 
     useEffect( () => {
@@ -84,6 +90,7 @@ export const useNotificationService: ( IsMenu: boolean ) => IuseNotificationRetu
     
     return {
         Notifications,
+        Loading,
         ReadCurrent,
         ReadAll,
         GetNotifications,
@@ -111,80 +118,88 @@ const useNotificationHandler = ( IsMenu: boolean ) => {
                     //return GetData(`/Get${isMenuQuery}`);
                     const notDate = new Date();
                     notDate.setDate( notDate.getDate() - 7 );
-                    return { ...defaultResponse, 
-                        From: notDate.toLocaleDateString(),
-                        To: new Date().toLocaleDateString(),
-                        UnreadCount: 2,
-                        OlderUnreadCount: 100,
-                        Notifications: [
-                            {
-                                ID: '1',
-                                IsViewed: false,
-                                Text: {
-                                    [AppLanguage.PT]: "Teste 1",
-                                    [AppLanguage.EN]: "Test 1"
+                    return delayedPromise(1000).then(() => {
+                        return { ...defaultResponse, 
+                            From: notDate.toLocaleDateString(),
+                            To: new Date().toLocaleDateString(),
+                            UnreadCount: 2,
+                            OlderUnreadCount: 100,
+                            Notifications: [
+                                {
+                                    ID: '1',
+                                    IsViewed: false,
+                                    Text: {
+                                        [AppLanguage.PT]: "Teste 1",
+                                        [AppLanguage.EN]: "Test 1"
+                                    }
+                                },
+                                {
+                                    ID: '2',
+                                    IsViewed: false,
+                                    Text: {
+                                        [AppLanguage.PT]: "Teste 2",
+                                        [AppLanguage.EN]: "Test 2"
+                                    }
+                                },
+                                {
+                                    ID: '3',
+                                    IsViewed: true,
+                                    Text: {
+                                        [AppLanguage.PT]: "Teste 3",
+                                        [AppLanguage.EN]: "Test 3"
+                                    }
+                                },
+                                {
+                                    ID: '4',
+                                    IsViewed: true,
+                                    Text: {
+                                        [AppLanguage.PT]: "Teste 4",
+                                        [AppLanguage.EN]: "Test 4"
+                                    }
                                 }
-                            },
-                            {
-                                ID: '2',
-                                IsViewed: false,
-                                Text: {
-                                    [AppLanguage.PT]: "Teste 2",
-                                    [AppLanguage.EN]: "Test 2"
-                                }
-                            },
-                            {
-                                ID: '3',
-                                IsViewed: true,
-                                Text: {
-                                    [AppLanguage.PT]: "Teste 3",
-                                    [AppLanguage.EN]: "Test 3"
-                                }
-                            },
-                            {
-                                ID: '4',
-                                IsViewed: true,
-                                Text: {
-                                    [AppLanguage.PT]: "Teste 4",
-                                    [AppLanguage.EN]: "Test 4"
-                                }
-                            }
-                        ]
-                    } as INotifications | IServiceError;
+                            ]
+                        } as INotifications | IServiceError;
+                    })
                 }
                 case NotificationRequestType.ReadCurrent: {
                     //return PostData.Post({}, `/ReadCurrent${isMenuQuery}`);
-                    return {...defaultResponse,
-                        UnreadCount: 0,
-                        Notifications: [
-                            ...defaultResponse.Notifications.map( (n) => {
-                                n.IsViewed = true;
-                                return n;
-                            })
-                        ]
-                    };
+                    return delayedPromise(1000).then(() => {
+                        return {...defaultResponse,
+                            UnreadCount: 0,
+                            Notifications: [
+                                ...defaultResponse.Notifications.map( (n) => {
+                                    n.IsViewed = true;
+                                    return n;
+                                })
+                            ]
+                        };
+                    })
                 }
                 case NotificationRequestType.ReadAll: {
                     //return PostData.Post({}, `/ReadAll${isMenuQuery}`);
-                    return {...defaultResponse,
-                        UnreadCount: 0,
-                        OlderUnreadCount: 0,
-                        Notifications: [
-                            ...defaultResponse.Notifications.map( (n) => {
-                                n.IsViewed = true;
-                                return n;
-                            })
-                        ]
-                    };
+                    return delayedPromise(1000).then(() => {
+                        return {...defaultResponse,
+                            UnreadCount: 0,
+                            OlderUnreadCount: 0,
+                            Notifications: [
+                                ...defaultResponse.Notifications.map( (n) => {
+                                    n.IsViewed = true;
+                                    return n;
+                                })
+                            ]
+                        };
+                    })
                 }
                 case NotificationRequestType.Delete: {
                     //return PostData.Post({ID: request.ID}, `/Delete${isMenuQuery}`);
-                    return {...defaultResponse,
-                        UnreadCount: defaultResponse.Notifications.find( n => request.ID && ( n.ID === request.ID && !n.IsViewed )) ? defaultResponse.UnreadCount - 1 : defaultResponse.UnreadCount,
-                        Notifications: [
-                            ...defaultResponse.Notifications.filter( (n) => n.ID !== request.ID )
-                        ]
-                    };
+                    return delayedPromise(1000).then(() => {
+                        return {...defaultResponse,
+                            UnreadCount: defaultResponse.Notifications.find( n => request.ID && ( n.ID === request.ID && !n.IsViewed )) ? defaultResponse.UnreadCount - 1 : defaultResponse.UnreadCount,
+                            Notifications: [
+                                ...defaultResponse.Notifications.filter( (n) => n.ID !== request.ID )
+                            ]
+                        };
+                    })
                 }
             }
         }
