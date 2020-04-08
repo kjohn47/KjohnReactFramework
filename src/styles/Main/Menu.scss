@@ -36,6 +36,7 @@
         right: 5px;
       }
       .NotificationsDrop {
+        animation: slide 0.4s ease;
         position: absolute;
         padding-top: 5px;
         padding-Bottom: 5px;
@@ -103,6 +104,7 @@
   }
 
   .loginMenuDrop {
+    animation: slide 0.4s ease;
     text-align: left;
     min-width: 320px;
     min-height: 180px;
@@ -342,6 +344,7 @@
   }
 
   .subMenuDrop {
+    animation: slide 0.4s ease;
     min-width: 150px;
     border-radius: 6px;
     position: absolute;
@@ -388,6 +391,17 @@
     min-width: 45px;
     &:after {
         right: 15px; 
+    }
+  }
+
+  @keyframes slide {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
   }
 }
