@@ -58,11 +58,13 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
                         }  
                     } )
                     .catch( ( err: Error ) => {
-                        !abort.current && setServiceLoading(false);
-                        setServiceError( {
-                            caughtError: err.message,
-                            hasError: true
-                        });
+                        if(!abort.current) {
+                            setServiceLoading(false);
+                            setServiceError( {
+                                caughtError: err.message,
+                                hasError: true
+                            });
+                        }
                         if(!preventErrorCatch)
                             setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
                     } )
