@@ -332,6 +332,7 @@
                   }
                   .DatePickerSelectable {
                     &:hover {
+                      transition: background-color 0.3s ease;
                       background-color: $DatePicker_DaySelect;
                       color: $DatePicker_LinkColor;
                     }

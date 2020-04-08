@@ -37,6 +37,7 @@
     .BalloonFloat {
         z-index: 3;
         position: absolute;
+        animation: openBalloon 0.2s ease;
     }
 
     .BalloonFloat_Top {
@@ -105,6 +106,17 @@
             border-right-color: transparent !important;
             bottom: -20px;
             left: calc( 50% - 8px );
+        }
+    }
+
+    @keyframes openBalloon {
+        0% {
+            opacity: 0;
+            transform: scale(0)
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1)
         }
     }
 }
