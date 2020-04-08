@@ -6,8 +6,8 @@ interface IInputProps {
     className?: string;    
     regexValidation?: AppRegex;
     allowOnlyRegex?: boolean;
-    onChange?:( output: [ string, string, boolean ] ) => void;
-    onBlur?:( output: [ string, string, boolean ] ) => void;
+    onChange?:( output: { text: string, name: string, isValid: boolean } ) => void;
+    onBlur?:( output:  { text: string, name: string, isValid: boolean } ) => void;
     externalIsValid?: boolean;
     externalValidated?: boolean;
     validText?: string;
@@ -66,7 +66,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
 
         if( props.onChange !== undefined )
         {
-            props.onChange( [ text, props.name, isValid ] );
+            props.onChange( { text, name: props.name, isValid } );
         }
     }
 
@@ -78,7 +78,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
 
         if( props.onBlur !== undefined )
         {
-            props.onBlur( [ text, props.name, isValid ] );
+            props.onBlur( { text, name: props.name, isValid } );
         }
     }
 

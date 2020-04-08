@@ -200,7 +200,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         }
 
         return (
-            <div className="DatePickerSelector">
+            <div className="DatePickerSelector KRFScroll">
                 {
                     years.map( ( year: number, i: number ) =>
                         <div
@@ -225,7 +225,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
             }
         }
         return (
-            <div className="DatePickerSelector">
+            <div className="DatePickerSelector KRFScroll">
                 {
                     monthTokens.map( ( month: string, i: number ) =>
                         <div
