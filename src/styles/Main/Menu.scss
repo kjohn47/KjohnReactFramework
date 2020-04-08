@@ -132,6 +132,7 @@
   }
 
   .loginMenuCollapsed {
+    animation: slide 0.4s ease;
     margin-top: 5px;
     text-align: left;
     border-radius: 20px;
@@ -226,6 +227,7 @@
   .collapsedMenuGroup {
     text-align: left;
     border-radius: 20px;
+    animation: slide 0.4s ease;
     .collapsedMenuItem {
       min-height: 45px;
       box-sizing: border-box;
@@ -247,6 +249,7 @@
 
     .collapsedMenuItemSelected {
       .collapsedSubMenuGroup {
+        animation: grow 0.4s ease;
         margin-bottom: 10px;
         border-radius: 10px;
         margin-right: 10px;
@@ -402,6 +405,17 @@
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+  }
+
+  @keyframes grow {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scaleY(0.5)
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1)
     }
   }
 }
