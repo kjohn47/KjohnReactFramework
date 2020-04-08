@@ -5,12 +5,10 @@
     .FooterCollapsed {
         font-size: small;
         height: 40px;
-        transition: height 0.2s ease-in-out;
-        transition: font-size 0.2s ease-in-out;
+        transition: height 0.2s ease-in-out, font-size 0.2s ease-in-out;
     }
     .FooterOpened {
         height: 95px;
-        transition: height 0.2s ease-in-out;
-        transition: font-size 0.2s ease-in-out;
+        transition: height 0.2s ease-in-out, font-size 0.2s ease-in-out;
     }
 }
