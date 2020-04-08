@@ -36,7 +36,7 @@
         right: 5px;
       }
       .NotificationsDrop {
-        animation: slide 0.4s ease;
+        animation: slideMenu 0.4s ease;
         position: absolute;
         padding-top: 5px;
         padding-Bottom: 5px;
@@ -104,7 +104,7 @@
   }
 
   .loginMenuDrop {
-    animation: slide 0.4s ease;
+    animation: slideMenu 0.4s ease;
     text-align: left;
     min-width: 320px;
     min-height: 180px;
@@ -132,7 +132,7 @@
   }
 
   .loginMenuCollapsed {
-    animation: slide 0.4s ease;
+    animation: slideMenu 0.4s ease;
     margin-top: 5px;
     text-align: left;
     border-radius: 20px;
@@ -227,7 +227,7 @@
   .collapsedMenuGroup {
     text-align: left;
     border-radius: 20px;
-    animation: slide 0.4s ease;
+    animation: slideMenu 0.4s ease;
     .collapsedMenuItem {
       min-height: 45px;
       box-sizing: border-box;
@@ -249,7 +249,7 @@
 
     .collapsedMenuItemSelected {
       .collapsedSubMenuGroup {
-        animation: grow 0.4s ease;
+        animation: growMenu 0.4s ease;
         margin-bottom: 10px;
         border-radius: 10px;
         margin-right: 10px;
@@ -347,7 +347,7 @@
   }
 
   .subMenuDrop {
-    animation: slide 0.4s ease;
+    animation: slideMenu 0.4s ease;
     min-width: 150px;
     border-radius: 6px;
     position: absolute;
@@ -397,7 +397,7 @@
     }
   }
 
-  @keyframes slide {
+  @keyframes slideMenu {
     0% {
         opacity: 0;
         transform: translateY(-10px);
@@ -408,7 +408,7 @@
     }
   }
 
-  @keyframes grow {
+  @keyframes growMenu {
     0% {
         opacity: 0;
         transform: translateY(-20px) scaleY(0.5)
