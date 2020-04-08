@@ -23,6 +23,6 @@ export interface IServiceError {
     caughtError?: string;
 }
 
-export type ServiceCallType<IServiceRequest, IServiceResponse> = [ IServiceResponse | undefined, ( request?: IServiceRequest ) => Promise<void>, React.Dispatch<React.SetStateAction<IServiceResponse | undefined>> ];
+export type ServiceCallType<IServiceRequest, IServiceResponse> = { serviceResponse: IServiceResponse | undefined, serviceHandler: ( request?: IServiceRequest ) => Promise<void>, serviceLoading: boolean, serviceError: IServiceError | undefined, setServiceResponse: React.Dispatch<React.SetStateAction<IServiceResponse | undefined>> };
 
 export type ServiceType<IServiceRequest, IServiceResponse> = ( context: IContext, request?: IServiceRequest, response?: IServiceResponse) => Promise<IServiceResponse | IServiceError>;

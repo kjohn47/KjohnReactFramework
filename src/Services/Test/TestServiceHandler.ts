@@ -25,7 +25,7 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
                 } );
             }
 
-            return delayedPromise( 1000 )
+            return delayedPromise( 2000 )
                 .then( () => {
                     return {
                         Success: "True",

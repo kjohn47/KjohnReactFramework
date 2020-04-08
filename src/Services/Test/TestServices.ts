@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTestServiceHandler } from "./TestServiceHandler"
 import { useServiceCaller } from "../../common/services/serviceCaller";
 import { ITestServiceRequest, ITestServiceResponse, ITestServices } from "./TestServiceInterfaces";
@@ -7,37 +6,35 @@ import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestService: () => ITestServices = () => {
     const getData = useTestServiceHandler();
-    const [ isLoading2, setIsLoading2 ] = useState<boolean>( false );
-    const [ serviceResponse1, serviceHandler1 ] = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData );
-    const [ serviceResponse2, serviceHandler2 ] = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData, ErrorCodes.GenericError, true );
-    const [ serviceResponse3, serviceHandler3 ] = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData ); 
+    const Sample1 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData );
+    const Sample2 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData, ErrorCodes.GenericError, true );
+    const Sample3 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData ); 
 
     const SampleService_1 = () => {
-        serviceHandler1({
+        Sample1.serviceHandler({
             Type: TestServiceRequestType.GetSample_1
         })
     }
 
     const SampleService_2 = () => {
-        setIsLoading2(true)
-        serviceHandler2({
+        Sample2.serviceHandler({
             Type: TestServiceRequestType.GetSample_2
-        }).then(() => setIsLoading2(false))
+        })
     }
 
     const SampleService_3 = () => {
-        serviceHandler3({
+        Sample3.serviceHandler({
             Type: TestServiceRequestType.GetSample_3
         })
     }
 
     return {
-        serviceResponse1,
+        serviceResponse1: Sample1.serviceResponse,
         SampleService_1,
-        serviceResponse2,
-        isLoading2,
+        serviceResponse2: Sample2.serviceResponse,
+        isLoading2: Sample2.serviceLoading,
         SampleService_2,
-        serviceResponse3,
+        serviceResponse3: Sample3.serviceResponse,
         SampleService_3
     }
 }

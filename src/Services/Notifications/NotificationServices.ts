@@ -6,37 +6,32 @@ import { useNotificationHandler } from './NotificationServiceHandler';
 
 export const useNotificationService: ( IsMenu: boolean ) => IuseNotificationReturn = ( IsMenu = false) => {
     const {NotificationHandler} = useNotificationHandler(IsMenu);
-    const [Notifications, Service] = useServiceCaller<INotificationRequest, INotifications>(NotificationHandler, undefined, true);
+    const {serviceResponse, serviceHandler, serviceLoading} = useServiceCaller<INotificationRequest, INotifications>(NotificationHandler, undefined, true);
     const [started, setStarted] = useState<boolean>(false);
-    const [Loading, setLoading] = useState<boolean>(false);
 
     const ReadCurrent: () => void = () => {
-        setLoading(true);
-        Service({
+        serviceHandler({
             Type: NotificationRequestType.ReadCurrent
-        }).then(() => setLoading(false))
+        })
     };
 
     const ReadAll: () => void = () => {
-        setLoading(true);
-        Service({
+        serviceHandler({
             Type: NotificationRequestType.ReadAll
-        }).then(() => setLoading(false))
+        })
     };
 
     const GetNotifications: () => void = () => {
-        setLoading(true);
-        Service({
+        serviceHandler({
             Type: NotificationRequestType.Get
-        }).then(() => setLoading(false))
+        })
     };
 
     const DeleteNotification: (id: string) => void = ( id ) => {
-        setLoading(true);
-        Service({
+        serviceHandler({
             Type: NotificationRequestType.Delete,
             ID: id
-        }).then(() => setLoading(false))
+        })
     };
 
     useEffect( () => {
@@ -49,8 +44,8 @@ export const useNotificationService: ( IsMenu: boolean ) => IuseNotificationRetu
     }, [started])
     
     return {
-        Notifications,
-        Loading,
+        Notifications: serviceResponse,
+        Loading: serviceLoading,
         ReadCurrent,
         ReadAll,
         GetNotifications,

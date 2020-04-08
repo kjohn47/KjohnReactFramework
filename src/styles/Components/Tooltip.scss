@@ -6,6 +6,7 @@
     display: inline-block;
     &:hover .ToolTip_Text {
         visibility: visible;
+        animation: openLabel 0.2s ease;
         cursor: default;
     }
   
@@ -125,6 +126,16 @@
             border-left-color: transparent;
             top: -18px;
             left: calc( 50% - 10px );
+        }
+    }
+    @keyframes openLabel {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px) scaleY(0.5)
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scaleY(1)
         }
     }
 }
