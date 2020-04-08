@@ -1,5 +1,5 @@
 import { IServiceError } from "./serviceCallerInterfaces";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { LoginContext, AppLanguageContext } from "../config/appConfig";
 import { apiServerUrl } from "../config/configuration";
 
@@ -16,6 +16,8 @@ export const useFetchGetHandler = <FetchDataType> ( serviceUrl: string ) =>
     const [appLanguage] = useContext( AppLanguageContext );
     const [authToken, setAuthToken] = useState<string | undefined>(undefined);
     const [header, setHeader] = useState<Headers>();
+    const abortControllerRef = useRef(new AbortController());
+
     useEffect( () => {
         if( login )
         {
@@ -34,13 +36,22 @@ export const useFetchGetHandler = <FetchDataType> ( serviceUrl: string ) =>
         // eslint-disable-next-line
     }, [appLanguage,login]);
 
+    useEffect( () => {
+        abortControllerRef.current = new AbortController();
+        return () => {
+            abortControllerRef.current.abort();
+        }
+        // eslint-disable-next-line
+    }, [])
+
     const Get = ( query: string = "" ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
                 resolve(
                     fetch( apiServerUrl + serviceUrl + query, {
                         method: 'GET',
                         headers: header,
                         mode: 'cors',
-                        cache: 'default'
+                        cache: 'default',
+                        signal: abortControllerRef.current.signal
                     } )
                         .then( handleErrors )
                         .then( ( r: Response ) => r.json() )
@@ -56,6 +67,8 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
     const [appLanguage] = useContext( AppLanguageContext );
     const [authToken, setAuthToken] = useState<string | undefined>(undefined);
     const [header, setHeader] = useState<Headers>();
+    const abortControllerRef = useRef(new AbortController());
+
     useEffect( () => {
         if( login )
         {
@@ -76,6 +89,14 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
         // eslint-disable-next-line
     }, [appLanguage,login]);
 
+    useEffect( () => {
+        abortControllerRef.current = new AbortController();
+        return () => {
+            abortControllerRef.current.abort();
+        }
+        // eslint-disable-next-line
+    }, [])
+
         const Post = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
                 resolve(
                     fetch( apiServerUrl + serviceUrl + query, {
@@ -83,7 +104,8 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
                         headers: header,
                         mode: 'cors',
                         cache: 'no-cache',
-                        body: JSON.stringify( request )
+                        body: JSON.stringify( request ),
+                        signal: abortControllerRef.current.signal
                     } )
                         .then( handleErrors )
                         .then( ( r: Response ) => r.json() )
@@ -98,8 +120,9 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
                         headers: header,
                         mode: 'cors',
                         cache: 'no-cache',
-                        body: JSON.stringify( request )
-                    } )
+                        body: JSON.stringify( request ),
+                        signal: abortControllerRef.current.signal
+                    })
                         .then( handleErrors )
                         .then( ( r: Response ) => r.json() )
                         .then( ( data: FetchDataOut | IServiceError ) => data )
@@ -113,7 +136,8 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
                         headers: header,
                         mode: 'cors',
                         cache: 'no-cache',
-                        body: JSON.stringify( request )
+                        body: JSON.stringify( request ),
+                        signal: abortControllerRef.current.signal
                     } )
                         .then( handleErrors )
                         .then( ( r: Response ) => r.json() )

@@ -64,9 +64,9 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
                                 caughtError: err.message,
                                 hasError: true
                             });
+                            if(!preventErrorCatch)
+                                setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
                         }
-                        if(!preventErrorCatch)
-                            setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
                     } )
                     .finally( () => {
                         !localLoading && setloading( false );
