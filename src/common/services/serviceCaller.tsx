@@ -13,10 +13,17 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
     const [ appContext, setAppContext ] = useContext( AppContext );
     const [ login, setLogin ] = useContext( LoginContext );
     const loadingRef = useRef(loading);
+    const abort = useRef(false);
 
     useEffect( () => {
         loadingRef.current = loading;
     }, [loading])
+
+    useEffect(() => {
+        abort.current = false;
+        return () => {
+            abort.current = true }
+    }, [])
 
     const serviceHandler = ( request?: IServiceRequest ) => new Promise<void>( ( resolve ) => {
         if ( !serviceLoading ) 
@@ -45,15 +52,17 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
                         if ( serviceError !== null && serviceError !== undefined && serviceError.hasError ) {
                             throw new Error( serviceError.caughtError );
                         }
-                        setServiceResponse( response as IServiceResponse );
-                        setServiceLoading(false);
+                        if (!abort.current ) {
+                            setServiceResponse( response as IServiceResponse );
+                            setServiceLoading(false);
+                        }  
                     } )
                     .catch( ( err: Error ) => {
+                        !abort.current && setServiceLoading(false);
                         setServiceError( {
                             caughtError: err.message,
                             hasError: true
                         });
-                        setServiceLoading(false);
                         if(!preventErrorCatch)
                             setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
                     } )
