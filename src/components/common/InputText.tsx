@@ -101,8 +101,8 @@ const InputText: React.FC<IInputProps> = ( props ) =>
                 maxLength = { props.lenght }
                 placeholder = { props.placeHolder }
             />
-            { props.validText && inputValid && <div className = "inputTextValidation inputTextValidationValid">{ props.validText }</div> }
-            { props.invalidText && inputInvalid && <div className = "inputTextValidation inputTextValidationInvalid">{ props.invalidText }</div> }
+            { props.validText && inputValid && <div className = { props.balloonValidText ? ( "inputTextValidationBalloon inputTextValidBalloon" ) : ( "inputTextValidation inputTextValidationValid" )}>{ props.validText }</div> }
+            { props.invalidText && inputInvalid && <div className = { props.balloonValidText ? ( "inputTextValidationBalloon inputTextInvalidBalloon" ) : ("inputTextValidation inputTextValidationInvalid")}>{ props.invalidText }</div> }
         </div>
     )
 }

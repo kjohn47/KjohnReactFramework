@@ -142,6 +142,27 @@ const TestTextInput: React.FC = () => {
                 </WithLabel>
             </Column>
         </Row>
+        <Row>
+            <Column
+                full={ ColumnNumber.C10 }
+                large={ ColumnNumber.C14 }
+                medium={ ColumnNumber.C17 }
+                mobile={ ColumnNumber.C20 }
+            >
+                <WithLabel htmlFor="TestInput7" text="Test Input invalid chars with balloon">
+                    <InputText
+                        name="TestInput7"
+                        validText="Valid :)"
+                        invalidText="Invalid :("
+                        onChange={ ( Output ) => { console.log( Output ) } }
+                        onBlur={ ( Output ) => { console.log( Output ) } }
+                        regexValidation={ AppRegex.NoSpecialChar }
+                        placeHolder="Test input box for text without symbol"
+                        balloonValidText
+                    />
+                </WithLabel>
+            </Column>
+        </Row>
     </FieldSet>
 )}
 
