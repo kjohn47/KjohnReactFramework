@@ -46,18 +46,19 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
                             throw new Error( serviceError.caughtError );
                         }
                         setServiceResponse( response as IServiceResponse );
+                        setServiceLoading(false);
                     } )
                     .catch( ( err: Error ) => {
                         setServiceError( {
                             caughtError: err.message,
                             hasError: true
                         });
+                        setServiceLoading(false);
                         if(!preventErrorCatch)
                             setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
                     } )
                     .finally( () => {
                         !localLoading && setloading( false );
-                        setServiceLoading(false);
                     } )
                 );
             }

@@ -12,7 +12,7 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
         if (request)
         {
             if ( request.Type === TestServiceRequestType.GetSample_3 ) {
-                return fetchHandler();
+                return delayedPromise( 1500 ).then(() => fetchHandler());
             }
             
             if( request.Type === TestServiceRequestType.GetSample_1 )
