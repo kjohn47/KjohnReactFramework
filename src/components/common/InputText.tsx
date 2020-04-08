@@ -17,11 +17,13 @@ interface IInputProps {
     notEmpty?: boolean;
     validateEmail?: boolean;
     lenght?: number;
+    initialText?: string;
+    balloonValidText?: boolean;
 }
 
 const InputText: React.FC<IInputProps> = ( props ) => 
 {    
-    const [ value, setValue ] = useState<string>( "" );
+    const [ value, setValue ] = useState<string>( props.initialText ? props.initialText : "" );
     const [ [ valid, validated ], setValidation ] = useState< [boolean, boolean ] >( [ false, false ] );    
 
     const validate: ( eventText: string ) => [ string, boolean ] = ( eventText ) => {
