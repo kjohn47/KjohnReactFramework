@@ -9,6 +9,7 @@ export const useTestService: () => ITestServices = () => {
     const Sample1 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData} );
     const Sample2 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, processError: ErrorCodes.GenericError, localLoading: true } );
     const Sample3 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData } ); 
+    const SampleAbort = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, localLoading: true } ); 
 
     const SampleService_1 = () => {
         Sample1.serviceHandler({
@@ -28,6 +29,12 @@ export const useTestService: () => ITestServices = () => {
         })
     }
 
+    const AbortSample = () => {
+        SampleAbort.serviceHandler({
+            Type: TestServiceRequestType.AbortSample
+        })
+    }
+
     return {
         serviceResponse1: Sample1.serviceResponse,
         SampleService_1,
@@ -35,6 +42,8 @@ export const useTestService: () => ITestServices = () => {
         isLoading2: Sample2.serviceLoading,
         SampleService_2,
         serviceResponse3: Sample3.serviceResponse,
-        SampleService_3
+        SampleService_3,
+        AbortSample,
+        AbortSampleLoading: SampleAbort.serviceLoading
     }
 }

@@ -48,6 +48,16 @@ const TestServices: React.FC = () => {
         TestServices.serviceResponse3 !== undefined && "Success: " + TestServices.serviceResponse3.Success + " - " + TestServices.serviceResponse3.LanguageCode
       }
     </div>
+    <hr />
+    <Loader isLoading={ TestServices.AbortSampleLoading } withoutText>
+      <div className="center_menu_button">
+        <WithTooltip toolTipText={ "Call service that returns aborts" } toolTipPosition={ ToolTipPosition.Bottom } >
+          <Button className="button_width" onClick={ () => { TestServices.AbortSample() } } buttonType={ ButtonTypes.Information } >
+            { "Call Abort" }
+          </Button>
+        </WithTooltip>
+      </div>
+    </Loader>
   </div> );
 }
 

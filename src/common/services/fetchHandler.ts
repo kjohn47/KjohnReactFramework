@@ -45,24 +45,25 @@ export const useFetchGetHandler = <FetchDataType> ( serviceUrl: string, timeOut?
     }, [])
 
     const Get = ( query: string = "" ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
-                if( timeOut && timeOut > 0 )
-                {
-                    setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
-                }
+        abortControllerRef.current = new AbortController();
+        if( timeOut && timeOut > 0 )
+        {
+            setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
+        }
 
-                resolve(
-                    fetch( apiServerUrl + serviceUrl + query, {
-                        method: 'GET',
-                        headers: header,
-                        mode: 'cors',
-                        cache: 'default',
-                        signal: abortControllerRef.current.signal
-                    } )
-                        .then( handleErrors )
-                        .then( ( r: Response ) => r.json() )
-                        .then( ( data: FetchDataType | IServiceError ) => data )
-                );
-            });
+        resolve(
+            fetch( apiServerUrl + serviceUrl + query, {
+                method: 'GET',
+                headers: header,
+                mode: 'cors',
+                cache: 'default',
+                signal: abortControllerRef.current.signal
+            } )
+                .then( handleErrors )
+                .then( ( r: Response ) => r.json() )
+                .then( ( data: FetchDataType | IServiceError ) => data )
+        );
+    });
 
     const Abort = () => {
         abortControllerRef.current.abort();
@@ -108,6 +109,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
     }, [])
 
         const Post = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
+            abortControllerRef.current = new AbortController();
             if( timeOut && timeOut > 0 )
             {
                 setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
@@ -128,6 +130,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
         });
 
         const Put = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
+            abortControllerRef.current = new AbortController();
             if( timeOut && timeOut > 0 )
             {
                 setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
@@ -148,6 +151,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
         });
 
         const Delete = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
+            abortControllerRef.current = new AbortController();
             if( timeOut && timeOut > 0 )
             {
                 setTimeout( () => { abortControllerRef.current.abort() }, timeOut);

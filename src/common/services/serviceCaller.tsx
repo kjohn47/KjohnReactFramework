@@ -69,7 +69,7 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
                         if ( serviceCallError !== null && serviceCallError !== undefined && serviceCallError.hasError ) {
                             if(!abort.current)
                             {
-                                setServiceError( serviceError );
+                                setServiceError( serviceCallError );
                                 hasAbortError.current = serviceCallError.isAbortError || false;
                             }
                             if( !serviceCallError.isAbortError || ( serviceCallError.isAbortError && !ignoreAbortError ) )

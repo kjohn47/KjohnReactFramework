@@ -17,4 +17,6 @@ export interface ITestServices {
     SampleService_2: () => void;
     serviceResponse3?: ITestServiceResponse;
     SampleService_3: () => void;
+    AbortSample: () => void;
+    AbortSampleLoading: boolean;
 }

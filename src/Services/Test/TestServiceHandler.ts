@@ -6,7 +6,7 @@ import { delayedPromise } from "../../common/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse> = () => {
-    const { Get } = useFetchGetHandler<ITestServiceResponse>("InexistentService404");
+    const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>("InexistentService404");
 
     const getData: ServiceType<ITestServiceRequest, ITestServiceResponse> = async ( { context, serviceRequest } ) => {
         if (serviceRequest)
@@ -23,6 +23,15 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
                         globalLanguage: AppLanguage.EN
                     }
                 } );
+            }
+
+            if( serviceRequest.Type === TestServiceRequestType.AbortSample ) {
+                return delayedPromise( 2000 )
+                .then( async () => {
+                    let returnValue = Get();
+                    Abort();
+                    return await returnValue;
+                })
             }
 
             return delayedPromise( 2000 )
