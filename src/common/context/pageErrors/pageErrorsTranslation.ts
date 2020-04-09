@@ -34,6 +34,16 @@ const pageErrors: IPageErrors =
             Message: "Página só se encontrada disponível para administração!",
             Title: "Apenas Administrador"
         }
+    },
+    [ ErrorCodes.AbortError ]: {
+        [ AppLanguage.EN ]: {
+            Message: "The call to service was aborted or service Timed Out ",
+            Title: "Aborted service call"
+        },
+        [ AppLanguage.PT ]: {
+            Message: "A chamada ao serviço foi abortada ou terminou o tempo de espera",
+            Title: "Chamada a serviço abortada"
+        }
     }
 };
 

@@ -6,13 +6,13 @@ import { delayedPromise } from "../../common/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse> = () => {
-    const fetchHandler = useFetchGetHandler<ITestServiceResponse>("InexistentService404");
+    const { Get } = useFetchGetHandler<ITestServiceResponse>("InexistentService404");
 
     const getData: ServiceType<ITestServiceRequest, ITestServiceResponse> = async ( { context, serviceRequest } ) => {
         if (serviceRequest)
         {
             if ( serviceRequest.Type === TestServiceRequestType.GetSample_3 ) {
-                return delayedPromise( 1500 ).then(() => fetchHandler());
+                return delayedPromise( 1500 ).then(() => Get());
             }
             
             if( serviceRequest.Type === TestServiceRequestType.GetSample_1 )

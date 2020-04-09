@@ -20,6 +20,7 @@ interface IAppUserObject {
 
 export interface IServiceError {
     hasError?: boolean;
+    isAbortError?: boolean;
     caughtError?: string;
 }
 

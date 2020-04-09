@@ -3,7 +3,22 @@ import { AppContext, LoadingContext, ErrorContext, LoginContext, AppLanguageCont
 import { ErrorActions, ErrorCodes } from "../context/appErrorEnums";
 import { IContext, IServiceError, ServiceCallType, ServiceType } from "./serviceCallerInterfaces";
 
-export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: ServiceType<IServiceRequest, IServiceResponse>, processError?: ErrorCodes, localLoading?: boolean, preventErrorCatch?: boolean ): ServiceCallType<IServiceRequest, IServiceResponse> {
+interface IServiceCallerArgs<IServiceRequest, IServiceResponse> {
+    service: ServiceType<IServiceRequest, IServiceResponse>;
+    processError?: ErrorCodes;
+    localLoading?: boolean;
+    preventErrorCatch?: boolean;
+    ignoreAbortError?: boolean;
+}
+
+
+export const useServiceCaller = <IServiceRequest, IServiceResponse>( { 
+    service,
+    localLoading,
+    preventErrorCatch,
+    processError,
+    ignoreAbortError
+} : IServiceCallerArgs<IServiceRequest, IServiceResponse> ): ServiceCallType<IServiceRequest, IServiceResponse> => {
     const [ serviceResponse, setServiceResponse ] = useState<IServiceResponse>();
     const [ serviceError, setServiceError ] = useState<IServiceError | undefined>();
     const [ serviceLoading, setServiceLoading ] = useState<boolean>(false);
@@ -14,6 +29,7 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
     const [ login, setLogin ] = useContext( LoginContext );
     const loadingRef = useRef(loading);
     const abort = useRef(false);
+    const hasAbortError = useRef(false);
 
     useEffect( () => {
         loadingRef.current = loading;
@@ -21,6 +37,7 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
 
     useEffect(() => {
         abort.current = false;
+        hasAbortError.current = false;
         return () => {
             abort.current = true }
     }, [])
@@ -48,9 +65,15 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
 
                 resolve( callService<IServiceRequest, IServiceResponse>( service, { appLanguage: appLanguage,  appContext: { Get: appContext, Set: setAppContext }, userContext: login ? { Get: login, Set: setLogin } : undefined }, request, serviceResponse )
                     .then( ( response: IServiceResponse | IServiceError ) => {
-                        let serviceError: IServiceError = response as IServiceError;
-                        if ( serviceError !== null && serviceError !== undefined && serviceError.hasError ) {
-                            throw new Error( serviceError.caughtError );
+                        let serviceCallError: IServiceError = response as IServiceError;
+                        if ( serviceCallError !== null && serviceCallError !== undefined && serviceCallError.hasError ) {
+                            if(!abort.current)
+                            {
+                                setServiceError( serviceError );
+                                hasAbortError.current = serviceCallError.isAbortError || false;
+                            }
+                            if( !serviceCallError.isAbortError || ( serviceCallError.isAbortError && !ignoreAbortError ) )
+                                throw new Error( serviceCallError.caughtError );
                         }
                         if (!abort.current ) {
                             setServiceResponse( response as IServiceResponse );
@@ -60,12 +83,11 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
                     .catch( ( err: Error ) => {
                         if(!abort.current) {
                             setServiceLoading(false);
-                            setServiceError( {
-                                caughtError: err.message,
-                                hasError: true
-                            });
                             if(!preventErrorCatch)
-                                setError( { type: ErrorActions.ActivateError, errorDescription: err.message, errorCode: processError !== undefined ? processError : ErrorCodes.GenericError } );
+                                setError( { type: ErrorActions.ActivateError, 
+                                            errorDescription: err.message, 
+                                            errorCode: processError !== undefined ? processError : ( ( hasAbortError.current ) ? ErrorCodes.AbortError : ErrorCodes.GenericError ) 
+                                        } );
                         }
                     } )
                     .finally( () => {
@@ -96,7 +118,8 @@ const callService = async <IServiceRequest, IServiceResponse> ( service: Service
     } ).catch( ( err: Error ) => {
         let serviceError: IServiceError = {
             caughtError: err.message,
-            hasError: true
+            hasError: true,
+            isAbortError: err.name === 'AbortError'
         };
 
         return serviceError;

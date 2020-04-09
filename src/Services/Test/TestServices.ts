@@ -6,9 +6,9 @@ import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestService: () => ITestServices = () => {
     const getData = useTestServiceHandler();
-    const Sample1 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData );
-    const Sample2 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData, ErrorCodes.GenericError, true );
-    const Sample3 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( getData ); 
+    const Sample1 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData} );
+    const Sample2 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, processError: ErrorCodes.GenericError, localLoading: true } );
+    const Sample3 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData } ); 
 
     const SampleService_1 = () => {
         Sample1.serviceHandler({

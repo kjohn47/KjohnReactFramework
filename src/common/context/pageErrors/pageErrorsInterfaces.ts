@@ -14,4 +14,5 @@ export interface IPageErrors {
     [ ErrorCodes.GenericError ]: IErrorTranstation;
     [ ErrorCodes.PageNotFound ]: IErrorTranstation;
     [ ErrorCodes.AdminOnlyError ]: IErrorTranstation;
+    [ ErrorCodes.AbortError ]: IErrorTranstation;
 }

@@ -27,7 +27,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
 
                     if ( currentAppContext.translations === {} || currentAppContext.translations[ globalLanguage ] === undefined ) {
                         resolve(
-                            getTranslation( `/${ globalLanguage }` )
+                            getTranslation.Get( `/${ globalLanguage }` )
                                 .then( data => 
                                     setCurrentAppContext( {
                                         ...currentAppContext,

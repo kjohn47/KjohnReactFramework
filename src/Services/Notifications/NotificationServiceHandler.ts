@@ -21,7 +21,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
         if(serviceRequest) {
             switch(serviceRequest.Type) {
                 case NotificationRequestType.Get: {
-                    //return GetData(`${NotificationEndpoints.GetData}${isMenuQuery}`);
+                    //return GetData.Get(`${NotificationEndpoints.GetData}${isMenuQuery}`);
                     const notDate = new Date();
                     notDate.setDate( notDate.getDate() - 7 );
                     return delayedPromise(1000).then(() => {
