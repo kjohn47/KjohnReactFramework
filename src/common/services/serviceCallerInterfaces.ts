@@ -20,9 +20,16 @@ interface IAppUserObject {
 
 export interface IServiceError {
     hasError?: boolean;
+    isAbortError?: boolean;
     caughtError?: string;
 }
 
-export type ServiceCallType<IServiceRequest, IServiceResponse> = [ IServiceResponse | undefined, ( request?: IServiceRequest ) => Promise<void>, React.Dispatch<React.SetStateAction<IServiceResponse | undefined>> ];
+export type ServiceCallType<IServiceRequest, IServiceResponse> = { serviceResponse: IServiceResponse | undefined, serviceHandler: ( request?: IServiceRequest ) => Promise<void>, serviceLoading: boolean, serviceError: IServiceError | undefined, setServiceResponse: React.Dispatch<React.SetStateAction<IServiceResponse | undefined>> };
 
-export type ServiceType<IServiceRequest, IServiceResponse> = ( context: IContext, request?: IServiceRequest, response?: IServiceResponse) => Promise<IServiceResponse | IServiceError>;
+interface IServiceArgs<IServiceRequest, IServiceResponse> {
+    context: IContext;
+    serviceRequest?: IServiceRequest;
+    serviceResponse?: IServiceResponse
+}
+
+export type ServiceType<IServiceRequest, IServiceResponse> = ( Args: IServiceArgs<IServiceRequest, IServiceResponse> ) => Promise<IServiceResponse | IServiceError>;

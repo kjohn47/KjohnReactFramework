@@ -13,6 +13,10 @@
     display: inline-block;
     position: relative;
     outline: 0;
+
+    &:hover {
+      transition: background-color 0.3s ease;
+    }
     
     .page_Button_PageSelector {
       display: inline-block;
@@ -45,7 +49,7 @@
     border-color: $Button_Warning_Secondary;
     background-color: $Button_Warning_Main;
     color: $Button_Warning_Text;
-    &:hover {      
+    &:hover {
       background-color: $Button_Warning_Secondary;
       color: $Button_Warning_Text_Hover;
     }

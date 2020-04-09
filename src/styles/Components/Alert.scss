@@ -6,6 +6,7 @@
         border: 1px solid;
         border-radius: 15px;
         padding: 15px;
+        animation: openAlert 0.3s ease;
 
         .AlertCloseable {
             display: inline-block;
@@ -82,6 +83,17 @@
                     color: $Button_Cancelation_Secondary;
                 }
             }
+        }
+    }
+
+    @keyframes openAlert {
+        0% {
+            opacity: 0;
+            transform: scaleY(0)
+        }
+        100% {
+            opacity: 1;
+            transform: scaleY(1)
         }
     }
 }

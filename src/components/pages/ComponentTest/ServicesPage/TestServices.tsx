@@ -1,46 +1,33 @@
-import React, { useState } from 'react';
-import { useServiceCaller } from '../../../../common/services/serviceCaller';
-import { ErrorCodes } from '../../../../common/context/appErrorEnums';
+import React, { CSSProperties } from 'react';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../../common/WithTooltip';
 import Button, { ButtonTypes } from '../../../common/Button';
 import Loader from '../../../common/Loader';
-import { useServerCallTest } from './TestServicesHooks';
-
-export interface IResult {
-  id: number;
-  text: string;
-}
+import { useTestService } from '../../../../Services/Test/TestServices';
 
 const TestServices: React.FC = () => {
-  const getData = useServerCallTest();
-  const [ isLoading, setIsLoading ] = useState<boolean>( false );
-  const [ serviceResponse, serviceHandler ] = useServiceCaller<IResult, IResult>( getData );
-  const [ serviceResponse2, serviceHandler2 ] = useServiceCaller<IResult, IResult>( getData, ErrorCodes.GenericError, true );
-  const [ serviceResponse3, serviceHandler3 ] = useServiceCaller<IResult, IResult>( getData );  
-
-  const loadService2 = () => {
-    setIsLoading( true );
-    serviceHandler2( { text: "test2", id: 0 } ).then( () => { setIsLoading( false ) } ).catch();
+  const TestServices = useTestService();
+  const boldText: CSSProperties = {
+    fontWeight: 'bold'
   }
 
   return ( <div className="TestPageStuff">
     <div className="center_menu_button">
       <WithTooltip toolTipText={ "Call normal service with big loading" } toolTipPosition={ ToolTipPosition.Top } toolTipColor={ ToolTipColor.Green }  >
-        <Button className="button_width" onClick={ () => { serviceHandler( { text: "test", id: 0 } ) } } buttonType={ ButtonTypes.Confirmation } >
+        <Button className="button_width" onClick={ () => { TestServices.SampleService_1() } } buttonType={ ButtonTypes.Confirmation } >
           { "Call loading service" }
         </Button>
       </WithTooltip>
     </div>
     <div>
       {
-        serviceResponse !== undefined && serviceResponse.id + " : " + serviceResponse.text
+        TestServices.serviceResponse1 !== undefined && "Success: " + TestServices.serviceResponse1.Success + " - " + TestServices.serviceResponse1.LanguageCode
       }
     </div>
     <hr />
-    <Loader isLoading={ isLoading } withoutText>
+    <Loader isLoading={ TestServices.isLoading2 } withoutText>
       <div className="center_menu_button">
         <WithTooltip toolTipText={ "Call service that loads on same page" } toolTipPosition={ ToolTipPosition.Left } toolTipColor={ ToolTipColor.Red } >
-          <Button className="button_width" onClick={ () => { loadService2() } } buttonType={ ButtonTypes.Danger } >
+          <Button className="button_width" onClick={ () => { TestServices.SampleService_2() } } buttonType={ ButtonTypes.Danger } >
             { "Call self loading" }
           </Button>
         </WithTooltip>
@@ -48,22 +35,49 @@ const TestServices: React.FC = () => {
     </Loader>
     <div>
       {
-        serviceResponse2 !== undefined && serviceResponse2.id + " : " + serviceResponse2.text
+        TestServices.serviceResponse2 !== undefined && "Success: " + TestServices.serviceResponse2.Success + " - " + TestServices.serviceResponse2.LanguageCode
       }
     </div>
     <hr />
     <div className="center_menu_button">
       <WithTooltip toolTipText={ "Call service that returns error" } toolTipPosition={ ToolTipPosition.Right } toolTipColor={ ToolTipColor.Grey } >
-        <Button className="button_width" onClick={ () => { serviceHandler3() } } buttonType={ ButtonTypes.Warning } >
+        <Button className="button_width" onClick={ () => { TestServices.SampleService_3() } } buttonType={ ButtonTypes.Warning } >
           { "Call Error" }
         </Button>
       </WithTooltip>
     </div>
     <div>
       {
-        serviceResponse3 !== undefined && serviceResponse3.id + " : " + serviceResponse3.text
+        TestServices.serviceResponse3 !== undefined && "Success: " + TestServices.serviceResponse3.Success + " - " + TestServices.serviceResponse3.LanguageCode
       }
     </div>
+    <hr />
+    <Loader isLoading={ TestServices.AbortSampleLoading } withoutText>
+      <div className="center_menu_button">
+        <WithTooltip toolTipText={ "Call service that will be aborted" } toolTipPosition={ ToolTipPosition.Left } >
+          <Button className="button_width" onClick={ () => { TestServices.AbortSample() } } buttonType={ ButtonTypes.Information } >
+            { "Call Abort" }
+          </Button>
+        </WithTooltip>
+      </div>
+    </Loader>
+    <hr />
+    <Loader isLoading={ TestServices.ExternalLoading } withoutText>
+      <div className="center_menu_button">
+        <WithTooltip toolTipText={ "Call external service" } toolTipPosition={ ToolTipPosition.Bottom } toolTipColor={ ToolTipColor.Blue } >
+          <Button className="button_width" onClick={ () => { TestServices.CallExternalService() } } buttonType={ ButtonTypes.Cancelation } >
+            { "Call External" }
+          </Button>
+        </WithTooltip>
+      </div>
+      {TestServices.ExternalService && <div>
+        <div style={boldText}>Response from external json placeholder service:</div>
+        <div><span style={boldText}>ID: </span><span>{TestServices.ExternalService.id}</span></div>
+        <div><span style={boldText}>UserID: </span><span>{TestServices.ExternalService.userId}</span></div>
+        <div><span style={boldText}>Title: </span><span>{TestServices.ExternalService.title}</span></div>
+        <div><span style={boldText}>Body: </span><span>{TestServices.ExternalService.body}</span></div>
+      </div>}
+    </Loader>
   </div> );
 }
 

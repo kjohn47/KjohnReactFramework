@@ -12,7 +12,11 @@ const TestBalloon: React.FC = () => {
     const [balloon5, setBalloon5] = useState<boolean>(false);
     const [balloon6, setBalloon6] = useState<boolean>(false);
 
-    const commonStyle: CSSProperties = {fontWeight: "bold", cursor: "pointer", marginTop:"-20px"};
+    const spacing: CSSProperties = {
+        minWidth: "120px",
+        padding: '10px'
+    }
+    const commonStyle: CSSProperties = {...spacing, fontWeight: "bold", cursor: "pointer"};
 
     return (
         <Row>
@@ -23,88 +27,95 @@ const TestBalloon: React.FC = () => {
                         <FieldSet Title="Balloons">
                             <Row>
                                 <Column>
-                                    <br />
-                                    <Balloon>
-                                        <span>
-                                            This is a balloon
-                                        </span>
-                                        <br />
-                                        <span>
-                                            This is base color
-                                        </span>
-                                    </Balloon>
+                                    <div style = {spacing}>
+                                        <Balloon>
+                                            <span>
+                                                This is a balloon
+                                            </span>
+                                            <br />
+                                            <span>
+                                                This is base color
+                                            </span>
+                                        </Balloon>
+                                    </div>
                                 </Column>
                                 <Column>
-                                    <br />
-                                    <Balloon Color={BalloonColorEnum.Default}>
-                                        <span>
-                                            This is a balloon
-                                        </span>
-                                        <br />
-                                        <span>
-                                            This is default color
-                                        </span>
-                                    </Balloon>
+                                    <div style = {spacing}>
+                                        <Balloon Color={BalloonColorEnum.Default}>
+                                            <span>
+                                                This is a balloon
+                                            </span>
+                                            <br />
+                                            <span>
+                                                This is default color
+                                            </span>
+                                        </Balloon>
+                                    </div>
                                 </Column>
                                 <Column>
-                                    <br />
-                                    <Balloon Color={BalloonColorEnum.Danger}>
-                                        <span>
-                                            This is a balloon
-                                        </span>
-                                        <br />
-                                        <span>
-                                            This is danger color
-                                        </span>
-                                    </Balloon>
+                                    <div style = {spacing}>
+                                        <Balloon Color={BalloonColorEnum.Danger}>
+                                            <span>
+                                                This is a balloon
+                                            </span>
+                                            <br />
+                                            <span>
+                                                This is danger color
+                                            </span>
+                                        </Balloon>
+                                    </div>
                                 </Column>
                                 <Column>
-                                    <br />
-                                    <Balloon Color={BalloonColorEnum.Warning}>
-                                        <span>
-                                            This is a balloon
-                                        </span>
-                                        <br />
-                                        <span>
-                                            This is warning color
-                                        </span>
-                                    </Balloon>
+                                    <div style = {spacing}>
+                                        <Balloon Color={BalloonColorEnum.Warning}>
+                                            <span>
+                                                This is a balloon
+                                            </span>
+                                            <br />
+                                            <span>
+                                                This is warning color
+                                            </span>
+                                        </Balloon>
+                                    </div>
                                 </Column>
                                 <Column>
-                                    <br />
-                                    <Balloon Color={BalloonColorEnum.Information}>
-                                        <span>
-                                            This is a balloon
-                                        </span>
-                                        <br />
-                                        <span>
-                                            This is information color
-                                        </span>
-                                    </Balloon>
+                                    <div style = {spacing}>
+                                        <Balloon Color={BalloonColorEnum.Information}>
+                                            <span>
+                                                This is a balloon
+                                            </span>
+                                            <br />
+                                            <span>
+                                                This is information color
+                                            </span>
+                                        </Balloon>
+                                    </div>
                                 </Column>
                                 <Column>
-                                    <br />
-                                    <Balloon Color={BalloonColorEnum.Confirmation}>
-                                        <span>
-                                            This is a balloon
-                                        </span>
-                                        <br />
-                                        <span>
-                                            This is confirmation color
-                                        </span>
-                                    </Balloon>
+                                    <div style = {spacing}>
+                                        <Balloon Color={BalloonColorEnum.Confirmation}>
+                                            <span>
+                                                This is a balloon
+                                            </span>
+                                            <br />
+                                            <span>
+                                                This is confirmation color
+                                            </span>
+                                        </Balloon>
+                                    </div>
                                 </Column>
                                 <Column>
-                                    <br />
-                                    <Balloon Color={BalloonColorEnum.Cancelation}>
-                                        <span>
-                                            This is a balloon
-                                        </span>
-                                        <br />
-                                        <span>
-                                            This is cancelation color
-                                        </span>
-                                    </Balloon>
+                                    <div style = {spacing}>
+                                        <Balloon Color={BalloonColorEnum.Cancelation}>
+                                            <span>
+                                                This is a balloon
+                                            </span>
+                                            <br />
+                                            <span>
+                                                This is cancelation color
+                                            </span>
+                                        </Balloon>
+                                    </div>
                                 </Column>
                                 <Column />
                                 <Column />
@@ -118,40 +129,44 @@ const TestBalloon: React.FC = () => {
                         <FieldSet Title="Arrow Base Balloon">
                             <Row>
                             <Column>
-                                <br />
-                                <Balloon Arrow={BallonArrowEnum.Top}>
-                                    <span>
-                                        This is a balloon with top arrow
-                                        <br />
-                                    </span>
-                                </Balloon>
+                                <div style = {spacing}>
+                                    <Balloon Arrow={BallonArrowEnum.Top}>
+                                        <span>
+                                            This is a balloon with top arrow
+                                            <br />
+                                        </span>
+                                    </Balloon>
+                                </div>
                             </Column>
                             <Column>
-                                <br />
-                                <Balloon Arrow={BallonArrowEnum.Bottom}>
-                                    <span>
-                                        This is a balloon with bottom arrow
-                                        <br />
-                                    </span>
-                                </Balloon>
+                                <div style = {spacing}>
+                                    <Balloon Arrow={BallonArrowEnum.Bottom}>
+                                        <span>
+                                            This is a balloon with bottom arrow
+                                            <br />
+                                        </span>
+                                    </Balloon>
+                                </div>
                             </Column>
                             <Column>
-                                <br />
-                                <Balloon Arrow={BallonArrowEnum.Left}>
-                                    <span>
-                                        This is a balloon with left arrow
-                                        <br />
-                                    </span>
-                                </Balloon>
+                                <div style = {spacing}>
+                                    <Balloon Arrow={BallonArrowEnum.Left}>
+                                        <span>
+                                            This is a balloon with left arrow
+                                            <br />
+                                        </span>
+                                    </Balloon>
+                                </div>
                             </Column>
                             <Column>
-                                <br />
-                                <Balloon Arrow={BallonArrowEnum.Right}>
-                                    <span>
-                                        This is a balloon with right arrow
-                                        <br />
-                                    </span>
-                                </Balloon>
+                                <div style = {spacing}>
+                                    <Balloon Arrow={BallonArrowEnum.Right}>
+                                        <span>
+                                            This is a balloon with right arrow
+                                            <br />
+                                        </span>
+                                    </Balloon>
+                                </div>
                             </Column>
                             </Row>
                         </FieldSet>
@@ -162,15 +177,15 @@ const TestBalloon: React.FC = () => {
                         <FieldSet Title="Balloon with Close/Title">
                             <Row>
                                 <Column>
-                                    <br />
-                                    <Balloon Title="Title">
-                                        <span>
-                                            This is a balloon with title
-                                        </span>
-                                    </Balloon>
+                                    <div style = {spacing}>
+                                        <Balloon Title="Title">
+                                            <span>
+                                                This is a balloon with title
+                                            </span>
+                                        </Balloon>
+                                    </div>
                                 </Column>
                                 <Column>
-                                    <br />
                                     <div style={commonStyle} onClick={() => setBalloon1(true)}>Click to Open Closable Balloon</div>
                                     <Balloon Close={() => setBalloon1(false)} IsFloating IsVisible={balloon1}>
                                         <span>
@@ -179,7 +194,6 @@ const TestBalloon: React.FC = () => {
                                     </Balloon>
                                 </Column>
                                 <Column>
-                                    <br />
                                     <div style={commonStyle} onClick={() => setBalloon2(true)}>Click to Open Closable Balloon With Title</div>
                                     <Balloon Title="Title" Close={() => setBalloon2(false)} IsFloating IsVisible={balloon2}>
                                         <span>
@@ -196,7 +210,6 @@ const TestBalloon: React.FC = () => {
                         <FieldSet Title="Closeable Balloons with arrow">
                             <Row>
                                 <Column>
-                                    <br />
                                     <div style={commonStyle} onClick={() => setBalloon3(true)}>Click to Open Balloon Bottom</div>
                                     <Balloon Title="Top Arrow" Close={() => setBalloon3(false)} IsFloating Arrow={BallonArrowEnum.Top} IsVisible={balloon3}>
                                         <span>
@@ -210,7 +223,6 @@ const TestBalloon: React.FC = () => {
                                             This Balloon appears on top of text
                                         </span>
                                     </Balloon>
-                                    <br />
                                     <div style={commonStyle} onClick={() => setBalloon4(true)}>Click to Open Balloon Top</div>
                                 </Column>
                                 <Column>

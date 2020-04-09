@@ -9,6 +9,7 @@ import LoginForm from './MenuComponents/LoginForm';
 import MenusBar from './MenuComponents/MenusBar';
 import UserMenu, { IUserCustomMenu } from './MenuComponents/UserMenu';
 import { PageType } from '../../common/functions/misc';
+import DotsLoader, { DotsLoaderColor, DotsLoaderSize, DotsLoaderNrBall } from '../common/DotsLoader';
 
 export interface IMenuProps {
   Brand?: string;
@@ -19,7 +20,7 @@ export interface IMenuProps {
 }
 
 const Menu: React.FC<IMenuProps> = ( props ) => {
-  const setAppContext = useContext( AppContext )[ 1 ];
+  const [appContext, setAppContext] = useContext( AppContext );
   const [ loginContext ] = useContext( LoginContext );
   const [ appLanguage ] = useContext( AppLanguageContext );
   const [ toogleLang, setToogleLang ] = useState<boolean>( false );
@@ -76,9 +77,14 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       }
       <Column full={ ColumnNumber.C1 } medium={ ColumnNumber.C2 } tablet={ ColumnNumber.C2 } reference={ langMenuRef }>
         <div style={{textAlign:"right"}}>
-          <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
-            <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
-          </div>
+          { appContext.loadingTranslation ? 
+            <div style={{display:"inline-block", paddingTop:"5px", marginLeft:"50%"}}>
+              <DotsLoader Color = {DotsLoaderColor.White} Size = {DotsLoaderSize.Medium} DotsNumber={DotsLoaderNrBall.One}/>
+            </div>:
+            <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
+              <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
+            </div> 
+          }
         </div>
         { toogleLang && <SubMenu
           unToogle={ () => setToogleLang( false ) }
