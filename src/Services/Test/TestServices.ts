@@ -1,6 +1,6 @@
 import { useTestServiceHandler } from "./TestServiceHandler"
 import { useServiceCaller } from "../../common/services/serviceCaller";
-import { ITestServiceRequest, ITestServiceResponse, ITestServices } from "./TestServiceInterfaces";
+import { ITestServiceRequest, ITestServiceResponse, ITestServices, ITestExternalServiceResponse } from "./TestServiceInterfaces";
 import { ErrorCodes } from "../../common/context/appErrorEnums";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
@@ -10,6 +10,7 @@ export const useTestService: () => ITestServices = () => {
     const Sample2 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, processError: ErrorCodes.GenericError, localLoading: true } );
     const Sample3 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData } ); 
     const SampleAbort = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, localLoading: true } ); 
+    const SampleExternal = useServiceCaller<ITestServiceRequest, ITestExternalServiceResponse>( { service: getData, localLoading: true } ); 
 
     const SampleService_1 = () => {
         Sample1.serviceHandler({
@@ -35,6 +36,12 @@ export const useTestService: () => ITestServices = () => {
         })
     }
 
+    const CallExternalService = () => {
+        SampleExternal.serviceHandler( {
+            Type: TestServiceRequestType.CallExternal
+         } )
+    }
+
     return {
         serviceResponse1: Sample1.serviceResponse,
         SampleService_1,
@@ -44,6 +51,9 @@ export const useTestService: () => ITestServices = () => {
         serviceResponse3: Sample3.serviceResponse,
         SampleService_3,
         AbortSample,
-        AbortSampleLoading: SampleAbort.serviceLoading
+        AbortSampleLoading: SampleAbort.serviceLoading,
+        ExternalService: SampleExternal.serviceResponse,
+        CallExternalService,
+        ExternalLoading: SampleExternal.serviceLoading
     }
 }

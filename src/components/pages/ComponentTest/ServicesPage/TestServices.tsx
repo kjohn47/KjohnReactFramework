@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../../common/WithTooltip';
 import Button, { ButtonTypes } from '../../../common/Button';
 import Loader from '../../../common/Loader';
@@ -6,6 +6,9 @@ import { useTestService } from '../../../../Services/Test/TestServices';
 
 const TestServices: React.FC = () => {
   const TestServices = useTestService();
+  const boldText: CSSProperties = {
+    fontWeight: 'bold'
+  }
 
   return ( <div className="TestPageStuff">
     <div className="center_menu_button">
@@ -51,12 +54,29 @@ const TestServices: React.FC = () => {
     <hr />
     <Loader isLoading={ TestServices.AbortSampleLoading } withoutText>
       <div className="center_menu_button">
-        <WithTooltip toolTipText={ "Call service that will be aborted" } toolTipPosition={ ToolTipPosition.Bottom } >
+        <WithTooltip toolTipText={ "Call service that will be aborted" } toolTipPosition={ ToolTipPosition.Left } >
           <Button className="button_width" onClick={ () => { TestServices.AbortSample() } } buttonType={ ButtonTypes.Information } >
             { "Call Abort" }
           </Button>
         </WithTooltip>
       </div>
+    </Loader>
+    <hr />
+    <Loader isLoading={ TestServices.ExternalLoading } withoutText>
+      <div className="center_menu_button">
+        <WithTooltip toolTipText={ "Call external service" } toolTipPosition={ ToolTipPosition.Bottom } toolTipColor={ ToolTipColor.Blue } >
+          <Button className="button_width" onClick={ () => { TestServices.CallExternalService() } } buttonType={ ButtonTypes.Cancelation } >
+            { "Call External" }
+          </Button>
+        </WithTooltip>
+      </div>
+      {TestServices.ExternalService && <div>
+        <div style={boldText}>Response from external json placeholder service:</div>
+        <div><span style={boldText}>ID: </span><span>{TestServices.ExternalService.id}</span></div>
+        <div><span style={boldText}>UserID: </span><span>{TestServices.ExternalService.userId}</span></div>
+        <div><span style={boldText}>Title: </span><span>{TestServices.ExternalService.title}</span></div>
+        <div><span style={boldText}>Body: </span><span>{TestServices.ExternalService.body}</span></div>
+      </div>}
     </Loader>
   </div> );
 }

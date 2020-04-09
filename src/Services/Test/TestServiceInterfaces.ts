@@ -9,6 +9,13 @@ export interface ITestServiceResponse {
     LanguageCode: string;
 }
 
+export interface ITestExternalServiceResponse {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
+
 export interface ITestServices {
     serviceResponse1?: ITestServiceResponse;
     SampleService_1: () => void;
@@ -19,4 +26,7 @@ export interface ITestServices {
     SampleService_3: () => void;
     AbortSample: () => void;
     AbortSampleLoading: boolean;
+    ExternalService?: ITestExternalServiceResponse;
+    CallExternalService: () => void;
+    ExternalLoading: boolean;
 }
