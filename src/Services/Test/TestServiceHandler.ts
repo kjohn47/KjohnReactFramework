@@ -6,7 +6,7 @@ import { delayedPromise } from "../../common/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse> = () => {
-    const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>("InexistentService404");
+    const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>( { serviceUrl: "InexistentService404" });
 
     const getData: ServiceType<ITestServiceRequest, ITestServiceResponse> = async ( { context, serviceRequest } ) => {
         if (serviceRequest)

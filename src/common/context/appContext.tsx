@@ -13,7 +13,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
     const [ currentUser, setCurrentUser ] = useContext( LoginContext );
     const setAppLanguage = useContext( AppLanguageContext )[1];
-    const getTranslation = useFetchGetHandler<ITranslation>(`${ AvailableServices.Translation }`);
+    const getTranslation = useFetchGetHandler<ITranslation>( { serviceUrl: `${ AvailableServices.Translation }` } );
 
     const changeAppConfig = ( action: IContextAction ) => new Promise<void | IServiceError>( ( resolve ) => {
         switch ( action.type ) {

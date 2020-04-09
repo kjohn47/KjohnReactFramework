@@ -10,7 +10,14 @@ const handleErrors = ( response: Response ) => {
     return response;
 }
 
-export const useFetchGetHandler = <FetchDataType> ( serviceUrl: string, timeOut?: number ) =>
+interface IfetchArgs {
+    serviceUrl: string;
+    timeOut?: number;
+    externalService?: boolean;
+    customHeaders?: Headers;
+}
+
+export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
 {
     const [login] = useContext( LoginContext );
     const [appLanguage] = useContext( AppLanguageContext );
@@ -19,20 +26,26 @@ export const useFetchGetHandler = <FetchDataType> ( serviceUrl: string, timeOut?
     const abortControllerRef = useRef(new AbortController());
 
     useEffect( () => {
-        if( login )
+        if( login && !externalService )
         {
             setAuthToken(login.userSessionToken);
         }
     
         let headers = new Headers();
-        headers.append( 'Accept', 'application/json' );
-        headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
-        headers.append( 'AppLanguage', appLanguage );
-        if ( authToken ) {
-            headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
-            headers.append( 'Authorization', `Bearer ${ authToken }` );
+        if( customHeaders ) {
+            setHeader(customHeaders);
         }
-        setHeader(headers);
+        else
+        {
+            headers.append( 'Accept', 'application/json' );
+            headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
+            headers.append( 'AppLanguage', appLanguage );
+            if ( authToken ) {
+                headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
+                headers.append( 'Authorization', `Bearer ${ authToken }` );
+            }
+            setHeader(headers);
+        }
         // eslint-disable-next-line
     }, [appLanguage,login]);
 
@@ -72,7 +85,7 @@ export const useFetchGetHandler = <FetchDataType> ( serviceUrl: string, timeOut?
     return {Get, Abort};
 }
 
-export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: string, timeOut?: number ) =>
+export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs  ) =>
 {
     const [login] = useContext( LoginContext );
     const [appLanguage] = useContext( AppLanguageContext );
@@ -81,22 +94,29 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( serviceUrl: str
     const abortControllerRef = useRef(new AbortController());
 
     useEffect( () => {
-        if( login )
+        if( login && !externalService )
         {
             setAuthToken(login.userSessionToken);
         }
     
         let headers = new Headers();
-        headers.append( 'Accept', 'application/json' );
-        headers.append( 'Access-Control-Allow-Headers', 'Content-Type' );
-        headers.append( 'Content-Type', 'application/json' );
-        headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
-        headers.append( 'AppLanguage', appLanguage );
-        if ( authToken ) {
-            headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
-            headers.append( 'Authorization', `Bearer ${ authToken }` );
+        if(customHeaders)
+        {
+            setHeader(customHeaders);
         }
-        setHeader(headers);
+        else
+        {
+            headers.append( 'Accept', 'application/json' );
+            headers.append( 'Access-Control-Allow-Headers', 'Content-Type' );
+            headers.append( 'Content-Type', 'application/json' );
+            headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
+            headers.append( 'AppLanguage', appLanguage );
+            if ( authToken ) {
+                headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
+                headers.append( 'Authorization', `Bearer ${ authToken }` );
+            }
+            setHeader(headers);
+        }
         // eslint-disable-next-line
     }, [appLanguage,login]);
 

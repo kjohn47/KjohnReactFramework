@@ -6,8 +6,8 @@ import { AppLanguage } from "../../common/context/appContextEnums";
 
 export const useNotificationHandler = ( IsMenu: boolean ) => {
     //const [isMenuQuery] = useState<string>(IsMenu ? "?ismenu=true" : "");
-    //const GetData = useFetchGetHandler<INotifications>(AvailableServices.Notifications);
-    //const PostData = useFetchPostHandler<INotificationPostBody, INotifications>(AvailableServices.Notifications);
+    //const GetData = useFetchGetHandler<INotifications>( { serviceUrl: AvailableServices.Notifications } );
+    //const PostData = useFetchPostHandler<INotificationPostBody, INotifications>( { serviceUrl: AvailableServices.Notifications } );
 
     const NotificationHandler: ServiceType<INotificationRequest, INotifications> = async ( { serviceRequest, serviceResponse } ) => {
         const defaultResponse = serviceResponse ? serviceResponse : {
