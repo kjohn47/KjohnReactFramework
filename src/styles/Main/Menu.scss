@@ -186,7 +186,6 @@
   }
 
   .menuItemColSel {
-      border: 1px solid;
       border-radius: 4px 4px 10px 10px;
       box-sizing: border-box;
   }
@@ -200,9 +199,10 @@
     box-sizing: border-box;
     text-align: center;
     outline: 0;
+    border: 1px solid transparent;
     &:hover {
-        border: 1px solid ;
         border-radius: 4px 4px 10px 10px;
+        transition: background-color 0.3s ease;
     }    
 
     .menuSpan {
@@ -338,10 +338,11 @@
         display: inline-block;        
         height: 100%;
         outline: 0;
+        border: 1px solid transparent;
         &:hover {
             box-sizing: border-box;
-            border: 1px solid ;
             border-radius: 4px 4px 10px 10px;
+            transition: background-color 0.3s ease;
         }
     }
   }
