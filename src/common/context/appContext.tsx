@@ -24,7 +24,8 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
     const changeAppConfig = ( action: IContextAction ) => new Promise<void | IServiceError>( ( resolve ) => {
         switch ( action.type ) {
             case ContextActions.ChangeLanguage: {
-                if ( action.payload.globalLanguage !== undefined ) {   
+                if ( action.payload.globalLanguage !== undefined ) {
+
                     let globalLanguage: string = action.payload.globalLanguage.toString();
                     if ( currentUser )
                         setCurrentUser( { type: LoginActions.UpdateUserLanguage, userLanguage: action.payload.globalLanguage } );
@@ -32,6 +33,10 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                         setLastSelectedLanguage( action.payload.globalLanguage );
 
                     if ( currentAppContext.translations === {} || currentAppContext.translations[ globalLanguage ] === undefined ) {
+                        setCurrentAppContext({
+                            ...currentAppContext,
+                            loadingTranslation: true
+                        })
                         resolve(
                             getTranslation.Get( `/${ globalLanguage }` )
                                 .then( data => 
@@ -40,15 +45,20 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                                         translations: {
                                             ...currentAppContext.translations,
                                             [globalLanguage]: data as ITranslation
-                                        }
+                                        },
+                                        loadingTranslation: false
                                     } )
                                 )
                                 .then(() => 
                                     setAppLanguage(globalLanguage as AppLanguage)
                                 )
-                                .catch( () =>
-                                    setAppLanguage(globalLanguage as AppLanguage)
-                                ) );
+                                .catch( () => {
+                                    setCurrentAppContext( {
+                                        ...currentAppContext,
+                                        loadingTranslation: false
+                                    })
+                                    setAppLanguage(globalLanguage as AppLanguage) }
+                                ) )
                     }
                     else {
                        setAppLanguage(globalLanguage as AppLanguage);
