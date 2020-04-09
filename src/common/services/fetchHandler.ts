@@ -44,6 +44,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
     const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
     const abortControllerRef = useRef(new AbortController());
+    const timeOutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
     useEffect( () => {
         if( login && !externalService )
@@ -72,7 +73,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
         abortControllerRef.current = new AbortController();
         if( timeOut && timeOut > 0 )
         {
-            setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
+            timeOutRef.current = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
         }
 
         resolve(
@@ -83,7 +84,12 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
                 cache: 'default',
                 signal: abortControllerRef.current.signal
             } )
-                .then( handleErrors )
+                .then( (r: Response) => {
+                    if( timeOutRef.current !== undefined ) {
+                        clearTimeout(timeOutRef.current);
+                        timeOutRef.current = undefined;
+                    }
+                    return handleErrors(r); })
                 .then( ( r: Response ) => r.json() )
                 .then( ( data: FetchDataType | IServiceError ) => data )
         );
@@ -103,6 +109,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
     const abortControllerRef = useRef(new AbortController());
+    const timeOutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
     useEffect( () => {
         if( login && !externalService )
@@ -133,7 +140,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
             abortControllerRef.current = new AbortController();
             if( timeOut && timeOut > 0 )
             {
-                setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
+                timeOutRef.current = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
             resolve(
                 fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
@@ -144,7 +151,12 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
                     body: JSON.stringify( request ),
                     signal: abortControllerRef.current.signal
                 } )
-                    .then( handleErrors )
+                    .then( (r: Response) => {
+                        if( timeOutRef.current !== undefined ) {
+                            clearTimeout(timeOutRef.current);
+                            timeOutRef.current = undefined;
+                        }
+                        return handleErrors(r); })
                     .then( ( r: Response ) => r.json() )
                     .then( ( data: FetchDataOut | IServiceError ) => data )
             );
@@ -154,7 +166,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
             abortControllerRef.current = new AbortController();
             if( timeOut && timeOut > 0 )
             {
-                setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
+                timeOutRef.current = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
             resolve(
                 fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
@@ -165,7 +177,12 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
                     body: JSON.stringify( request ),
                     signal: abortControllerRef.current.signal
                 })
-                    .then( handleErrors )
+                    .then( (r: Response) => {
+                        if( timeOutRef.current !== undefined ) {
+                            clearTimeout(timeOutRef.current);
+                            timeOutRef.current = undefined;
+                        }
+                        return handleErrors(r); })
                     .then( ( r: Response ) => r.json() )
                     .then( ( data: FetchDataOut | IServiceError ) => data )
             );
@@ -175,7 +192,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
             abortControllerRef.current = new AbortController();
             if( timeOut && timeOut > 0 )
             {
-                setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
+                timeOutRef.current = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
             resolve(
                 fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
@@ -186,7 +203,12 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
                     body: JSON.stringify( request ),
                     signal: abortControllerRef.current.signal
                 } )
-                    .then( handleErrors )
+                    .then( (r: Response) => {
+                        if( timeOutRef.current !== undefined ) {
+                            clearTimeout(timeOutRef.current);
+                            timeOutRef.current = undefined;
+                        }
+                        return handleErrors(r); })
                     .then( ( r: Response ) => r.json() )
                     .then( ( data: FetchDataOut | IServiceError ) => data )
             );
