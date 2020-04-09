@@ -81,7 +81,7 @@ export function useServiceCaller<IServiceRequest, IServiceResponse> ( service: S
 
 const callService = async <IServiceRequest, IServiceResponse> ( service: ServiceType<IServiceRequest, IServiceResponse>, context: IContext, serviceRequest?: IServiceRequest, serviceResponse?: IServiceResponse ) => {
     return new Promise<IServiceResponse | IServiceError>( ( resolve ) => {
-        resolve( service( context, serviceRequest, serviceResponse ) );
+        resolve( service( { context, serviceRequest, serviceResponse } ) );
     } ).then( ( response: IServiceResponse | IServiceError ) => {
         if ( response === null || response === undefined ) {
             throw new Error( "Empty data from server" );

@@ -9,8 +9,8 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
     //const GetData = useFetchGetHandler<INotifications>(AvailableServices.Notifications);
     //const PostData = useFetchPostHandler<INotificationPostBody, INotifications>(AvailableServices.Notifications);
 
-    const NotificationHandler: ServiceType<INotificationRequest, INotifications> = async ( context, request, response ) => {
-        const defaultResponse = response ? response : {
+    const NotificationHandler: ServiceType<INotificationRequest, INotifications> = async ( { serviceRequest, serviceResponse } ) => {
+        const defaultResponse = serviceResponse ? serviceResponse : {
             From: "",
             To: "",
             OlderUnreadCount: 0,
@@ -18,8 +18,8 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
             Notifications: []
         };
 
-        if(request) {
-            switch(request.Type) {
+        if(serviceRequest) {
+            switch(serviceRequest.Type) {
                 case NotificationRequestType.Get: {
                     //return GetData(`${NotificationEndpoints.GetData}${isMenuQuery}`);
                     const notDate = new Date();
@@ -100,9 +100,9 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     //return PostData.Post({ID: request.ID, IsMenu: IsMenu}, `${NotificationEndpoints.Delete}`);
                     return delayedPromise(1000).then(() => {
                         return {...defaultResponse,
-                            UnreadCount: defaultResponse.Notifications.find( n => request.ID && ( n.ID === request.ID && !n.IsViewed )) ? defaultResponse.UnreadCount - 1 : defaultResponse.UnreadCount,
+                            UnreadCount: defaultResponse.Notifications.find( n => serviceRequest.ID && ( n.ID === serviceRequest.ID && !n.IsViewed )) ? defaultResponse.UnreadCount - 1 : defaultResponse.UnreadCount,
                             Notifications: [
-                                ...defaultResponse.Notifications.filter( (n) => n.ID !== request.ID )
+                                ...defaultResponse.Notifications.filter( (n) => n.ID !== serviceRequest.ID )
                             ]
                         };
                     })
