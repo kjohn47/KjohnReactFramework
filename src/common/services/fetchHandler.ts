@@ -2,6 +2,7 @@ import { IServiceError } from "./serviceCallerInterfaces";
 import { useContext, useState, useEffect, useRef } from "react";
 import { LoginContext, AppLanguageContext } from "../config/appConfig";
 import { apiServerUrl } from "../config/configuration";
+import { AppLanguage } from "../context/appContextEnums";
 
 const handleErrors = ( response: Response ) => {
     if ( !response.ok ) {
@@ -17,12 +18,31 @@ interface IfetchArgs {
     customHeaders?: Headers;
 }
 
+const getHeaders = ( language: AppLanguage, token?: string, isPost?: boolean ) => {
+    let headers = new Headers();
+    headers.append( 'Accept', 'application/json' );
+    headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
+    headers.append( 'AppLanguage', language );
+    
+    if( isPost )
+    {
+        headers.append( 'Access-Control-Allow-Headers', 'Content-Type' );
+        headers.append( 'Content-Type', 'application/json' );
+    }
+
+    if ( token ) {
+        headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
+        headers.append( 'Authorization', `Bearer ${ token }` );
+    }
+    return headers;
+}
+
 export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
 {
     const [login] = useContext( LoginContext );
     const [appLanguage] = useContext( AppLanguageContext );
-    const [authToken, setAuthToken] = useState<string | undefined>(undefined);
-    const [header, setHeader] = useState<Headers>();
+    const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
+    const [header, setHeader] = useState<Headers>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
     const abortControllerRef = useRef(new AbortController());
 
     useEffect( () => {
@@ -30,24 +50,15 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
         {
             setAuthToken(login.userSessionToken);
         }
-    
-        let headers = new Headers();
         if( customHeaders ) {
             setHeader(customHeaders);
         }
         else
         {
-            headers.append( 'Accept', 'application/json' );
-            headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
-            headers.append( 'AppLanguage', appLanguage );
-            if ( authToken ) {
-                headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
-                headers.append( 'Authorization', `Bearer ${ authToken }` );
-            }
-            setHeader(headers);
+            setHeader(getHeaders(appLanguage, authToken));
         }
         // eslint-disable-next-line
-    }, [appLanguage,login]);
+    }, [appLanguage, login, authToken]);
 
     useEffect( () => {
         abortControllerRef.current = new AbortController();
@@ -65,7 +76,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
         }
 
         resolve(
-            fetch( apiServerUrl + serviceUrl + query, {
+            fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
                 method: 'GET',
                 headers: header,
                 mode: 'cors',
@@ -89,8 +100,8 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
 {
     const [login] = useContext( LoginContext );
     const [appLanguage] = useContext( AppLanguageContext );
-    const [authToken, setAuthToken] = useState<string | undefined>(undefined);
-    const [header, setHeader] = useState<Headers>();
+    const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
+    const [header, setHeader] = useState<Headers>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
     const abortControllerRef = useRef(new AbortController());
 
     useEffect( () => {
@@ -98,27 +109,17 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
         {
             setAuthToken(login.userSessionToken);
         }
-    
-        let headers = new Headers();
+
         if(customHeaders)
         {
             setHeader(customHeaders);
         }
         else
         {
-            headers.append( 'Accept', 'application/json' );
-            headers.append( 'Access-Control-Allow-Headers', 'Content-Type' );
-            headers.append( 'Content-Type', 'application/json' );
-            headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
-            headers.append( 'AppLanguage', appLanguage );
-            if ( authToken ) {
-                headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
-                headers.append( 'Authorization', `Bearer ${ authToken }` );
-            }
-            setHeader(headers);
+            setHeader( getHeaders( appLanguage, authToken, true ) );
         }
         // eslint-disable-next-line
-    }, [appLanguage,login]);
+    }, [appLanguage,login, authToken]);
 
     useEffect( () => {
         abortControllerRef.current = new AbortController();
@@ -135,7 +136,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
                 setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
             resolve(
-                fetch( apiServerUrl + serviceUrl + query, {
+                fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
                     method: 'POST',
                     headers: header,
                     mode: 'cors',
@@ -156,7 +157,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
                 setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
             resolve(
-                fetch( apiServerUrl + serviceUrl + query, {
+                fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
                     method: 'PUT',
                     headers: header,
                     mode: 'cors',
@@ -177,7 +178,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
                 setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
             resolve(
-                fetch( apiServerUrl + serviceUrl + query, {
+                fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
                     method: 'DELETE',
                     headers: header,
                     mode: 'cors',

@@ -9,11 +9,17 @@ import { AvailableServices } from "../services/servicesEnums";
 import { useFetchGetHandler } from "../services/fetchHandler";
 import { IServiceError } from "../services/serviceCallerInterfaces";
 
+const translationHeaders = () => {
+    let headers = new Headers();
+    headers.append( 'Accept', 'application/json' );
+    return headers;
+}
+
 export const useAppContext: ( initialContext: IAppContext ) => AppContextType = ( initialContext ) => {
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
     const [ currentUser, setCurrentUser ] = useContext( LoginContext );
     const setAppLanguage = useContext( AppLanguageContext )[1];
-    const getTranslation = useFetchGetHandler<ITranslation>( { serviceUrl: `${ AvailableServices.Translation }` } );
+    const getTranslation = useFetchGetHandler<ITranslation>( { serviceUrl: `${ AvailableServices.Translation }`, customHeaders: translationHeaders() } );
 
     const changeAppConfig = ( action: IContextAction ) => new Promise<void | IServiceError>( ( resolve ) => {
         switch ( action.type ) {

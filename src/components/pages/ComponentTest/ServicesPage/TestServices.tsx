@@ -51,7 +51,7 @@ const TestServices: React.FC = () => {
     <hr />
     <Loader isLoading={ TestServices.AbortSampleLoading } withoutText>
       <div className="center_menu_button">
-        <WithTooltip toolTipText={ "Call service that returns aborts" } toolTipPosition={ ToolTipPosition.Bottom } >
+        <WithTooltip toolTipText={ "Call service that will be aborted" } toolTipPosition={ ToolTipPosition.Bottom } >
           <Button className="button_width" onClick={ () => { TestServices.AbortSample() } } buttonType={ ButtonTypes.Information } >
             { "Call Abort" }
           </Button>
