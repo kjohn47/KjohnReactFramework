@@ -6,8 +6,8 @@ interface IInputProps {
     className?: string;    
     regexValidation?: AppRegex;
     allowOnlyRegex?: boolean;
-    onChange?:( output: [ string, string, boolean ] ) => void;
-    onBlur?:( output: [ string, string, boolean ] ) => void;
+    onChange?:( output: { text: string, name: string, isValid: boolean } ) => void;
+    onBlur?:( output:  { text: string, name: string, isValid: boolean } ) => void;
     externalIsValid?: boolean;
     externalValidated?: boolean;
     validText?: string;
@@ -17,11 +17,13 @@ interface IInputProps {
     notEmpty?: boolean;
     validateEmail?: boolean;
     lenght?: number;
+    initialText?: string;
+    balloonValidText?: boolean;
 }
 
 const InputText: React.FC<IInputProps> = ( props ) => 
 {    
-    const [ value, setValue ] = useState<string>( "" );
+    const [ value, setValue ] = useState<string>( props.initialText ? props.initialText : "" );
     const [ [ valid, validated ], setValidation ] = useState< [boolean, boolean ] >( [ false, false ] );    
 
     const validate: ( eventText: string ) => [ string, boolean ] = ( eventText ) => {
@@ -64,7 +66,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
 
         if( props.onChange !== undefined )
         {
-            props.onChange( [ text, props.name, isValid ] );
+            props.onChange( { text, name: props.name, isValid } );
         }
     }
 
@@ -76,7 +78,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
 
         if( props.onBlur !== undefined )
         {
-            props.onBlur( [ text, props.name, isValid ] );
+            props.onBlur( { text, name: props.name, isValid } );
         }
     }
 
@@ -99,8 +101,8 @@ const InputText: React.FC<IInputProps> = ( props ) =>
                 maxLength = { props.lenght }
                 placeholder = { props.placeHolder }
             />
-            { props.validText && inputValid && <div className = "inputTextValidation inputTextValidationValid">{ props.validText }</div> }
-            { props.invalidText && inputInvalid && <div className = "inputTextValidation inputTextValidationInvalid">{ props.invalidText }</div> }
+            { props.validText && inputValid && <div className = { props.balloonValidText ? ( "inputTextValidationBalloon inputTextValidBalloon" ) : ( "inputTextValidation inputTextValidationValid" )}>{ props.validText }</div> }
+            { props.invalidText && inputInvalid && <div className = { props.balloonValidText ? ( "inputTextValidationBalloon inputTextInvalidBalloon" ) : ("inputTextValidation inputTextValidationInvalid")}>{ props.invalidText }</div> }
         </div>
     )
 }

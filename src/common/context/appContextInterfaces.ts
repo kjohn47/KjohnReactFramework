@@ -19,6 +19,7 @@ export interface IAppContext {
     adminOptions: boolean;
     globalTheme: AppGlobalTheme;
     translations: ITranslations;
+    loadingTranslation?: boolean;
 }
 
 export type LoadingType = [ boolean, React.Dispatch<React.SetStateAction<boolean>> ];

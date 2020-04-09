@@ -36,6 +36,7 @@
         right: 5px;
       }
       .NotificationsDrop {
+        animation: slideMenu 0.4s ease;
         position: absolute;
         padding-top: 5px;
         padding-Bottom: 5px;
@@ -103,6 +104,7 @@
   }
 
   .loginMenuDrop {
+    animation: slideMenu 0.4s ease;
     text-align: left;
     min-width: 320px;
     min-height: 180px;
@@ -130,6 +132,7 @@
   }
 
   .loginMenuCollapsed {
+    animation: slideMenu 0.4s ease;
     margin-top: 5px;
     text-align: left;
     border-radius: 20px;
@@ -183,7 +186,6 @@
   }
 
   .menuItemColSel {
-      border: 1px solid;
       border-radius: 4px 4px 10px 10px;
       box-sizing: border-box;
   }
@@ -197,9 +199,10 @@
     box-sizing: border-box;
     text-align: center;
     outline: 0;
+    border: 1px solid transparent;
     &:hover {
-        border: 1px solid ;
         border-radius: 4px 4px 10px 10px;
+        transition: background-color 0.3s ease;
     }    
 
     .menuSpan {
@@ -224,6 +227,7 @@
   .collapsedMenuGroup {
     text-align: left;
     border-radius: 20px;
+    animation: slideMenu 0.4s ease;
     .collapsedMenuItem {
       min-height: 45px;
       box-sizing: border-box;
@@ -245,6 +249,7 @@
 
     .collapsedMenuItemSelected {
       .collapsedSubMenuGroup {
+        animation: growMenu 0.4s ease;
         margin-bottom: 10px;
         border-radius: 10px;
         margin-right: 10px;
@@ -333,15 +338,17 @@
         display: inline-block;        
         height: 100%;
         outline: 0;
+        border: 1px solid transparent;
         &:hover {
             box-sizing: border-box;
-            border: 1px solid ;
             border-radius: 4px 4px 10px 10px;
+            transition: background-color 0.3s ease;
         }
     }
   }
 
   .subMenuDrop {
+    animation: slideMenu 0.4s ease;
     min-width: 150px;
     border-radius: 6px;
     position: absolute;
@@ -388,6 +395,28 @@
     min-width: 45px;
     &:after {
         right: 15px; 
+    }
+  }
+
+  @keyframes slideMenu {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
+
+  @keyframes growMenu {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scaleY(0.5)
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1)
     }
   }
 }

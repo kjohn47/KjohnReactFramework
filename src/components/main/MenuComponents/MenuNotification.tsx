@@ -6,7 +6,7 @@ import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
 import { AppContext, AppLanguageContext } from '../../../common/config/appConfig';
 import { AppGlobalTheme, AppLanguage } from '../../../common/context/appContextEnums';
 import useTranslation from '../../../common/context/pageText/getTranslation';
-import { useNotificationService } from '../../../Services/NotificationServices';
+import { useNotificationService } from '../../../Services/Notifications/NotificationServices';
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/DotsLoader';
 
 const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference, Route}) => {
@@ -24,7 +24,8 @@ const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference,
         }
         else 
         {
-            setOpen( true );
+            if( !NotificationsService.Loading )
+                setOpen( true );
         }
     }
 
