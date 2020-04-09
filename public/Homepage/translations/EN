@@ -48,9 +48,9 @@
     "_loginform": {
         "#(Username)": "Username",
         "#(Password)": "Password",
-        "#(LoginButton)": "Sign In",
+        "#(LoginButton)": "SignIn",
         "#(LoginDrop)": "Login",
-        "#(NewLogin)": "Sign Up"
+        "#(NewLogin)": "SignUp"
     },
     "_notificationMenu": {
         "#(Tooltip)": "Notifications",

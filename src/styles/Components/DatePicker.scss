@@ -54,9 +54,13 @@
                     border: solid 2px;
                     border-radius: 10px 0 0 10px;
                     top: 28px;
+                    animation: openDatePickerSelector 0.3s ease;
                     .DatePickerSelectorField {
                         box-sizing: border-box;
                         padding: 4px 10px;
+                        &:hover {
+                            transition: background-color 0.3s ease;
+                          }
                     }
                 }
             }
@@ -128,6 +132,7 @@
         left: 5%;
         top: 32px;
         z-index: 10;
+        animation: openDatePickerSelector 0.3s ease;
         .DatePickerRow {
             .DatePickerHeader{
                 .DatePickerSelector {
@@ -137,4 +142,14 @@
             }
         }
     }
+    @keyframes openDatePickerSelector {
+        0% {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+      }
 }

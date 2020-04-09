@@ -15,7 +15,7 @@
     will-change: transform;
     border-radius: 50%;
     position: absolute;
-    animation: grow 1s ease-in-out infinite alternate;
+    animation: growDots 1s ease-in-out infinite alternate;
 
     &.ball1{
         left:0;
@@ -32,7 +32,7 @@
     }
     }
 
-    @keyframes grow{
+    @keyframes growDots{
         to{
             transform: translateX(-50%) scale(0);
         }
