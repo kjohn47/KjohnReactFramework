@@ -8,7 +8,6 @@ import { ITranslation } from "./pageText/pageTranslationInterfaces";
 import { AvailableServices } from "../services/servicesEnums";
 import { useFetchGetHandler } from "../services/fetchHandler";
 import { IServiceError } from "../services/serviceCallerInterfaces";
-import { delayedPromise } from "../functions/misc";
 
 const translationHeaders = () => {
     let headers = new Headers();
@@ -39,7 +38,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                             loadingTranslation: true
                         })
                         resolve(
-                            delayedPromise(2000).then( () => getTranslation.Get( `/${ globalLanguage }` )
+                            getTranslation.Get( `/${ globalLanguage }` )
                                 .then( data => 
                                     setCurrentAppContext( {
                                         ...currentAppContext,
@@ -59,7 +58,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                                         loadingTranslation: false
                                     })
                                     setAppLanguage(globalLanguage as AppLanguage) }
-                                ) ) )
+                                ) )
                     }
                     else {
                        setAppLanguage(globalLanguage as AppLanguage);
