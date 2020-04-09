@@ -78,7 +78,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       <Column full={ ColumnNumber.C1 } medium={ ColumnNumber.C2 } tablet={ ColumnNumber.C2 } reference={ langMenuRef }>
         <div style={{textAlign:"right"}}>
           { appContext.loadingTranslation ? 
-            <div style={{display:"inline-block", paddingTop:"5px", marginRight:"-5%"}}>
+            <div style={{display:"inline-block", paddingTop:"5px", marginLeft:"50%"}}>
               <DotsLoader Color = {DotsLoaderColor.White} Size = {DotsLoaderSize.Medium} DotsNumber={DotsLoaderNrBall.One}/>
             </div>:
             <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
