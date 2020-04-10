@@ -44,7 +44,6 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
     const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
     const abortControllerRef = useRef(new AbortController());
-    const timeOutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
     useEffect( () => {
         if( login && !externalService )
@@ -70,28 +69,27 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
     }, [])
 
     const Get = ( query: string = "" ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
-        abortControllerRef.current = new AbortController();
-        if( timeOut && timeOut > 0 )
-        {
-            timeOutRef.current = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
+        let internalabortController = new AbortController();
+        let timeout: NodeJS.Timeout | undefined = undefined;
+        if( timeOut && timeOut > 0 ) {
+            timeout = setTimeout( () => { internalabortController.abort() }, timeOut);
         }
-
         resolve(
             fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
                 method: 'GET',
                 headers: header,
                 mode: 'cors',
                 cache: 'default',
-                signal: abortControllerRef.current.signal
+                signal: timeOut && timeOut > 0 ? internalabortController.signal : abortControllerRef.current.signal
             } )
-                .then( (r: Response) => {
-                    if( timeOutRef.current !== undefined ) {
-                        clearTimeout(timeOutRef.current);
-                        timeOutRef.current = undefined;
-                    }
-                    return handleErrors(r); })
-                .then( ( r: Response ) => r.json() )
-                .then( ( data: FetchDataType | IServiceError ) => data )
+            .then( (r: Response) => {
+                if( timeout !== undefined ) {
+                    clearTimeout(timeout);
+                    timeout = undefined;
+                }
+                return handleErrors(r); })
+            .then( ( r: Response ) => r.json() )
+            .then( ( data: FetchDataType | IServiceError ) => data )
         );
     });
 
@@ -109,7 +107,6 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
     const abortControllerRef = useRef(new AbortController());
-    const timeOutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
     useEffect( () => {
         if( login && !externalService )
@@ -136,87 +133,41 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
         // eslint-disable-next-line
     }, [])
 
-        const Post = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
-            abortControllerRef.current = new AbortController();
-            if( timeOut && timeOut > 0 )
-            {
-                timeOutRef.current = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
-            }
-            resolve(
-                fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
-                    method: 'POST',
-                    headers: header,
-                    mode: 'cors',
-                    cache: 'no-cache',
-                    body: JSON.stringify( request ),
-                    signal: abortControllerRef.current.signal
-                } )
-                    .then( (r: Response) => {
-                        if( timeOutRef.current !== undefined ) {
-                            clearTimeout(timeOutRef.current);
-                            timeOutRef.current = undefined;
-                        }
-                        return handleErrors(r); })
-                    .then( ( r: Response ) => r.json() )
-                    .then( ( data: FetchDataOut | IServiceError ) => data )
-            );
-        });
+    const ExecuteFetch = ( method: string, request: FetchDataIn, query: string ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
+        let internalabortController = new AbortController();
+        let timeout: NodeJS.Timeout | undefined = undefined;
+        if( timeOut && timeOut > 0 ) {
+            timeout = setTimeout( () => { internalabortController.abort() }, timeOut);
+        }
+        resolve(
+            fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
+                method: method,
+                headers: header,
+                mode: 'cors',
+                cache: 'no-cache',
+                body: JSON.stringify( request ),
+                signal: timeOut && timeOut > 0 ? internalabortController.signal : abortControllerRef.current.signal
+            } )
+            .then( (r: Response) => {
+                if( timeout !== undefined ) {
+                    clearTimeout(timeout);
+                    timeout = undefined;
+                }
+                return handleErrors(r); })
+            .then( ( r: Response ) => r.json() )
+            .then( ( data: FetchDataOut | IServiceError ) => data )
+        );
+    });
 
-        const Put = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
-            abortControllerRef.current = new AbortController();
-            if( timeOut && timeOut > 0 )
-            {
-                timeOutRef.current = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
-            }
-            resolve(
-                fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
-                    method: 'PUT',
-                    headers: header,
-                    mode: 'cors',
-                    cache: 'no-cache',
-                    body: JSON.stringify( request ),
-                    signal: abortControllerRef.current.signal
-                })
-                    .then( (r: Response) => {
-                        if( timeOutRef.current !== undefined ) {
-                            clearTimeout(timeOutRef.current);
-                            timeOutRef.current = undefined;
-                        }
-                        return handleErrors(r); })
-                    .then( ( r: Response ) => r.json() )
-                    .then( ( data: FetchDataOut | IServiceError ) => data )
-            );
-        });
+    const Post = ( request: FetchDataIn, query: string = "" ) => ExecuteFetch( 'POST', request, query );
 
-        const Delete = ( request: FetchDataIn, query: string = "" ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
-            abortControllerRef.current = new AbortController();
-            if( timeOut && timeOut > 0 )
-            {
-                timeOutRef.current = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
-            }
-            resolve(
-                fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
-                    method: 'DELETE',
-                    headers: header,
-                    mode: 'cors',
-                    cache: 'no-cache',
-                    body: JSON.stringify( request ),
-                    signal: abortControllerRef.current.signal
-                } )
-                    .then( (r: Response) => {
-                        if( timeOutRef.current !== undefined ) {
-                            clearTimeout(timeOutRef.current);
-                            timeOutRef.current = undefined;
-                        }
-                        return handleErrors(r); })
-                    .then( ( r: Response ) => r.json() )
-                    .then( ( data: FetchDataOut | IServiceError ) => data )
-            );
-        });
+    const Put = ( request: FetchDataIn, query: string = "" ) => ExecuteFetch( 'PUT', request, query );
+
+    const Delete = ( request: FetchDataIn, query: string = "" ) => ExecuteFetch( 'DELETE', request, query );
         
-        const Abort = () => {
-                abortControllerRef.current.abort();
-            }
+    const Abort = () => {
+            abortControllerRef.current.abort();
+    }
 
     return {Post, Put, Delete, Abort};
 }
