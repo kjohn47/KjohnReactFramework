@@ -7,7 +7,7 @@ import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = () => {
     const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>( { serviceUrl: "InexistentService404" });
-    const externalService = useFetchGetHandler<ITestExternalServiceResponse>( { serviceUrl: "https://jsonplaceholder.typicode.com/posts", externalService: true, timeOut: 3000 } );
+    const externalService = useFetchGetHandler<ITestExternalServiceResponse>( { serviceUrl: "https://jsonplaceholder.typicode.com/posts", externalService: true, timeOut: 2000 } );
 
     const getData: ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = async ( { context, serviceRequest } ) => {
         if (serviceRequest)
