@@ -72,10 +72,17 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
     }, [])
 
     const Get = ( query: string = "" ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
-        let internalabortController = new AbortController();
+        let timeOutabortController = new AbortController();
         let timeout: NodeJS.Timeout | undefined = undefined;
+        let unmountListener: NodeJS.Timeout | undefined = undefined;
         if( timeOut && timeOut > 0 ) {
-            timeout = setTimeout( () => { internalabortController.abort() }, timeOut);
+            timeout = setTimeout( () => { timeOutabortController.abort() }, timeOut);
+            unmountListener = setInterval( () => {
+                if( abortControllerRef.current.signal.aborted && !timeOutabortController.signal.aborted)
+                {
+                    timeOutabortController.abort();
+                }
+            }, 200 );
         }
         resolve(
             fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
@@ -83,20 +90,24 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
                 headers: header,
                 mode: 'cors',
                 cache: 'default',
-                signal: timeOut && timeOut > 0 ? internalabortController.signal : abortControllerRef.current.signal
+                signal: timeOut && timeOut > 0 ? timeOutabortController.signal : abortControllerRef.current.signal
             } )
-            .then( (r: Response) => {
-                if( timeout !== undefined ) {
-                    clearTimeout(timeout);
-                    timeout = undefined;
-                }
-                return handleErrors(r); })
+            .then( handleErrors )
             .then( ( r: Response ) => r.json() )
             .then( ( data: FetchDataType | IServiceError ) => data )
             .finally( () => {
                 if(abortControllerRef.current.signal.aborted && !componentUnmountedRef.current)
                 {
                     abortControllerRef.current = new AbortController();
+                }
+                if( timeout !== undefined ) {
+                    clearTimeout(timeout);
+                    timeout = undefined;
+                }
+                if( unmountListener !== undefined )
+                {
+                    clearInterval(unmountListener);
+                    unmountListener = undefined;
                 }
             })
         );
@@ -148,8 +159,15 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     const ExecuteFetch = ( method: string, request: FetchDataIn, query: string ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
         let timeOutabortController = new AbortController();
         let timeout: NodeJS.Timeout | undefined = undefined;
+        let unmountListener: NodeJS.Timeout | undefined = undefined;
         if( timeOut && timeOut > 0 ) {
             timeout = setTimeout( () => { timeOutabortController.abort() }, timeOut);
+            unmountListener = setInterval( () => {
+                if( abortControllerRef.current.signal.aborted && !timeOutabortController.signal.aborted)
+                {
+                    timeOutabortController.abort();
+                }
+            }, 200 );
         }
         resolve(
             fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
@@ -160,18 +178,22 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
                 body: JSON.stringify( request ),
                 signal: timeOut && timeOut > 0 ? timeOutabortController.signal : abortControllerRef.current.signal
             } )
-            .then( (r: Response) => {
-                if( timeout !== undefined ) {
-                    clearTimeout(timeout);
-                    timeout = undefined;
-                }
-                return handleErrors(r); })
+            .then( handleErrors )
             .then( ( r: Response ) => r.json() )
             .then( ( data: FetchDataOut | IServiceError ) => data )
             .finally( () => {
                 if(abortControllerRef.current.signal.aborted && !componentUnmountedRef.current)
                 {
                     abortControllerRef.current = new AbortController();
+                }
+                if( timeout !== undefined ) {
+                    clearTimeout(timeout);
+                    timeout = undefined;
+                }
+                if( unmountListener !== undefined )
+                {
+                    clearInterval(unmountListener);
+                    unmountListener = undefined;
                 }
             })
         );
