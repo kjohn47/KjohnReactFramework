@@ -14,7 +14,7 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
     const [appLanguage] = useContext(AppLanguageContext);
     const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
-    const refreshTimerId = useRef<NodeJS.Timeout>();
+    const refreshTimerId = useRef<NodeJS.Timeout | undefined>(undefined);
     const NotificationsService = useNotificationService(true);
 
     const readNotifications = ( updateOld: boolean = false) => {
@@ -46,7 +46,7 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
         document.addEventListener( "mousedown", handleClickOut );
         if( RefreshTime && RefreshTime > 0 )
         {
-            if( !open )
+            if( !open && refreshTimerId.current === undefined )
             {
                 refreshTimerId.current = setInterval( () => {
                     if( !NotificationsService.Loading )
@@ -58,12 +58,14 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
             else
             {
                 refreshTimerId.current && clearInterval(refreshTimerId.current);
+                refreshTimerId.current = undefined;
             }
         }
         // return function to be called when unmounted
         return () => {
             document.removeEventListener( "mousedown", handleClickOut );
             refreshTimerId.current && clearInterval(refreshTimerId.current);
+            refreshTimerId.current = undefined;
         };
         //eslint-disable-next-line
     }, [ open, NotificationsService ] )
