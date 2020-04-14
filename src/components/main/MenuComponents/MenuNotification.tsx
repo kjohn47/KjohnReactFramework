@@ -44,9 +44,17 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
     useEffect( () => {
         // add when mounted
         document.addEventListener( "mousedown", handleClickOut );
+        // return function to be called when unmounted
+        return () => {
+            document.removeEventListener( "mousedown", handleClickOut );
+        };
+        //eslint-disable-next-line
+    }, [ open, NotificationsService ] )
+
+    useEffect( () => {
         if( RefreshTime && RefreshTime > 0 )
         {
-            if( !open && refreshTimerId.current === undefined )
+            if( !open && !refreshTimerId.current )
             {
                 refreshTimerId.current = setInterval( () => {
                     if( !NotificationsService.Loading )
@@ -55,20 +63,20 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
                     }
                 }, RefreshTime );
             }
-            else
+            else if( open )
             {
                 refreshTimerId.current && clearInterval(refreshTimerId.current);
                 refreshTimerId.current = undefined;
             }
         }
-        // return function to be called when unmounted
+    }, [ RefreshTime, open, NotificationsService, refreshTimerId ] )
+
+    useEffect( () => {
         return () => {
-            document.removeEventListener( "mousedown", handleClickOut );
             refreshTimerId.current && clearInterval(refreshTimerId.current);
             refreshTimerId.current = undefined;
         };
-        //eslint-disable-next-line
-    }, [ open, NotificationsService ] )
+    }, [])
 
     const getTooltipColor: () => ToolTipColor = () => {
         switch(appContext.globalTheme) {
