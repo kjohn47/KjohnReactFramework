@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import Badge from '../../common/Badge';
 import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/PageSelector';
@@ -9,11 +9,12 @@ import useTranslation from '../../../common/context/pageText/getTranslation';
 import { useNotificationService } from '../../../Services/Notifications/NotificationServices';
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/DotsLoader';
 
-const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference, Route}) => {
+const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
     const [appContext] = useContext(AppContext);
     const [appLanguage] = useContext(AppLanguageContext);
     const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
+    const refreshTimerId = useRef<NodeJS.Timeout>();
     const NotificationsService = useNotificationService(true);
 
     const readNotifications = ( updateOld: boolean = false) => {
@@ -43,9 +44,26 @@ const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference,
     useEffect( () => {
         // add when mounted
         document.addEventListener( "mousedown", handleClickOut );
+        if( RefreshTime && RefreshTime > 0 )
+        {
+            if( !open )
+            {
+                refreshTimerId.current = setInterval( () => {
+                    if( !NotificationsService.Loading )
+                    {
+                        NotificationsService.GetNotifications();
+                    }
+                }, RefreshTime );
+            }
+            else
+            {
+                refreshTimerId.current && clearInterval(refreshTimerId.current);
+            }
+        }
         // return function to be called when unmounted
         return () => {
             document.removeEventListener( "mousedown", handleClickOut );
+            refreshTimerId.current && clearInterval(refreshTimerId.current);
         };
         //eslint-disable-next-line
     }, [ open, NotificationsService ] )

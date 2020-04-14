@@ -18,7 +18,7 @@ export interface IUserCustomMenu {
     AdminOnly?: boolean;
 }
 
-const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType}> = ( props ) => {
+const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType; NotificationRefreshTime?: number;}> = ( props ) => {
     const [ appContext ] = useContext( AppContext );
     const [ userContext ] = useContext( LoginContext );
     const [ toogle, setToogle ] = useState<boolean>( false );
@@ -126,7 +126,13 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
 
     return (
             <div ref={ userMenuRef }>
-                { props.NotificationsEnabled && props.NotificationsRoute && <MenuNotification reference = {notificationRef} Route= { props.NotificationsRoute ? props.NotificationsRoute : "" }/>}
+                { props.NotificationsEnabled && props.NotificationsRoute && 
+                    <MenuNotification 
+                        reference = {notificationRef} 
+                        Route= { props.NotificationsRoute ? props.NotificationsRoute : "" }
+                        RefreshTime = { props.NotificationRefreshTime }
+                    />
+                }
                 <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogle( !toogle ) }>
                     <span tabIndex={ 0 } className={ ( toogle ? 'menuItemColSel' : '' ) }>
                         { userContext && ( `${ userContext.name } ${ shortName ? `${ userContext.surname.charAt( 0 ) }.` : userContext.surname }` ) }

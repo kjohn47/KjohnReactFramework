@@ -34,6 +34,7 @@ export const pageComponents: IKRFProps = {
     MenuProps: {
         EnableNotifications: true,
         NotificationsRoute: KnownPages.Notifications,
+        NotificationRefreshTime: 30000,
         Brand: "#(krf)",
         MenuNav: [
             {
