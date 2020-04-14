@@ -16,6 +16,7 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
     const [open, setOpen] = useState<boolean>(false);
     const refreshTimerId = useRef<NodeJS.Timeout | undefined>(undefined);
     const NotificationsService = useNotificationService(true);
+    const NotificationsServiceRef = useRef(NotificationsService);
 
     const readNotifications = ( updateOld: boolean = false) => {
         if(open) {
@@ -42,6 +43,20 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
     }
 
     useEffect( () => {
+        return () => {
+            if ( refreshTimerId.current !== undefined )
+            {
+                clearInterval(refreshTimerId.current);
+                refreshTimerId.current = undefined;
+            }
+        };
+    }, [])
+
+    useEffect( () => {
+        NotificationsServiceRef.current = NotificationsService;
+    }, [NotificationsService, NotificationsServiceRef])
+
+    useEffect( () => {
         // add when mounted
         document.addEventListener( "mousedown", handleClickOut );
         // return function to be called when unmounted
@@ -54,10 +69,12 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
     useEffect( () => {
         if( RefreshTime && RefreshTime > 0 )
         {
-            if( !open && refreshTimerId.current === undefined && !NotificationsService.Loading )
+            if( !open && refreshTimerId.current === undefined )
             {
                 refreshTimerId.current = setInterval( () => {
-                        NotificationsService.GetNotifications();
+                    if( !NotificationsServiceRef.current.Loading ) {
+                        NotificationsServiceRef.current.GetNotifications();
+                    }
                 }, RefreshTime );
             }
             else if( open && refreshTimerId.current !== undefined )
@@ -66,17 +83,7 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
                 refreshTimerId.current = undefined;
             }
         }
-    }, [ RefreshTime, open, refreshTimerId, NotificationsService ] )
-
-    useEffect( () => {
-        return () => {
-            if ( refreshTimerId.current !== undefined )
-            {
-                clearInterval(refreshTimerId.current);
-                refreshTimerId.current = undefined;
-            }
-        };
-    }, [])
+    }, [ RefreshTime, open, refreshTimerId, NotificationsServiceRef ] )
 
     const getTooltipColor: () => ToolTipColor = () => {
         switch(appContext.globalTheme) {
