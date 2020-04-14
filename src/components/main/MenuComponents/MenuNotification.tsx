@@ -54,27 +54,27 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
     useEffect( () => {
         if( RefreshTime && RefreshTime > 0 )
         {
-            if( !open && !refreshTimerId.current )
+            if( !open && refreshTimerId.current === undefined && !NotificationsService.Loading )
             {
                 refreshTimerId.current = setInterval( () => {
-                    if( !NotificationsService.Loading )
-                    {
                         NotificationsService.GetNotifications();
-                    }
                 }, RefreshTime );
             }
-            else if( open )
+            else if( open && refreshTimerId.current !== undefined )
             {
-                refreshTimerId.current && clearInterval(refreshTimerId.current);
+                clearInterval(refreshTimerId.current);
                 refreshTimerId.current = undefined;
             }
         }
-    }, [ RefreshTime, open, NotificationsService, refreshTimerId ] )
+    }, [ RefreshTime, open, refreshTimerId, NotificationsService ] )
 
     useEffect( () => {
         return () => {
-            refreshTimerId.current && clearInterval(refreshTimerId.current);
-            refreshTimerId.current = undefined;
+            if ( refreshTimerId.current !== undefined )
+            {
+                clearInterval(refreshTimerId.current);
+                refreshTimerId.current = undefined;
+            }
         };
     }, [])
 
