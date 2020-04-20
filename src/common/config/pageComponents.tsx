@@ -4,7 +4,7 @@ import { IPageHandleProps } from "../../components/main/PageHandler";
 import { IKRFProps } from "../../components/main/KRFApp";
 
 //Insert your routes here:
-const pageRoutes: IPageHandleProps<any> = {
+const pageRoutes: IPageHandleProps = {
     Routes: {
         Home: {
             Component: Test

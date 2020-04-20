@@ -84,7 +84,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
         }
 
         if ( appContext.adminOptions ) {
-            menus.push( { Title: "#(Administracao)", Link: KnownPages.Administration } );
+            menus.push( { Title: "#(Administration)", Link: KnownPages.Administration } );
         }
 
         menus.push( {} );
@@ -116,7 +116,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
                             : null
                         )
                     }
-                    { appContext.adminOptions && <MenuItemMobile Title="#(Administracao)" Link={ KnownPages.Administration } collapseFunc={ () => { setToogle( false ) } } /> }
+                    { appContext.adminOptions && <MenuItemMobile Title="#(Administration)" Link={ KnownPages.Administration } collapseFunc={ () => { setToogle( false ) } } /> }
                     <MenuItemMobile Title="#(Logout)" Action={ () => null } collapseFunc={ () => { setToogle( false ) } } />
                 </Column>
             </Row>

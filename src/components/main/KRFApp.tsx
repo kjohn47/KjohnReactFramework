@@ -8,7 +8,7 @@ import Footer from './Footer';
 import Menu, { IMenuProps } from './Menu';
 
 export interface IKRFProps {
-  Routes: IPageHandleProps<any>;
+  Routes: IPageHandleProps;
   CustomMenuComponent?: React.ComponentType;
   CustomFooterComponent?: React.ComponentType;
   MenuProps?: IMenuProps;

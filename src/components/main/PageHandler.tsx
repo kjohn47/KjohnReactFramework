@@ -8,6 +8,8 @@ import { injectProps, IDictionary, PageType } from "../../common/functions/misc"
 import { withLogin } from "../../common/functions/checkLogin";
 import { getRouteUrlAndQuery } from "../../common/functions/routeHandling";
 import { RouteActions } from "../../common/context/routeContextEnums";
+import UserMenu from "./UserMenu";
+import AdminMenu from "./AdminMenu";
 
 export interface IRoure<TRouteProps> {
     Route: PageType;
@@ -17,12 +19,16 @@ export interface IRoure<TRouteProps> {
     AdminOnly?: boolean;
 }
 
-export interface IPageHandleProps<THomeProps> {
+export interface IStaticRouteComponent<TProps> {
+    Component: React.ComponentType<TProps>;
+    Props?: TProps;
+}
+
+export interface IPageHandleProps {
     Routes: {
-        Home: {
-            Component: React.ComponentType<THomeProps>;
-            Props?: THomeProps;
-        };
+        Home: IStaticRouteComponent<any>;
+        CustomUserMenu?: IStaticRouteComponent<any>;
+        CustomAdminMenu?: IStaticRouteComponent<any>;
         KnownRoutes?: IRoure<any>[];
     };
 }
@@ -38,7 +44,7 @@ const usePageSelector: ( selectedComponent: React.ComponentType | undefined ) =>
     return [ component, setSelectedComponent ]
 }
 
-const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
+const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
     const [ appContext ] = useContext( AppContext );
     const [ routeContext, setRouteContext ] = useContext( RouteContext );
     const [ errorContext, setErrorContext ] = useContext( ErrorContext );
@@ -106,10 +112,17 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                         setOutput( injectProps( Routes.Home.Component, Routes.Home.Props ) );
                     }
                     else if ( selectedPage.toLowerCase() === KnownPages.UserSettings.toLowerCase() ) {
-                        setOutput( withLogin( () => <></> ) ); //user menu component
+                        setOutput( 
+                            withLogin( ( Routes.CustomUserMenu ? 
+                                injectProps( Routes.CustomUserMenu.Component, Routes.CustomUserMenu.Props ) : 
+                                UserMenu ) ) 
+                        );
                     }
                     else if ( appContext.adminOptions && selectedPage.toLowerCase() === KnownPages.Administration.toLowerCase() ) {
-                        setOutput( withLogin( () => <></> ) ); //Administration component
+                        setOutput( 
+                            withLogin( ( Routes.CustomAdminMenu ? 
+                                injectProps( Routes.CustomAdminMenu.Component, Routes.CustomAdminMenu.Props ) :
+                                AdminMenu ), true ) );
                     }
                     else {
                         const route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => {
