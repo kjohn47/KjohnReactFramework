@@ -21,7 +21,6 @@ export const RouteContext = createContext<RouteContextType>( [ initialRouteConfi
 export const LoginContext = createContext<LoginContextType>( [ undefined, () => { } ] );
 
 export const AppProvider: React.FC = ( { children } ) => {
-    const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
     const [ appLanguage, setAppLanguage ] = useState( initialLanguage );
     const [ login, setLogin ] = useLogin( initialLogin );
     return (
@@ -29,8 +28,6 @@ export const AppProvider: React.FC = ( { children } ) => {
                 <LoginContext.Provider value={ [ login, setLogin ] } >
                     <InitializeAppContext 
                         appLanguage = {appLanguage}
-                        firstLoad = {firstLoad}
-                        setFirstLoad = {setFirstLoad}
                     >
                         { children }
                     </InitializeAppContext>
@@ -39,25 +36,26 @@ export const AppProvider: React.FC = ( { children } ) => {
     )
 }
 
-const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>>}> = ( props ) => {    
+const InitializeAppContext: React.FC<{appLanguage: AppLanguage}> = ( props ) => {
+    const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
     const [ appContext, setAppContext ] = useAppContext( initialAppConfig );
     const [ routeContext, setRouteContext ] = useRouteContext( initialRouteConfig );
     const [ error, setError ] = useError( initialError );
     const [ loading, setLoading ] = useState( false );
 
     useEffect( () => {
-        if ( !props.firstLoad ) {
+        if ( !firstLoad ) {
             //// load loken data for first selected language
             Promise.resolve(
                 setAppContext( { type: ContextActions.ChangeLanguage, payload: { globalLanguage: props.appLanguage } } )
             ).finally(
-                () => props.setFirstLoad( true )
+                () => setFirstLoad( true )
             )
         }
         // eslint-disable-next-line
     }, [] );
     return (
-        props.firstLoad ?
+        firstLoad ?
                 <AppContext.Provider value={ [ appContext, setAppContext ] } >
                     <RouteContext.Provider value = { [ routeContext, setRouteContext ] }>
                         <ErrorContext.Provider value={ [ error, setError ] }>
