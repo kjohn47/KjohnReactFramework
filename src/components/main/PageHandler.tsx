@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, Suspense } from "react";
 import { AppContext, ErrorContext, LoadingContext, RouteContext } from "../../common/config/appConfig";
 import { KnownPages } from "../../common/context/routeContextEnums";
 import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
@@ -209,9 +209,11 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
         errorContext
     ] )
     return (
-        <Loader isLoading={ isLoading || ( !routeContext.routeReady && !errorContext.hasError ) } bigLoader paddingTop >
-            { !errorContext.hasError && output ? ( routeContext.routeReady ? output :  null ) : errorContext.hasError ? <ErrorPage /> : null }
-        </Loader>
+        <Suspense fallback = {<Loader isLoading={ true } bigLoader paddingTop withoutText/> } >
+            <Loader isLoading={ isLoading || ( !routeContext.routeReady && !errorContext.hasError ) } bigLoader paddingTop withoutText = { !routeContext.routeReady } >
+                { !errorContext.hasError && output ? ( routeContext.routeReady ? output :  null ) : errorContext.hasError ? <ErrorPage /> : null }
+            </Loader>
+        </Suspense>
     );
 }
 

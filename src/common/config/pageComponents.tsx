@@ -1,7 +1,10 @@
+import {lazy} from 'react';
 import { KnownPages } from "../context/routeContextEnums";
-import Test from "../../components/pages/ComponentTest/Test";
+//import Test from "../../components/pages/ComponentTest/Test";
 import { IPageHandleProps } from "../../components/main/PageHandler";
 import { IKRFProps } from "../../components/main/KRFApp";
+const Test = lazy(() => import("../../components/pages/ComponentTest/Test") );
+
 
 //Insert your routes here:
 const pageRoutes: IPageHandleProps = {
