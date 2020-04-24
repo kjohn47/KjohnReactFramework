@@ -23,11 +23,14 @@ export const LoginContext = createContext<LoginContextType>( [ undefined, () => 
 export const AppProvider: React.FC = ( { children } ) => {
     const [ appLanguage, setAppLanguage ] = useState( initialLanguage );
     const [ login, setLogin ] = useLogin( initialLogin );
+    const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
     return (
             <AppLanguageContext.Provider value = { [ appLanguage, setAppLanguage ] }>
                 <LoginContext.Provider value={ [ login, setLogin ] } >
                     <InitializeAppContext 
                         appLanguage = {appLanguage}
+                        firstLoad = {firstLoad}
+                        setFirstLoad = {setFirstLoad}
                     >
                         { children }
                     </InitializeAppContext>
@@ -36,8 +39,7 @@ export const AppProvider: React.FC = ( { children } ) => {
     )
 }
 
-const InitializeAppContext: React.FC<{appLanguage: AppLanguage}> = ( props ) => {
-    const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
+const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>> }> = ( { appLanguage, firstLoad, setFirstLoad, children } ) => {
     const [ appContext, setAppContext ] = useAppContext( initialAppConfig );
     const [ routeContext, setRouteContext ] = useRouteContext( initialRouteConfig );
     const [ error, setError ] = useError( initialError );
@@ -47,7 +49,7 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage}> = ( props ) => 
         if ( !firstLoad ) {
             //// load loken data for first selected language
             Promise.resolve(
-                setAppContext( { type: ContextActions.ChangeLanguage, payload: { globalLanguage: props.appLanguage } } )
+                setAppContext( { type: ContextActions.ChangeLanguage, payload: { globalLanguage: appLanguage } } )
             ).finally(
                 () => setFirstLoad( true )
             )
@@ -60,7 +62,7 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage}> = ( props ) => 
                     <RouteContext.Provider value = { [ routeContext, setRouteContext ] }>
                         <ErrorContext.Provider value={ [ error, setError ] }>
                             <LoadingContext.Provider value={ [ loading, setLoading ] }>
-                                { props.children }
+                                { children }
                             </LoadingContext.Provider>
                         </ErrorContext.Provider>
                     </RouteContext.Provider >
