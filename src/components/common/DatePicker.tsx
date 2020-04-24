@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { AppRegex } from '../../common/config/regexEnum';
 import useTranslation from '../../common/context/pageText/getTranslation';
 import { scrollToRef } from '../../common/functions/misc';
@@ -85,7 +85,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     }, [ showCalendar, showYearSelector, showMonthSelector ] )
 
     //// Translate tokens
-    const monthTokens = [
+    const monthTokens = useMemo( () => ( [
         getTranslation( "_datePicker", "#(January)" ),
         getTranslation( "_datePicker", "#(February)" ),
         getTranslation( "_datePicker", "#(March)" ),
@@ -98,8 +98,8 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         getTranslation( "_datePicker", "#(October)" ),
         getTranslation( "_datePicker", "#(November)" ),
         getTranslation( "_datePicker", "#(December)" )
-    ];
-    const weekToken = [
+    ] ), [getTranslation] );
+    const weekToken = useMemo( () => ( [
         getTranslation( "_datePicker", "#(Mon)" ),
         getTranslation( "_datePicker", "#(Tue)" ),
         getTranslation( "_datePicker", "#(Wed)" ),
@@ -107,7 +107,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         getTranslation( "_datePicker", "#(Fri)" ),
         getTranslation( "_datePicker", "#(Sat)" ),
         getTranslation( "_datePicker", "#(Sun)" )
-    ];
+    ] ), [getTranslation] );
     //// updates the date and returns on getSelectedDate to parent
     const selectNewDate: ( year: number, month: number, day: number ) => void = ( year, month, day ) => {
         let newDate = new Date( year, month, day );
