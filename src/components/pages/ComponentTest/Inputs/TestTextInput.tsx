@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Row from '../../../common/Row';
 import Column, { ColumnNumber } from '../../../common/Column';
 import WithLabel from '../../../common/WithLabel';
@@ -12,6 +12,10 @@ const TestTextInput: React.FC = () => {
     useEffect(() => {
         console.log("Text 6 changed to: ",text6)
     },[text6])
+
+    const logOutput = useCallback( (textOutput) => {
+        console.log( textOutput );
+    }, [])
 
     return (
     <FieldSet Title="Text Inputs">
@@ -28,8 +32,8 @@ const TestTextInput: React.FC = () => {
                         validText="Valid :)"
                         invalidText="Invalid :("
                         notEmpty={ true }
-                        onChange={ ( Output ) => { console.log( Output ) } }
-                        onBlur={ ( Output ) => { console.log( Output ) } }
+                        onChange={ logOutput }
+                        onBlur={ logOutput }
                         regexValidation={ AppRegex.NumberOnly }
                         allowOnlyRegex
                         placeHolder="Test input box for numbers"
@@ -50,8 +54,8 @@ const TestTextInput: React.FC = () => {
                         validText="Valid :)"
                         invalidText="Invalid :("
                         notEmpty={ true }
-                        onChange={ ( Output ) => { console.log( Output ) } }
-                        onBlur={ ( Output ) => { console.log( Output ) } }
+                        onChange={ logOutput }
+                        onBlur={ logOutput }
                         regexValidation={ AppRegex.TextOnly }
                         allowOnlyRegex
                         placeHolder="Test input box for text"
@@ -72,8 +76,8 @@ const TestTextInput: React.FC = () => {
                         validText="Valid :)"
                         invalidText="Invalid :("
                         notEmpty={ true }
-                        onChange={ ( Output ) => { console.log( Output ) } }
-                        onBlur={ ( Output ) => { console.log( Output ) } }
+                        onChange={ logOutput }
+                        onBlur={ logOutput }
                         regexValidation={ AppRegex.Email }
                         validateEmail
                         allowOnlyRegex
@@ -95,8 +99,8 @@ const TestTextInput: React.FC = () => {
                         validText="Valid :)"
                         invalidText="Invalid :("
                         notEmpty={ true }
-                        onChange={ ( Output ) => { console.log( Output ) } }
-                        onBlur={ ( Output ) => { console.log( Output ) } }
+                        onChange={ logOutput }
+                        onBlur={ logOutput }
                         isPassword
                         placeHolder="Test input box for password"
                     />
@@ -115,8 +119,8 @@ const TestTextInput: React.FC = () => {
                         name="TestInput5"
                         validText="Valid :)"
                         invalidText="Invalid :("
-                        onChange={ ( Output ) => { console.log( Output ) } }
-                        onBlur={ ( Output ) => { console.log( Output ) } }
+                        onChange={ logOutput }
+                        onBlur={ logOutput }
                         regexValidation={ AppRegex.NoSpecialChar }
                         placeHolder="Test input box for text without symbol"
                     />
@@ -135,8 +139,8 @@ const TestTextInput: React.FC = () => {
                         name="TestInput6"
                         validText="Valid :)"
                         invalidText="Invalid :("
-                        onChange={ ( Output ) => { console.log( Output ); setText6(Output.text) } }
-                        onBlur={ ( Output ) => { console.log( Output );  setText6(Output.text) } }
+                        onChange={ ( Output ) => { logOutput( Output ); setText6(Output.text) } }
+                        onBlur={ ( Output ) => { logOutput( Output );  setText6(Output.text) } }
                         initialText = {text6}
                     />
                 </WithLabel>
@@ -154,8 +158,8 @@ const TestTextInput: React.FC = () => {
                         name="TestInput7"
                         validText="Valid :)"
                         invalidText="Invalid :("
-                        onChange={ ( Output ) => { console.log( Output ) } }
-                        onBlur={ ( Output ) => { console.log( Output ) } }
+                        onChange={ logOutput }
+                        onBlur={ logOutput }
                         regexValidation={ AppRegex.NoSpecialChar }
                         placeHolder="Test input box for text without symbol"
                         balloonValidText
