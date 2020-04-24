@@ -208,10 +208,9 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
         routeContext,
         errorContext
     ] )
-
     return (
         <Loader isLoading={ isLoading || ( !routeContext.routeReady && !errorContext.hasError ) } bigLoader paddingTop >
-            { !errorContext.hasError && output ? ( routeContext.routeReady ? output : <></> ) : <ErrorPage /> }
+            { !errorContext.hasError && output ? ( routeContext.routeReady ? output :  null ) : errorContext.hasError ? <ErrorPage /> : null }
         </Loader>
     );
 }
