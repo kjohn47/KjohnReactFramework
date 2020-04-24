@@ -6,12 +6,27 @@ import InputText from '../../../common/InputText';
 import { AppRegex } from '../../../../common/config/regexEnum';
 import FieldSet from '../../../common/FieldSet';
 
-const TestTextInput: React.FC = () => {
+const TestInputWithHook: React.FC = () =>
+{
     const [text6, setText6] = useState<string>("I have some initial text");
 
     useEffect(() => {
         console.log("Text 6 changed to: ",text6)
     },[text6])
+
+
+    return  <InputText
+                name="TestInput6"
+                validText="Valid :)"
+                invalidText="Invalid :("
+                onChange={ ( Output ) => { setText6(Output.text) } }
+                onBlur={ ( Output ) => { setText6(Output.text) } }
+                initialText = {text6}
+            />
+}
+
+const TestTextInput: React.FC = () => {
+
 
     const logOutput = useCallback( (textOutput) => {
         console.log( textOutput );
@@ -135,14 +150,7 @@ const TestTextInput: React.FC = () => {
                 mobile={ ColumnNumber.C20 }
             >
                 <WithLabel htmlFor="TestInput6" text="Test Input with with defaut text">
-                    <InputText
-                        name="TestInput6"
-                        validText="Valid :)"
-                        invalidText="Invalid :("
-                        onChange={ ( Output ) => { logOutput( Output ); setText6(Output.text) } }
-                        onBlur={ ( Output ) => { logOutput( Output );  setText6(Output.text) } }
-                        initialText = {text6}
-                    />
+                    <TestInputWithHook />
                 </WithLabel>
             </Column>
         </Row>
