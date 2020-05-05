@@ -45,7 +45,20 @@ const handleLoader = async <TOutput>( r: Response, setLoadState: React.Dispatch<
                 }
             }
             setLoadState(100);
-            return JSON.parse(new TextDecoder("utf-8").decode(chunksAll)) as TOutput;
+            try
+            {
+                return JSON.parse(new TextDecoder().decode(chunksAll)) as TOutput;
+            }
+            catch
+            {
+                let data: string = "";
+
+                chunksAll.forEach( c => {
+                    data += String.fromCharCode( c );
+                } );
+
+                return JSON.parse(data) as TOutput;
+            }
         }
     }
     return await r.json() as TOutput;
