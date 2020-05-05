@@ -12,54 +12,6 @@ const handleErrors = ( response: Response ) => {
     return response;
 }
 
-const handleLoader = async <TOutput>( r: Response, setLoadState: React.Dispatch<React.SetStateAction<number>> ) => {
-    if( r !== null && r.headers !== null && r.body !== null )
-    {
-        let length = `${r.headers.get('content-length')}`;
-        if( length && length !== null && length !== "" )
-        {
-            const contentLength: number = parseInt(length);
-            const reader = r.body.getReader();
-            let receivedLength = 0;
-            let chunks: number[] = [];
-            while(true) {
-                const {done, value} = await reader.read();
-                if (done) {
-                    break;
-                }
-
-                if( value )
-                {
-                    chunks = [ ...chunks, ...Array.from<number>(value) ];
-                    receivedLength += value.length;
-                    setLoadState( receivedLength < contentLength ? Math.floor( ( receivedLength * 100 ) / contentLength ) : 99 );
-                }
-            }
-
-            let chunksAll = new Uint8Array(chunks.length);
-            chunksAll.set( chunks );
-            chunks = [];
-
-            setLoadState(100);
-            try
-            {
-                return JSON.parse(new TextDecoder().decode(chunksAll)) as TOutput;
-            }
-            catch
-            {
-                let data: string = "";
-
-                chunksAll.forEach( c => {
-                    data += String.fromCharCode( c );
-                } );
-
-                return JSON.parse(data) as TOutput;
-            }
-        }
-    }
-    return await r.json() as TOutput;
-}
-
 interface IfetchArgs {
     serviceUrl: string;
     timeOut?: number;
@@ -325,7 +277,53 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                 signal: abortControllerRef.current.signal
             } )
             .then( handleErrors )
-            .then( async ( r: Response ) => handleLoader<IdownloadDocument>( r, setDownloadProgress ) )
+            .then( async ( r: Response ) => {
+                if( r !== null && r.headers !== null && r.body !== null )
+                {
+                    let length = `${r.headers.get('content-length')}`;
+                    if( length && length !== null && length !== "" )
+                    {
+                        const contentLength: number = parseInt(length);
+                        const reader = r.body.getReader();
+                        let receivedLength = 0;
+                        let chunks: number[] = [];
+                        while(true) {
+                            const {done, value} = await reader.read();
+                            if (done) {
+                                break;
+                            }
+
+                            if( value )
+                            {
+                                chunks = [ ...chunks, ...Array.from<number>(value) ];
+                                receivedLength += value.length;
+                                setDownloadProgress( receivedLength < contentLength ? Math.floor( ( receivedLength * 100 ) / contentLength ) : 99 );
+                            }
+                        }
+
+                        let chunksAll = new Uint8Array(chunks.length);
+                        chunksAll.set( chunks );
+                        chunks = [];
+
+                        setDownloadProgress(100);
+                        try
+                        {
+                            return JSON.parse(new TextDecoder().decode(chunksAll)) as IdownloadDocument;
+                        }
+                        catch
+                        {
+                            let data: string = "";
+
+                            chunksAll.forEach( c => {
+                                data += String.fromCharCode( c );
+                            } );
+
+                            return JSON.parse(data) as IdownloadDocument;
+                        }
+                    }
+                }
+                return await r.json() as IdownloadDocument;
+            } )
             .then( ( data: IdownloadDocument ) => data )
             .catch( ( err: Error ) => (
             {
