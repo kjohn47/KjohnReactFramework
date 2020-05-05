@@ -21,29 +21,25 @@ const handleLoader = async <TOutput>( r: Response, setLoadState: React.Dispatch<
             const contentLength: number = parseInt(length);
             const reader = r.body.getReader();
             let receivedLength = 0;
-            let chunks = [];
+            let chunks: number[] = [];
             while(true) {
                 const {done, value} = await reader.read();
                 if (done) {
                     break;
                 }
 
-                chunks.push(value);
                 if( value )
                 {
+                    chunks = [ ...chunks, ...Array.from<number>(value) ];
                     receivedLength += value.length;
                     setLoadState( receivedLength < contentLength ? Math.floor( ( receivedLength * 100 ) / contentLength ) : 99 );
                 }
             }
-            let chunksAll = new Uint8Array(receivedLength);
-            let position = 0;
-            if(chunks !== undefined)
-            {
-                for(let chunk of chunks as Uint8Array[]) {
-                    chunksAll.set(chunk, position);
-                    position += chunk.length;
-                }
-            }
+
+            let chunksAll = new Uint8Array(chunks.length);
+            chunksAll.set( chunks );
+            chunks = [];
+
             setLoadState(100);
             try
             {
