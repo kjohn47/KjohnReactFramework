@@ -32,4 +32,10 @@ interface IServiceArgs<IServiceRequest, IServiceResponse> {
     serviceResponse?: IServiceResponse
 }
 
+export interface IdownloadDocument extends IServiceError {
+    name: string;
+    extension: string;
+    data: string;
+}
+
 export type ServiceType<IServiceRequest, IServiceResponse> = ( Args: IServiceArgs<IServiceRequest, IServiceResponse> ) => Promise<IServiceResponse | IServiceError>;

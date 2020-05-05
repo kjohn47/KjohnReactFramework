@@ -1,9 +1,8 @@
-import { IServiceError } from "./serviceCallerInterfaces";
+import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
 import { useContext, useState, useEffect, useRef } from "react";
 import { LoginContext, AppLanguageContext } from "../config/appConfig";
 import { apiServerUrl } from "../config/configuration";
 import { AppLanguage } from "../context/appContextEnums";
-import { HexBase64BinaryEncoding } from "crypto";
 
 const handleErrors = ( response: Response ) => {
     if ( !response.ok ) {
@@ -21,12 +20,6 @@ interface IfetchArgs {
 
 interface IdownloadArgs extends IfetchArgs {
     documentPath: string;
-}
-
-export interface IdownloadDocument extends IServiceError {
-    name: string;
-    extension: string;
-    data: HexBase64BinaryEncoding[];
 }
 
 const getHeaders = ( language: AppLanguage, token?: string, isPost?: boolean ) => {
