@@ -3,6 +3,8 @@ import { useServiceCaller } from "../../common/services/serviceCaller";
 import { ITestServiceRequest, ITestServiceResponse, ITestServices, ITestExternalServiceResponse } from "./TestServiceInterfaces";
 import { ErrorCodes } from "../../common/context/appErrorEnums";
 import { TestServiceRequestType } from "./TestServiceEnum";
+import { useDocumentDownloader } from "../../common/services/fetchHandler";
+import { useEffect } from "react";
 
 export const useTestService: () => ITestServices = () => {
     const getData = useTestServiceHandler();
@@ -11,6 +13,19 @@ export const useTestService: () => ITestServices = () => {
     const Sample3 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData } ); 
     const SampleAbort = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, localLoading: true } ); 
     const SampleExternal = useServiceCaller<ITestServiceRequest, ITestExternalServiceResponse>( { service: getData, localLoading: true } ); 
+    const FileDownloader = useDocumentDownloader( {
+        serviceUrl: "http://localhost:3000/pdfFile",
+        documentPath: "",
+        externalService: true,
+        customHeaders: [
+            ["Content-Type", "application/json"],
+            ["Content-Type", "text/plain"]
+        ]
+    } );
+
+    useEffect(() => {
+        console.log("loaded progress: ", FileDownloader.downloadProgress);
+    }, [FileDownloader.downloadProgress])
 
     const SampleService_1 = () => {
         Sample1.serviceHandler({
@@ -18,10 +33,12 @@ export const useTestService: () => ITestServices = () => {
         })
     }
 
-    const SampleService_2 = () => {
+    const SampleService_2 = async () => {
         Sample2.serviceHandler({
             Type: TestServiceRequestType.GetSample_2
         })
+        let file = FileDownloader.download();
+        console.log( await file );
     }
 
     const SampleService_3 = () => {

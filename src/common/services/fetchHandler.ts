@@ -3,6 +3,7 @@ import { useContext, useState, useEffect, useRef } from "react";
 import { LoginContext, AppLanguageContext } from "../config/appConfig";
 import { apiServerUrl } from "../config/configuration";
 import { AppLanguage } from "../context/appContextEnums";
+import { HexBase64BinaryEncoding } from "crypto";
 
 const handleErrors = ( response: Response ) => {
     if ( !response.ok ) {
@@ -11,11 +12,60 @@ const handleErrors = ( response: Response ) => {
     return response;
 }
 
+const handleLoader = async <TOutput>( r: Response, setLoadState: React.Dispatch<React.SetStateAction<number>> ) => {
+    if( r !== null && r.headers !== null && r.body !== null )
+    {
+        let length = `${r.headers.get('content-length')}`;
+        if( length && length !== null && length !== "" )
+        {
+            const contentLength: number = parseInt(length);
+            const reader = r.body.getReader();
+            let receivedLength = 0;
+            let chunks = [];
+            while(true) {
+                const {done, value} = await reader.read();
+                if (done) {
+                    break;
+                }
+
+                chunks.push(value);
+                if( value )
+                {
+                    receivedLength += value.length;
+                    setLoadState( receivedLength < contentLength ? Math.floor( ( receivedLength * 100 ) / contentLength ) : 99 );
+                }
+            }
+            let chunksAll = new Uint8Array(receivedLength);
+            let position = 0;
+            if(chunks !== undefined)
+            {
+                for(let chunk of chunks as Uint8Array[]) {
+                    chunksAll.set(chunk, position);
+                    position += chunk.length;
+                }
+            }
+            setLoadState(100);
+            return JSON.parse(new TextDecoder("utf-8").decode(chunksAll)) as TOutput;
+        }
+    }
+    return await r.json() as TOutput;
+}
+
 interface IfetchArgs {
     serviceUrl: string;
     timeOut?: number;
     externalService?: boolean;
-    customHeaders?: Headers;
+    customHeaders?: Headers | [string, string][];
+}
+
+interface IdownloadArgs extends IfetchArgs {
+    documentPath: string;
+}
+
+export interface IdownloadDocument extends IServiceError {
+    name: string;
+    extension: string;
+    data: HexBase64BinaryEncoding[];
 }
 
 const getHeaders = ( language: AppLanguage, token?: string, isPost?: boolean ) => {
@@ -42,7 +92,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
     const [login] = useContext( LoginContext );
     const [appLanguage] = useContext( AppLanguageContext );
     const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
-    const [header, setHeader] = useState<Headers>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
+    const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
     const abortControllerRef = useRef(new AbortController());
     const componentUnmountedRef = useRef(false);
 
@@ -125,7 +175,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     const [login] = useContext( LoginContext );
     const [appLanguage] = useContext( AppLanguageContext );
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
-    const [header, setHeader] = useState<Headers>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
+    const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
     const abortControllerRef = useRef(new AbortController());
     const componentUnmountedRef = useRef(false);
 
@@ -210,4 +260,91 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     }
 
     return {Post, Put, Delete, Abort};
+}
+
+export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, externalService, customHeaders } : IdownloadArgs ) => {
+    const [login] = useContext( LoginContext );
+    const [appLanguage] = useContext( AppLanguageContext );
+    const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
+    const [header, setHeader] = useState<Headers | [string,string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
+    const [isDownloading, setIsDownloading] = useState<boolean>(false);
+    const [downloadProgress, setDownloadProgress] = useState<number>(0);
+    const abortControllerRef = useRef(new AbortController());
+    const componentUnmountedRef = useRef(false);
+
+    useEffect( () => {
+        if( login && !externalService )
+        {
+            setAuthToken(login.userSessionToken);
+        }
+
+        if(customHeaders)
+        {
+            setHeader(customHeaders);
+        }
+        else
+        {
+            setHeader( getHeaders( appLanguage, authToken, true ) );
+        }
+        // eslint-disable-next-line
+    }, [appLanguage, login, authToken]);
+
+    useEffect( () => {
+        abortControllerRef.current = new AbortController();
+        componentUnmountedRef.current = false;
+        return () => {
+            componentUnmountedRef.current = true;
+            abortControllerRef.current.abort();
+        }
+        // eslint-disable-next-line
+    }, [])
+
+    const download = async (): Promise<IdownloadDocument | undefined> => {
+        if(!isDownloading)
+        {
+            setIsDownloading(true);
+            let timeout: NodeJS.Timeout | undefined = undefined;
+            if( timeOut && timeOut > 0 ) {
+                timeout = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
+            }
+
+            const response = fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + documentPath, {
+                method: 'GET',
+                headers: header,
+                mode: 'cors',
+                cache: 'no-cache',
+                signal: abortControllerRef.current.signal
+            } )
+            .then( handleErrors )
+            .then( async ( r: Response ) => handleLoader<IdownloadDocument>( r, setDownloadProgress ) )
+            .then( ( data: IdownloadDocument ) => data )
+            .catch( ( err: Error ) => (
+            {
+                hasError: true,
+                isAbortError: err.name === 'AbortError',
+                caughtError: `${err.name} - ${err.message}`
+            } ) as IdownloadDocument )
+            .finally( () => {
+                if( timeout !== undefined ) {
+                    clearTimeout(timeout);
+                    timeout = undefined;
+                }
+                if(!componentUnmountedRef.current)
+                {
+                    setIsDownloading(false);
+                    setDownloadProgress(0);
+                    abortControllerRef.current = new AbortController();
+                }
+            })
+
+            return await response;
+        }
+        return undefined;
+    }
+
+    const abort = () => {
+        abortControllerRef.current.abort();
+    }
+
+    return { download, abort, isDownloading, downloadProgress }
 }
