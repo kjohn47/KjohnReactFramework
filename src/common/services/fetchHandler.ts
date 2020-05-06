@@ -3,6 +3,7 @@ import { useContext, useState, useEffect, useRef } from "react";
 import { LoginContext, AppLanguageContext } from "../config/appConfig";
 import { apiServerUrl } from "../config/configuration";
 import { AppLanguage } from "../context/appContextEnums";
+import { getFileFromBase64 } from "../functions/misc";
 
 const handleErrors = ( response: Response ) => {
     if ( !response.ok ) {
@@ -253,7 +254,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
         // eslint-disable-next-line
     }, [])
 
-    const download = async (): Promise<IdownloadDocument | undefined> => {
+    const download = async () => {
         if(!isDownloading)
         {
             setIsDownloading(true);
@@ -262,7 +263,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                 timeout = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
 
-            const response = fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + documentPath, {
+            await fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + documentPath, {
                 method: 'GET',
                 headers: header,
                 mode: 'cors',
@@ -317,7 +318,9 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                 }
                 return await r.json() as IdownloadDocument;
             } )
-            .then( ( data: IdownloadDocument ) => data )
+            .then( ( data: IdownloadDocument ) => {
+                getFileFromBase64(data);
+            } )
             .catch( ( err: Error ) => (
             {
                 hasError: true,
@@ -336,10 +339,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                     abortControllerRef.current = new AbortController();
                 }
             })
-
-            return await response;
         }
-        return undefined;
     }
 
     const abort = () => {

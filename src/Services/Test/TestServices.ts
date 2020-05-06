@@ -5,7 +5,6 @@ import { ErrorCodes } from "../../common/context/appErrorEnums";
 import { TestServiceRequestType } from "./TestServiceEnum";
 import { useDocumentDownloader } from "../../common/services/fetchHandler";
 import { useEffect } from "react";
-import { getFileFromBase64 } from "../../common/functions/misc";
 
 export const useTestService: () => ITestServices = () => {
     const getData = useTestServiceHandler();
@@ -38,12 +37,7 @@ export const useTestService: () => ITestServices = () => {
         Sample2.serviceHandler({
             Type: TestServiceRequestType.GetSample_2
         })
-        let file = await FileDownloader.download();
-        if(file) 
-        {
-            console.log( file );
-            getFileFromBase64(file);
-        }
+        FileDownloader.download();
     }
 
     const SampleService_3 = () => {
