@@ -38,6 +38,12 @@ export const getFileFromBase64 = ( fileData: IdownloadDocument ) => {
     {
         const file = new File( [fileBytes], fileName, { type: getMimeTypeFromExtension[extension] } );
         let url = window.URL.createObjectURL(file);
-        window.open(url, '_blank');
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = fileName;
+        link.target = "_blank";
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
     }
 }

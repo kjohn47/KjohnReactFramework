@@ -299,11 +299,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                         chunks = [];
 
                         setDownloadProgress(100);
-                        try
-                        {
-                            return JSON.parse(new TextDecoder().decode(chunksAll)) as IdownloadDocument;
-                        }
-                        catch
+                        if (!("TextDecoder" in window))
                         {
                             let data: string = "";
 
@@ -312,6 +308,10 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                             } );
 
                             return JSON.parse(data) as IdownloadDocument;
+                        }
+                        else
+                        {
+                            return JSON.parse(new TextDecoder("utf-8").decode(chunksAll)) as IdownloadDocument;
                         }
                     }
                 }
