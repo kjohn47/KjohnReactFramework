@@ -29,4 +29,8 @@ export interface ITestServices {
     ExternalService?: ITestExternalServiceResponse;
     CallExternalService: () => void;
     ExternalLoading: boolean;
+    DownloadFile: () => void;
+    AbortDownload: () => void;
+    Downloading: boolean;
+    DownloadProgress: number;
 }

@@ -4,7 +4,6 @@ import { ITestServiceRequest, ITestServiceResponse, ITestServices, ITestExternal
 import { ErrorCodes } from "../../common/context/appErrorEnums";
 import { TestServiceRequestType } from "./TestServiceEnum";
 import { useDocumentDownloader } from "../../common/services/fetchHandler";
-import { useEffect } from "react";
 
 export const useTestService: () => ITestServices = () => {
     const getData = useTestServiceHandler();
@@ -14,18 +13,10 @@ export const useTestService: () => ITestServices = () => {
     const SampleAbort = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, localLoading: true } ); 
     const SampleExternal = useServiceCaller<ITestServiceRequest, ITestExternalServiceResponse>( { service: getData, localLoading: true } ); 
     const FileDownloader = useDocumentDownloader( {
-        serviceUrl: "http://localhost:3000/Assets/pdfFile",
-        documentPath: "",
-        externalService: true,
-        customHeaders: [
-            ["Content-Type", "application/json"],
-            ["Content-Type", "text/plain"]
-        ]
+        serviceUrl: "http://localhost:3000/Assets/",
+        documentPath: "pdfFile",
+        externalService: true
     } );
-
-    useEffect(() => {
-        console.log("loaded progress: ", FileDownloader.downloadProgress);
-    }, [FileDownloader.downloadProgress])
 
     const SampleService_1 = () => {
         Sample1.serviceHandler({
@@ -37,7 +28,6 @@ export const useTestService: () => ITestServices = () => {
         Sample2.serviceHandler({
             Type: TestServiceRequestType.GetSample_2
         })
-        FileDownloader.download();
     }
 
     const SampleService_3 = () => {
@@ -58,6 +48,14 @@ export const useTestService: () => ITestServices = () => {
          } )
     }
 
+    const DownloadFile = () => {
+        FileDownloader.download();
+    }
+
+    const AbortDownload = () => {
+        FileDownloader.abort();
+    }
+
     return {
         serviceResponse1: Sample1.serviceResponse,
         SampleService_1,
@@ -70,6 +68,10 @@ export const useTestService: () => ITestServices = () => {
         AbortSampleLoading: SampleAbort.serviceLoading,
         ExternalService: SampleExternal.serviceResponse,
         CallExternalService,
-        ExternalLoading: SampleExternal.serviceLoading
+        ExternalLoading: SampleExternal.serviceLoading,
+        DownloadFile,
+        AbortDownload,
+        Downloading: FileDownloader.isDownloading,
+        DownloadProgress: FileDownloader.downloadProgress
     }
 }

@@ -62,6 +62,14 @@ const TestServices: React.FC = () => {
       </div>
     </Loader>
     <hr />
+    <div className="center_menu_button">
+      <WithTooltip toolTipText={ TestServices.Downloading ? "Abort Download" : "Download File" } toolTipPosition={ ToolTipPosition.Left } >
+        <Button className="button_width" onClick={ () => { TestServices.Downloading ? TestServices.AbortDownload() : TestServices.DownloadFile() } } buttonType={ ButtonTypes.Default } >
+          { TestServices.Downloading ? ( "("+TestServices.DownloadProgress+"%) Abort") : "Download File" }
+        </Button>
+      </WithTooltip>
+    </div>
+    <hr />
     <Loader isLoading={ TestServices.ExternalLoading } withoutText>
       <div className="center_menu_button">
         <WithTooltip toolTipText={ "Call external service" } toolTipPosition={ ToolTipPosition.Bottom } toolTipColor={ ToolTipColor.Blue } >

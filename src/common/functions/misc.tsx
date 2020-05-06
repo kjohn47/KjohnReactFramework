@@ -31,12 +31,12 @@ export const getFileFromBase64 = ( fileData: IdownloadDocument ) => {
     }
 
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        const file = new Blob( [fileBytes], { type: getMimeTypeFromExtension[extension] } );
+        const file = new Blob( [fileBytes], { type: getMimeTypeFromExtension(extension) } );
         window.navigator.msSaveOrOpenBlob(file, fileName);
     } 
     else
     {
-        const file = new File( [fileBytes], fileName, { type: getMimeTypeFromExtension[extension] } );
+        const file = new File( [fileBytes], fileName, { type: getMimeTypeFromExtension(extension) } );
         let url = window.URL.createObjectURL(file);
         var link = document.createElement("a");
         link.href = url;
