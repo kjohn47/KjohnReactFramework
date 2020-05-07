@@ -21,6 +21,7 @@ interface IfetchArgs {
 
 interface IdownloadArgs extends IfetchArgs {
     documentPath: string;
+    loadProgress?: boolean;
 }
 
 const getHeaders = ( language: AppLanguage, token?: string, isPost?: boolean ) => {
@@ -217,7 +218,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     return {Post, Put, Delete, Abort};
 }
 
-export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, externalService, customHeaders } : IdownloadArgs ) => {
+export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, externalService, customHeaders, loadProgress } : IdownloadArgs ) => {
     const [login] = useContext( LoginContext );
     const [appLanguage] = useContext( AppLanguageContext );
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
@@ -272,7 +273,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
             } )
             .then( handleErrors )
             .then( ( r: Response ) => {
-                if( r !== null && r.headers !== null && r.body !== null )
+                if( loadProgress && r !== null && r.headers !== null && r.body !== null )
                 {
                     let length = `${r.headers.get('content-length')}`;
                     if( length && length !== null && length !== "" )

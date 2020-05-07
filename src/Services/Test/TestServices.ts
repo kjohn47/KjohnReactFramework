@@ -15,7 +15,8 @@ export const useTestService: () => ITestServices = () => {
     const FileDownloader = useDocumentDownloader( {
         serviceUrl: "http://localhost:3000/Assets/",
         documentPath: "pdfFile",
-        externalService: true
+        externalService: true,
+        loadProgress: true
     } );
 
     const SampleService_1 = () => {
