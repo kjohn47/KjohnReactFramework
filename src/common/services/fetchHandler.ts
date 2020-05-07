@@ -254,7 +254,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
         // eslint-disable-next-line
     }, [])
 
-    const download = async () => {
+    const download = async (): Promise<IdownloadDocument | undefined> => {
         if(!isDownloading)
         {
             setIsDownloading(true);
@@ -263,7 +263,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                 timeout = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
 
-            await fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + documentPath, {
+            return await fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + documentPath, {
                 method: 'GET',
                 headers: header,
                 mode: 'cors',
@@ -283,7 +283,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                         let chunks: number[] = [];
                         while(true) {
                             const {done, value} = await reader.read();
-                            if (done) {
+                            if (done ) {
                                 break;
                             }
 
@@ -320,6 +320,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
             } )
             .then( ( data: IdownloadDocument ) => {
                 getFileFromBase64(data);
+                return data;
             } )
             .catch( ( err: Error ) => (
             {

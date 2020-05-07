@@ -48,8 +48,8 @@ export const useTestService: () => ITestServices = () => {
          } )
     }
 
-    const DownloadFile = () => {
-        FileDownloader.download();
+    const DownloadFile = async () => {
+        console.log(await FileDownloader.download());
     }
 
     const AbortDownload = () => {
