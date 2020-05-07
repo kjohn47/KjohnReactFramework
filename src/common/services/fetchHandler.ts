@@ -271,7 +271,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                 signal: abortControllerRef.current.signal
             } )
             .then( handleErrors )
-            .then( async ( r: Response ) => {
+            .then( ( r: Response ) => {
                 if( r !== null && r.headers !== null && r.body !== null )
                 {
                     let length = `${r.headers.get('content-length')}`;
@@ -281,45 +281,47 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                         const reader = r.body.getReader();
                         let receivedLength = 0;
                         let chunks: number[] = [];
-                        while(true) {
-                            const {done, value} = await reader.read();
-                            if (done ) {
-                                break;
-                            }
 
-                            if( value )
+                        return reader.read().then( function process( { done, value } ): Promise<IdownloadDocument> | IdownloadDocument {
+                            if( !done )
                             {
-                                chunks = [ ...chunks, ...Array.from<number>(value) ];
-                                receivedLength += value.length;
-                                setDownloadProgress( receivedLength < contentLength ? Math.floor( ( receivedLength * 100 ) / contentLength ) : 99 );
+                                if( value )
+                                {
+                                    chunks = [ ...chunks, ...Array.from<number>(value) ];
+                                    receivedLength += value.length;
+                                    setDownloadProgress( receivedLength < contentLength ? Math.floor( ( receivedLength * 100 ) / contentLength ) : 99 );
+                                }
+                                return reader.read().then(process);
                             }
-                        }
-
-                        let chunksAll = new Uint8Array(chunks.length);
-                        chunksAll.set( chunks );
-                        chunks = [];
-
-                        setDownloadProgress(100);
-                        if (!("TextDecoder" in window))
-                        {
-                            let data: string = "";
-
-                            chunksAll.forEach( c => {
-                                data += String.fromCharCode( c );
-                            } );
-
-                            return JSON.parse(data) as IdownloadDocument;
-                        }
-                        else
-                        {
-                            return JSON.parse(new TextDecoder("utf-8").decode(chunksAll)) as IdownloadDocument;
-                        }
+                            else
+                            {
+                                let chunksAll = new Uint8Array(chunks.length);
+                                chunksAll.set( chunks );
+                                chunks = [];
+        
+                                setDownloadProgress(100);
+                                if (!("TextDecoder" in window))
+                                {
+                                    let data: string = "";
+        
+                                    chunksAll.forEach( c => {
+                                        data += String.fromCharCode( c );
+                                    } );
+        
+                                    return JSON.parse(data) as IdownloadDocument;
+                                }
+                                else
+                                {
+                                    return JSON.parse(new TextDecoder("utf-8").decode(chunksAll)) as IdownloadDocument;
+                                }
+                            }
+                        } )
                     }
                 }
-                return await r.json() as IdownloadDocument;
+                return r.json();
             } )
             .then( ( data: IdownloadDocument ) => {
-                getFileFromBase64(data);
+                getFileFromBase64( data);
                 return data;
             } )
             .catch( ( err: Error ) => (
