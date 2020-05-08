@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import Badge from '../../common/Badge';
+import Badge from '../../common/presentation/display/Badge';
 import MenuNotificationItem from './MenuNotificationItem';
-import PageSelector from '../../common/PageSelector';
-import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
-import { AppContext, AppLanguageContext } from '../../../common/config/appConfig';
-import { AppGlobalTheme, AppLanguage } from '../../../common/context/appContextEnums';
-import useTranslation from '../../../common/context/pageText/getTranslation';
+import PageSelector from '../../common/inputs/PageSelector';
+import { ToolTipPosition, ToolTipColor } from '../../common/presentation/wrapper/WithTooltip';
+import { AppContext, AppLanguageContext } from '../../../logic/config/AppProvider';
+import { AppGlobalTheme, AppLanguage } from '../../../logic/context/appContextEnums';
+import useTranslation from '../../../logic/context/pageText/getTranslation';
 import { useNotificationService } from '../../../Services/Notifications/NotificationServices';
-import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/DotsLoader';
+import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
 
 const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
     const [appContext] = useContext(AppContext);

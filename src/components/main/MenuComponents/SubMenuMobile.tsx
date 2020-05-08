@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { ISubMenuItem } from './SubMenu';
-import Row from '../../common/Row';
-import Column from '../../common/Column';
-import PageSelector from '../../common/PageSelector';
-import useTranslation from '../../../common/context/pageText/getTranslation';
-import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../common/config/appConfig';
+import Row from '../../common/structure/Row';
+import Column from '../../common/structure/Column';
+import PageSelector from '../../common/inputs/PageSelector';
+import useTranslation from '../../../logic/context/pageText/getTranslation';
+import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../logic/config/AppProvider';
 
 const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => void }> = ( props ) => {
     const [ appContext ] = useContext( AppContext );

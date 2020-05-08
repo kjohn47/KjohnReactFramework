@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
-import { ErrorContext, AppContext } from "../../common/config/appConfig";
-import { KnownPages } from "../../common/context/routeContextEnums";
-import Button from "../common/Button";
-import WithTooltip, { ToolTipPosition } from "../common/WithTooltip";
-import PageHeader from "../common/PageHeader";
-import Row from "../common/Row";
-import Column from "../common/Column";
-import useTranslation from "../../common/context/pageText/getTranslation";
-import useErrorTranslation from "../../common/context/pageErrors/getPageError";
-import { showDetailedErrors } from "../../common/config/configuration";
+import { ErrorContext, AppContext } from "../../logic/config/AppProvider";
+import { KnownPages } from "../../logic/context/routeContextEnums";
+import Button from "../common/inputs/Button";
+import WithTooltip, { ToolTipPosition } from "../common/presentation/wrapper/WithTooltip";
+import PageHeader from "../common/presentation/display/PageHeader";
+import Row from "../common/structure/Row";
+import Column from "../common/structure/Column";
+import useTranslation from "../../logic/context/pageText/getTranslation";
+import useErrorTranslation from "../../logic/context/pageErrors/getPageError";
+import { showDetailedErrors } from "../../logic/config/configuration";
 
 const ErrorPage: React.FC = () => {
     const { getTranslation } = useTranslation();

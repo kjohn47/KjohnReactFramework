@@ -1,8 +1,8 @@
 import React from 'react';
-import CardList from '../../../common/CardList';
-import { ICard } from '../../../common/Card';
-import { KnownPages } from '../../../../common/context/routeContextEnums';
-import CardContent from '../../../common/CardContent';
+import CardList from '../../../common/presentation/cards/CardList';
+import { ICard } from '../../../common/presentation/cards/Card';
+import { KnownPages } from '../../../../logic/context/routeContextEnums';
+import CardContent from '../../../common/presentation/cards/CardContent';
 
 const TestCards: React.FC = () => {
   const getCardItem: ( id: number ) => ICard = ( id ) => {

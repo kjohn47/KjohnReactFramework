@@ -1,15 +1,15 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, AppLanguageContext, LoginContext } from '../../common/config/appConfig';
-import { ContextActions, AppLanguage } from '../../common/context/appContextEnums';
-import Row from '../common/Row';
-import Column, { ColumnNumber } from '../common/Column';
+import { AppContext, AppLanguageContext, LoginContext } from '../../logic/config/AppProvider';
+import { ContextActions, AppLanguage } from '../../logic/context/appContextEnums';
+import Row from '../common/structure/Row';
+import Column, { ColumnNumber } from '../common/structure/Column';
 import { IMenuItem } from './MenuComponents/MenuItem';
 import SubMenu, { ISubMenuItem } from './MenuComponents/SubMenu';
 import LoginForm from './MenuComponents/LoginForm';
 import MenusBar from './MenuComponents/MenusBar';
 import UserMenu, { IUserCustomMenu } from './MenuComponents/UserMenu';
-import { PageType } from '../../common/functions/misc';
-import DotsLoader, { DotsLoaderColor, DotsLoaderSize, DotsLoaderNrBall } from '../common/DotsLoader';
+import { PageType } from '../../logic/functions/misc';
+import DotsLoader, { DotsLoaderColor, DotsLoaderSize, DotsLoaderNrBall } from '../common/presentation/loading/DotsLoader';
 
 export interface IMenuProps {
   Brand?: string;

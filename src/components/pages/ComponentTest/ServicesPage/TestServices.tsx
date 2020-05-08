@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
-import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../../common/WithTooltip';
-import Button, { ButtonTypes } from '../../../common/Button';
-import Loader from '../../../common/Loader';
+import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../../common/presentation/wrapper/WithTooltip';
+import Button, { ButtonTypes } from '../../../common/inputs/Button';
+import Loader from '../../../common/presentation/loading/Loader';
 import { useTestService } from '../../../../Services/Test/TestServices';
 
 const TestServices: React.FC = () => {

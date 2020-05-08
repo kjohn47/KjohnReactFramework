@@ -1,8 +1,8 @@
 import React, { useState, useEffect, CSSProperties } from "react"
-import Column from "../common/Column"
-import Row from "../common/Row";
-import useWindowSize from "../../common/functions/windowResize";
-import { mobileWidth } from "../../common/config/configuration";
+import Column from "../common/structure/Column"
+import Row from "../common/structure/Row";
+import useWindowSize from "../../logic/functions/windowResize";
+import { mobileWidth } from "../../logic/config/configuration";
 
 const Footer: React.FC = () => 
 {

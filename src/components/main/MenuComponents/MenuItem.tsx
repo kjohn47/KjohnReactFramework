@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import PageSelector from '../../common/PageSelector';
-import Column from '../../common/Column';
+import PageSelector from '../../common/inputs/PageSelector';
+import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
-import useTranslation from '../../../common/context/pageText/getTranslation';
-import { LoginContext, AppContext } from '../../../common/config/appConfig';
-import { PageType } from '../../../common/functions/misc';
+import useTranslation from '../../../logic/context/pageText/getTranslation';
+import { LoginContext, AppContext } from '../../../logic/config/AppProvider';
+import { PageType } from '../../../logic/functions/misc';
 
 export interface IMenuItem {
     Title: string;

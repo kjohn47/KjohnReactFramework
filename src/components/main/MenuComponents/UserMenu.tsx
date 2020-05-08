@@ -1,14 +1,14 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, LoginContext } from '../../../common/config/appConfig';
-import useWindowSize from '../../../common/functions/windowResize';
-import { mobileWidthMenu, mobileWidthLoginForm } from '../../../common/config/configuration';
-import Row from '../../common/Row';
-import Column from '../../common/Column';
+import { AppContext, LoginContext } from '../../../logic/config/AppProvider';
+import useWindowSize from '../../../logic/functions/windowResize';
+import { mobileWidthMenu, mobileWidthLoginForm } from '../../../logic/config/configuration';
+import Row from '../../common/structure/Row';
+import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
-import { KnownPages } from '../../../common/context/routeContextEnums';
+import { KnownPages } from '../../../logic/context/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 import MenuNotification from './MenuNotification';
-import { PageType } from '../../../common/functions/misc';
+import { PageType } from '../../../logic/functions/misc';
 
 export interface IUserCustomMenu {
     Title?: string;

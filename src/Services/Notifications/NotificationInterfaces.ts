@@ -1,4 +1,4 @@
-import { IDictionary } from "../../common/functions/misc";
+import { IDictionary } from "../../logic/functions/misc";
 import { NotificationRequestType } from "./NotificationEnum";
 
 export interface INotificationItem {

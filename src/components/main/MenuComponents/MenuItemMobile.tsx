@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { IMenuItem } from './MenuItem';
-import Row from '../../common/Row';
-import Column, { ColumnNumber } from '../../common/Column';
+import Row from '../../common/structure/Row';
+import Column, { ColumnNumber } from '../../common/structure/Column';
 import { useState } from 'react';
 import SubMenuMobile from './SubMenuMobile';
-import PageSelector from '../../common/PageSelector';
-import useTranslation from '../../../common/context/pageText/getTranslation';
-import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../common/config/appConfig';
+import PageSelector from '../../common/inputs/PageSelector';
+import useTranslation from '../../../logic/context/pageText/getTranslation';
+import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../logic/config/AppProvider';
 
 const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?: boolean; }> = ( props ) => {
     const [ appContext ] = React.useContext( AppContext );

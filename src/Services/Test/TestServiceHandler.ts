@@ -1,8 +1,8 @@
-import { useFetchGetHandler } from "../../common/services/fetchHandler";
-import { ServiceType } from "../../common/services/serviceCallerInterfaces";
-import { ContextActions, AppLanguage } from "../../common/context/appContextEnums";
+import { useFetchGetHandler } from "../../logic/services/fetchHandler";
+import { ServiceType } from "../../logic/services/serviceCallerInterfaces";
+import { ContextActions, AppLanguage } from "../../logic/context/appContextEnums";
 import { ITestServiceResponse, ITestServiceRequest, ITestExternalServiceResponse } from "./TestServiceInterfaces";
-import { delayedPromise } from "../../common/functions/misc";
+import { delayedPromise } from "../../logic/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = () => {

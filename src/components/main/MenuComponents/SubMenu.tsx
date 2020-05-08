@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { AppContext, AppLanguageContext, ErrorContext, LoginContext, RouteContext } from '../../../common/config/appConfig';
-import PageSelector from '../../common/PageSelector';
-import Row from '../../common/Row';
-import Column from '../../common/Column';
-import useTranslation from '../../../common/context/pageText/getTranslation';
-import { PageType } from '../../../common/functions/misc';
+import { AppContext, AppLanguageContext, ErrorContext, LoginContext, RouteContext } from '../../../logic/config/AppProvider';
+import PageSelector from '../../common/inputs/PageSelector';
+import Row from '../../common/structure/Row';
+import Column from '../../common/structure/Column';
+import useTranslation from '../../../logic/context/pageText/getTranslation';
+import { PageType } from '../../../logic/functions/misc';
 
 export interface ISubMenuItem {
     Title?: string;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useServiceCaller } from '../../common/services/serviceCaller';
+import { useServiceCaller } from '../../logic/services/serviceCaller';
 import { IuseNotificationReturn, INotificationRequest, INotifications } from './NotificationInterfaces';
 import { NotificationRequestType } from './NotificationEnum';
 import { useNotificationHandler } from './NotificationServiceHandler';

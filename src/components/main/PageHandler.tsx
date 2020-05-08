@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState, Suspense } from "react";
-import { AppContext, ErrorContext, LoadingContext, RouteContext } from "../../common/config/appConfig";
-import { KnownPages } from "../../common/context/routeContextEnums";
-import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
-import Loader from "../common/Loader";
+import { AppContext, ErrorContext, LoadingContext, RouteContext } from "../../logic/config/AppProvider";
+import { KnownPages } from "../../logic/context/routeContextEnums";
+import { ErrorCodes, ErrorActions } from "../../logic/context/appErrorEnums";
+import Loader from "../common/presentation/loading/Loader";
 import ErrorPage from "./ErrorPage";
-import { injectProps, IDictionary, PageType } from "../../common/functions/misc";
-import { withLogin } from "../../common/functions/checkLogin";
-import { getRouteUrlAndQuery } from "../../common/functions/routeHandling";
-import { RouteActions } from "../../common/context/routeContextEnums";
+import { injectProps, IDictionary, PageType } from "../../logic/functions/misc";
+import { withLogin } from "../../logic/functions/checkLogin";
+import { getRouteUrlAndQuery } from "../../logic/functions/routeHandling";
+import { RouteActions } from "../../logic/context/routeContextEnums";
 import UserMenu from "./UserMenu";
 import AdminMenu from "./AdminMenu";
 

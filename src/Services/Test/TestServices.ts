@@ -1,9 +1,9 @@
 import { useTestServiceHandler } from "./TestServiceHandler"
-import { useServiceCaller } from "../../common/services/serviceCaller";
+import { useServiceCaller } from "../../logic/services/serviceCaller";
 import { ITestServiceRequest, ITestServiceResponse, ITestServices, ITestExternalServiceResponse } from "./TestServiceInterfaces";
-import { ErrorCodes } from "../../common/context/appErrorEnums";
+import { ErrorCodes } from "../../logic/context/appErrorEnums";
 import { TestServiceRequestType } from "./TestServiceEnum";
-import { useDocumentDownloader } from "../../common/services/fetchHandler";
+import { useDocumentDownloader } from "../../logic/services/fetchHandler";
 
 export const useTestService: () => ITestServices = () => {
     const getData = useTestServiceHandler();

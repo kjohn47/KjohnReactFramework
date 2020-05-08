@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import Column from '../../../common/Column';
-import Row from '../../../common/Row';
-import Alert, { AlertColorEnum } from '../../../common/Alert';
-import FieldSet from '../../../common/FieldSet';
+import Column from '../../../common/structure/Column';
+import Row from '../../../common/structure/Row';
+import Alert, { AlertColorEnum } from '../../../common/presentation/display/Alert';
+import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 
 const AlertTestClosable: React.FC = () => {
     const [alert, setAlert] = useState<boolean>(false);
