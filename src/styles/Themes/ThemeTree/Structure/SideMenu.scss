@@ -1,0 +1,37 @@
+.SideMenuPage {
+    .SideMenuColumn {    
+        .SideMenuColumnContent {
+            border-color: $MainColor;
+
+            .SideMenuTitle {
+                border-bottom-color: $MainColor;
+                background-color: $MainColor;
+                color: $MenuTextColor;
+
+                .SideMenuTitleText{
+                  span:hover {
+                    color: $SecondaryColor;
+                  }
+                }
+
+              .SideMenuTitleCollapse {
+                span:hover {
+                  color: $SecondaryColor;
+                }
+              }
+            }
+
+            .SideMenuContent {
+              .SideMenuMenu:hover {
+                  color: $SecondaryColor;
+                }
+                .SubMenuSubMenu span:hover {
+                    color: $LinkColor;
+                }
+                .SideMenuSelectedSubMenu {
+                    color: $MainColor;
+                }
+            }
+        }
+    }
+}

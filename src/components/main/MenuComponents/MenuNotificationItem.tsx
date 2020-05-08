@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DotsLoader, { DotsLoaderSize, DotsLoaderColor, DotsLoaderNrBall } from '../../common/DotsLoader';
+import DotsLoader, { DotsLoaderSize, DotsLoaderColor, DotsLoaderNrBall } from '../../common/presentation/loading/DotsLoader';
 
 interface IMenuNotificationItem {
     IsViewed?: boolean;

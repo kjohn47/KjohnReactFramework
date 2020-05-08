@@ -218,9 +218,11 @@
     text-align: left;
     padding-left: 20px;
     padding-top: 8px;
+    border: 0;
+    border-radius: 0;
     &:hover {
-        border: 0;
-        border-radius: 0;
+      border: 0;
+      border-radius: 0;
     }
   }
   

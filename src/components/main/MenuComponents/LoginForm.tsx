@@ -1,15 +1,15 @@
 import * as React from 'react';
-import Row from '../../common/Row';
-import Column, { ColumnNumber } from '../../common/Column';
-import InputText from '../../common/InputText';
-import Button, { ButtonTypes } from '../../common/Button';
-import useWindowSize from '../../../common/functions/windowResize';
+import Row from '../../common/structure/Row';
+import Column, { ColumnNumber } from '../../common/structure/Column';
+import InputText from '../../common/inputs/InputText';
+import Button, { ButtonTypes } from '../../common/inputs/Button';
+import useWindowSize from '../../../logic/functions/windowResize';
 import { useState, useEffect } from 'react';
-import { mobileWidthLoginForm, mobileWidthMenu } from '../../../common/config/configuration';
-import useTranslation from '../../../common/context/pageText/getTranslation';
-import PageSelector from '../../common/PageSelector';
-import { KnownPages } from '../../../common/context/routeContextEnums';
-import WithLabel from '../../common/WithLabel';
+import { mobileWidthLoginForm, mobileWidthMenu } from '../../../logic/config/configuration';
+import useTranslation from '../../../logic/functions/getTranslation';
+import PageSelector from '../../common/inputs/PageSelector';
+import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
+import WithLabel from '../../common/presentation/wrapper/WithLabel';
 
 const LoginForm: React.FC = () => {
     const [ width ] = useWindowSize();

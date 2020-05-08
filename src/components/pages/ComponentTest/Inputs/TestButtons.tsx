@@ -1,8 +1,8 @@
 import React from 'react';
-import Column from '../../../common/Column';
-import Row from '../../../common/Row';
-import FieldSet from '../../../common/FieldSet';
-import Button, { ButtonTypes } from '../../../common/Button';
+import Column from '../../../common/structure/Column';
+import Row from '../../../common/structure/Row';
+import FieldSet from '../../../common/presentation/wrapper/FieldSet';
+import Button, { ButtonTypes } from '../../../common/inputs/Button';
 
 const TestButtons: React.FC = () => {
   return (

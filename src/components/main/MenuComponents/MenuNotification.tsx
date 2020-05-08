@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Badge from '../../common/Badge';
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import Badge from '../../common/presentation/display/Badge';
 import MenuNotificationItem from './MenuNotificationItem';
-import PageSelector from '../../common/PageSelector';
-import { ToolTipPosition, ToolTipColor } from '../../common/WithTooltip';
-import { AppContext, AppLanguageContext } from '../../../common/config/appConfig';
-import { AppGlobalTheme, AppLanguage } from '../../../common/context/appContextEnums';
-import useTranslation from '../../../common/context/pageText/getTranslation';
-import { useNotificationService } from '../../../Services/Notifications/NotificationServices';
-import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/DotsLoader';
+import PageSelector from '../../common/inputs/PageSelector';
+import { ToolTipPosition, ToolTipColor } from '../../common/presentation/wrapper/WithTooltip';
+import { AppContext, AppLanguageContext } from '../../../logic/config/AppProvider';
+import { AppGlobalTheme, AppLanguage } from '../../../logic/context/App/appContextEnums';
+import useTranslation from '../../../logic/functions/getTranslation';
+import { useNotificationService } from '../../../services/Notifications/NotificationServices';
+import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
 
-const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference, Route}) => {
+const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
     const [appContext] = useContext(AppContext);
     const [appLanguage] = useContext(AppLanguageContext);
     const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
+    const refreshTimerId = useRef<NodeJS.Timeout | undefined>(undefined);
     const NotificationsService = useNotificationService(true);
+    const NotificationsServiceRef = useRef(NotificationsService);
 
     const readNotifications = ( updateOld: boolean = false) => {
         if(open) {
@@ -41,6 +43,20 @@ const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference,
     }
 
     useEffect( () => {
+        return () => {
+            if ( refreshTimerId.current !== undefined )
+            {
+                clearInterval(refreshTimerId.current);
+                refreshTimerId.current = undefined;
+            }
+        };
+    }, [])
+
+    useEffect( () => {
+        NotificationsServiceRef.current = NotificationsService;
+    }, [NotificationsService, NotificationsServiceRef])
+
+    useEffect( () => {
         // add when mounted
         document.addEventListener( "mousedown", handleClickOut );
         // return function to be called when unmounted
@@ -49,6 +65,25 @@ const MenuNotification: React.FC<{reference: any, Route: string}> = ({reference,
         };
         //eslint-disable-next-line
     }, [ open, NotificationsService ] )
+
+    useEffect( () => {
+        if( RefreshTime && RefreshTime > 0 )
+        {
+            if( !open && refreshTimerId.current === undefined )
+            {
+                refreshTimerId.current = setInterval( () => {
+                    if( !NotificationsServiceRef.current.Loading ) {
+                        NotificationsServiceRef.current.GetNotifications();
+                    }
+                }, RefreshTime );
+            }
+            else if( open && refreshTimerId.current !== undefined )
+            {
+                clearInterval(refreshTimerId.current);
+                refreshTimerId.current = undefined;
+            }
+        }
+    }, [ RefreshTime, open, refreshTimerId, NotificationsServiceRef ] )
 
     const getTooltipColor: () => ToolTipColor = () => {
         switch(appContext.globalTheme) {

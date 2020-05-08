@@ -1,0 +1,14 @@
+.FieldSet {
+    .FieldSetTitle {
+      color: $MainColor;
+      & div {
+        & span {
+          border-color: $SecondaryColor;  
+        }
+      }
+    }
+    
+    .FieldSetContent {
+        border-color: $SecondaryColor;
+    }
+}
