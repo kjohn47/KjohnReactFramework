@@ -28,11 +28,11 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                         return { ...defaultResponse, 
                             From: notDate.toLocaleDateString(),
                             To: new Date().toLocaleDateString(),
-                            UnreadCount: 2,
+                            UnreadCount: defaultResponse.UnreadCount + 2,
                             OlderUnreadCount: 100,
-                            Notifications: [
+                            Notifications: [ ...defaultResponse.Notifications, 
                                 {
-                                    ID: '1',
+                                    ID: '1' + new Date().toString(),
                                     IsViewed: false,
                                     Text: {
                                         [AppLanguage.PT]: "Teste 1",
@@ -40,7 +40,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                                     }
                                 },
                                 {
-                                    ID: '2',
+                                    ID: '2' + new Date().toString(),
                                     IsViewed: false,
                                     Text: {
                                         [AppLanguage.PT]: "Teste 2",
@@ -48,7 +48,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                                     }
                                 },
                                 {
-                                    ID: '3',
+                                    ID: '3' + new Date().toString(),
                                     IsViewed: true,
                                     Text: {
                                         [AppLanguage.PT]: "Teste 3",
@@ -56,7 +56,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                                     }
                                 },
                                 {
-                                    ID: '4',
+                                    ID: '4' + new Date().toString(),
                                     IsViewed: true,
                                     Text: {
                                         [AppLanguage.PT]: "Teste 4",

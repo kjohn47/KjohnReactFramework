@@ -6,7 +6,7 @@ import { ToolTipPosition, ToolTipColor } from '../../common/presentation/wrapper
 import { AppContext, AppLanguageContext } from '../../../logic/config/AppProvider';
 import { AppGlobalTheme, AppLanguage } from '../../../logic/context/appContextEnums';
 import useTranslation from '../../../logic/context/pageText/getTranslation';
-import { useNotificationService } from '../../../services/Notifications/NotificationServices';
+import { useNotificationService } from '../../../assets/Notifications/NotificationServices';
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
 
 const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
