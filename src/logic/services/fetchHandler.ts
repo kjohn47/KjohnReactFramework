@@ -19,7 +19,7 @@ interface IfetchArgs {
     customHeaders?: Headers | [string, string][];
 }
 
-interface IdownloadArgs extends IfetchArgs {
+export interface IdownloadArgs extends IfetchArgs {
     documentPath: string;
     loadProgress?: boolean;
 }
