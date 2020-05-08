@@ -20,6 +20,7 @@ import TestLabel from './Inputs/TestLabel';
 import TestAlert from './DataPresentation/TestAlert';
 import TestPageHeader from './DataPresentation/TestPageHeader';
 import TestBadge from './DataPresentation/TestBadge';
+import TestFileDownloader from './DataPresentation/TestFileDownloader';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -84,6 +85,10 @@ const Test: React.FC = () => {
                 {
                   title: "Badge",
                   component: <TestBadge />
+                },
+                {
+                  title: "Download",
+                  component: <TestFileDownloader />
                 }
               ]
             },

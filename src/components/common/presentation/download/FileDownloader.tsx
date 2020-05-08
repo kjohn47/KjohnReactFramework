@@ -20,42 +20,45 @@ export enum FileDownloaderIcon {
 }
 
 export interface IFileDownloaderProps {
-    FileName: string;
-    DownloaderData: IdownloadArgs;
-    FileIcon?: FileDownloaderIcon;
+    fileName: string;
+    downloaderData: IdownloadArgs;
+    fileIcon?: FileDownloaderIcon;
     progressBar?: boolean;
+    bottomLine?: boolean;
 }
 
-const FileDownloader: React.FC<IFileDownloaderProps> = ({FileName, DownloaderData, FileIcon, progressBar}) => 
+const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderData, fileIcon, progressBar, bottomLine}) => 
 {
-    const { download, abort, downloadProgress, isDownloading } = useDocumentDownloader(DownloaderData);
+    const { download, abort, downloadProgress, isDownloading } = useDocumentDownloader(downloaderData);
 
     return (
         <div className = "FileDownloader">
-            <div className = "FileIcon">
-                { isDownloading ?
-                    !DownloaderData.loadProgress ?
-                        <Loader isLoading withoutText />
-                            :   progressBar ?
-                                    <CircleProgressBar
-                                        progress = { downloadProgress }
-                                        size = { CPBSize.Small }
-                                    />
+            <div className = {"FileDownloaderContent" + ( bottomLine ? " ContentWithLine" : "")}>
+                <div className = "FileIcon">
+                    { isDownloading ?
+                            !downloaderData.loadProgress ?
+                                <Loader isLoading withoutText />
+                                    :   progressBar ?
+                                            <CircleProgressBar
+                                                progress = { downloadProgress }
+                                                size = { CPBSize.Small }
+                                            />
+                                        : 
+                                            <div>{downloadProgress} %</div>
+                            :   fileIcon ?
+                                    <div>
+                                        {
+                                            fileIcon.toString() 
+                                        }
+                                    </div>
                                 : 
-                                    <div>{downloadProgress} %</div>
-                        :   FileIcon ?
-                                <div>
-                                    {
-                                        FileIcon.toString() 
-                                    }
-                                </div>
-                            : 
-                                <div className = "IconDot"/>
-                }
-            </div>
-            <div onClick = { () => download() }>
-                <span>Download File - { FileName }</span>
-                {isDownloading && <span onClick={ () => abort() }>Cancel</span>}
+                                    <div className = "IconDot"/>
+                    }
+                    {isDownloading && <div className = "FileNameCancel" onClick={ () => abort() }>Cancel</div>}
+                </div>
+                <div className = "FileName" >
+                    <span className = "FileNameText" onClick = { () => download() } >{ fileName }</span>
+                </div>
             </div>
         </div>
     )

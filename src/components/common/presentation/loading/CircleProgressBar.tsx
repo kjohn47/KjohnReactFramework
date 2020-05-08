@@ -14,13 +14,13 @@ export interface ICircleProgressBarProps {
 const getBoxSize = ( size: CPBSize ) => {
     switch( size ) {
         case CPBSize.Small: {
-            return 50;
+            return 30;
         }
         case CPBSize.Medium: {
-            return 100;
+            return 70;
         }
         case CPBSize.Big: {
-            return 160;
+            return 130;
         }
     }
 }
@@ -28,13 +28,13 @@ const getBoxSize = ( size: CPBSize ) => {
 const getBarWidth = ( size: CPBSize ) => {
     switch( size ) {
         case CPBSize.Small: {
-            return 6;
+            return 4;
         }
         case CPBSize.Medium: {
-            return 10;
+            return 7;
         }
         case CPBSize.Big: {
-            return 18;
+            return 15;
         }
     }
 }
@@ -43,13 +43,13 @@ const getBarWidth = ( size: CPBSize ) => {
 const getTextSize = ( size: CPBSize ) => {
     switch( size ) {
         case CPBSize.Small: {
-            return 12;
+            return 9;
         }
         case CPBSize.Medium: {
-            return 24;
+            return 20;
         }
         case CPBSize.Big: {
-            return 48;
+            return 44;
         }
     }
 }

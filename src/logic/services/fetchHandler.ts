@@ -258,6 +258,11 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
     const download = async (): Promise<IdownloadDocument | undefined> => {
         if(!isDownloading)
         {
+            if(abortControllerRef.current.signal.aborted)
+            {
+                abortControllerRef.current = new AbortController();
+            }
+            
             setIsDownloading(true);
             let timeout: NodeJS.Timeout | undefined = undefined;
             if( timeOut && timeOut > 0 ) {
