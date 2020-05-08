@@ -1,7 +1,7 @@
 import React from 'react';
-import Row from '../../../common/Row';
-import Column from '../../../common/Column';
-import WithLabel from '../../../common/WithLabel';
+import Row from '../../../common/structure/Row';
+import Column from '../../../common/structure/Column';
+import WithLabel from '../../../common/presentation/wrapper/WithLabel';
 const TestLabel: React.FC = () => {
     return (
         <Row>

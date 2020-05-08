@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Row from '../../common/Row';
-import Column from '../../common/Column';
+import Row from '../../common/structure/Row';
+import Column from '../../common/structure/Column';
 import MenuItem from './MenuItem';
-import PageSelector from '../../common/PageSelector';
-import { KnownPages } from '../../../common/context/routeContextEnums';
+import PageSelector from '../../common/inputs/PageSelector';
+import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import { IMenuProps } from '../Menu';
-import useWindowSize from '../../../common/functions/windowResize';
+import useWindowSize from '../../../logic/functions/windowResize';
 import { useState, useRef, useEffect } from 'react';
-import { mobileWidthMenu } from '../../../common/config/configuration';
-import useTranslation from '../../../common/context/pageText/getTranslation';
+import { mobileWidthMenu } from '../../../logic/config/configuration';
+import useTranslation from '../../../logic/functions/getTranslation';
 import MenuItemMobile from './MenuItemMobile';
 
 const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: boolean ) => void }> = ( props ) => {

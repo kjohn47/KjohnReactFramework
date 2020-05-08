@@ -1,0 +1,14 @@
+.ButtonComponent {
+    .page_button_color {
+      border-color: $MainColor;
+      background: $Button;
+      color: $Button_Text;
+      &:hover {
+        background: $Button_Hover;
+        color: $Button_Text_Hover;
+      }
+      &:focus {
+        box-shadow: 0 0 4px $Button;
+      }
+    }
+}

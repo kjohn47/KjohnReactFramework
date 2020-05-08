@@ -1,7 +1,7 @@
 import React from 'react';
-import Column from '../../../common/Column';
-import Row from '../../../common/Row';
-import PageHeader from '../../../common/PageHeader';
+import Column from '../../../common/structure/Column';
+import Row from '../../../common/structure/Row';
+import PageHeader from '../../../common/presentation/display/PageHeader';
 
 const TestPageHeader: React.FC = () => {
     return (

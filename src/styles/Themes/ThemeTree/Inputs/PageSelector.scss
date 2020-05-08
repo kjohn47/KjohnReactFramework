@@ -1,0 +1,7 @@
+.PageSelector_Highlight {
+    color: $LinkColor;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+}

@@ -1,0 +1,67 @@
+// ---- General colors ----
+
+// Page Menu
+@import "./Main/Menu.scss";
+// Page Menu
+
+// Load Spinner
+@import "./Presentation/Spinner.scss";
+// Load Spinner
+
+//Badge
+@import "./Presentation/Badge.scss";
+//Badge
+
+// Page Selector
+@import "./Inputs/PageSelector.scss";
+// Page Selector
+
+// Button Component
+@import "./Inputs/Button.scss";
+// Button Component
+
+// Input Text
+@import "./Inputs/TextInput.scss";
+// Input Text
+
+// DatePicker
+@import "./Inputs/DatePicker.scss";
+//DatePicker
+
+// ---- Content Colors ----
+.PageContentColor {
+  // -- All Content --
+  color: $TextColor;
+
+  // Page Side Menu
+  @import "./Structure/SideMenu.scss";
+  // Page Side Menu
+
+  //TabGroup
+  @import "./Structure/TabGroup.scss";
+  //TabGroup
+  
+  // Table Component
+  @import "./Presentation/Table.scss";
+  // Table Component
+
+  // Card Component
+  @import "./Presentation/Card.scss";
+  // Card Component
+
+  // Page Header
+  @import "./Presentation/PageHeader.scss";
+  // Page Header
+
+  // FieldSet
+  @import "./Presentation/FieldSet.scss";
+  // FieldSet
+
+  //Balloon
+  @import "./Presentation/Balloon.scss";
+  //Balloon
+
+  //Alert
+  @import "./Presentation/Alert.scss";
+  //Alert
+}
