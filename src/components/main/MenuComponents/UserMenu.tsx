@@ -1,14 +1,14 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, LoginContext } from '../../../common/config/appConfig';
-import useWindowSize from '../../../common/functions/windowResize';
-import { mobileWidthMenu, mobileWidthLoginForm } from '../../../common/config/configuration';
-import Row from '../../common/Row';
-import Column from '../../common/Column';
+import { AppContext, LoginContext } from '../../../logic/config/AppProvider';
+import useWindowSize from '../../../logic/functions/windowResize';
+import { mobileWidthMenu, mobileWidthLoginForm } from '../../../logic/config/configuration';
+import Row from '../../common/structure/Row';
+import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
-import { KnownPages } from '../../../common/context/routeContextEnums';
+import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 import MenuNotification from './MenuNotification';
-import { PageType } from '../../../common/functions/misc';
+import { PageType } from '../../../logic/functions/misc';
 
 export interface IUserCustomMenu {
     Title?: string;
@@ -18,7 +18,7 @@ export interface IUserCustomMenu {
     AdminOnly?: boolean;
 }
 
-const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType}> = ( props ) => {
+const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType; NotificationRefreshTime?: number;}> = ( props ) => {
     const [ appContext ] = useContext( AppContext );
     const [ userContext ] = useContext( LoginContext );
     const [ toogle, setToogle ] = useState<boolean>( false );
@@ -84,7 +84,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
         }
 
         if ( appContext.adminOptions ) {
-            menus.push( { Title: "#(Administracao)", Link: KnownPages.Administration } );
+            menus.push( { Title: "#(Administration)", Link: KnownPages.Administration } );
         }
 
         menus.push( {} );
@@ -116,7 +116,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
                             : null
                         )
                     }
-                    { appContext.adminOptions && <MenuItemMobile Title="#(Administracao)" Link={ KnownPages.Administration } collapseFunc={ () => { setToogle( false ) } } /> }
+                    { appContext.adminOptions && <MenuItemMobile Title="#(Administration)" Link={ KnownPages.Administration } collapseFunc={ () => { setToogle( false ) } } /> }
                     <MenuItemMobile Title="#(Logout)" Action={ () => null } collapseFunc={ () => { setToogle( false ) } } />
                 </Column>
             </Row>
@@ -126,7 +126,13 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
 
     return (
             <div ref={ userMenuRef }>
-                { props.NotificationsEnabled && props.NotificationsRoute && <MenuNotification reference = {notificationRef} Route= { props.NotificationsRoute ? props.NotificationsRoute : "" }/>}
+                { props.NotificationsEnabled && props.NotificationsRoute && 
+                    <MenuNotification 
+                        reference = {notificationRef} 
+                        Route= { props.NotificationsRoute ? props.NotificationsRoute : "" }
+                        RefreshTime = { props.NotificationRefreshTime }
+                    />
+                }
                 <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogle( !toogle ) }>
                     <span tabIndex={ 0 } className={ ( toogle ? 'menuItemColSel' : '' ) }>
                         { userContext && ( `${ userContext.name } ${ shortName ? `${ userContext.surname.charAt( 0 ) }.` : userContext.surname }` ) }

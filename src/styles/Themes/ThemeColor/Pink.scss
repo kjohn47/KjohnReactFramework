@@ -1,0 +1,49 @@
+// -------------- Pink ------------------------
+.PageLayoutColor_Pink {
+  //-------------- Pink Colors ----------------
+  $MainColor: rgb(158, 1, 132);
+  $SecondaryColor: rgb(255, 107, 248);
+  $MenuTextColor: rgb(255, 255, 255);
+  $TextColor: rgb(32, 0, 0);
+  $LinkColor: rgb(232, 56, 255);
+
+  $Button: rgb(233, 25, 198);
+  $Button_Text: rgb(255, 255, 255);
+  $Button_Hover: rgb(255, 107, 248);
+  $Button_Text_Hover: rgb(255, 255, 255);
+
+  $Input_Border: rgb(158, 1, 132);
+  $Input_Focus: rgb(255, 107, 248);
+
+  $Table_Header_Text: rgb(255, 255, 255);
+
+  $CardBorderColor: rgb(158, 1, 132);
+  $CardBackground: rgba(250, 171, 246, 0.247);
+
+  $DatePicker_Border: rgb(209, 5, 175);
+  $DatePicker_DaySelect: rgb(206, 79, 185);
+  $DatePicker_Header_Text: rgb(255, 255, 255);
+  $DatePicker_LinkColor: rgb(228, 159, 216);
+  $DatePicker_Disabled_Text: rgb(100, 74, 96);
+  $DatePicker_Disabled: rgb(218, 145, 207);
+  $DatePicker_Selected_Text: rgb(255, 255, 255);
+
+  $Menu_Border:rgb(233, 25, 198);
+  $Menu_Background:rgba(255, 107, 248, 0.8);
+  $Menu_SubBackground: rgba(253, 220, 255, 0.925);
+  $Menu_SubBorder: rgba(233, 25, 198, 0.882);
+  $Menu_SubText: rgb(0, 0, 0);
+  $Menu_SubHover: rgba(187, 82, 182, 0.616);
+  $Menu_SubTextHover: rgb(245, 196, 252);
+  $Menu_SubSeparator: rgb(206, 108, 191);
+  $Menu_SubDisabled: rgba(212, 161, 206, 0.808);
+  $Menu_MenuSubOpen: rgba(255, 140, 249, 0.733);
+  $Menu_NotificationBg:rgba(252, 229, 248, 0.979);
+  $Menu_NotificationBgNew:rgba(255, 191, 252, 0.959);
+
+  $BalloonBackground: rgb(255, 204, 242);
+
+  //------------------------------------------
+  @import "../ThemeTree";
+}
+//--------------------------------------------

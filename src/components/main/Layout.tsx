@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AppContext } from "../../common/config/appConfig";
+import { AppContext } from "../../logic/config/AppProvider";
 
 interface ILayout {
     MenuComponent: React.ComponentType;

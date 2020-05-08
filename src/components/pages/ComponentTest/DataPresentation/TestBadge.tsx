@@ -1,9 +1,9 @@
 import React, { CSSProperties } from 'react';
-import Column from '../../../common/Column';
-import Row from '../../../common/Row';
-import FieldSet from '../../../common/FieldSet';
-import Badge, { BadgeColorEnum } from '../../../common/Badge';
-import { ToolTipColor, ToolTipPosition } from '../../../common/WithTooltip';
+import Column from '../../../common/structure/Column';
+import Row from '../../../common/structure/Row';
+import FieldSet from '../../../common/presentation/wrapper/FieldSet';
+import Badge, { BadgeColorEnum } from '../../../common/presentation/display/Badge';
+import { ToolTipColor, ToolTipPosition } from '../../../common/presentation/wrapper/WithTooltip';
 
 const TestBadge: React.FC = () => {
     const badgeDiv: CSSProperties = {

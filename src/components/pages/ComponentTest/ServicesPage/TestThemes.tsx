@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import Column from '../../../common/Column';
-import Row from '../../../common/Row';
-import { AppContext } from '../../../../common/config/appConfig';
-import { AppGlobalTheme, ContextActions } from '../../../../common/context/appContextEnums';
-import Button, { ButtonTypes } from '../../../common/Button';
-import FieldSet from '../../../common/FieldSet';
+import Column from '../../../common/structure/Column';
+import Row from '../../../common/structure/Row';
+import { AppContext } from '../../../../logic/config/AppProvider';
+import { AppGlobalTheme, ContextActions } from '../../../../logic/context/App/appContextEnums';
+import Button, { ButtonTypes } from '../../../common/inputs/Button';
+import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 
 const TestThemes: React.FC = () => {
     const [appContext, setAppContext] = useContext(AppContext);

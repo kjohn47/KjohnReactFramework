@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AppContext, ErrorContext, LoadingContext, RouteContext } from "../../common/config/appConfig";
-import { KnownPages } from "../../common/context/routeContextEnums";
-import { ErrorCodes, ErrorActions } from "../../common/context/appErrorEnums";
-import Loader from "../common/Loader";
+import React, { useContext, useEffect, useState, Suspense } from "react";
+import { AppContext, ErrorContext, LoadingContext, RouteContext } from "../../logic/config/AppProvider";
+import { KnownPages } from "../../logic/context/Routes/routeContextEnums";
+import { ErrorCodes, ErrorActions } from "../../logic/context/Error/appErrorEnums";
+import Loader from "../common/presentation/loading/Loader";
 import ErrorPage from "./ErrorPage";
-import { injectProps, IDictionary, PageType } from "../../common/functions/misc";
-import { withLogin } from "../../common/functions/checkLogin";
-import { getRouteUrlAndQuery } from "../../common/functions/routeHandling";
-import { RouteActions } from "../../common/context/routeContextEnums";
+import { injectProps, IDictionary, PageType } from "../../logic/functions/misc";
+import { withLogin } from "../../logic/functions/checkLogin";
+import { getRouteUrlAndQuery } from "../../logic/functions/routeHandling";
+import { RouteActions } from "../../logic/context/Routes/routeContextEnums";
+import UserMenu from "./UserMenu";
+import AdminMenu from "./AdminMenu";
 
 export interface IRoure<TRouteProps> {
     Route: PageType;
@@ -17,12 +19,16 @@ export interface IRoure<TRouteProps> {
     AdminOnly?: boolean;
 }
 
-export interface IPageHandleProps<THomeProps> {
+export interface IStaticRouteComponent<TProps> {
+    Component: React.ComponentType<TProps>;
+    Props?: TProps;
+}
+
+export interface IPageHandleProps {
     Routes: {
-        Home: {
-            Component: React.ComponentType<THomeProps>;
-            Props?: THomeProps;
-        };
+        Home: IStaticRouteComponent<any>;
+        CustomUserMenu?: IStaticRouteComponent<any>;
+        CustomAdminMenu?: IStaticRouteComponent<any>;
         KnownRoutes?: IRoure<any>[];
     };
 }
@@ -38,7 +44,7 @@ const usePageSelector: ( selectedComponent: React.ComponentType | undefined ) =>
     return [ component, setSelectedComponent ]
 }
 
-const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
+const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
     const [ appContext ] = useContext( AppContext );
     const [ routeContext, setRouteContext ] = useContext( RouteContext );
     const [ errorContext, setErrorContext ] = useContext( ErrorContext );
@@ -106,10 +112,17 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
                         setOutput( injectProps( Routes.Home.Component, Routes.Home.Props ) );
                     }
                     else if ( selectedPage.toLowerCase() === KnownPages.UserSettings.toLowerCase() ) {
-                        setOutput( withLogin( () => <></> ) ); //user menu component
+                        setOutput( 
+                            withLogin( ( Routes.CustomUserMenu ? 
+                                injectProps( Routes.CustomUserMenu.Component, Routes.CustomUserMenu.Props ) : 
+                                UserMenu ) ) 
+                        );
                     }
                     else if ( appContext.adminOptions && selectedPage.toLowerCase() === KnownPages.Administration.toLowerCase() ) {
-                        setOutput( withLogin( () => <></> ) ); //Administration component
+                        setOutput( 
+                            withLogin( ( Routes.CustomAdminMenu ? 
+                                injectProps( Routes.CustomAdminMenu.Component, Routes.CustomAdminMenu.Props ) :
+                                AdminMenu ), true ) );
                     }
                     else {
                         const route = Routes.KnownRoutes && Routes.KnownRoutes.filter( r => {
@@ -195,11 +208,12 @@ const PageHandler: React.FC<IPageHandleProps<any>> = ( { Routes } ) => {
         routeContext,
         errorContext
     ] )
-
     return (
-        <Loader isLoading={ isLoading || ( !routeContext.routeReady && !errorContext.hasError ) } bigLoader paddingTop >
-            { !errorContext.hasError && output ? ( routeContext.routeReady ? output : <></> ) : <ErrorPage /> }
-        </Loader>
+        <Suspense fallback = {<Loader isLoading={ true } bigLoader paddingTop withoutText/> } >
+            <Loader isLoading={ isLoading || ( !routeContext.routeReady && !errorContext.hasError ) } bigLoader paddingTop withoutText = { !routeContext.routeReady } >
+                { !errorContext.hasError && output ? ( routeContext.routeReady ? output :  null ) : errorContext.hasError ? <ErrorPage /> : null }
+            </Loader>
+        </Suspense>
     );
 }
 

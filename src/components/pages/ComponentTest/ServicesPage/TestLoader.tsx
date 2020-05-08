@@ -1,9 +1,9 @@
 import React, { CSSProperties } from 'react';
-import Row from '../../../common/Row';
-import Column from '../../../common/Column';
-import Loader from '../../../common/Loader';
-import FieldSet from '../../../common/FieldSet';
-import DotsLoader, { DotsLoaderSize, DotsLoaderNrBall, DotsLoaderColor } from '../../../common/DotsLoader';
+import Row from '../../../common/structure/Row';
+import Column from '../../../common/structure/Column';
+import Loader from '../../../common/presentation/loading/Loader';
+import FieldSet from '../../../common/presentation/wrapper/FieldSet';
+import DotsLoader, { DotsLoaderSize, DotsLoaderNrBall, DotsLoaderColor } from '../../../common/presentation/loading/DotsLoader';
 
 const TestLoader: React.FC = () => {
     const dotLoaderStyle: CSSProperties = {

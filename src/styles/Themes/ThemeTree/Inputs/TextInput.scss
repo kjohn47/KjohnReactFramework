@@ -1,0 +1,8 @@
+.inputTextDiv {
+    .inputText_Color {
+      border-color: $Input_Border;
+      &:focus {
+        box-shadow: 0 0 3px $Input_Focus;
+      }
+    }
+}

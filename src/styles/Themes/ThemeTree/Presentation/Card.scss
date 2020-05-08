@@ -1,0 +1,10 @@
+.CardComponent {
+    border-color: $CardBorderColor;
+    background-color: $CardBackground;
+    .CardFooter {
+      border-top-color: $CardBorderColor;
+      .CardFooterRight {
+        border-left-color: $CardBorderColor;
+      }
+    }
+}

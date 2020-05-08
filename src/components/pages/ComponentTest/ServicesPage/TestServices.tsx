@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react';
-import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../../common/WithTooltip';
-import Button, { ButtonTypes } from '../../../common/Button';
-import Loader from '../../../common/Loader';
-import { useTestService } from '../../../../Services/Test/TestServices';
+import WithTooltip, { ToolTipPosition, ToolTipColor } from '../../../common/presentation/wrapper/WithTooltip';
+import Button, { ButtonTypes } from '../../../common/inputs/Button';
+import Loader from '../../../common/presentation/loading/Loader';
+import { useTestService } from '../../../../services/Test/TestServices';
 
 const TestServices: React.FC = () => {
   const TestServices = useTestService();
@@ -61,6 +61,14 @@ const TestServices: React.FC = () => {
         </WithTooltip>
       </div>
     </Loader>
+    <hr />
+    <div className="center_menu_button">
+      <WithTooltip toolTipText={ TestServices.Downloading ? "Abort Download" : "Download File" } toolTipPosition={ ToolTipPosition.Left } >
+        <Button className="button_width" onClick={ () => { TestServices.Downloading ? TestServices.AbortDownload() : TestServices.DownloadFile() } } buttonType={ ButtonTypes.Default } >
+          { TestServices.Downloading ? ( "("+TestServices.DownloadProgress+"%) Abort") : "Download File" }
+        </Button>
+      </WithTooltip>
+    </div>
     <hr />
     <Loader isLoading={ TestServices.ExternalLoading } withoutText>
       <div className="center_menu_button">
