@@ -1,5 +1,5 @@
-import { RouteActions, KnownPages } from "./routeContextEnums";
-import { IDictionary, PageType } from "../functions/misc";
+import { RouteActions } from "./routeContextEnums";
+import { IDictionary, PageType } from "../../functions/misc";
 
 export interface IRouteAction {
     type: RouteActions;

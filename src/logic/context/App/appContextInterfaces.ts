@@ -1,5 +1,5 @@
 import { ContextActions, AppLanguage, AppGlobalTheme } from "./appContextEnums";
-import { ITranslation } from "./pageText/pageTranslationInterfaces";
+import { ITranslation } from "../../functions/getTranslation";
 
 export interface IContextAction {
     type: ContextActions;

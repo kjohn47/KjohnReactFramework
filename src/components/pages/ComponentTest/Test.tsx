@@ -8,7 +8,7 @@ import TestTable from './DataPresentation/TestTable';
 import TestButtons from './Inputs/TestButtons';
 import TestTextInput from './Inputs/TestTextInput';
 import TestServices from './ServicesPage/TestServices';
-import useTranslation from '../../../logic/context/pageText/getTranslation';
+import useTranslation from '../../../logic/functions/getTranslation';
 import TestDatePicker from './Inputs/TestDatePicker';
 import TestTabGroup from './DataPresentation/TestTabGroup';
 import TestBalloon from './DataPresentation/TestBalloon';

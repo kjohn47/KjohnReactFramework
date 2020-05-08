@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { ErrorContext, AppContext } from "../../logic/config/AppProvider";
-import { KnownPages } from "../../logic/context/routeContextEnums";
+import { KnownPages } from "../../logic/context/Routes/routeContextEnums";
 import Button from "../common/inputs/Button";
 import WithTooltip, { ToolTipPosition } from "../common/presentation/wrapper/WithTooltip";
 import PageHeader from "../common/presentation/display/PageHeader";
 import Row from "../common/structure/Row";
 import Column from "../common/structure/Column";
-import useTranslation from "../../logic/context/pageText/getTranslation";
-import useErrorTranslation from "../../logic/context/pageErrors/getPageError";
+import useTranslation from "../../logic/functions/getTranslation";
+import useErrorTranslation from "../../logic/functions/getPageError";
 import { showDetailedErrors } from "../../logic/config/configuration";
 
 const ErrorPage: React.FC = () => {

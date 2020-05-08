@@ -1,5 +1,5 @@
-import { AppLanguage, AppStorageKeys, AppGlobalTheme } from "../context/appContextEnums";
-import { ILogin } from "../context/loginContextInterfaces";
+import { AppLanguage, AppStorageKeys, AppGlobalTheme } from "../context/App/appContextEnums";
+import { ILogin } from "../context/Login/loginContextInterfaces";
 import SHA from "sha.js";
 import JWT from "jsonwebtoken";
 

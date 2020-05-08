@@ -1,4 +1,4 @@
-import { KnownPages } from "../context/routeContextEnums";
+import { KnownPages } from "../context/Routes/routeContextEnums";
 import { IDictionary } from "./misc";
 
 export const getQueryStringParams = ( queryString: string ) => {

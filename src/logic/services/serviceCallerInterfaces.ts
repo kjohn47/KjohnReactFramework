@@ -1,6 +1,6 @@
-import { ILoginAction, ILogin } from '../context/loginContextInterfaces';
-import { IAppContext, IContextAction } from '../context/appContextInterfaces';
-import { AppLanguage } from '../context/appContextEnums';
+import { ILoginAction, ILogin } from '../context/Login/loginContextInterfaces';
+import { IAppContext, IContextAction } from '../context/App/appContextInterfaces';
+import { AppLanguage } from '../context/App/appContextEnums';
 
 export interface IContext {
     appContext: IAppContextObject;

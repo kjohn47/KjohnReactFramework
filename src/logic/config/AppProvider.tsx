@@ -1,14 +1,14 @@
 import React, { createContext, useState, useEffect } from "react"
-import { useError } from "../context/appError";
-import { ErrorContextType } from "../context/appErrorInterfaces";
-import { useAppContext } from "../context/appContext";
-import { LoadingType, AppContextType, AppLanguageType } from "../context/appContextInterfaces";
-import { useLogin } from "../context/loginContext";
-import { LoginContextType } from "../context/loginContextInterfaces";
+import { useError } from "../context/Error/appError";
+import { ErrorContextType } from "../context/Error/appErrorInterfaces";
+import { useAppContext } from "../context/App/appContext";
+import { LoadingType, AppContextType, AppLanguageType } from "../context/App/appContextInterfaces";
+import { useLogin } from "../context/Login/loginContext";
+import { LoginContextType } from "../context/Login/loginContextInterfaces";
 import { initialAppConfig, initialLogin, initialError, initialLanguage, initialRouteConfig } from "./configuration";
-import { ContextActions, AppLanguage } from "../context/appContextEnums";
-import { RouteContextType } from "../context/routeContextInterfaces";
-import { useRouteContext } from "../context/routeContext";
+import { ContextActions, AppLanguage } from "../context/App/appContextEnums";
+import { RouteContextType } from "../context/Routes/routeContextInterfaces";
+import { useRouteContext } from "../context/Routes/routeContext";
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderColor, DotsLoaderSize } from "../../components/common/presentation/loading/DotsLoader";
 import Column from "../../components/common/structure/Column";
 import Row from "../../components/common/structure/Row";

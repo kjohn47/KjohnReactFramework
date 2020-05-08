@@ -1,8 +1,8 @@
-import { AppLanguageContext } from "../../config/AppProvider";
+import { AppLanguageContext } from "../config/AppProvider";
 import { useContext } from "react";
-import { IErrorData } from "./pageErrorsInterfaces";
-import { ErrorCodes } from "../appErrorEnums";
-import pageErrors from "./pageErrorsTranslation";
+import { IErrorData } from "../context/Error/appErrorInterfaces";
+import { ErrorCodes } from "../context/Error/appErrorEnums";
+import pageErrors from "../context/Error/appErrorTranslation";
 
 const useErrorTranslation: () => { getErrorData: ( errorCode?: ErrorCodes ) => IErrorData } = () => {
     const [ appLanguage ] = useContext( AppLanguageContext );

@@ -2,7 +2,7 @@ import React from "react";
 import Column, { ColumnNumber } from "../../structure/Column";
 import Row from "../../structure/Row";
 import PageSelector from "../../inputs/PageSelector";
-import useTranslation from "../../../../logic/context/pageText/getTranslation";
+import useTranslation from "../../../../logic/functions/getTranslation";
 import { IDictionary, PageType } from "../../../../logic/functions/misc";
 
 export interface ICard {

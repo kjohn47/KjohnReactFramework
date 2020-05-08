@@ -1,5 +1,5 @@
 import {lazy} from 'react';
-import { KnownPages } from "../context/routeContextEnums";
+import { KnownPages } from "../context/Routes/routeContextEnums";
 //import Test from "../../components/pages/ComponentTest/Test";
 import { IPageHandleProps } from "../../components/main/PageHandler";
 import { IKRFProps } from "../../components/main/KRFApp";

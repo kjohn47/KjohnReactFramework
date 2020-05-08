@@ -1,5 +1,5 @@
 import React from 'react';
-import { KnownPages } from '../context/routeContextEnums';
+import { KnownPages } from '../context/Routes/routeContextEnums';
 import { IdownloadDocument } from '../services/serviceCallerInterfaces';
 import { getMimeTypeFromExtension } from '../services/mimeTypes';
 

@@ -5,7 +5,7 @@ import { mobileWidthMenu, mobileWidthLoginForm } from '../../../logic/config/con
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
-import { KnownPages } from '../../../logic/context/routeContextEnums';
+import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 import MenuNotification from './MenuNotification';
 import { PageType } from '../../../logic/functions/misc';

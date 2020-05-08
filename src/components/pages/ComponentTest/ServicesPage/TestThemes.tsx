@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Column from '../../../common/structure/Column';
 import Row from '../../../common/structure/Row';
 import { AppContext } from '../../../../logic/config/AppProvider';
-import { AppGlobalTheme, ContextActions } from '../../../../logic/context/appContextEnums';
+import { AppGlobalTheme, ContextActions } from '../../../../logic/context/App/appContextEnums';
 import Button, { ButtonTypes } from '../../../common/inputs/Button';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 

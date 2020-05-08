@@ -1,11 +1,11 @@
-import { IError } from "../context/appErrorInterfaces";
-import { IAppContext } from "../context/appContextInterfaces";
-import { ILogin } from "../context/loginContextInterfaces";
-import { AppLanguage, AppGlobalTheme } from "../context/appContextEnums";
+import { IError } from "../context/Error/appErrorInterfaces";
+import { IAppContext } from "../context/App/appContextInterfaces";
+import { ILogin } from "../context/Login/loginContextInterfaces";
+import { AppLanguage, AppGlobalTheme } from "../context/App/appContextEnums";
 import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme } from "../functions/sessionStorage";
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
 import { trueFalseParser } from "../functions/misc";
-import { IRouteContext } from "../context/routeContextInterfaces";
+import { IRouteContext } from "../context/Routes/routeContextInterfaces";
 
 let currentUser: ILogin | undefined = getUserSession();
 /*

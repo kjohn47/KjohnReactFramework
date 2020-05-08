@@ -1,6 +1,6 @@
 import { useFetchGetHandler } from "../../logic/services/fetchHandler";
 import { ServiceType } from "../../logic/services/serviceCallerInterfaces";
-import { ContextActions, AppLanguage } from "../../logic/context/appContextEnums";
+import { ContextActions, AppLanguage } from "../../logic/context/App/appContextEnums";
 import { ITestServiceResponse, ITestServiceRequest, ITestExternalServiceResponse } from "./TestServiceInterfaces";
 import { delayedPromise } from "../../logic/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";

@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
 import { ContextActions, AppLanguage } from "./appContextEnums";
 import { IAppContext, IContextAction, AppContextType } from "./appContextInterfaces";
-import { setLastSelectedLanguage, setAppTheme } from "../functions/sessionStorage";
-import { LoginContext, AppLanguageContext } from "../config/AppProvider";
-import { LoginActions } from "./loginContextEnums";
-import { ITranslation } from "./pageText/pageTranslationInterfaces";
-import { AvailableServices } from "../services/servicesEnums";
-import { useFetchGetHandler } from "../services/fetchHandler";
-import { IServiceError } from "../services/serviceCallerInterfaces";
+import { setLastSelectedLanguage, setAppTheme } from "../../functions/sessionStorage";
+import { LoginContext, AppLanguageContext } from "../../config/AppProvider";
+import { LoginActions } from "../Login/loginContextEnums";
+import { ITranslation } from "../../functions/getTranslation";
+import { AvailableServices } from "../../services/servicesEnums";
+import { useFetchGetHandler } from "../../services/fetchHandler";
+import { IServiceError } from "../../services/serviceCallerInterfaces";
 
 const translationHeaders = () => {
     let headers = new Headers();

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { AppRegex } from '../../../logic/config/regexEnum';
-import useTranslation from '../../../logic/context/pageText/getTranslation';
+import useTranslation from '../../../logic/functions/getTranslation';
 import { scrollToRef } from '../../../logic/functions/misc';
 
 interface IDatePicker {

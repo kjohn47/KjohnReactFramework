@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { AppContext, AppLanguageContext, LoginContext } from '../../logic/config/AppProvider';
-import { ContextActions, AppLanguage } from '../../logic/context/appContextEnums';
+import { ContextActions, AppLanguage } from '../../logic/context/App/appContextEnums';
 import Row from '../common/structure/Row';
 import Column, { ColumnNumber } from '../common/structure/Column';
 import { IMenuItem } from './MenuComponents/MenuItem';

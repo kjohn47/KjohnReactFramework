@@ -1,5 +1,5 @@
 import { LoginActions } from "./loginContextEnums";
-import { AppLanguage, AppGlobalTheme } from "./appContextEnums";
+import { AppLanguage, AppGlobalTheme } from "../App/appContextEnums";
 
 export interface ILogin {
     userSessionToken: string;

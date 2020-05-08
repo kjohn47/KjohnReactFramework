@@ -2,7 +2,7 @@ import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
 import { useContext, useState, useEffect, useRef } from "react";
 import { LoginContext, AppLanguageContext } from "../config/AppProvider";
 import { apiServerUrl } from "../config/configuration";
-import { AppLanguage } from "../context/appContextEnums";
+import { AppLanguage } from "../context/App/appContextEnums";
 import { getFileFromBase64 } from "../functions/misc";
 
 const handleErrors = ( response: Response ) => {

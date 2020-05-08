@@ -5,7 +5,7 @@ import Column, { ColumnNumber } from '../../common/structure/Column';
 import { useState } from 'react';
 import SubMenuMobile from './SubMenuMobile';
 import PageSelector from '../../common/inputs/PageSelector';
-import useTranslation from '../../../logic/context/pageText/getTranslation';
+import useTranslation from '../../../logic/functions/getTranslation';
 import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../logic/config/AppProvider';
 
 const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?: boolean; }> = ( props ) => {

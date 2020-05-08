@@ -1,6 +1,6 @@
 import { useContext, useState, useRef, useEffect } from 'react';
 import { AppContext, LoadingContext, ErrorContext, LoginContext, AppLanguageContext } from '../config/AppProvider';
-import { ErrorActions, ErrorCodes } from "../context/appErrorEnums";
+import { ErrorActions, ErrorCodes } from "../context/Error/appErrorEnums";
 import { IContext, IServiceError, ServiceCallType, ServiceType } from "./serviceCallerInterfaces";
 
 interface IServiceCallerArgs<IServiceRequest, IServiceResponse> {

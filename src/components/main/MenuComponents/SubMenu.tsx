@@ -3,7 +3,7 @@ import { AppContext, AppLanguageContext, ErrorContext, LoginContext, RouteContex
 import PageSelector from '../../common/inputs/PageSelector';
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
-import useTranslation from '../../../logic/context/pageText/getTranslation';
+import useTranslation from '../../../logic/functions/getTranslation';
 import { PageType } from '../../../logic/functions/misc';
 
 export interface ISubMenuItem {

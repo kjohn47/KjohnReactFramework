@@ -4,8 +4,8 @@ import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/inputs/PageSelector';
 import { ToolTipPosition, ToolTipColor } from '../../common/presentation/wrapper/WithTooltip';
 import { AppContext, AppLanguageContext } from '../../../logic/config/AppProvider';
-import { AppGlobalTheme, AppLanguage } from '../../../logic/context/appContextEnums';
-import useTranslation from '../../../logic/context/pageText/getTranslation';
+import { AppGlobalTheme, AppLanguage } from '../../../logic/context/App/appContextEnums';
+import useTranslation from '../../../logic/functions/getTranslation';
 import { useNotificationService } from '../../../services/Notifications/NotificationServices';
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
 

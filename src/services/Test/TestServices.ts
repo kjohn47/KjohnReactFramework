@@ -1,7 +1,7 @@
 import { useTestServiceHandler } from "./TestServiceHandler"
 import { useServiceCaller } from "../../logic/services/serviceCaller";
 import { ITestServiceRequest, ITestServiceResponse, ITestServices, ITestExternalServiceResponse } from "./TestServiceInterfaces";
-import { ErrorCodes } from "../../logic/context/appErrorEnums";
+import { ErrorCodes } from "../../logic/context/Error/appErrorEnums";
 import { TestServiceRequestType } from "./TestServiceEnum";
 import { useDocumentDownloader } from "../../logic/services/fetchHandler";
 

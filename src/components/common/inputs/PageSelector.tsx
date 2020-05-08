@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { KnownPages, RouteActions } from "../../../logic/context/routeContextEnums";
+import { KnownPages, RouteActions } from "../../../logic/context/Routes/routeContextEnums";
 import { RouteContext } from "../../../logic/config/AppProvider";
 import { IDictionary, PageType } from "../../../logic/functions/misc";
 

@@ -1,7 +1,13 @@
 import { useContext } from "react"
-import { AppContext, AppLanguageContext } from "../../config/AppProvider"
-import { ITranslations } from "../appContextInterfaces";
-import { AppLanguage } from "../appContextEnums";
+import { AppContext, AppLanguageContext } from "../config/AppProvider"
+import { ITranslations } from "../context/App/appContextInterfaces";
+import { AppLanguage } from "../context/App/appContextEnums";
+
+ export interface ITranslation {
+    [ process: string ]: {
+        [ token: string ]: string;
+    };
+}
 
 const getToken: ( process: string, token: string, translations: ITranslations, language: AppLanguage ) => string = ( process, token, translations, language ) => {
     let translation = translations[ language ];

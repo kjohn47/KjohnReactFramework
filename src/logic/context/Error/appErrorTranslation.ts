@@ -1,6 +1,6 @@
-import { IPageErrors } from "./pageErrorsInterfaces";
-import { AppLanguage } from "../appContextEnums";
-import { ErrorCodes } from "../appErrorEnums";
+import { IPageErrors } from "./appErrorInterfaces";
+import { AppLanguage } from "../App/appContextEnums";
+import { ErrorCodes } from "./appErrorEnums";
 
 //Add new errors here
 const pageErrors: IPageErrors =

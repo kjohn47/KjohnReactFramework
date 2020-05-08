@@ -2,7 +2,7 @@ import { ServiceType, IServiceError } from "../../logic/services/serviceCallerIn
 import { INotificationRequest, INotifications } from "./NotificationInterfaces";
 import { NotificationRequestType } from "./NotificationEnum";
 import { delayedPromise } from "../../logic/functions/misc";
-import { AppLanguage } from "../../logic/context/appContextEnums";
+import { AppLanguage } from "../../logic/context/App/appContextEnums";
 
 export const useNotificationHandler = ( IsMenu: boolean ) => {
     //const [isMenuQuery] = useState<string>(IsMenu ? "?ismenu=true" : "");

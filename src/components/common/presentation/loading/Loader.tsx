@@ -1,5 +1,5 @@
 import React from "react";
-import useTranslation from "../../../../logic/context/pageText/getTranslation";
+import useTranslation from "../../../../logic/functions/getTranslation";
 
 interface ILoader {
     isLoading: boolean;

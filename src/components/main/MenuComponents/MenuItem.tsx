@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import PageSelector from '../../common/inputs/PageSelector';
 import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
-import useTranslation from '../../../logic/context/pageText/getTranslation';
+import useTranslation from '../../../logic/functions/getTranslation';
 import { LoginContext, AppContext } from '../../../logic/config/AppProvider';
 import { PageType } from '../../../logic/functions/misc';
 

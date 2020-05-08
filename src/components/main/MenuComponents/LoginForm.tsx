@@ -6,9 +6,9 @@ import Button, { ButtonTypes } from '../../common/inputs/Button';
 import useWindowSize from '../../../logic/functions/windowResize';
 import { useState, useEffect } from 'react';
 import { mobileWidthLoginForm, mobileWidthMenu } from '../../../logic/config/configuration';
-import useTranslation from '../../../logic/context/pageText/getTranslation';
+import useTranslation from '../../../logic/functions/getTranslation';
 import PageSelector from '../../common/inputs/PageSelector';
-import { KnownPages } from '../../../logic/context/routeContextEnums';
+import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import WithLabel from '../../common/presentation/wrapper/WithLabel';
 
 const LoginForm: React.FC = () => {

@@ -3,12 +3,12 @@ import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
 import MenuItem from './MenuItem';
 import PageSelector from '../../common/inputs/PageSelector';
-import { KnownPages } from '../../../logic/context/routeContextEnums';
+import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import { IMenuProps } from '../Menu';
 import useWindowSize from '../../../logic/functions/windowResize';
 import { useState, useRef, useEffect } from 'react';
 import { mobileWidthMenu } from '../../../logic/config/configuration';
-import useTranslation from '../../../logic/context/pageText/getTranslation';
+import useTranslation from '../../../logic/functions/getTranslation';
 import MenuItemMobile from './MenuItemMobile';
 
 const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: boolean ) => void }> = ( props ) => {

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { LoginContext, AppContext, ErrorContext } from "../config/AppProvider";
-import { ErrorActions, ErrorCodes } from "../context/appErrorEnums";
+import { ErrorActions, ErrorCodes } from "../context/Error/appErrorEnums";
 
 export const withLogin = ( Component: React.ComponentType, adminOnly: boolean = false): React.ComponentType => {
     const WithLogin: React.FC = () => {
