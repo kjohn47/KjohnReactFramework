@@ -1,4 +1,17 @@
 import React from 'react';
+import { ReactComponent as ArchieveSvg } from '../../../../assets/svg/downloadIcons/Archieve.svg';
+import { ReactComponent as AudioSvg } from '../../../../assets/svg/downloadIcons/Audio.svg';
+import { ReactComponent as BinarySvg } from '../../../../assets/svg/downloadIcons/Binary.svg';
+import { ReactComponent as CodeSvg } from '../../../../assets/svg/downloadIcons/Code.svg';
+import { ReactComponent as DocSvg } from '../../../../assets/svg/downloadIcons/Doc.svg';
+import { ReactComponent as ImageSvg } from '../../../../assets/svg/downloadIcons/Image.svg';
+import { ReactComponent as ImportantSvg } from '../../../../assets/svg/downloadIcons/Important.svg';
+import { ReactComponent as PdfSvg } from '../../../../assets/svg/downloadIcons/Pdf.svg';
+import { ReactComponent as PptSvg } from '../../../../assets/svg/downloadIcons/Ppt.svg';
+import { ReactComponent as TxtSvg } from '../../../../assets/svg/downloadIcons/Txt.svg';
+import { ReactComponent as UnknownSvg } from '../../../../assets/svg/downloadIcons/Unknown.svg';
+import { ReactComponent as VideoSvg } from '../../../../assets/svg/downloadIcons/Video.svg';
+import { ReactComponent as XlsSvg } from '../../../../assets/svg/downloadIcons/Xls.svg';
 
 export enum FileDownloaderIcon {
     Img,
@@ -17,69 +30,17 @@ export enum FileDownloaderIcon {
 }
 
 export const DownloadIcons = {
-    [FileDownloaderIcon.Archive]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Audio]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Binary]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Code]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Doc]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Img]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Important]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Pdf]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Ppt]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Txt]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Unknown]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Video]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>,
-    [FileDownloaderIcon.Xls]: 
-        <svg className = "svgDownloadIconStyle">
-            <g>
-            </g>
-        </svg>
+    [FileDownloaderIcon.Archive]: <ArchieveSvg />,
+    [FileDownloaderIcon.Audio]: <AudioSvg />,
+    [FileDownloaderIcon.Binary]: <BinarySvg />,
+    [FileDownloaderIcon.Code]: <CodeSvg />,
+    [FileDownloaderIcon.Doc]: <DocSvg />,
+    [FileDownloaderIcon.Img]: <ImageSvg />,
+    [FileDownloaderIcon.Important]: <ImportantSvg />,
+    [FileDownloaderIcon.Pdf]: <PdfSvg />,
+    [FileDownloaderIcon.Ppt]: <PptSvg />,
+    [FileDownloaderIcon.Txt]: <TxtSvg />,
+    [FileDownloaderIcon.Unknown]: <UnknownSvg />,
+    [FileDownloaderIcon.Video]: <VideoSvg />,
+    [FileDownloaderIcon.Xls]: <XlsSvg />
 }
