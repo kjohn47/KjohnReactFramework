@@ -1,7 +1,7 @@
 import React from 'react';
 import Column from '../../../common/structure/Column';
 import Row from '../../../common/structure/Row';
-import { FileDownloaderIcon } from '../../../common/presentation/download/FileDownloader';
+import { FileDownloaderIcon } from '../../../common/presentation/download/DownloadIcons';
 import FileDownloaderList from '../../../common/presentation/download/FileDownloaderList';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 

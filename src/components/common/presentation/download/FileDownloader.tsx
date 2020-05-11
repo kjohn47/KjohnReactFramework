@@ -2,22 +2,7 @@ import React from 'react';
 import { IdownloadArgs, useDocumentDownloader } from '../../../../logic/services/fetchHandler';
 import Loader from '../loading/Loader';
 import CircleProgressBar, { CPBSize } from '../loading/CircleProgressBar';
-
-export enum FileDownloaderIcon {
-    Img,
-    Txt,
-    Doc,
-    Xls,
-    Ppt,
-    Pdf,
-    Audio,
-    Video,
-    Archive,
-    Important,
-    Binary,
-    Code,
-    Unknown
-}
+import { FileDownloaderIcon, DownloadIcons } from './DownloadIcons';
 
 export interface IFileDownloaderProps {
     fileName: string;
@@ -46,11 +31,7 @@ const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderDat
                                         : 
                                             <div>{downloadProgress} %</div>
                             :   fileIcon ?
-                                    <div>
-                                        {
-                                            fileIcon.toString() 
-                                        }
-                                    </div>
+                                    DownloadIcons[fileIcon]
                                 : 
                                     <div className = "IconDot"/>
                     }
