@@ -30,7 +30,9 @@ const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderDat
                                                 size = { CPBSize.Small }
                                             />
                                         : 
-                                            <div>{downloadProgress} %</div>
+                                            <div>
+                                                {downloadProgress} %
+                                            </div>
                             :   fileIcon ?
                                     <span 
                                         onClick={() => download()} 
@@ -43,17 +45,21 @@ const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderDat
                                 : 
                                     <div className = "IconDot"/>
                     }
-                    {isDownloading && <div className = "FileNameCancel" onClick={ () => abort() }>Cancel</div>}
+                    {isDownloading && 
+                        <div className = "FileNameCancel" onClick={ () => abort() }>
+                            Cancel
+                        </div>}
                 </div>
                 <div className = "FileName" >
                     <span 
-                    className = "FileNameText" 
-                    style = {
-                        hoverIcon ? {
-                            textDecoration: "underline"
-                        } : undefined
-                    } 
-                    onClick = { () => download() } >
+                        className = "FileNameText" 
+                        style = {
+                            hoverIcon ? {
+                                textDecoration: "underline"
+                            } : undefined
+                        } 
+                        onClick = { () => download() }
+                    >
                         { fileName }
                     </span>
                 </div>
