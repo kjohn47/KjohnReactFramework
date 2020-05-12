@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconCode } from '../../../../../logic/functions/getExtensionIcon';
 
 const ArchieveSvg = React.lazy( () => import('./ArchieveDownload') );
 const AudioSvg = React.lazy( () => import('./AudioDownload') );
@@ -14,34 +15,18 @@ const UnknownSvg = React.lazy( () => import('./UnknownDownload') );
 const VideoSvg = React.lazy( () => import('./VideoDownload') );
 const XlsSvg = React.lazy( () => import('./XlsDownload') );
 
-export enum DownloadIconCode {
-    Img,
-    Txt,
-    Doc,
-    Xls,
-    Ppt,
-    Pdf,
-    Audio,
-    Video,
-    Archive,
-    Important,
-    Binary,
-    Code,
-    Unknown
-}
-
 export const DownloadIcons = {
-    [DownloadIconCode.Archive]: <ArchieveSvg />,
-    [DownloadIconCode.Audio]: <AudioSvg />,
-    [DownloadIconCode.Binary]: <BinarySvg />,
-    [DownloadIconCode.Code]: <CodeSvg />,
-    [DownloadIconCode.Doc]: <DocSvg />,
-    [DownloadIconCode.Img]: <ImgSvg />,
-    [DownloadIconCode.Important]: <ImportantSvg />,
-    [DownloadIconCode.Pdf]: <PdfSvg />,
-    [DownloadIconCode.Ppt]: <PptSvg />,
-    [DownloadIconCode.Txt]: <TxtSvg />,
-    [DownloadIconCode.Unknown]: <UnknownSvg />,
-    [DownloadIconCode.Video]: <VideoSvg />,
-    [DownloadIconCode.Xls]: <XlsSvg />
+    [IconCode.Archive]: <ArchieveSvg />,
+    [IconCode.Audio]: <AudioSvg />,
+    [IconCode.Binary]: <BinarySvg />,
+    [IconCode.Code]: <CodeSvg />,
+    [IconCode.Doc]: <DocSvg />,
+    [IconCode.Img]: <ImgSvg />,
+    [IconCode.Important]: <ImportantSvg />,
+    [IconCode.Pdf]: <PdfSvg />,
+    [IconCode.Ppt]: <PptSvg />,
+    [IconCode.Txt]: <TxtSvg />,
+    [IconCode.Unknown]: <UnknownSvg />,
+    [IconCode.Video]: <VideoSvg />,
+    [IconCode.Xls]: <XlsSvg />
 }

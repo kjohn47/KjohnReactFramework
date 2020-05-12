@@ -2,7 +2,8 @@ import React from 'react';
 import Column from '../../../common/structure/Column';
 import Row from '../../../common/structure/Row';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
-import { DownloadIcons, DownloadIconCode } from '../../../common/presentation/icons/downloadIcons/DownloadIcons';
+import { DownloadIcons } from '../../../common/presentation/icons/downloadIcons/DownloadIcons';
+import { IconCode } from '../../../../logic/functions/getExtensionIcon';
 
 const TestIcons: React.FC = () => {
     return (
@@ -11,43 +12,43 @@ const TestIcons: React.FC = () => {
                 <FieldSet Title = "Download Icons">
                     <Row>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Archive]}
+                            {DownloadIcons[IconCode.Archive]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Audio]}
+                            {DownloadIcons[IconCode.Audio]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Binary]}
+                            {DownloadIcons[IconCode.Binary]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Code]}
+                            {DownloadIcons[IconCode.Code]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Doc]}
+                            {DownloadIcons[IconCode.Doc]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Img]}
+                            {DownloadIcons[IconCode.Img]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Important]}
+                            {DownloadIcons[IconCode.Important]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Pdf]}
+                            {DownloadIcons[IconCode.Pdf]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Ppt]}
+                            {DownloadIcons[IconCode.Ppt]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Txt]}
+                            {DownloadIcons[IconCode.Txt]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Unknown]}
+                            {DownloadIcons[IconCode.Unknown]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Video]}
+                            {DownloadIcons[IconCode.Video]}
                         </Column>
                         <Column>
-                            {DownloadIcons[DownloadIconCode.Xls]}
+                            {DownloadIcons[IconCode.Xls]}
                         </Column>
                     </Row>
                 </FieldSet>

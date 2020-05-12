@@ -1,4 +1,4 @@
-import { IDictionary } from "../functions/misc";
+import { IDictionary } from "./misc";
 
 export const getMimeTypeFromExtension = ( extension: string ): string => {
     let mime = MimeTypeExtension[extension.toLowerCase()];

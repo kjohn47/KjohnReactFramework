@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { IdownloadArgs, useDocumentDownloader } from '../../../../logic/services/fetchHandler';
 import Loader from '../loading/Loader';
 import CircleProgressBar, { CPBSize } from '../loading/CircleProgressBar';
-import { DownloadIconCode, DownloadIcons } from '../icons/downloadIcons/DownloadIcons';
+import { DownloadIcons } from '../icons/downloadIcons/DownloadIcons';
+import { IconCode } from '../../../../logic/functions/getExtensionIcon';
 
 export interface IFileDownloaderProps {
     fileName: string;
     downloaderData: IdownloadArgs;
-    fileIcon?: DownloadIconCode;
+    fileIcon?: IconCode;
     progressBar?: boolean;
     bottomLine?: boolean;
 }
