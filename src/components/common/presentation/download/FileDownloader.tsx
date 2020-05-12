@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IdownloadArgs, useDocumentDownloader } from '../../../../logic/services/fetchHandler';
 import Loader from '../loading/Loader';
 import CircleProgressBar, { CPBSize } from '../loading/CircleProgressBar';
@@ -15,6 +15,7 @@ export interface IFileDownloaderProps {
 const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderData, fileIcon, progressBar, bottomLine}) => 
 {
     const { download, abort, downloadProgress, isDownloading } = useDocumentDownloader(downloaderData);
+    const [hoverIcon, setHoverIcon] = useState<boolean>(false);
 
     return (
         <div className = "FileDownloader">
@@ -31,14 +32,30 @@ const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderDat
                                         : 
                                             <div>{downloadProgress} %</div>
                             :   fileIcon ?
-                                    DownloadIcons[fileIcon]
+                                    <span 
+                                        onClick={() => download()} 
+                                        className = "pointer_cursor DownloadIcon"
+                                        onMouseEnter = { () => setHoverIcon(true) }
+                                        onMouseLeave = { () => setHoverIcon(false) }
+                                    >
+                                        {DownloadIcons[fileIcon]}
+                                    </span>
                                 : 
                                     <div className = "IconDot"/>
                     }
                     {isDownloading && <div className = "FileNameCancel" onClick={ () => abort() }>Cancel</div>}
                 </div>
                 <div className = "FileName" >
-                    <span className = "FileNameText" onClick = { () => download() } >{ fileName }</span>
+                    <span 
+                    className = "FileNameText" 
+                    style = {
+                        hoverIcon ? {
+                            textDecoration: "underline"
+                        } : undefined
+                    } 
+                    onClick = { () => download() } >
+                        { fileName }
+                    </span>
                 </div>
             </div>
         </div>

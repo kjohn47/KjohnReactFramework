@@ -22,9 +22,9 @@
         .FileIcon {
             position: relative;
             display: inline-block;
-            width: 60px;
+            width: 55px;
             text-align: center;
-            padding-right: 10px;
+            padding-right: 5 px;
             vertical-align: middle;
             .IconDot {
                 border: 6px solid;
@@ -37,7 +37,7 @@
             .FileNameCancel {
                 position: relative;
                 text-align: center;
-                width: 60px;
+                width: 55px;
                 cursor: pointer;
                 font-size: xx-small;
                 margin-bottom: -15px;
@@ -49,7 +49,7 @@
         .FileName {
             position: relative;
             display: inline-block;
-            width: calc( 100% - 85px );
+            width: calc( 100% - 60px );
             text-align: left;
             vertical-align: middle;
             .FileNameText {

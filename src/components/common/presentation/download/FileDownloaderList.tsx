@@ -13,7 +13,7 @@ const FileDownloaderList: React.FC<IFileDownloaderListProps> = ({fileList, showT
         <Row>
             {
                 fileList.map( ( file, i) => (
-                    <Column key = {`file_${i}`} full={showTwoColumn ? ColumnNumber.C10 : ColumnNumber.C20}>
+                    <Column key = {`file_${i}`} full={showTwoColumn ? ColumnNumber.C10 : ColumnNumber.C20} mobile = {ColumnNumber.C20}>
                         <FileDownloader {...file} />
                     </Column>
                 ) )
