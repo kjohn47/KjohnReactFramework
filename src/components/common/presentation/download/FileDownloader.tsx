@@ -4,6 +4,7 @@ import Loader from '../loading/Loader';
 import CircleProgressBar, { CPBSize } from '../loading/CircleProgressBar';
 import { DownloadIcons } from '../icons/downloadIcons/DownloadIcons';
 import { IconCode } from '../../../../logic/functions/getExtensionIcon';
+import useTranslation from '../../../../logic/functions/getTranslation';
 
 export interface IFileDownloaderProps {
     fileName: string;
@@ -16,6 +17,7 @@ export interface IFileDownloaderProps {
 const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderData, fileIcon, progressBar, bottomLine}) => 
 {
     const { download, abort, downloadProgress, isDownloading } = useDocumentDownloader(downloaderData);
+    const {getTranslation} = useTranslation();
     const [hoverIcon, setHoverIcon] = useState<boolean>(false);
 
     return (
@@ -48,7 +50,9 @@ const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderDat
                     }
                     {isDownloading && 
                         <div className = "FileNameCancel" onClick={ () => abort() }>
-                            Cancel
+                            {
+                                getTranslation("_generic", "#(cancel)")
+                            }
                         </div>}
                 </div>
                 <div className = "FileName" >

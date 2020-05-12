@@ -3,7 +3,8 @@
         "#(loadingText)": "Loading!",
         "#(goBackToHome)": "Go back to Homepage",
         "#(goBackToHomeToolTip)": "Click at the button to return to homepage.",
-        "#(cardDetails)": "View details"
+        "#(cardDetails)": "View details",
+        "#(cancel)": "Cancel"
     },
     "_tableText": {
         "#(edit)": "Edit",
