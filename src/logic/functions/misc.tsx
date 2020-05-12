@@ -1,7 +1,7 @@
 import React from 'react';
 import { KnownPages } from '../context/Routes/routeContextEnums';
 import { IdownloadDocument } from '../services/serviceCallerInterfaces';
-import { getMimeTypeFromExtension } from '../services/mimeTypes';
+import { getMimeTypeFromExtension } from './mimeTypes';
 
 export interface IDictionary<TValue> {
     [key: string]: TValue;

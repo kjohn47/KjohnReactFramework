@@ -10,7 +10,7 @@ const TestButtons: React.FC = () => {
       <Column>
         <FieldSet Title="Button types">
           <Row>
-          <Column className = "TestButtonCol">
+            <Column className = "TestButtonCol">
               <Button className="TestButtons" buttonType={ ButtonTypes.Default }>Default</Button>
             </Column>
             <Column className = "TestButtonCol">
@@ -27,6 +27,28 @@ const TestButtons: React.FC = () => {
             </Column>
             <Column className = "TestButtonCol">
               <Button className="TestButtons" buttonType={ ButtonTypes.Warning }>Warning</Button>
+            </Column>
+          </Row>
+        </FieldSet>
+        <FieldSet Title="Button Disabled">
+          <Row>
+            <Column className = "TestButtonCol">
+              <Button className="TestButtons" buttonType={ ButtonTypes.Default } disabled>Default</Button>
+            </Column>
+            <Column className = "TestButtonCol">
+              <Button className="TestButtons" buttonType={ ButtonTypes.Cancelation } disabled>Cancellation</Button>
+            </Column>
+            <Column className = "TestButtonCol">
+              <Button className="TestButtons" buttonType={ ButtonTypes.Confirmation } disabled>Corfirmation</Button>
+            </Column>
+            <Column className = "TestButtonCol">
+              <Button className="TestButtons" buttonType={ ButtonTypes.Danger } disabled>Danger</Button>
+            </Column>
+            <Column className = "TestButtonCol">
+              <Button className="TestButtons" buttonType={ ButtonTypes.Information } disabled>Information</Button>
+            </Column>
+            <Column className = "TestButtonCol">
+              <Button className="TestButtons" buttonType={ ButtonTypes.Warning } disabled >Warning</Button>
             </Column>
           </Row>
         </FieldSet>

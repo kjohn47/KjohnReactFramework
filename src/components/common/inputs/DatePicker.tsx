@@ -10,6 +10,7 @@ interface IDatePicker {
     calendarVisible?: boolean;
     disableEdit?: boolean;
     getSelectedDate: ( selectedDate: Date ) => void;
+    disabled?: boolean;
 }
 
 enum DatePickerTextField {
@@ -84,6 +85,13 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         //eslint-disable-next-line
     }, [ showCalendar, showYearSelector, showMonthSelector ] )
 
+    useEffect( () => {
+        if( !props.calendarVisible && props.disabled )
+        {
+            setShowCalendar(false);
+        }
+    }, [props.calendarVisible, props.disabled]) 
+
     //// Translate tokens
     const monthTokens = useMemo( () => ( [
         getTranslation( "_datePicker", "#(January)" ),
@@ -124,17 +132,19 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     }
     //// handler for open or close callendar, makes reset on close
     const showHideCalendar: () => void = () => {
-        if ( showCalendar ) {
-            setShowMonthSelector( false );
-            setShowYearSelector( false );
-            setSelectedMonth( selectedDate.getMonth() );
-            setSelectedYear( selectedDate.getFullYear() );
+        if( !props.disabled ) {
+            if ( showCalendar ) {
+                setShowMonthSelector( false );
+                setShowYearSelector( false );
+                setSelectedMonth( selectedDate.getMonth() );
+                setSelectedYear( selectedDate.getFullYear() );
+            }
+            setShowCalendar( !showCalendar );
         }
-        setShowCalendar( !showCalendar );
     }
     //// handler for changes in text with validation for max day, month, year and number only
     const updateTextValue: ( event: React.FormEvent<HTMLInputElement>, field: DatePickerTextField ) => void = ( event, field ) => {
-        if ( !props.disableEdit ) {
+        if ( !props.disableEdit && !props.disabled ) {
             let numberReg = new RegExp( AppRegex.NumberOnly );
             let validInput = ( numberReg.test( event.currentTarget.value ) || event.currentTarget.value === "" );
             if ( validInput && event.currentTarget.value !== "" ) {
@@ -166,7 +176,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     }
     //// updates the date with values from inputs and correct them to be on range
     const updateDateFromInput: () => void = () => {
-        if ( !props.disableEdit ) {
+        if ( !props.disableEdit && !props.disabled ) {
             let newYear: number = +calendarInput[ DatePickerTextField.year ];
             let newMonth: number = +calendarInput[ DatePickerTextField.month ] - 1;
             let newDay: number = +calendarInput[ DatePickerTextField.day ];
@@ -249,26 +259,26 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
             >
                 <input
                     type="text"
-                    className={ "DatePickerInput" + ( props.disableEdit ? " DatePickerInputDisabled" : "" ) }
+                    className={ "DatePickerInput" + ( props.disableEdit || props.disabled ? " DatePickerInputDisabled" : "" ) }
                     value={ calendarInput[ DatePickerTextField.day ] }
                     onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.day ) } }
                     onBlur={ () => updateDateFromInput() }
                 />/
                 <input
                     type="text"
-                    className={ "DatePickerInput" + ( props.disableEdit ? " DatePickerInputDisabled" : "" ) }
+                    className={ "DatePickerInput" + ( props.disableEdit || props.disabled ? " DatePickerInputDisabled" : "" ) }
                     value={ calendarInput[ DatePickerTextField.month ] }
                     onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.month ) } }
                     onBlur={ () => updateDateFromInput() }
                 />/
                 <input
                     type="text"
-                    className={ "DatePickerInput" + ( props.disableEdit ? " DatePickerInputDisabled" : "" ) }
+                    className={ "DatePickerInput" + ( props.disableEdit || props.disabled ? " DatePickerInputDisabled" : "" ) }
                     value={ calendarInput[ DatePickerTextField.year ] }
                     onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.year ) } }
                     onBlur={ () => updateDateFromInput() }
                 />
-                <span className={ "DatePickerButton pointer_cursor noselect" + ( showCalendar ? ' DatePickerButtonSelected' : '' ) } onClick={ () => { showHideCalendar() } } >[ v ]</span>
+                <span className={ `DatePickerButton${!props.disabled ? " pointer_cursor" : ""} noselect` + ( showCalendar ? ' DatePickerButtonSelected' : '' ) } onClick={ () => { showHideCalendar() } } >[ v ]</span>
             </div>
         )
     }
@@ -317,43 +327,43 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                 <div className="DatePickerRow">
                     <div className="DatePickerDay DatePickerHeader DatePickerMonth" >
                         <span
-                            className="DatePickerArrow pointer_cursor"
-                            onClick={ () => { setSelectedMonth( ( selectedMonth - 1 ) < 0 ? 0 : ( selectedMonth - 1 ) ) } }
+                            className={`DatePickerArrow${!props.disabled ? " pointer_cursor" : ""}`}
+                            onClick={ () => { !props.disabled && setSelectedMonth( ( selectedMonth - 1 ) < 0 ? 0 : ( selectedMonth - 1 ) ) } }
                         >
                             { "<" }
                         </span>
                         <span
-                            className={ "DatePickerText pointer_cursor" + ( showMonthSelector ? " DatePickerTextSelected" : "" ) }
-                            onClick={ () => { setShowMonthSelector( !showMonthSelector ) } }
+                            className={ `DatePickerText${!props.disabled ? " pointer_cursor" : ""}` + ( showMonthSelector ? " DatePickerTextSelected" : "" ) }
+                            onClick={ () => { !props.disabled && setShowMonthSelector( !showMonthSelector ) } }
                             onBlur={ () => { setShowMonthSelector( false ) } }
                         >
                             { monthTokens[ selectedMonth ] }
                         </span>
                         { showMonthSelector && createMonthSelector() }
                         <span
-                            className="DatePickerArrow pointer_cursor"
-                            onClick={ () => { setSelectedMonth( ( selectedMonth + 1 ) > 11 ? 11 : ( selectedMonth + 1 ) ) } }
+                            className={`DatePickerArrow${!props.disabled ? " pointer_cursor" : ""}`}
+                            onClick={ () => {!props.disabled && setSelectedMonth( ( selectedMonth + 1 ) > 11 ? 11 : ( selectedMonth + 1 ) ) } }
                         >
                             { ">" }
                         </span>
                     </div>
                     <div className="DatePickerDay DatePickerHeader DatePickerYear" >
                         <span
-                            className="DatePickerArrow pointer_cursor"
-                            onClick={ () => { setSelectedYear( ( selectedYear - 1 ) < minYear ? minYear : ( selectedYear - 1 ) ) } }
+                            className={`DatePickerArrow${!props.disabled ? " pointer_cursor" : ""}`}
+                            onClick={ () => { !props.disabled && setSelectedYear( ( selectedYear - 1 ) < minYear ? minYear : ( selectedYear - 1 ) ) } }
                         >
                             { "<" }
                         </span>
                         <span
-                            className={ "DatePickerText pointer_cursor" + ( showYearSelector ? " DatePickerTextSelected" : "" ) }
-                            onClick={ () => { setShowYearSelector( !showYearSelector ) } }
+                            className={ `DatePickerText${!props.disabled ? " pointer_cursor" : ""}` + ( showYearSelector ? " DatePickerTextSelected" : "" ) }
+                            onClick={ () => { !props.disabled && setShowYearSelector( !showYearSelector ) } }
                         >
                             { selectedYear }
                         </span>
                         { showYearSelector && createYearSelector() }
                         <span
-                            className="DatePickerArrow pointer_cursor"
-                            onClick={ () => { setSelectedYear( ( selectedYear + 1 ) > maxYear ? maxYear : ( selectedYear + 1 ) ) } }
+                            className={`DatePickerArrow${!props.disabled ? " pointer_cursor" : ""}`}
+                            onClick={ () => { !props.disabled && setSelectedYear( ( selectedYear + 1 ) > maxYear ? maxYear : ( selectedYear + 1 ) ) } }
                         >
                             { ">" }
                         </span>
@@ -370,8 +380,8 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                         outOfRange = outOfRange || ( selectedYear === maxYear && ( selectedMonth > props.endDate.getMonth() || ( selectedMonth === props.endDate.getMonth() && day > props.endDate.getDate() ) ) );
                         let disabledDay = ( ( ( i === 0 && ( day > ( numOfDays - day ) ) ) || ( i > 3 && ( day >= 1 && day <= 7 ) ) ) || outOfRange );
                         let daySelected = ( day === selectedDay && currentMonth === selectedMonth && currentYear === selectedYear );
-                        let cssClass = "DatePickerDay" + ( disabledDay ? " DatePickerDisabled" : daySelected ? " DatePickerSelected" : " DatePickerSelectable pointer_cursor" );
-                        return ( <div className={ cssClass } key={ `w-${ i }-${ z }` } onClick={ disabledDay || daySelected ? undefined : () => selectNewDate( selectedYear, selectedMonth, day ) } >{ day }</div> )
+                        let cssClass = "DatePickerDay" + ( daySelected ? " DatePickerSelected" : disabledDay || props.disabled ? " DatePickerDisabled" : " DatePickerSelectable pointer_cursor" );
+                        return ( <div className={ cssClass } key={ `w-${ i }-${ z }` } onClick={ disabledDay || daySelected || props.disabled ? undefined : () => selectNewDate( selectedYear, selectedMonth, day ) } >{ day }</div> )
                     } )
                 }
                 </div> ) }

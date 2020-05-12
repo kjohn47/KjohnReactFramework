@@ -18,21 +18,23 @@ interface IButton {
     className?: string;
     forceReload?: boolean;
     onClick?(): void;
+    disabled?: boolean;
 }
 
 const Button: React.FC<IButton> = ( props ) => {
-    let css = "noselect page_button  " + ( props.buttonType !== undefined ? ( props.buttonType ) : "page_button_color" );
+    let css = `noselect page_button  ${( props.buttonType !== undefined ? ( props.buttonType ) : "page_button_color" )}${( props.disabled ? "_disabled" : " pointer_cursor" )}`;
     css = props.className !== undefined ? css + " " + props.className : css;
 
     return (
         <div className="ButtonComponent">
-            <div tabIndex={ 0 } className={ css } onClick={ props.onClick }>
+            <div tabIndex={ 0 } className={ css } onClick={ () => !props.disabled ? props.onClick && props.onClick() : undefined }>
                 { props.page !== undefined &&
                     <PageSelector
                         page={ props.page }
                         queryParams={ props.queryParams }
                         className="page_Button_PageSelector"
                         forceReload = {props.forceReload}
+                        disabled = { props.disabled }
                     >
                         { props.children }
                     </PageSelector>

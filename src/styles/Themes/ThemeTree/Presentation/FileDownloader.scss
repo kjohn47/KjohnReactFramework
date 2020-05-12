@@ -1,0 +1,28 @@
+.FileDownloader {
+    .FileDownloaderContent {
+        .FileIcon {
+            color: $MainColor;
+            .IconDot {
+                border-color: $MainColor;
+            }
+            .FileNameCancel {
+                color: $SecondaryColor;
+                &:hover {
+                    color: $MainColor;
+                }
+            }
+        }
+        .FileName {
+            color: $MainColor;
+            .FileNameText {
+                &:hover {
+                    color: $SecondaryColor;
+                }
+            }
+        }
+    }
+
+    .ContentWithLine {
+        border-bottom-color: $MainColor;
+    }
+}

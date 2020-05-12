@@ -6,7 +6,6 @@
     border-width: 1px;    
     border-style: solid;
     height: 25px;
-    cursor: pointer;
     vertical-align: middle;
     border-radius: 15px 15px;
     padding: 9px 12px 5px 12px;
@@ -99,5 +98,36 @@
     &:focus {
       box-shadow: 0 0 4px $Button_Information_Main;
     }
+  }
+
+  //disabled styles
+  .page_button_danger_disabled {
+    border-color: $Button_Danger_Secondary;
+    background-color: $Button_Danger_Main_disabled;
+    color: $Button_Danger_Text_disabled;
+  }
+
+  .page_button_Warning_disabled {
+    border-color: $Button_Warning_Secondary;
+    background-color: $Button_Warning_Main_disabled;
+    color: $Button_Warning_Text_disabled;
+  }
+
+  .page_button_Confirmation_disabled {
+    border-color: $Button_Confirmation_Secondary;
+    background-color: $Button_Confirmation_Main_disabled;
+    color: $Button_Confirmation_Text_disabled;
+  }
+
+  .page_button_Cancelation_disabled {
+    border-color: $Button_Cancelation_Secondary;
+    background-color: $Button_Cancelation_Main_disabled;
+    color: $Button_Cancelation_Text_disabled;
+  }
+
+  .page_button_Information_disabled {
+    border-color: $Button_Information_Secondary;
+    background-color: $Button_Information_Main_disabled;
+    color: $Button_Information_Text_disabled;
   }
 }

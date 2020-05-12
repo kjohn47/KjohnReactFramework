@@ -19,7 +19,7 @@ interface IfetchArgs {
     customHeaders?: Headers | [string, string][];
 }
 
-interface IdownloadArgs extends IfetchArgs {
+export interface IdownloadArgs extends IfetchArgs {
     documentPath: string;
     loadProgress?: boolean;
 }
@@ -258,6 +258,11 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
     const download = async (): Promise<IdownloadDocument | undefined> => {
         if(!isDownloading)
         {
+            if(abortControllerRef.current.signal.aborted)
+            {
+                abortControllerRef.current = new AbortController();
+            }
+            
             setIsDownloading(true);
             let timeout: NodeJS.Timeout | undefined = undefined;
             if( timeOut && timeOut > 0 ) {
