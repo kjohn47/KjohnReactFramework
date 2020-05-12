@@ -1,5 +1,9 @@
 // ---- General colors ----
 
+// Page Main
+@import "./Main/App.scss";
+// Page Main
+
 // Page Menu
 @import "./Main/Menu.scss";
 // Page Menu
@@ -27,6 +31,10 @@
 // DatePicker
 @import "./Inputs/DatePicker.scss";
 //DatePicker
+
+// Circular Progress Bar
+@import "./Presentation/CircleProgressBar.scss";
+// Circular Progress Bar
 
 // ---- Content Colors ----
 .PageContentColor {
@@ -64,4 +72,8 @@
   //Alert
   @import "./Presentation/Alert.scss";
   //Alert
+
+  //File Downloader
+  @import "./Presentation/FileDownloader.scss";
+  //File Downloader
 }

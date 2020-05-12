@@ -1,0 +1,13 @@
+.CircleProgressBar {
+    .CPBBackground {
+        stroke:  $SecondaryColor
+    }
+
+    .CPBProgress {
+        stroke: $MainColor;
+    }
+
+    .CPBText {
+        fill: $MainColor;
+    }
+}

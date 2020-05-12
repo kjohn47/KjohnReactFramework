@@ -1,0 +1,15 @@
+.CircleProgressBar {
+    margin: auto;
+    .CPBBackground, .CPBProgress {
+        fill: none;
+    }
+
+    .CPBProgress {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .CPBText {
+        font-weight: bold;
+    }
+}

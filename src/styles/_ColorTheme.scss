@@ -30,6 +30,21 @@ $Button_Information_Main: rgb(27, 115, 230);
 $Button_Information_Secondary: rgb(2, 70, 158);
 $Button_Information_Text: rgb(255, 255, 255);
 $Button_Information_Text_Hover: rgb(255, 255, 255);
+
+$Button_Confirmation_Main_disabled: rgb(207, 231, 191);
+$Button_Confirmation_Text_disabled: rgb(114, 114, 114);
+
+$Button_Warning_Main_disabled: rgb(248, 225, 183);
+$Button_Warning_Text_disabled: rgb(124, 124, 124);
+
+$Button_Danger_Main_disabled: rgb(255, 184, 191);
+$Button_Danger_Text_disabled: rgb(126, 126, 126);
+
+$Button_Cancelation_Main_disabled: rgb(228, 228, 228);
+$Button_Cancelation_Text_disabled: rgb(107, 107, 107);
+
+$Button_Information_Main_disabled: rgb(204, 226, 255);
+$Button_Information_Text_disabled: rgb(126, 126, 126);
 //--- Button Types ---
 
 //----- ToolTip ------
@@ -57,6 +72,8 @@ $TextInputValid: rgb(0, 128, 0);
 $TextInputValidBalloon: rgba(11, 201, 11, 0.767);
 $TextInputInvalid: rgb(240, 0, 0);
 $TextInputInvalidBalloon: rgba(255, 0, 0, 0.774);
+$TextInputDisabledBg: rgb(233, 232, 232);
+$TextInputDisabledText: rgb(160, 160, 160);
 //---- Text Input ----
 
 //------ Links -------

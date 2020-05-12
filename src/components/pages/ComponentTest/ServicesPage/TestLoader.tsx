@@ -4,6 +4,7 @@ import Column from '../../../common/structure/Column';
 import Loader from '../../../common/presentation/loading/Loader';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 import DotsLoader, { DotsLoaderSize, DotsLoaderNrBall, DotsLoaderColor } from '../../../common/presentation/loading/DotsLoader';
+import CircleProgressBar, { CPBSize } from '../../../common/presentation/loading/CircleProgressBar';
 
 const TestLoader: React.FC = () => {
     const dotLoaderStyle: CSSProperties = {
@@ -64,6 +65,28 @@ const TestLoader: React.FC = () => {
                             <div style={dotLoaderStyle}>
                                 <DotsLoader Size={DotsLoaderSize.Medium} DotsNumber= {DotsLoaderNrBall.Three} Color={DotsLoaderColor.Grey}/>
                             </div>
+                        </Column>
+                    </Row>
+                </FieldSet>
+                <FieldSet Title="Circular Progress Bar">
+                    <Row>
+                        <Column>
+                            <CircleProgressBar 
+                                size = { CPBSize.Small }
+                                progress = { 25 }
+                            />
+                        </Column>
+                        <Column>
+                            <CircleProgressBar 
+                                size = { CPBSize.Medium }
+                                progress = { 50 }
+                            />
+                        </Column>
+                        <Column>
+                            <CircleProgressBar 
+                                size = { CPBSize.Big }
+                                progress = { 75 }
+                            />
                         </Column>
                     </Row>
                 </FieldSet>

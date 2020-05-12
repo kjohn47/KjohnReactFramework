@@ -11,4 +11,9 @@
         box-shadow: 0 0 4px $Button;
       }
     }
+    .page_button_color_disabled {
+      border-color: $MainColor;
+      background: $Button_disabled;
+      color: $Button_Text_disabled;
+    }
 }
