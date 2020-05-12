@@ -19,6 +19,7 @@ interface IInputProps {
     lenght?: number;
     initialText?: string;
     balloonValidText?: boolean;
+    disabled?: boolean;
 }
 
 const InputText: React.FC<IInputProps> = ( props ) => 
@@ -59,26 +60,31 @@ const InputText: React.FC<IInputProps> = ( props ) =>
     }
 
     const changeHandler: ( event: React.FormEvent<HTMLInputElement> ) => void = ( event ) => {
-        let [ text, isValid ] = validate( event.currentTarget.value );
-
-        setValue( text );
-        setValidation( [ isValid, validated ] );
-
-        if( props.onChange !== undefined )
+        if(!props.disabled)
         {
-            props.onChange( { text, name: props.name, isValid } );
+            let [ text, isValid ] = validate( event.currentTarget.value );
+
+            setValue( text );
+            setValidation( [ isValid, validated ] );
+
+            if( props.onChange !== undefined )
+            {
+                props.onChange( { text, name: props.name, isValid } );
+            }
         }
     }
 
     const blurHandler: ( event: React.FormEvent<HTMLInputElement> ) => void = ( event ) => {        
-
-        let [ text, isValid ] = validate( event.currentTarget.value );
-
-        setValidation( [ isValid, ( props.notEmpty || props.validateEmail || props.regexValidation !== undefined ) ] );
-
-        if( props.onBlur !== undefined )
+        if(!props.disabled)
         {
-            props.onBlur( { text, name: props.name, isValid } );
+            let [ text, isValid ] = validate( event.currentTarget.value );
+
+            setValidation( [ isValid, ( props.notEmpty || props.validateEmail || props.regexValidation !== undefined ) ] );
+
+            if( props.onBlur !== undefined )
+            {
+                props.onBlur( { text, name: props.name, isValid } );
+            }
         }
     }
 
@@ -88,6 +94,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
     inputCss += !( inputValid || inputInvalid ) ? " inputText_Color" : "" ;
     inputCss += inputValid ?  " inputTextValid" : "";
     inputCss += inputInvalid ?  " inputTextInvalid" : "";
+    inputCss += props.disabled ? " disabled" : "";
 
     return(
         <div className = "inputTextDiv">
@@ -100,6 +107,7 @@ const InputText: React.FC<IInputProps> = ( props ) =>
                 value = { value }
                 maxLength = { props.lenght }
                 placeholder = { props.placeHolder }
+                disabled = { props.disabled }
             />
             { props.validText && inputValid && <div className = { props.balloonValidText ? ( "inputTextValidationBalloon inputTextValidBalloon" ) : ( "inputTextValidation inputTextValidationValid" )}>{ props.validText }</div> }
             { props.invalidText && inputInvalid && <div className = { props.balloonValidText ? ( "inputTextValidationBalloon inputTextInvalidBalloon" ) : ("inputTextValidation inputTextValidationInvalid")}>{ props.invalidText }</div> }
