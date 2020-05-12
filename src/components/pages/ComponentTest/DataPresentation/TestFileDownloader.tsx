@@ -1,7 +1,7 @@
 import React from 'react';
 import Column from '../../../common/structure/Column';
 import Row from '../../../common/structure/Row';
-import { FileDownloaderIcon } from '../../../common/presentation/download/DownloadIcons';
+import { DownloadIconCode } from '../../../common/presentation/icons/downloadIcons/DownloadIcons';
 import FileDownloaderList from '../../../common/presentation/download/FileDownloaderList';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 
@@ -14,7 +14,7 @@ const TestFileDownloader: React.FC = () => {
                     fileList = { [
                         {
                             fileName: "Test File 1",
-                            fileIcon: FileDownloaderIcon.Unknown,
+                            fileIcon: DownloadIconCode.Unknown,
                             progressBar: true,
                             downloaderData: {
                                 documentPath: "pdfFile",
@@ -25,7 +25,7 @@ const TestFileDownloader: React.FC = () => {
                         },
                         {
                             fileName: "Test File 2",
-                            fileIcon: FileDownloaderIcon.Doc,
+                            fileIcon: DownloadIconCode.Doc,
                             progressBar: true,
                             downloaderData: {
                                 documentPath: "pdfFile",
@@ -43,7 +43,7 @@ const TestFileDownloader: React.FC = () => {
                     fileList = { [
                         {
                             fileName: "Test File 1",
-                            fileIcon: FileDownloaderIcon.Txt,
+                            fileIcon: DownloadIconCode.Txt,
                             progressBar: true,
                             downloaderData: {
                                 documentPath: "pdfFile",
@@ -54,7 +54,7 @@ const TestFileDownloader: React.FC = () => {
                         },
                         {
                             fileName: "Test File 2",
-                            fileIcon: FileDownloaderIcon.Archive,
+                            fileIcon: DownloadIconCode.Archive,
                             progressBar: true,
                             downloaderData: {
                                 documentPath: "pdfFile",
@@ -64,7 +64,7 @@ const TestFileDownloader: React.FC = () => {
                         },
                         {
                             fileName: "Test File 3",
-                            fileIcon: FileDownloaderIcon.Pdf,
+                            fileIcon: DownloadIconCode.Pdf,
                             downloaderData: {
                                 documentPath: "pdfFile",
                                 serviceUrl: "Assets/",
