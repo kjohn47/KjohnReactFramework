@@ -46,10 +46,10 @@ const getTextSize = ( size: CPBSize ) => {
             return 9;
         }
         case CPBSize.Medium: {
-            return 20;
+            return 18;
         }
         case CPBSize.Big: {
-            return 44;
+            return 36;
         }
     }
 }
