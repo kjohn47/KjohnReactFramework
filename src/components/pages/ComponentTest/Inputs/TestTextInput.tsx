@@ -175,6 +175,22 @@ const TestTextInput: React.FC = () => {
                 </WithLabel>
             </Column>
         </Row>
+        <Row>
+            <Column
+                full={ ColumnNumber.C10 }
+                large={ ColumnNumber.C14 }
+                medium={ ColumnNumber.C17 }
+                mobile={ ColumnNumber.C20 }
+            >
+                <WithLabel htmlFor="TestInput8" text="Disabled Text Input">
+                    <InputText
+                        name="TestInput8"
+                        initialText="Cannot change text on input"
+                        disabled
+                    />
+                </WithLabel>
+            </Column>
+        </Row>
     </FieldSet>
 )}
 

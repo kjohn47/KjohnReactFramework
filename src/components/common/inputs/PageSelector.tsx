@@ -10,6 +10,7 @@ interface IPageSelector {
     highlight?: boolean;
     forceReload?: boolean;
     action?: () => void;
+    disabled?: boolean;
 }
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
@@ -40,7 +41,7 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
     }
 
     return (
-        <span className={ "pointer_cursor" + ( props.highlight ? " PageSelector_Highlight" : "" ) + ( props.className ? ( " " + props.className ) : "" ) } onClick={ () => setPage( props.page, props.queryParams ) } >{ props.children }</span>
+        <span className={ ( props.disabled ? "" :  "pointer_cursor" + ( props.highlight ? " PageSelector_Highlight" : "" ) ) + ( props.className ? ( " " + props.className ) : "" ) } onClick={ () => !props.disabled ? setPage( props.page, props.queryParams ) : undefined } >{ props.children }</span>
     );
 }
 

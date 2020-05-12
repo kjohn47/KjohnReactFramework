@@ -86,4 +86,9 @@
             border-bottom-color: $TextInputInvalid;
         }
     }
+
+    .disabled {
+        background-color: $TextInputDisabledBg;
+        color: $TextInputDisabledText;
+    }
 }

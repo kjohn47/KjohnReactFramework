@@ -20,6 +20,8 @@ import TestLabel from './Inputs/TestLabel';
 import TestAlert from './DataPresentation/TestAlert';
 import TestPageHeader from './DataPresentation/TestPageHeader';
 import TestBadge from './DataPresentation/TestBadge';
+import TestFileDownloader from './DataPresentation/TestFileDownloader';
+import TestIcons from './ServicesPage/TestIcons';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -46,11 +48,15 @@ const Test: React.FC = () => {
                 },
                 {
                   title: "Loader",
-                  component: < TestLoader />
+                  component: <TestLoader />
                 },
                 {
                   title: "Services/Error",
-                  component: < TestServices />
+                  component: <TestServices />
+                },
+                {
+                  title: "Icons",
+                  component: <TestIcons />
                 }
               ]
             },
@@ -84,6 +90,10 @@ const Test: React.FC = () => {
                 {
                   title: "Badge",
                   component: <TestBadge />
+                },
+                {
+                  title: "Download",
+                  component: <TestFileDownloader />
                 }
               ]
             },
