@@ -278,7 +278,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                     onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.year ) } }
                     onBlur={ () => updateDateFromInput() }
                 />
-                <span className={ `DatePickerButton${!props.disabled ? " pointer_cursor" : ""} noselect` + ( showCalendar ? ' DatePickerButtonSelected' : '' ) } onClick={ () => { showHideCalendar() } } >{ showCalendar ? '▲' : '▼'}</span>
+                <span className={ `DatePickerButton${!props.disabled ? " pointer_cursor" : " button_disabled"} noselect` + ( showCalendar ? ' DatePickerButtonSelected' : '' ) } onClick={ () => { showHideCalendar() } } >{ showCalendar ? '▲' : '▼'}</span>
             </div>
         )
     }

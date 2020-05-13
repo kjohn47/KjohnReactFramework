@@ -70,6 +70,14 @@
                 border-left-color: $LinkColor;
             }
         }
+        .button_disabled {
+            color: $DatePicker_Disabled_Text;;
+            &:hover {
+                color: $DatePicker_Disabled_Text;
+                border-left-color: $DatePicker_Disabled_Text;
+            }
+        }
+        
         .DatePickerButtonSelected {
           color: $LinkColor;
         }
