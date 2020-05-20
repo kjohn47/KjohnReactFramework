@@ -47,3 +47,32 @@ export const getFileFromBase64 = ( fileData: IdownloadDocument ) => {
         URL.revokeObjectURL(url);
     }
 }
+
+export const convertFileSizeToUnit = ( byteSize: number ): string => {
+    const byteValue: number = Math.round(byteSize);
+    let numberPart: string = '';
+    let unit: string = '';
+
+    if (byteValue >= 1099511627776) {
+        numberPart = (byteValue/1099511627776).toFixed(2);
+        unit = 'TB';
+    }
+    else if (byteValue >= 1073741824) {
+        numberPart = (byteValue/1073741824).toFixed(2);
+        unit = 'GB';
+    }
+    else if (byteValue >= 1048576) {
+        numberPart = (byteValue/1048576).toFixed(2);
+        unit = 'MB';
+    }
+    else if (byteValue >= 1024) {
+        numberPart = (byteValue/1024).toFixed(2);
+        unit = 'KB';
+    }
+    else {
+        numberPart = byteValue.toString();
+        unit = "B";
+    }
+
+    return `${numberPart} ${unit}`;
+}

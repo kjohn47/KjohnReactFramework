@@ -5,6 +5,7 @@ import CircleProgressBar, { CPBSize } from '../loading/CircleProgressBar';
 import { DownloadIcons } from '../icons/downloadIcons/DownloadIcons';
 import { IconCode } from '../../../../logic/functions/getExtensionIcon';
 import useTranslation from '../../../../logic/functions/getTranslation';
+import { convertFileSizeToUnit } from '../../../../logic/functions/misc';
 
 export interface IFileDownloaderProps {
     fileName: string;
@@ -12,9 +13,10 @@ export interface IFileDownloaderProps {
     fileIcon?: IconCode;
     progressBar?: boolean;
     bottomLine?: boolean;
+    fileSize?: number;
 }
 
-const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderData, fileIcon, progressBar, bottomLine}) => 
+const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderData, fileIcon, progressBar, bottomLine, fileSize}) => 
 {
     const { download, abort, downloadProgress, isDownloading } = useDocumentDownloader(downloaderData);
     const {getTranslation} = useTranslation();
@@ -67,6 +69,9 @@ const FileDownloader: React.FC<IFileDownloaderProps> = ({fileName, downloaderDat
                     >
                         { fileName }
                     </span>
+                    {fileSize && <span className="FileSizeText">
+                        {convertFileSizeToUnit(fileSize)}
+                    </span>}
                 </div>
             </div>
         </div>
