@@ -121,7 +121,7 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
                 OnClick={() => readNotifications() }
                 >
                 { (NotificationsService.Loading || !NotificationsService.Notifications ) ?
-                        <div style={{paddingLeft: "5px"}}>
+                        <div style={{paddingLeft: "6px"}}>
                             <DotsLoader DotsNumber={DotsLoaderNrBall.Two} Size={DotsLoaderSize.Small} Color={DotsLoaderColor.White}/>
                         </div>
                         : NotificationsService.Notifications.UnreadCount}

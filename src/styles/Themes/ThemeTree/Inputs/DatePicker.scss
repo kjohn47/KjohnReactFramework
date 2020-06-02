@@ -63,10 +63,21 @@
     .DatePickerInputGroup {
         border-color: $DatePicker_Border;
         .DatePickerButton {
+            color: $MainColor;;
+            border-left-color: $MainColor;
             &:hover {
                 color: $LinkColor;
+                border-left-color: $LinkColor;
             }
         }
+        .button_disabled {
+            color: $DatePicker_Disabled_Text;;
+            &:hover {
+                color: $DatePicker_Disabled_Text;
+                border-left-color: $DatePicker_Disabled_Text;
+            }
+        }
+        
         .DatePickerButtonSelected {
           color: $LinkColor;
         }

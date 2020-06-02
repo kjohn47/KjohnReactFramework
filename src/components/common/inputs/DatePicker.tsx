@@ -278,7 +278,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                     onChange={ ( event: React.FormEvent<HTMLInputElement> ) => { updateTextValue( event, DatePickerTextField.year ) } }
                     onBlur={ () => updateDateFromInput() }
                 />
-                <span className={ `DatePickerButton${!props.disabled ? " pointer_cursor" : ""} noselect` + ( showCalendar ? ' DatePickerButtonSelected' : '' ) } onClick={ () => { showHideCalendar() } } >[ v ]</span>
+                <span className={ `DatePickerButton${!props.disabled ? " pointer_cursor" : " button_disabled"} noselect` + ( showCalendar ? ' DatePickerButtonSelected' : '' ) } onClick={ () => { showHideCalendar() } } >{ showCalendar ? '▲' : '▼'}</span>
             </div>
         )
     }
@@ -380,7 +380,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
                         outOfRange = outOfRange || ( selectedYear === maxYear && ( selectedMonth > props.endDate.getMonth() || ( selectedMonth === props.endDate.getMonth() && day > props.endDate.getDate() ) ) );
                         let disabledDay = ( ( ( i === 0 && ( day > ( numOfDays - day ) ) ) || ( i > 3 && ( day >= 1 && day <= 7 ) ) ) || outOfRange );
                         let daySelected = ( day === selectedDay && currentMonth === selectedMonth && currentYear === selectedYear );
-                        let cssClass = "DatePickerDay" + ( daySelected ? " DatePickerSelected" : disabledDay || props.disabled ? " DatePickerDisabled" : " DatePickerSelectable pointer_cursor" );
+                        let cssClass = "DatePickerDay" + ( !disabledDay && daySelected ? " DatePickerSelected" : disabledDay || props.disabled ? " DatePickerDisabled" : " DatePickerSelectable pointer_cursor" );
                         return ( <div className={ cssClass } key={ `w-${ i }-${ z }` } onClick={ disabledDay || daySelected || props.disabled ? undefined : () => selectNewDate( selectedYear, selectedMonth, day ) } >{ day }</div> )
                     } )
                 }

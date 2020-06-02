@@ -21,6 +21,7 @@ const TestFileDownloader: React.FC = () => {
                                 serviceUrl: "Assets/",
                                 loadProgress: true
                             },
+                            fileSize: 100254,
                             bottomLine: true
                         },
                         {
@@ -50,6 +51,7 @@ const TestFileDownloader: React.FC = () => {
                                 serviceUrl: "Assets/",
                                 loadProgress: true
                             },
+                            fileSize: 134,
                             bottomLine: true
                         },
                         {
@@ -60,6 +62,7 @@ const TestFileDownloader: React.FC = () => {
                                 documentPath: "pdfFile",
                                 serviceUrl: "Assets/"
                             },
+                            fileSize: 1002582282,
                             bottomLine: true
                         },
                         {
@@ -70,6 +73,7 @@ const TestFileDownloader: React.FC = () => {
                                 serviceUrl: "Assets/",
                                 loadProgress: true
                             },
+                            fileSize: 10025482334,
                             bottomLine: true
                         },
                         {
@@ -80,6 +84,7 @@ const TestFileDownloader: React.FC = () => {
                                 serviceUrl: "Assets/",
                                 loadProgress: true
                             },
+                            fileSize: 10025488222453,
                             bottomLine: true
                         }
                     ] }
