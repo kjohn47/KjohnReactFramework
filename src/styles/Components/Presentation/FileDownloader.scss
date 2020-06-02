@@ -53,10 +53,17 @@
             text-align: left;
             vertical-align: middle;
             .FileNameText {
+                display: inline-block;
                 cursor: pointer;
                 &:hover {
                     text-decoration: underline;
                 }
+            }
+            .FileSizeText {
+                display: block;
+                width: 100%;
+                font-size: x-small;
+                color: gray;
             }
         }
     }
