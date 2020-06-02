@@ -63,7 +63,7 @@ const TestServices: React.FC = () => {
     </Loader>
     <hr />
     <div className="center_menu_button">
-      <WithTooltip toolTipText={ TestServices.Downloading ? "Abort Download" : "Download File" } toolTipPosition={ ToolTipPosition.Left } >
+      <WithTooltip toolTipText={ TestServices.Downloading ? "Abort Download" : "Download File" } toolTipPosition={ ToolTipPosition.Left } toolTipColor={ToolTipColor.Yellow} >
         <Button className="button_width" onClick={ () => { TestServices.Downloading ? TestServices.AbortDownload() : TestServices.DownloadFile() } } buttonType={ ButtonTypes.Default } >
           { TestServices.Downloading ? ( "("+TestServices.DownloadProgress+"%) Abort") : "Download File" }
         </Button>

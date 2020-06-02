@@ -15,7 +15,7 @@
     will-change: transform;
     border-radius: 50%;
     position: absolute;
-    animation: growDots 1s ease-in-out infinite alternate;
+    animation: growDots 1.2s ease-in-out infinite alternate;
 
     &.ball1{
         left:0;
@@ -24,11 +24,11 @@
     &.ball2{
         left:50%;
         transform: translateX(-50%) scale(1);
-        animation-delay: 0.33s;
+        animation-delay: 0.4s;
     }
     &.ball3{
         right:0;
-        animation-delay: 0.66s;
+        animation-delay: 0.8s;
     }
     }
 
@@ -39,10 +39,10 @@
     }
 
     .ball-loader_Small {
-        width: 15px;
+        width: 20px;
         .ball-loader-ball{
-            height: 4px;
-            width: 4px;
+            height: 5px;
+            width: 5px;
         }
     }
 
