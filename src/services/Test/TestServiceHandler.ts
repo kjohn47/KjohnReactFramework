@@ -1,6 +1,6 @@
 import { useFetchGetHandler } from "../../logic/services/fetchHandler";
 import { ServiceType } from "../../logic/services/serviceCallerInterfaces";
-import { ContextActions, AppLanguage } from "../../logic/context/App/appContextEnums";
+import { AppLanguage } from "../../logic/context/App/appContextEnums";
 import { ITestServiceResponse, ITestServiceRequest, ITestExternalServiceResponse } from "./TestServiceInterfaces";
 import { delayedPromise } from "../../logic/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
@@ -18,12 +18,7 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
             
             if( serviceRequest.Type === TestServiceRequestType.GetSample_1 )
             {
-                context.appContext.Set( {
-                    type: ContextActions.ChangeLanguage,
-                    payload: {
-                        globalLanguage: AppLanguage.EN
-                    }
-                } );
+                context.appContext.ChangeLanguage(AppLanguage.EN);
             }
 
             if( serviceRequest.Type === TestServiceRequestType.AbortSample ) {

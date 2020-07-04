@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { AppContext, AppLanguageContext, LoginContext } from '../../logic/config/AppProvider';
-import { ContextActions, AppLanguage } from '../../logic/context/App/appContextEnums';
+import { AppLanguage } from '../../logic/context/App/appContextEnums';
 import Row from '../common/structure/Row';
 import Column, { ColumnNumber } from '../common/structure/Column';
 import { IMenuItem } from './MenuComponents/MenuItem';
@@ -21,7 +21,7 @@ export interface IMenuProps {
 }
 
 const Menu: React.FC<IMenuProps> = ( props ) => {
-  const [appContext, setAppContext] = useContext( AppContext );
+  const appContext = useContext( AppContext );
   const [ loginContext ] = useContext( LoginContext );
   const [ appLanguage ] = useContext( AppLanguageContext );
   const [ toogleLang, setToogleLang ] = useState<boolean>( false );
@@ -39,7 +39,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
     for ( let item in AppLanguage ) {
       langMenu.push( {
         Title: item,
-        Action: () => { setAppContext( { type: ContextActions.ChangeLanguage, payload: { globalLanguage: item as AppLanguage } } ) }
+        Action: () => { appContext.ChangeLanguage(item as AppLanguage) }
       } )
     }
 
@@ -83,7 +83,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       }
       <Column full={ ColumnNumber.C1 } medium={ ColumnNumber.C2 } tablet={ ColumnNumber.C2 } reference={ langMenuRef }>
         <div style={{textAlign:"right"}}>
-          { appContext.loadingTranslation ? 
+          { appContext.App.loadingTranslation ? 
             <div style={{display:"inline-block", paddingTop:"5px", marginLeft:"50%"}}>
               <DotsLoader Color = {DotsLoaderColor.White} Size = {DotsLoaderSize.Medium} DotsNumber={DotsLoaderNrBall.One}/>
             </div>:

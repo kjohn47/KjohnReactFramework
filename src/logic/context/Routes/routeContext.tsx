@@ -1,46 +1,50 @@
 import { useState } from "react";
-import { IRouteContext, RouteContextType, IRouteAction } from "./routeContextInterfaces";
-import { RouteActions } from "./routeContextEnums";
+import { IRouteContext, RouteContextType, ChangeRouteAction, ChangeRouteParamsAction } from "./routeContextInterfaces";
+import { initialRouteConfig } from "../../config/configuration";
 
 export const useRouteContext: ( initialRoute: IRouteContext ) => RouteContextType = ( initialRoute ) => {
     const [ routeContext, setRouteContext ] = useState( initialRoute );
 
-    const changeRoute = ( action: IRouteAction ) =>  {
-        switch ( action.type ) {
-            case RouteActions.ChangePage: {
-                if ( action.payload.selectedPage !== undefined )
-                {
-                    let isReady: boolean = ( !action.payload.forceReload && ( routeContext.queryString === action.payload.queryString && routeContext.selectedPage === action.payload.selectedPage ) );
-                    setRouteContext( {
-                        ...routeContext,
-                        selectedPage: action.payload.selectedPage,
-                        queryString: action.payload.queryString,
-                        forceReload: action.payload.forceReload,
-                        routeParams: undefined,
-                        routeReady: isReady
-                    } );
-                }
-                break;
-            }
-            case RouteActions.UpdateRouteParams: {
-                setRouteContext({
-                    ...routeContext,
-                    routeParams: action.payload.routeParams,
-                    routeReady: true
-                })
-                break;
-            }
-            case RouteActions.ForceReloadDisable: {
-                setRouteContext({
-                    ...routeContext,
-                    forceReload: false,
-                    routeParams: action.payload.routeParams,
-                    routeReady: true
-                })
-                break;
-            }
-        }
+    const ChangeRoute: ChangeRouteAction = (params) => {
+            let isReady: boolean = ( !params.forceReload && ( routeContext.queryString === params.queryString && routeContext.selectedPage === params.selectedPage ) );
+            setRouteContext( {
+                ...routeContext,
+                selectedPage: params.selectedPage,
+                queryString: params.queryString,
+                forceReload: params.forceReload,
+                routeParams: undefined,
+                routeReady: isReady
+            } );
+    }
+
+    const UpdateRouteParams: ChangeRouteParamsAction = (routeParams) => {
+        setRouteContext({
+            ...routeContext,
+            routeParams: routeParams,
+            routeReady: true
+        })
+    }
+
+    const DisableForceReload: ChangeRouteParamsAction = (routeParams) => {
+        setRouteContext({
+            ...routeContext,
+            forceReload: false,
+            routeParams: routeParams,
+            routeReady: true
+        })
     }
     
-    return [ routeContext, changeRoute ];
+    return {
+        Route: routeContext,
+        ChangeRoute,
+        UpdateRouteParams,
+        DisableForceReload
+    };
+}
+
+export const DefaultRouteContext: RouteContextType = {
+    Route: initialRouteConfig,
+    ChangeRoute: () => {},
+    UpdateRouteParams: () => {},
+    DisableForceReload: () => {}
 }

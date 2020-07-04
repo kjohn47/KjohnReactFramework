@@ -14,7 +14,7 @@ const ErrorPage: React.FC = () => {
     const { getTranslation } = useTranslation();
     const { getErrorData } = useErrorTranslation();
     const [ errorContext ] = useContext( ErrorContext );
-    const [ appContext ] = useContext( AppContext );
+    const appContext = useContext( AppContext ).App;
     const showDetails = showDetailedErrors || appContext.adminOptions;
     return (
         <Row className="ErrorPage">

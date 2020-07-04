@@ -1,14 +1,14 @@
 import React, { createContext, useState, useEffect } from "react"
 import { useError } from "../context/Error/appError";
 import { ErrorContextType } from "../context/Error/appErrorInterfaces";
-import { useAppContext } from "../context/App/appContext";
+import { useAppContext, DefaultAppContext } from "../context/App/appContext";
 import { LoadingType, AppContextType, AppLanguageType } from "../context/App/appContextInterfaces";
 import { useLogin } from "../context/Login/loginContext";
 import { LoginContextType } from "../context/Login/loginContextInterfaces";
 import { initialAppConfig, initialLogin, initialError, initialLanguage, initialRouteConfig } from "./configuration";
-import { ContextActions, AppLanguage } from "../context/App/appContextEnums";
+import { AppLanguage } from "../context/App/appContextEnums";
 import { RouteContextType } from "../context/Routes/routeContextInterfaces";
-import { useRouteContext } from "../context/Routes/routeContext";
+import { useRouteContext, DefaultRouteContext } from "../context/Routes/routeContext";
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderColor, DotsLoaderSize } from "../../components/common/presentation/loading/DotsLoader";
 import Column from "../../components/common/structure/Column";
 import Row from "../../components/common/structure/Row";
@@ -16,8 +16,8 @@ import Row from "../../components/common/structure/Row";
 export const AppLanguageContext = createContext<AppLanguageType>( [ initialLanguage, () => {} ] );
 export const ErrorContext = createContext<ErrorContextType>( [ initialError, () => { } ] );
 export const LoadingContext = createContext<LoadingType>( [ false, () => { } ] );
-export const AppContext = createContext<AppContextType>( [ initialAppConfig, () => { } ] );
-export const RouteContext = createContext<RouteContextType>( [ initialRouteConfig, () => { } ] );
+export const AppContext = createContext<AppContextType>( DefaultAppContext );
+export const RouteContext = createContext<RouteContextType>( DefaultRouteContext );
 export const LoginContext = createContext<LoginContextType>( [ undefined, () => { } ] );
 
 export const AppProvider: React.FC = ( { children } ) => {
@@ -40,8 +40,8 @@ export const AppProvider: React.FC = ( { children } ) => {
 }
 
 const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>> }> = ( { appLanguage, firstLoad, setFirstLoad, children } ) => {
-    const [ appContext, setAppContext ] = useAppContext( initialAppConfig );
-    const [ routeContext, setRouteContext ] = useRouteContext( initialRouteConfig );
+    const appContext = useAppContext( initialAppConfig );
+    const routeContext = useRouteContext( initialRouteConfig );
     const [ error, setError ] = useError( initialError );
     const [ loading, setLoading ] = useState( false );
 
@@ -49,7 +49,7 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
         if ( !firstLoad ) {
             //// load loken data for first selected language
             Promise.resolve(
-                setAppContext( { type: ContextActions.ChangeLanguage, payload: { globalLanguage: appLanguage } } )
+                appContext.ChangeLanguage(appLanguage)
             ).finally(
                 () => setFirstLoad( true )
             )
@@ -58,8 +58,8 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
     }, [] );
     return (
         firstLoad ?
-                <AppContext.Provider value={ [ appContext, setAppContext ] } >
-                    <RouteContext.Provider value = { [ routeContext, setRouteContext ] }>
+                <AppContext.Provider value={ appContext } >
+                    <RouteContext.Provider value = { routeContext }>
                         <ErrorContext.Provider value={ [ error, setError ] }>
                             <LoadingContext.Provider value={ [ loading, setLoading ] }>
                                 { children }
