@@ -9,7 +9,7 @@ import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../l
 const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => void }> = ( props ) => {
     const appContext = useContext( AppContext ).App;
     const routeContext = React.useContext( RouteContext ).Route;
-    const [ errorContext ] = useContext( ErrorContext );
+    const errorContext = useContext( ErrorContext ).Error;
     const [ userContext ] = useContext(LoginContext);
     const { getTranslation } = useTranslation();
 

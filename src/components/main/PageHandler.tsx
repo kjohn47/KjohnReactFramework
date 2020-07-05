@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, Suspense } from "react";
 import { AppContext, ErrorContext, LoadingContext, RouteContext } from "../../logic/config/AppProvider";
 import { KnownPages } from "../../logic/context/Routes/routeContextEnums";
-import { ErrorCodes, ErrorActions } from "../../logic/context/Error/appErrorEnums";
+import { ErrorCodes } from "../../logic/context/Error/appErrorEnums";
 import Loader from "../common/presentation/loading/Loader";
 import ErrorPage from "./ErrorPage";
 import { injectProps, IDictionary, PageType } from "../../logic/functions/misc";
@@ -46,7 +46,7 @@ const usePageSelector: ( selectedComponent: React.ComponentType | undefined ) =>
 const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
     const appContext = useContext( AppContext ).App;
     const routeContext = useContext( RouteContext );
-    const [ errorContext, setErrorContext ] = useContext( ErrorContext );
+    const errorContext = useContext( ErrorContext );
     const isLoading = useContext( LoadingContext )[ 0 ];
     const [ output, setOutput ] = usePageSelector( undefined );
     const [ lastPage, setLastPage ] = useState<string>();
@@ -54,9 +54,7 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
 
     const listenToPopstate = () => {
         const route = getRouteUrlAndQuery();
-        setErrorContext({
-            type: ErrorActions.RemoveError
-        });
+        errorContext.RemoveError();
         routeContext.ChangeRoute({
                 selectedPage: route.selectedPage,
                 queryString: route.queryString,
@@ -73,13 +71,11 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
     }, [])
 
     useEffect( () => {
-        if( errorContext.hasError )
+        if( errorContext.Error.hasError )
         {
             if( routeContext.Route.forceReload || lastPage !== routeContext.Route.selectedPage || queryString !== routeContext.Route.queryString ) 
             {
-                setErrorContext({
-                    type: ErrorActions.RemoveError
-                });
+                errorContext.RemoveError();
             }
             else
             {
@@ -170,8 +166,7 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
                         }
                         else {
                             withError = true;
-                            setErrorContext( {
-                                type: ErrorActions.ActivateError,
+                            errorContext.ChangeError( {
                                 errorCode: ErrorCodes.PageNotFound,
                                 errorDescription: "Not Found: 404"
                             } );
@@ -191,13 +186,13 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
         }
         // eslint-disable-next-line
     }, [
-        routeContext,
-        errorContext
+        routeContext.Route,
+        errorContext.Error
     ] )
     return (
         <Suspense fallback = {<Loader isLoading={ true } bigLoader paddingTop withoutText/> } >
-            <Loader isLoading={ isLoading || ( !routeContext.Route.routeReady && !errorContext.hasError ) } bigLoader paddingTop withoutText = { !routeContext.Route.routeReady } >
-                { !errorContext.hasError && output ? ( routeContext.Route.routeReady ? output :  null ) : errorContext.hasError ? <ErrorPage /> : null }
+            <Loader isLoading={ isLoading || ( !routeContext.Route.routeReady && !errorContext.Error.hasError ) } bigLoader paddingTop withoutText = { !routeContext.Route.routeReady } >
+                { !errorContext.Error.hasError && output ? ( routeContext.Route.routeReady ? output :  null ) : errorContext.Error.hasError ? <ErrorPage /> : null }
             </Loader>
         </Suspense>
     );

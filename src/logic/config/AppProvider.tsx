@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react"
-import { useError } from "../context/Error/appError";
+import { useError, DefaultErrorContext } from "../context/Error/appError";
 import { ErrorContextType } from "../context/Error/appErrorInterfaces";
 import { useAppContext, DefaultAppContext } from "../context/App/appContext";
 import { LoadingType, AppContextType, AppLanguageType } from "../context/App/appContextInterfaces";
@@ -14,7 +14,7 @@ import Column from "../../components/common/structure/Column";
 import Row from "../../components/common/structure/Row";
 
 export const AppLanguageContext = createContext<AppLanguageType>( [ initialLanguage, () => {} ] );
-export const ErrorContext = createContext<ErrorContextType>( [ initialError, () => { } ] );
+export const ErrorContext = createContext<ErrorContextType>( DefaultErrorContext );
 export const LoadingContext = createContext<LoadingType>( [ false, () => { } ] );
 export const AppContext = createContext<AppContextType>( DefaultAppContext );
 export const RouteContext = createContext<RouteContextType>( DefaultRouteContext );
@@ -42,7 +42,7 @@ export const AppProvider: React.FC = ( { children } ) => {
 const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>> }> = ( { appLanguage, firstLoad, setFirstLoad, children } ) => {
     const appContext = useAppContext( initialAppConfig );
     const routeContext = useRouteContext( initialRouteConfig );
-    const [ error, setError ] = useError( initialError );
+    const errorContext = useError( initialError );
     const [ loading, setLoading ] = useState( false );
 
     useEffect( () => {
@@ -60,7 +60,7 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
         firstLoad ?
                 <AppContext.Provider value={ appContext } >
                     <RouteContext.Provider value = { routeContext }>
-                        <ErrorContext.Provider value={ [ error, setError ] }>
+                        <ErrorContext.Provider value={ errorContext }>
                             <LoadingContext.Provider value={ [ loading, setLoading ] }>
                                 { children }
                             </LoadingContext.Provider>

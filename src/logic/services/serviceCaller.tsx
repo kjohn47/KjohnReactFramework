@@ -1,6 +1,6 @@
 import { useContext, useState, useRef, useEffect } from 'react';
 import { AppContext, LoadingContext, ErrorContext, LoginContext, AppLanguageContext } from '../config/AppProvider';
-import { ErrorActions, ErrorCodes } from "../context/Error/appErrorEnums";
+import { ErrorCodes } from "../context/Error/appErrorEnums";
 import { IContext, IServiceError, ServiceCallType, ServiceType } from "./serviceCallerInterfaces";
 
 interface IServiceCallerArgs<IServiceRequest, IServiceResponse> {
@@ -24,7 +24,7 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
     const [ serviceLoading, setServiceLoading ] = useState<boolean>(false);
     const [ appLanguage ] = useContext( AppLanguageContext );
     const [ loading, setloading ] = useContext( LoadingContext );
-    const [ error, setError ] = useContext( ErrorContext );
+    const errorContext = useContext( ErrorContext );
     const appContext = useContext( AppContext );
     const [ login, setLogin ] = useContext( LoginContext );
     const loadingRef = useRef(loading);
@@ -59,8 +59,8 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
             }
             else
             {
-                if ( error.hasError && !localLoading ) {
-                    setError( { type: ErrorActions.RemoveError } ); //might not be necessary??
+                if ( errorContext.Error.hasError && !localLoading ) {
+                    errorContext.RemoveError();
                 }
 
                 resolve( callService<IServiceRequest, IServiceResponse>( service, { appLanguage: appLanguage,  appContext: appContext, userContext: login ? { Get: login, Set: setLogin } : undefined }, request, serviceResponse )
@@ -84,7 +84,7 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
                         if(!abort.current) {
                             setServiceLoading(false);
                             if(!preventErrorCatch)
-                                setError( { type: ErrorActions.ActivateError, 
+                                errorContext.ChangeError( {
                                             errorDescription: err.message, 
                                             errorCode: processError !== undefined ? processError : ( ( hasAbortError.current ) ? ErrorCodes.AbortError : ErrorCodes.GenericError ) 
                                         } );

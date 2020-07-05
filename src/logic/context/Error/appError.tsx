@@ -1,31 +1,36 @@
 import { useState } from "react";
-import { IError, IErrorAction, ErrorContextType } from "./appErrorInterfaces";
-import { ErrorActions } from "./appErrorEnums";
+import { IError, ErrorContextType, ChangeErrorType, RemoveErrorType } from "./appErrorInterfaces";
+import { initialError } from "../../config/configuration";
 
 export const useError: ( initialState: IError ) => ErrorContextType = ( initialState ) => {
     const [ error, setError ] = useState( initialState );
 
-    function changeError ( action: IErrorAction ) {
-        switch ( action.type ) {
-            case ErrorActions.ActivateError: {
-                setError( {
-                    ...error,
-                    hasError: true,
-                    errorDescription: action.errorDescription,
-                    errorCode: action.errorCode
-                } );
-                break;
-            }
-            case ErrorActions.RemoveError: {
-                if( error.hasError )
-                    setError( {
-                        hasError: false,
-                        errorDescription: undefined,
-                        errorCode: undefined
-                    } );
-                break;
-            }
-        }
+    const ChangeError: ChangeErrorType = (newError) => {
+        setError( {
+            ...error,
+            hasError: true,
+            errorDescription: newError.errorDescription,
+            errorCode: newError.errorCode
+        } );
     }
-    return [ error, changeError ];
+
+    const RemoveError: RemoveErrorType = () => {
+        setError( {
+            hasError: false,
+            errorDescription: undefined,
+            errorCode: undefined
+        } );
+    }
+    
+    return {
+       Error: error,
+       ChangeError,
+       RemoveError
+    }
+}
+
+export const DefaultErrorContext = {
+    Error: initialError,
+    ChangeError: () => {},
+    RemoveError: () => {}
 }

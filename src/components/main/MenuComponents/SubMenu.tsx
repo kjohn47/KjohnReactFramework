@@ -18,7 +18,7 @@ export interface ISubMenuItem {
 const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle: () => void }> = ( props ) => {
     const appContext = useContext( AppContext ).App;
     const routeContext = React.useContext( RouteContext ).Route;
-    const [ errorContext ] = useContext( ErrorContext );
+    const errorContext = useContext( ErrorContext ).Error;
     const [ globalLang ] = useContext( AppLanguageContext );
     const [ userContext ] = useContext(LoginContext);
     const { getTranslation } = useTranslation();
