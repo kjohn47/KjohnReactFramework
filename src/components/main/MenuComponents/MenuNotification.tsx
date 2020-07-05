@@ -10,7 +10,7 @@ import { useNotificationService } from '../../../services/Notifications/Notifica
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
 
 const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
-    const [appContext] = useContext(AppContext);
+    const appContext = useContext(AppContext).App;
     const [appLanguage] = useContext(AppLanguageContext);
     const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);

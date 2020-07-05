@@ -1,15 +1,6 @@
-import { ContextActions, AppLanguage, AppGlobalTheme } from "./appContextEnums";
+import { AppLanguage, AppGlobalTheme } from "./appContextEnums";
 import { ITranslation } from "../../functions/getTranslation";
-
-export interface IContextAction {
-    type: ContextActions;
-    payload: IContextPayload;
-}
-
-export interface IContextPayload {
-    globalLanguage?: AppLanguage;
-    pageTheme?: AppGlobalTheme;
-}
+import { IServiceError } from "../../services/serviceCallerInterfaces";
 
 export interface ITranslations {    
     [ key: string ]: ITranslation;
@@ -22,6 +13,13 @@ export interface IAppContext {
     loadingTranslation?: boolean;
 }
 
+export type ChangeAppLanguage = (appLanguage: AppLanguage) => Promise<void | IServiceError>;
+export type ChangeAppTheme = (appTheme: AppGlobalTheme) => void;
+
 export type LoadingType = [ boolean, React.Dispatch<React.SetStateAction<boolean>> ];
 export type AppLanguageType = [ AppLanguage, React.Dispatch<React.SetStateAction<AppLanguage>> ];
-export type AppContextType = [ IAppContext, ( ( action: IContextAction ) => void ) ];
+export type AppContextType = { 
+    App: IAppContext;
+    ChangeLanguage: ChangeAppLanguage;
+    ChangeTheme: ChangeAppTheme; 
+};

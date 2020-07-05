@@ -1,6 +1,6 @@
 import { useContext, useState, useRef, useEffect } from 'react';
 import { AppContext, LoadingContext, ErrorContext, LoginContext, AppLanguageContext } from '../config/AppProvider';
-import { ErrorActions, ErrorCodes } from "../context/Error/appErrorEnums";
+import { ErrorCodes } from "../context/Error/appErrorEnums";
 import { IContext, IServiceError, ServiceCallType, ServiceType } from "./serviceCallerInterfaces";
 
 interface IServiceCallerArgs<IServiceRequest, IServiceResponse> {
@@ -24,9 +24,9 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
     const [ serviceLoading, setServiceLoading ] = useState<boolean>(false);
     const [ appLanguage ] = useContext( AppLanguageContext );
     const [ loading, setloading ] = useContext( LoadingContext );
-    const [ error, setError ] = useContext( ErrorContext );
-    const [ appContext, setAppContext ] = useContext( AppContext );
-    const [ login, setLogin ] = useContext( LoginContext );
+    const errorContext = useContext( ErrorContext );
+    const appContext = useContext( AppContext );
+    const loginContext = useContext( LoginContext );
     const loadingRef = useRef(loading);
     const abort = useRef(false);
     const hasAbortError = useRef(false);
@@ -59,11 +59,11 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
             }
             else
             {
-                if ( error.hasError && !localLoading ) {
-                    setError( { type: ErrorActions.RemoveError } ); //might not be necessary??
+                if ( errorContext.Error.hasError && !localLoading ) {
+                    errorContext.RemoveError();
                 }
 
-                resolve( callService<IServiceRequest, IServiceResponse>( service, { appLanguage: appLanguage,  appContext: { Get: appContext, Set: setAppContext }, userContext: login ? { Get: login, Set: setLogin } : undefined }, request, serviceResponse )
+                resolve( callService<IServiceRequest, IServiceResponse>( service, { appLanguage: appLanguage,  appContext: appContext, userContext: loginContext.Login ? loginContext : undefined }, request, serviceResponse )
                     .then( ( response: IServiceResponse | IServiceError ) => {
                         let serviceCallError: IServiceError = response as IServiceError;
                         if ( serviceCallError !== null && serviceCallError !== undefined && serviceCallError.hasError ) {
@@ -84,7 +84,7 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
                         if(!abort.current) {
                             setServiceLoading(false);
                             if(!preventErrorCatch)
-                                setError( { type: ErrorActions.ActivateError, 
+                                errorContext.ChangeError( {
                                             errorDescription: err.message, 
                                             errorCode: processError !== undefined ? processError : ( ( hasAbortError.current ) ? ErrorCodes.AbortError : ErrorCodes.GenericError ) 
                                         } );

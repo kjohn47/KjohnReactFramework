@@ -1,4 +1,4 @@
-import { ErrorActions, ErrorCodes } from "./appErrorEnums";
+import { ErrorCodes } from "./appErrorEnums";
 
 export interface IError {
     hasError: boolean;
@@ -6,13 +6,19 @@ export interface IError {
     errorCode?: ErrorCodes;
 }
 
-export interface IErrorAction {
-    type: ErrorActions;
-    errorCode?: ErrorCodes;
-    errorDescription?: string;
+export interface IChangeError {
+    errorCode: ErrorCodes;
+    errorDescription: string;
 }
 
-export type ErrorContextType = [ IError, ( ( action: IErrorAction ) => void ) ];
+export type ChangeErrorType = (newError: IChangeError) => void;
+export type RemoveErrorType = () => void;
+
+export type ErrorContextType = { 
+    Error: IError;
+    ChangeError: ChangeErrorType;
+    RemoveError: RemoveErrorType;
+};
 
 export interface IErrorData {
     Title: string;

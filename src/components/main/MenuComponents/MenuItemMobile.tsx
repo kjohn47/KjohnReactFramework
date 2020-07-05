@@ -9,10 +9,10 @@ import useTranslation from '../../../logic/functions/getTranslation';
 import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../logic/config/AppProvider';
 
 const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?: boolean; }> = ( props ) => {
-    const [ appContext ] = React.useContext( AppContext );
-    const [ routeContext ] = React.useContext( RouteContext );
-    const [ errorContext ] = React.useContext( ErrorContext );
-    const [userContext] = React.useContext(LoginContext);
+    const appContext = React.useContext( AppContext ).App;
+    const routeContext = React.useContext( RouteContext ).Route;
+    const errorContext = React.useContext( ErrorContext ).Error;
+    const userContext = React.useContext(LoginContext).Login;
     const [ subMenuCollapsed, setSubMenuCollapsed ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
 

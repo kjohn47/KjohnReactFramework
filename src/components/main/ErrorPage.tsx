@@ -13,8 +13,8 @@ import { showDetailedErrors } from "../../logic/config/configuration";
 const ErrorPage: React.FC = () => {
     const { getTranslation } = useTranslation();
     const { getErrorData } = useErrorTranslation();
-    const [ errorContext ] = useContext( ErrorContext );
-    const [ appContext ] = useContext( AppContext );
+    const errorContext = useContext( ErrorContext ).Error;
+    const appContext = useContext( AppContext ).App;
     const showDetails = showDetailedErrors || appContext.adminOptions;
     return (
         <Row className="ErrorPage">
