@@ -5,7 +5,7 @@ import { ErrorCodes } from "../context/Error/appErrorEnums";
 export const withLogin = ( Component: React.ComponentType, adminOnly: boolean = false): React.ComponentType => {
     const WithLogin: React.FC = () => {
         const appContext = useContext( AppContext ).App;
-        const [ loginContext ] = useContext( LoginContext );
+        const loginContext = useContext( LoginContext ).Login;
         const setError = useContext( ErrorContext ).ChangeError;
 
         useEffect( () => {

@@ -20,7 +20,7 @@ export interface IUserCustomMenu {
 
 const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType; NotificationRefreshTime?: number;}> = ( props ) => {
     const appContext = useContext( AppContext ).App;
-    const [ userContext ] = useContext( LoginContext );
+    const userContext = useContext( LoginContext ).Login;
     const [ toogle, setToogle ] = useState<boolean>( false );
     const [ shortName, setShortName ] = useState<boolean>( false );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );

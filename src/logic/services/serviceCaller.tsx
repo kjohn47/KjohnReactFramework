@@ -26,7 +26,7 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
     const [ loading, setloading ] = useContext( LoadingContext );
     const errorContext = useContext( ErrorContext );
     const appContext = useContext( AppContext );
-    const [ login, setLogin ] = useContext( LoginContext );
+    const loginContext = useContext( LoginContext );
     const loadingRef = useRef(loading);
     const abort = useRef(false);
     const hasAbortError = useRef(false);
@@ -63,7 +63,7 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
                     errorContext.RemoveError();
                 }
 
-                resolve( callService<IServiceRequest, IServiceResponse>( service, { appLanguage: appLanguage,  appContext: appContext, userContext: login ? { Get: login, Set: setLogin } : undefined }, request, serviceResponse )
+                resolve( callService<IServiceRequest, IServiceResponse>( service, { appLanguage: appLanguage,  appContext: appContext, userContext: loginContext.Login ? loginContext : undefined }, request, serviceResponse )
                     .then( ( response: IServiceResponse | IServiceError ) => {
                         let serviceCallError: IServiceError = response as IServiceError;
                         if ( serviceCallError !== null && serviceCallError !== undefined && serviceCallError.hasError ) {

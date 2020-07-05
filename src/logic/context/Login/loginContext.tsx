@@ -1,56 +1,69 @@
 import { useState } from "react";
-import { LoginActions } from "./loginContextEnums";
-import { ILogin, ILoginAction, LoginContextType } from "./loginContextInterfaces";
+import { ILogin, LoginContextType, MakeUpdateLoginType, UpdateUserLanguageType, UpdateUserThemeType } from "./loginContextInterfaces";
 import { updateUserSession } from "../../functions/sessionStorage";
 
 export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType = ( initialState ) => {
     const [ login, setLogin ] = useState( initialState );
 
-    function changeLogin ( action: ILoginAction ) {
-        switch ( action.type ) {
-            case LoginActions.MakeLogin: {
-                setLogin( action.userData );
-                break;
-            }
-            case LoginActions.UpdateData: {
-                if ( action.userData !== undefined && login !== undefined ) {
-                    let newData: ILogin = {
-                        ...login,
-                        name: action.userData.name,
-                        surname: action.userData.surname
-                    };
-                    updateUserSession( newData );
-                    setLogin( newData );
-                }
-                break;
-            }
-            case LoginActions.MakeLogout: {
-                setLogin( undefined );
-                break;
-            }
-            case LoginActions.UpdateUserLanguage: {
-                if ( action.userLanguage && login ) {
-                    let newData: ILogin = {
-                        ...login,
-                        appLanguage: action.userLanguage
-                    };
-                    updateUserSession( newData );
-                    setLogin( newData );
-                }
-                break;
-            }
-            case LoginActions.UpdateUserTheme: {
-                if ( action.userTheme && login ) {
-                    let newData: ILogin = {
-                        ...login,
-                        appTheme: action.userTheme
-                    };
-                    updateUserSession( newData );
-                    setLogin( newData );
-                }
-                break;
-            }
+    const MakeLogin: MakeUpdateLoginType = (userData) => {
+        setLogin( userData );
+    }
+
+    const UpdateData: MakeUpdateLoginType = (userData) => {
+        if(login)
+        {
+            const newData: ILogin = {
+                ...login,
+                name: userData.name,
+                surname: userData.surname
+            };
+
+            updateUserSession( newData );
+            setLogin( newData );
         }
     }
-    return [ login, changeLogin ];
+
+    const MakeLogout: () => void = () => {
+        setLogin( undefined );
+    }
+
+    const UpdateUserLanguage: UpdateUserLanguageType = (userLanguage) => {
+        if ( login ) {
+            const newData: ILogin = {
+                ...login,
+                appLanguage: userLanguage
+            };
+            updateUserSession( newData );
+            setLogin( newData );
+        }
+    }
+
+    const UpdateUserTheme: UpdateUserThemeType = (userTheme) => {
+        if ( login ) {
+            const newData: ILogin = {
+                ...login,
+                appTheme: userTheme
+            };
+            updateUserSession( newData );
+            setLogin( newData );
+        }
+    }
+
+    return {
+        Login: login,
+        MakeLogin,
+        UpdateData,
+        MakeLogout,
+        UpdateUserLanguage,
+        UpdateUserTheme
+    }
+}
+
+export const DefaultLoginContext: LoginContextType = {
+    Login: undefined,
+    MakeLogin: () => {},
+    UpdateData: () => {},
+    MakeLogout: () => {},
+    UpdateUserLanguage: () => {},
+    UpdateUserTheme: () => {}
 }

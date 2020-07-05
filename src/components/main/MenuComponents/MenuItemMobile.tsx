@@ -12,7 +12,7 @@ const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?
     const appContext = React.useContext( AppContext ).App;
     const routeContext = React.useContext( RouteContext ).Route;
     const errorContext = React.useContext( ErrorContext ).Error;
-    const [userContext] = React.useContext(LoginContext);
+    const userContext = React.useContext(LoginContext).Login;
     const [ subMenuCollapsed, setSubMenuCollapsed ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
 

@@ -3,7 +3,7 @@ import { useError, DefaultErrorContext } from "../context/Error/appError";
 import { ErrorContextType } from "../context/Error/appErrorInterfaces";
 import { useAppContext, DefaultAppContext } from "../context/App/appContext";
 import { LoadingType, AppContextType, AppLanguageType } from "../context/App/appContextInterfaces";
-import { useLogin } from "../context/Login/loginContext";
+import { useLogin, DefaultLoginContext } from "../context/Login/loginContext";
 import { LoginContextType } from "../context/Login/loginContextInterfaces";
 import { initialAppConfig, initialLogin, initialError, initialLanguage, initialRouteConfig } from "./configuration";
 import { AppLanguage } from "../context/App/appContextEnums";
@@ -18,15 +18,15 @@ export const ErrorContext = createContext<ErrorContextType>( DefaultErrorContext
 export const LoadingContext = createContext<LoadingType>( [ false, () => { } ] );
 export const AppContext = createContext<AppContextType>( DefaultAppContext );
 export const RouteContext = createContext<RouteContextType>( DefaultRouteContext );
-export const LoginContext = createContext<LoginContextType>( [ undefined, () => { } ] );
+export const LoginContext = createContext<LoginContextType>( DefaultLoginContext );
 
 export const AppProvider: React.FC = ( { children } ) => {
     const [ appLanguage, setAppLanguage ] = useState( initialLanguage );
-    const [ login, setLogin ] = useLogin( initialLogin );
+    const loginContext = useLogin( initialLogin );
     const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
     return (
             <AppLanguageContext.Provider value = { [ appLanguage, setAppLanguage ] }>
-                <LoginContext.Provider value={ [ login, setLogin ] } >
+                <LoginContext.Provider value={ loginContext } >
                     <InitializeAppContext 
                         appLanguage = {appLanguage}
                         firstLoad = {firstLoad}

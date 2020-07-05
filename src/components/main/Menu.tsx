@@ -22,7 +22,7 @@ export interface IMenuProps {
 
 const Menu: React.FC<IMenuProps> = ( props ) => {
   const appContext = useContext( AppContext );
-  const [ loginContext ] = useContext( LoginContext );
+  const loginContext = useContext( LoginContext ).Login;
   const [ appLanguage ] = useContext( AppLanguageContext );
   const [ toogleLang, setToogleLang ] = useState<boolean>( false );
   const [ menuToogle, setMenuToogle ] = useState<boolean>( false );

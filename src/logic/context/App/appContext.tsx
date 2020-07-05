@@ -3,7 +3,6 @@ import { AppLanguage } from "./appContextEnums";
 import { IAppContext, AppContextType, ChangeAppLanguage, ChangeAppTheme } from "./appContextInterfaces";
 import { setLastSelectedLanguage, setAppTheme } from "../../functions/sessionStorage";
 import { LoginContext, AppLanguageContext } from "../../config/AppProvider";
-import { LoginActions } from "../Login/loginContextEnums";
 import { ITranslation } from "../../functions/getTranslation";
 import { AvailableServices } from "../../services/servicesEnums";
 import { useFetchGetHandler } from "../../services/fetchHandler";
@@ -18,14 +17,14 @@ const translationHeaders = () => {
 
 export const useAppContext: ( initialContext: IAppContext ) => AppContextType = ( initialContext ) => {
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
-    const [ currentUser, setCurrentUser ] = useContext( LoginContext );
+    const loginContext = useContext( LoginContext );
     const setAppLanguage = useContext( AppLanguageContext )[1];
     const getTranslation = useFetchGetHandler<ITranslation>( { serviceUrl: `${ AvailableServices.Translation }`, customHeaders: translationHeaders() } );
 
     const ChangeLanguage: ChangeAppLanguage = (appLanguage) => new Promise<void | IServiceError>( (resolve) => {
         let globalLanguage: string = appLanguage.toString();
-        if ( currentUser )
-            setCurrentUser( { type: LoginActions.UpdateUserLanguage, userLanguage: appLanguage } );
+        if ( loginContext.Login )
+        loginContext.UpdateUserLanguage( appLanguage );
         else
             setLastSelectedLanguage( appLanguage );
 
@@ -63,8 +62,8 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
     
     const ChangeTheme: ChangeAppTheme = (appTheme) => 
     {
-        if ( currentUser )
-        setCurrentUser( { type: LoginActions.UpdateUserTheme, userTheme: appTheme } );
+        if ( loginContext.Login )
+            loginContext.UpdateUserTheme( appTheme );
         else
             setAppTheme( appTheme );
 

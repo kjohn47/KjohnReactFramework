@@ -45,7 +45,7 @@ const getHeaders = ( language: AppLanguage, token?: string, isPost?: boolean ) =
 
 export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
 {
-    const [login] = useContext( LoginContext );
+    const login = useContext( LoginContext ).Login;
     const [appLanguage] = useContext( AppLanguageContext );
     const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
@@ -128,7 +128,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
 
 export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs  ) =>
 {
-    const [login] = useContext( LoginContext );
+    const login = useContext( LoginContext ).Login;
     const [appLanguage] = useContext( AppLanguageContext );
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
@@ -219,7 +219,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
 }
 
 export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, externalService, customHeaders, loadProgress } : IdownloadArgs ) => {
-    const [login] = useContext( LoginContext );
+    const login = useContext( LoginContext ).Login;
     const [appLanguage] = useContext( AppLanguageContext );
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string,string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );

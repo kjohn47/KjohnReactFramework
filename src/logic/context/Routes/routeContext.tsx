@@ -6,15 +6,15 @@ export const useRouteContext: ( initialRoute: IRouteContext ) => RouteContextTyp
     const [ routeContext, setRouteContext ] = useState( initialRoute );
 
     const ChangeRoute: ChangeRouteAction = (params) => {
-            let isReady: boolean = ( !params.forceReload && ( routeContext.queryString === params.queryString && routeContext.selectedPage === params.selectedPage ) );
-            setRouteContext( {
-                ...routeContext,
-                selectedPage: params.selectedPage,
-                queryString: params.queryString,
-                forceReload: params.forceReload,
-                routeParams: undefined,
-                routeReady: isReady
-            } );
+        let isReady: boolean = ( !params.forceReload && ( routeContext.queryString === params.queryString && routeContext.selectedPage === params.selectedPage ) );
+        setRouteContext( {
+            ...routeContext,
+            selectedPage: params.selectedPage,
+            queryString: params.queryString,
+            forceReload: params.forceReload,
+            routeParams: undefined,
+            routeReady: isReady
+        } );
     }
 
     const UpdateRouteParams: ChangeRouteParamsAction = (routeParams) => {

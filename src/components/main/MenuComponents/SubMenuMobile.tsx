@@ -10,7 +10,7 @@ const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => vo
     const appContext = useContext( AppContext ).App;
     const routeContext = React.useContext( RouteContext ).Route;
     const errorContext = useContext( ErrorContext ).Error;
-    const [ userContext ] = useContext(LoginContext);
+    const userContext = useContext(LoginContext).Login;
     const { getTranslation } = useTranslation();
 
     const makeSubMenu = ( subMenu: ISubMenuItem, isSingle: boolean = false ) => {
