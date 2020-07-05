@@ -1,4 +1,3 @@
-import { LoginActions } from "./loginContextEnums";
 import { AppLanguage, AppGlobalTheme } from "../App/appContextEnums";
 
 export interface ILogin {
@@ -10,11 +9,15 @@ export interface ILogin {
     appTheme: AppGlobalTheme;
 }
 
-export interface ILoginAction {
-    type: LoginActions;
-    userData?: ILogin;
-    userLanguage?: AppLanguage;
-    userTheme?: AppGlobalTheme;
-}
+export type MakeUpdateLoginType = (userData: ILogin) => void;
+export type UpdateUserLanguageType = (userLanguage: AppLanguage) => void;
+export type UpdateUserThemeType = (userTheme: AppGlobalTheme) => void;
 
-export type LoginContextType = [ ILogin | undefined, ( ( action: ILoginAction ) => void ) ];
+export type LoginContextType = { 
+    Login: ILogin | undefined,
+    MakeLogin: MakeUpdateLoginType,
+    UpdateData: MakeUpdateLoginType,
+    MakeLogout: () => void,
+    UpdateUserLanguage: UpdateUserLanguageType,
+    UpdateUserTheme: UpdateUserThemeType
+};

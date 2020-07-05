@@ -9,7 +9,7 @@ interface ILayout {
 }
 
 const Layout: React.FC<ILayout> = ( props ) => {
-    const selectedTheme = useContext( AppContext )[ 0 ].globalTheme;
+    const selectedTheme = useContext( AppContext ).App.globalTheme;
     return (
         <div className={ "PageLayout " + selectedTheme }>
             <div className={ !props.IsCustomMenu ? "PageMenu PageMenuColor" : "" }>

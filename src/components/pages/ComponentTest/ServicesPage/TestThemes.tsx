@@ -2,20 +2,15 @@ import React, { useContext } from 'react';
 import Column from '../../../common/structure/Column';
 import Row from '../../../common/structure/Row';
 import { AppContext } from '../../../../logic/config/AppProvider';
-import { AppGlobalTheme, ContextActions } from '../../../../logic/context/App/appContextEnums';
+import { AppGlobalTheme } from '../../../../logic/context/App/appContextEnums';
 import Button, { ButtonTypes } from '../../../common/inputs/Button';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 
 const TestThemes: React.FC = () => {
-    const [appContext, setAppContext] = useContext(AppContext);
+    const appContext = useContext(AppContext);
 
     const setTheme = ( theme: AppGlobalTheme ) => {
-        setAppContext({
-            type: ContextActions.ChangeTheme,
-            payload: {
-                pageTheme: theme
-            }
-        })
+        appContext.ChangeTheme(theme)
     }
 
     const getThemeName = (theme: AppGlobalTheme) => {
@@ -50,7 +45,7 @@ const TestThemes: React.FC = () => {
                 <Row>
                     <Column>
                         <div>
-                            <span style={{fontWeight:"bold"}}>Current Theme:</span><span> {getThemeName(appContext.globalTheme)}</span>
+                            <span style={{fontWeight:"bold"}}>Current Theme:</span><span> {getThemeName(appContext.App.globalTheme)}</span>
                         </div>
                     </Column>
                 </Row>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { KnownPages, RouteActions } from "../../../logic/context/Routes/routeContextEnums";
+import { KnownPages } from "../../../logic/context/Routes/routeContextEnums";
 import { RouteContext } from "../../../logic/config/AppProvider";
 import { IDictionary, PageType } from "../../../logic/functions/misc";
 
@@ -14,7 +14,7 @@ interface IPageSelector {
 }
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
-    const setRoute = useContext( RouteContext )[ 1 ];
+    const routeContext = useContext( RouteContext );
     const setPage = ( page: PageType, queryParams?: IDictionary<string> ) => {
         let queryString = queryParams === undefined ? "" : "?" + new URLSearchParams( queryParams ).toString();
         if ( page === KnownPages.Home || page.toString() === "" || page.toString() === "/" ) {
@@ -25,14 +25,11 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
             window.history.pushState( {}, "", "/" + page.toString() + queryString );
         }
 
-        setRoute( {
-            type: RouteActions.ChangePage,
-            payload: {
-                selectedPage: page,
-                queryString: queryParams,
-                forceReload: props.forceReload
-            }
-        } );
+        routeContext.ChangeRoute({
+            selectedPage: page,
+            queryString: queryParams,
+            forceReload: props.forceReload
+        });
 
         if(props.action)
         {

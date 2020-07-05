@@ -1,16 +1,9 @@
-import { RouteActions } from "./routeContextEnums";
 import { IDictionary, PageType } from "../../functions/misc";
 
-export interface IRouteAction {
-    type: RouteActions;
-    payload: IRoutePayload;
-}
-
-export interface IRoutePayload {
-    selectedPage?: PageType;
+export interface IRouteParams {
+    selectedPage: PageType;
     queryString?: IDictionary<string>;
     forceReload?: boolean;
-    routeParams?: IDictionary<string>;
 }
 
 export interface IRouteContext {
@@ -21,4 +14,12 @@ export interface IRouteContext {
     routeReady: boolean;
 }
 
-export type RouteContextType = [ IRouteContext, ( ( action: IRouteAction ) => void ) ];
+export type ChangeRouteAction = (params: IRouteParams) => void;
+export type ChangeRouteParamsAction = (routeParams?: IDictionary<string>) => void;
+
+export type RouteContextType = { 
+    Route: IRouteContext, 
+    ChangeRoute: ChangeRouteAction,
+    UpdateRouteParams: ChangeRouteParamsAction,
+    DisableForceReload: ChangeRouteParamsAction 
+};
