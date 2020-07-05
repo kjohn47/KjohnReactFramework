@@ -1,21 +1,11 @@
-import { ILoginAction, ILogin } from '../context/Login/loginContextInterfaces';
-import { IAppContext, IContextAction } from '../context/App/appContextInterfaces';
+import { ILogin, LoginContextType } from '../context/Login/loginContextInterfaces';
+import { AppContextType } from '../context/App/appContextInterfaces';
 import { AppLanguage } from '../context/App/appContextEnums';
 
 export interface IContext {
-    appContext: IAppContextObject;
+    appContext: AppContextType;
     appLanguage: AppLanguage;
-    userContext?: IAppUserObject;
-}
-
-interface IAppContextObject {
-    Get: IAppContext;
-    Set: ( action: IContextAction ) => void;
-}
-
-interface IAppUserObject {
-    Get: ILogin;
-    Set: ( action: ILoginAction ) => void;
+    userContext?: LoginContextType;
 }
 
 export interface IServiceError {

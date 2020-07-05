@@ -19,9 +19,3 @@ export enum AppStorageKeys {
     APPTHEME = "APPTHEME",
     USERDATA = "USERDATA"
 }
-
-//Add new actions here
-export enum ContextActions {
-    ChangeLanguage = "ChangeLanguage",
-    ChangeTheme = "ChangeTheme"
-}

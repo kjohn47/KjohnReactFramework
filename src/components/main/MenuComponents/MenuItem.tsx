@@ -17,8 +17,8 @@ export interface IMenuItem {
 }
 
 const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
-    const [ appContext ] = React.useContext( AppContext );
-    const [ userContext ] = useContext(LoginContext);
+    const appContext = React.useContext( AppContext ).App;
+    const userContext = useContext(LoginContext).Login;
     const [ toogle, setToogle ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
     const subMenuRef = useRef<HTMLDivElement>( null );

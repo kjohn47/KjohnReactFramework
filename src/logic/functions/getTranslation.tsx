@@ -24,7 +24,7 @@ const getToken: ( process: string, token: string, translations: ITranslations, l
 }
 
 const useTranslation: () => { getTranslation: ( process: string, token: string, args?: string[] ) => string } = () => {
-    const [ appContext ] = useContext( AppContext );
+    const appContext = useContext( AppContext ).App;
     const [ appLanguage ] = useContext( AppLanguageContext );
     const getTranslation: ( process: string, token: string, args?: string[] ) => string = ( process, token, args?) => {
         let textOut = getToken( process, token, appContext.translations, appLanguage );
