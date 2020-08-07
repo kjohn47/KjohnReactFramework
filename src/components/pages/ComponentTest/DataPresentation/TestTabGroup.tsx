@@ -5,7 +5,7 @@ const TestTabGroup: React.FC = () => {
 
     const tabItem: ITabItem<{Content: string;}> = {
         Component: (props) => {
-            return <>{props.Content}</> 
+            return <TestTabItem>{props.Content}</TestTabItem> 
             },
         Title: "Tab 0",
         Props: {
@@ -19,19 +19,28 @@ const TestTabGroup: React.FC = () => {
                 [
                     tabItem,
                     {
-                        Component: () => <>1</>,
+                        Component: () => <TestTabItem>1</TestTabItem>,
                         Title: "Tab 1"
                     },
                     {
-                        Component: () => <>2</>,
+                        Component: () => <TestTabItem>2</TestTabItem>,
                         Title: "Tab 2"
                     },
                     {
-                        Component:() => <>3</>,
+                        Component:() => <TestTabItem>3</TestTabItem>,
                         Title: "Tab 3"
                     }
                 ]
             }/>
         </div>)
 }
+
+const TestTabItem: React.FC = ({children}) => {
+    return (
+        <div className="TestTabItem">
+            {children}
+        </div>
+    )
+}
+
 export default TestTabGroup;

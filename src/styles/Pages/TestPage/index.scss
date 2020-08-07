@@ -2,7 +2,7 @@
 //
 //Test page styles
 //
-.TestApp {  
+.TestApp {
   .TestPageStuff {
     margin-top: 20px;
     width: 100%;
@@ -17,10 +17,6 @@
     }
   }
   .TestTabGroup {
-    .TabGroup {
-      .TabGroupContentRow {
-          min-height: calc(100vh - 350px);
-      }
-    }
+    height: 100%;
   }
 }
