@@ -6,6 +6,7 @@ interface ILoader {
     bigLoader?: boolean;
     paddingTop?: boolean;
     withoutText?: boolean;
+    className?: string;
 }
 
 const Loader: React.FC<ILoader> = ( props ) => {
@@ -20,7 +21,7 @@ const Loader: React.FC<ILoader> = ( props ) => {
                         { getTranslation( "_generic", "#(loadingText)" ) }
                     </div> }
                 </div> }
-            <div className={ props.isLoading ? "contentLoading" : "" }>
+            <div className={ props.isLoading ? "contentLoading" : props.className }>
                 { props.children }
             </div>
         </React.Fragment>

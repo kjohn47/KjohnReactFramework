@@ -191,7 +191,7 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
     ] )
     return (
         <Suspense fallback = {<Loader isLoading={ true } bigLoader paddingTop withoutText/> } >
-            <Loader isLoading={ isLoading || ( !routeContext.Route.routeReady && !errorContext.Error.hasError ) } bigLoader paddingTop withoutText = { !routeContext.Route.routeReady } >
+            <Loader className = "ContentLoader" isLoading={ isLoading || ( !routeContext.Route.routeReady && !errorContext.Error.hasError ) } bigLoader paddingTop withoutText = { !routeContext.Route.routeReady } >
                 { !errorContext.Error.hasError && output ? ( routeContext.Route.routeReady ? output :  null ) : errorContext.Error.hasError ? <ErrorPage /> : null }
             </Loader>
         </Suspense>

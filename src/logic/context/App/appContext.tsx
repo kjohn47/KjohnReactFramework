@@ -24,7 +24,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
     const ChangeLanguage: ChangeAppLanguage = (appLanguage) => new Promise<void | IServiceError>( (resolve) => {
         let globalLanguage: string = appLanguage.toString();
         if ( loginContext.Login )
-        loginContext.UpdateUserLanguage( appLanguage );
+            loginContext.UpdateUserLanguage( appLanguage );
         else
             setLastSelectedLanguage( appLanguage );
 
