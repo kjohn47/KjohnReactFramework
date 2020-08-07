@@ -20,9 +20,13 @@
     padding-top: 10px;
     padding-left: 25px;
     padding-right: 25px;
+    padding-bottom: 55px;
     width: calc( 100% - 50px);
-    min-height: calc( 100% - 135px );
-    padding-bottom: 135px;
+    min-height: calc( 100vh - 115px );
+    & .ContentLoader {
+      min-height: calc( 100vh - 130px );
+      display: flex;
+    } 
   }
 
   .PageFooter {
