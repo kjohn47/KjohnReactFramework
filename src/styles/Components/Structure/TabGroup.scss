@@ -3,6 +3,7 @@
     padding-left: 10px;
     padding-right: 10px;
     box-sizing: border-box;
+    height: 100%;
     .TabGroupTabRow {
         .TabItem {
             height: 45px;
@@ -27,7 +28,7 @@
         padding: 10px;
         padding-top: 15px;
         border: 1px solid;
-        min-height: calc(100vh - 250px);
+        height: calc(100% - 45px);
         box-sizing: border-box;
         border-radius: 0 0 10px 10px;
     }
