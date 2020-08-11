@@ -1,0 +1,147 @@
+.ModalWrapper {
+    background-color: rgba(0,0,0,0.8);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 10000;
+
+    .ModalClose {
+        width: 15px;
+        height: 15px; 
+        position: absolute;
+        right: 0; 
+        top: 0;
+        margin: 10px;
+        font-size: large;
+        font-weight: bold; 
+        cursor: pointer;
+        z-index: 10002;
+    }
+    .ModalContent {
+        background-color: #FFF;
+        top: 25%;
+        bottom: 25%;
+        left: 25%;
+        right: 25%; 
+        position: absolute; 
+        z-index: 10001;
+        padding: 15px;
+        min-width: 600px;
+        min-height: 400px;
+        border-radius: 10px;
+    }
+
+    .ModalContentSmall {
+        top: 30%;
+        bottom: 30%;
+        left: 30%;
+        right: 30%; 
+        min-width: 400px;
+        min-height: 300px;
+    }
+
+    .ModalContentBig {
+        top: 10%;
+        bottom: 10%;
+        left: 10%;
+        right: 10%; 
+        min-width: 800px;
+        min-height: 600px;
+    }
+
+    .ModalContentLong {
+        top: 10%;
+        bottom: 10%;
+        left: 20%;
+        right: 20%; 
+        min-width: 600px;
+        min-height: 600px;
+    }
+}
+
+.ModalWrapperOpaque {
+    background-color: #000;
+}
+
+.ModalWrapperOpaqueWhite {
+    background-color: #FFF;
+}
+
+.ModalWrapperWhite {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+@media ( max-width: 1440px )
+{
+    .ModalWrapper {    
+        .ModalContent {
+            top: 25%;
+            bottom: 25%;
+            left: 20%;
+            right: 20%; 
+        }
+    
+        .ModalContentSmall {
+            top: 30%;
+            bottom: 30%;
+            left: 27%;
+            right: 27%; 
+        }
+
+        .ModalContentBig {
+            top: 10%;
+            bottom: 10%;
+            left: 7%;
+            right: 7%; 
+            min-width: 0;
+        }
+
+        .ModalContentLong {
+            top: 10%;
+            bottom: 10%;
+            left: 17%;
+            right: 17%; 
+            min-width: 600px;
+            min-height: 600px;
+        }
+    }
+}
+
+@media ( max-width: 768px )
+{
+    .ModalWrapper {    
+        .ModalContent {
+            top: 25%;
+            bottom: 25%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentSmall {
+            top: 30%;
+            bottom: 30%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentBig {
+            top: 4%;
+            bottom: 4%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentLong {
+            top: 5%;
+            bottom: 5%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    }
+}

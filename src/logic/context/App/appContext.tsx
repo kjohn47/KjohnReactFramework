@@ -1,13 +1,14 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { AppLanguage } from "./appContextEnums";
 import { IAppContext, AppContextType, ChangeAppLanguage, ChangeAppTheme } from "./appContextInterfaces";
 import { setLastSelectedLanguage, setAppTheme } from "../../functions/sessionStorage";
-import { LoginContext, AppLanguageContext } from "../../config/AppProvider";
 import { ITranslation } from "../../functions/getTranslation";
 import { AvailableServices } from "../../services/servicesEnums";
 import { useFetchGetHandler } from "../../services/fetchHandler";
 import { IServiceError } from "../../services/serviceCallerInterfaces";
 import { initialAppConfig } from "../../config/configuration";
+import useLoginHandler from "../Login/LoginContextHandler";
+import useAppLanguageHandler from "./AppLanguageContextHandler";
 
 const translationHeaders = () => {
     let headers = new Headers();
@@ -17,8 +18,8 @@ const translationHeaders = () => {
 
 export const useAppContext: ( initialContext: IAppContext ) => AppContextType = ( initialContext ) => {
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
-    const loginContext = useContext( LoginContext );
-    const setAppLanguage = useContext( AppLanguageContext )[1];
+    const loginContext = useLoginHandler();
+    const {setAppLanguage} = useAppLanguageHandler();
     const getTranslation = useFetchGetHandler<ITranslation>( { serviceUrl: `${ AvailableServices.Translation }`, customHeaders: translationHeaders() } );
 
     const ChangeLanguage: ChangeAppLanguage = (appLanguage) => new Promise<void | IServiceError>( (resolve) => {

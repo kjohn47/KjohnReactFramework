@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
-import { AppContext, AppLanguageContext, ErrorContext, LoginContext, RouteContext } from '../../../logic/config/AppProvider';
+import React from 'react';
 import PageSelector from '../../common/inputs/PageSelector';
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
 import useTranslation from '../../../logic/functions/getTranslation';
 import { PageType } from '../../../logic/functions/misc';
+import useAppHandler from '../../../logic/context/App/AppContextHandler';
+import useRouteHandler from '../../../logic/context/Routes/RouteContextHandler';
+import useErrorHandler from '../../../logic/context/Error/ErrorContextHandler';
+import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
+import useLoginHandler from '../../../logic/context/Login/LoginContextHandler';
 
 export interface ISubMenuItem {
     Title?: string;
@@ -16,11 +20,11 @@ export interface ISubMenuItem {
 }
 
 const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle: () => void }> = ( props ) => {
-    const appContext = useContext( AppContext ).App;
-    const routeContext = React.useContext( RouteContext ).Route;
-    const errorContext = useContext( ErrorContext ).Error;
-    const [ globalLang ] = useContext( AppLanguageContext );
-    const userContext = useContext(LoginContext).Login;
+    const appContext = useAppHandler().App;
+    const routeContext = useRouteHandler().Route;
+    const errorContext = useErrorHandler().Error;
+    const globalLang = useAppLanguageHandler().appLanguage;
+    const userContext = useLoginHandler().Login;
     const { getTranslation } = useTranslation();
 
     const makeSubMenu = ( subMenu: ISubMenuItem ) => {

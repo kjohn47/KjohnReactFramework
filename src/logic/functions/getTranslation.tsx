@@ -1,7 +1,7 @@
-import { useContext } from "react"
-import { AppContext, AppLanguageContext } from "../config/AppProvider"
 import { ITranslations } from "../context/App/appContextInterfaces";
 import { AppLanguage } from "../context/App/appContextEnums";
+import useAppHandler from "../context/App/AppContextHandler";
+import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
 
  export interface ITranslation {
     [ process: string ]: {
@@ -24,8 +24,8 @@ const getToken: ( process: string, token: string, translations: ITranslations, l
 }
 
 const useTranslation: () => { getTranslation: ( process: string, token: string, args?: string[] ) => string } = () => {
-    const appContext = useContext( AppContext ).App;
-    const [ appLanguage ] = useContext( AppLanguageContext );
+    const appContext = useAppHandler().App;
+    const appLanguage = useAppLanguageHandler().appLanguage;
     const getTranslation: ( process: string, token: string, args?: string[] ) => string = ( process, token, args?) => {
         let textOut = getToken( process, token, appContext.translations, appLanguage );
         if ( args && args.length > 0 ) {

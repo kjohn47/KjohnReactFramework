@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState, Suspense } from "react";
-import { AppContext, ErrorContext, LoadingContext, RouteContext } from "../../logic/config/AppProvider";
+import React, { useEffect, useState, Suspense } from "react";
 import { KnownPages } from "../../logic/context/Routes/routeContextEnums";
 import { ErrorCodes } from "../../logic/context/Error/appErrorEnums";
 import Loader from "../common/presentation/loading/Loader";
@@ -9,6 +8,10 @@ import { withLogin } from "../../logic/functions/checkLogin";
 import { getRouteUrlAndQuery } from "../../logic/functions/routeHandling";
 import UserMenu from "./UserMenu";
 import AdminMenu from "./AdminMenu";
+import useAppHandler from "../../logic/context/App/AppContextHandler";
+import useRouteHandler from "../../logic/context/Routes/RouteContextHandler";
+import useErrorHandler from "../../logic/context/Error/ErrorContextHandler";
+import useLoadingHandler from "../../logic/context/App/LoadingContextHandler";
 
 export interface IRoure<TRouteProps> {
     Route: PageType;
@@ -44,10 +47,10 @@ const usePageSelector: ( selectedComponent: React.ComponentType | undefined ) =>
 }
 
 const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
-    const appContext = useContext( AppContext ).App;
-    const routeContext = useContext( RouteContext );
-    const errorContext = useContext( ErrorContext );
-    const isLoading = useContext( LoadingContext )[ 0 ];
+    const appContext = useAppHandler().App;
+    const routeContext = useRouteHandler();
+    const errorContext = useErrorHandler();
+    const isLoading = useLoadingHandler().loading;
     const [ output, setOutput ] = usePageSelector( undefined );
     const [ lastPage, setLastPage ] = useState<string>();
     const [ queryString, setQueryString ] = useState<IDictionary<string> | undefined>( undefined );

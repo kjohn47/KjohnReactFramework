@@ -22,6 +22,7 @@ import TestPageHeader from './DataPresentation/TestPageHeader';
 import TestBadge from './DataPresentation/TestBadge';
 import TestFileDownloader from './DataPresentation/TestFileDownloader';
 import TestIcons from './ServicesPage/TestIcons';
+import TestModals from './ServicesPage/TestModals';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -57,6 +58,10 @@ const Test: React.FC = () => {
                 {
                   title: "Icons",
                   component: <TestIcons />
+                },
+                {
+                  title: "Modals",
+                  component: <TestModals />
                 }
               ]
             },
