@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { AppContext } from "../../logic/config/AppProvider";
+import React from "react";
 import ModalWrapper from "./ModalWrapper";
+import useAppHandler from "../../logic/context/App/AppContextHandler";
 
 interface ILayout {
     MenuComponent: React.ComponentType;
@@ -10,7 +10,7 @@ interface ILayout {
 }
 
 const Layout: React.FC<ILayout> = ( props ) => {
-    const selectedTheme = useContext( AppContext ).App.globalTheme;
+    const selectedTheme = useAppHandler().App.globalTheme;
     return (
         <div className={ "PageLayout " + selectedTheme }>
             <ModalWrapper>

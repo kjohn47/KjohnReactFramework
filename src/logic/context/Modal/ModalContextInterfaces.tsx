@@ -11,9 +11,6 @@ export interface IModalContext {
 
 export type ModalContextType = {
     modal?: IModalContext;
-} & ModalHandlerType;
-
-export type ModalHandlerType = {
     openModal: (modalParams: IModalContext) => void;
     closeModal: () => void;
 }

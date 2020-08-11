@@ -1,7 +1,11 @@
-import { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, LoadingContext, ErrorContext, LoginContext, AppLanguageContext } from '../config/AppProvider';
+import { useState, useRef, useEffect } from 'react';
 import { ErrorCodes } from "../context/Error/appErrorEnums";
 import { IContext, IServiceError, ServiceCallType, ServiceType } from "./serviceCallerInterfaces";
+import useAppLanguageHandler from '../context/App/AppLanguageContextHandler';
+import useLoginHandler from '../context/Login/LoginContextHandler';
+import useLoadingHandler from '../context/App/LoadingContextHandler';
+import useErrorHandler from '../context/Error/ErrorContextHandler';
+import useAppHandler from '../context/App/AppContextHandler';
 
 interface IServiceCallerArgs<IServiceRequest, IServiceResponse> {
     service: ServiceType<IServiceRequest, IServiceResponse>;
@@ -22,11 +26,11 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
     const [ serviceResponse, setServiceResponse ] = useState<IServiceResponse>();
     const [ serviceError, setServiceError ] = useState<IServiceError | undefined>();
     const [ serviceLoading, setServiceLoading ] = useState<boolean>(false);
-    const [ appLanguage ] = useContext( AppLanguageContext );
-    const [ loading, setloading ] = useContext( LoadingContext );
-    const errorContext = useContext( ErrorContext );
-    const appContext = useContext( AppContext );
-    const loginContext = useContext( LoginContext );
+    const { appLanguage } = useAppLanguageHandler();
+    const { loading, setLoading } = useLoadingHandler();
+    const errorContext = useErrorHandler();
+    const appContext = useAppHandler();
+    const loginContext = useLoginHandler();
     const loadingRef = useRef(loading);
     const abort = useRef(false);
     const hasAbortError = useRef(false);
@@ -48,7 +52,7 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
             setServiceLoading(true);
             if( !localLoading )
             {
-                setloading( true );
+                setLoading( true );
             }
 
             if( !localLoading && loadingRef.current )
@@ -91,7 +95,7 @@ export const useServiceCaller = <IServiceRequest, IServiceResponse>( {
                         }
                     } )
                     .finally( () => {
-                        !localLoading && setloading( false );
+                        !localLoading && setLoading( false );
                     } )
                 );
             }

@@ -1,5 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, LoginContext } from '../../../logic/config/AppProvider';
+import React, { useState, useRef, useEffect } from 'react';
 import useWindowSize from '../../../logic/functions/windowResize';
 import { mobileWidthMenu, mobileWidthLoginForm } from '../../../logic/config/configuration';
 import Row from '../../common/structure/Row';
@@ -9,6 +8,8 @@ import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 import MenuNotification from './MenuNotification';
 import { PageType } from '../../../logic/functions/misc';
+import useAppHandler from '../../../logic/context/App/AppContextHandler';
+import useLoginHandler from '../../../logic/context/Login/LoginContextHandler';
 
 export interface IUserCustomMenu {
     Title?: string;
@@ -19,8 +20,8 @@ export interface IUserCustomMenu {
 }
 
 const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType; NotificationRefreshTime?: number;}> = ( props ) => {
-    const appContext = useContext( AppContext ).App;
-    const userContext = useContext( LoginContext ).Login;
+    const appContext = useAppHandler().App;
+    const userContext = useLoginHandler().Login;
     const [ toogle, setToogle ] = useState<boolean>( false );
     const [ shortName, setShortName ] = useState<boolean>( false );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );

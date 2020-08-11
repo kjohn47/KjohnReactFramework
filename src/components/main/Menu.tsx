@@ -1,5 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
-import { AppContext, AppLanguageContext, LoginContext } from '../../logic/config/AppProvider';
+import React, { useState, useRef, useEffect } from 'react';
 import { AppLanguage } from '../../logic/context/App/appContextEnums';
 import Row from '../common/structure/Row';
 import Column, { ColumnNumber } from '../common/structure/Column';
@@ -10,6 +9,9 @@ import MenusBar from './MenuComponents/MenusBar';
 import UserMenu, { IUserCustomMenu } from './MenuComponents/UserMenu';
 import { PageType } from '../../logic/functions/misc';
 import DotsLoader, { DotsLoaderColor, DotsLoaderSize, DotsLoaderNrBall } from '../common/presentation/loading/DotsLoader';
+import useAppHandler from '../../logic/context/App/AppContextHandler';
+import useLoginHandler from '../../logic/context/Login/LoginContextHandler';
+import useAppLanguageHandler from '../../logic/context/App/AppLanguageContextHandler';
 
 export interface IMenuProps {
   Brand?: string;
@@ -21,9 +23,9 @@ export interface IMenuProps {
 }
 
 const Menu: React.FC<IMenuProps> = ( props ) => {
-  const appContext = useContext( AppContext );
-  const loginContext = useContext( LoginContext ).Login;
-  const [ appLanguage ] = useContext( AppLanguageContext );
+  const appContext = useAppHandler();
+  const loginContext = useLoginHandler().Login;
+  const appLanguage = useAppLanguageHandler().appLanguage;
   const [ toogleLang, setToogleLang ] = useState<boolean>( false );
   const [ menuToogle, setMenuToogle ] = useState<boolean>( false );
   const langMenuRef = useRef<HTMLDivElement>( null );

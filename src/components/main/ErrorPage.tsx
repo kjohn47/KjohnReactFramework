@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { ErrorContext, AppContext } from "../../logic/config/AppProvider";
+import React from "react";
 import { KnownPages } from "../../logic/context/Routes/routeContextEnums";
 import Button from "../common/inputs/Button";
 import WithTooltip, { ToolTipPosition } from "../common/presentation/wrapper/WithTooltip";
@@ -9,12 +8,14 @@ import Column from "../common/structure/Column";
 import useTranslation from "../../logic/functions/getTranslation";
 import useErrorTranslation from "../../logic/functions/getPageError";
 import { showDetailedErrors } from "../../logic/config/configuration";
+import useAppHandler from "../../logic/context/App/AppContextHandler";
+import useErrorHandler from "../../logic/context/Error/ErrorContextHandler";
 
 const ErrorPage: React.FC = () => {
     const { getTranslation } = useTranslation();
     const { getErrorData } = useErrorTranslation();
-    const errorContext = useContext( ErrorContext ).Error;
-    const appContext = useContext( AppContext ).App;
+    const errorContext = useErrorHandler().Error;
+    const appContext = useAppHandler().App;
     const showDetails = showDetailedErrors || appContext.adminOptions;
     return (
         <Row className="ErrorPage">

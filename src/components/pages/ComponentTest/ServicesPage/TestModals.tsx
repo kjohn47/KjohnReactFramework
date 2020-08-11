@@ -20,11 +20,16 @@ const TestModals: React.FC = () => {
     return (
             <Row>
                 <Column>
-                    <Button onClick={() => modalHandler.openModal({
-                        Modal: YesNoModal,
-                        modalProps: YNModalProps,
-                        size: ModalSize.Small
-                    })}>Yes/No Modal</Button>
+                    <Button 
+                        onClick={() => 
+                            modalHandler.openModal({
+                                Modal: YesNoModal,
+                                modalProps: YNModalProps,
+                                size: ModalSize.Small
+                            })}
+                    >
+                        Yes/No Modal
+                    </Button>
                 </Column>
             </Row>
     );

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { ModalContext } from '../../logic/config/AppProvider';
+import React from 'react';
 import { ModalSize, ModalOverlay } from '../../logic/context/Modal/ModalContextEnum';
+import useModalHandler from '../../logic/context/Modal/ModalContextHandler';
 
 const ModalWrapper: React.FC = ({children}) => {
-    const {modal, closeModal} = useContext(ModalContext);
+    const {modal, closeModal} = useModalHandler();
     return (
         <>
             {modal && modal.Modal ?
