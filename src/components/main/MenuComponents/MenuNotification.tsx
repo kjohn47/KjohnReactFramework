@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Badge from '../../common/presentation/display/Badge';
 import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/inputs/PageSelector';
 import { ToolTipPosition, ToolTipColor } from '../../common/presentation/wrapper/WithTooltip';
-import { AppContext, AppLanguageContext } from '../../../logic/config/AppProvider';
 import { AppGlobalTheme, AppLanguage } from '../../../logic/context/App/appContextEnums';
 import useTranslation from '../../../logic/functions/getTranslation';
 import { useNotificationService } from '../../../services/Notifications/NotificationServices';
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
+import useAppHandler from '../../../logic/context/App/AppContextHandler';
+import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
 
 const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
-    const appContext = useContext(AppContext).App;
-    const [appLanguage] = useContext(AppLanguageContext);
+    const appContext = useAppHandler().App;
+    const {appLanguage}= useAppLanguageHandler();
     const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
     const refreshTimerId = useRef<NodeJS.Timeout | undefined>(undefined);

@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { KnownPages } from "../../../logic/context/Routes/routeContextEnums";
-import { RouteContext } from "../../../logic/config/AppProvider";
 import { IDictionary, PageType } from "../../../logic/functions/misc";
+import useRouteHandler from "../../../logic/context/Routes/RouteContextHandler";
 
 interface IPageSelector {
     page: PageType;
@@ -14,7 +14,7 @@ interface IPageSelector {
 }
 
 const PageSelector: React.FC<IPageSelector> = ( props ) => {
-    const routeContext = useContext( RouteContext );
+    const routeContext = useRouteHandler();
     const setPage = ( page: PageType, queryParams?: IDictionary<string> ) => {
         let queryString = queryParams === undefined ? "" : "?" + new URLSearchParams( queryParams ).toString();
         if ( page === KnownPages.Home || page.toString() === "" || page.toString() === "/" ) {
