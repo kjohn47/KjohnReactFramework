@@ -12,6 +12,8 @@ import { useRouteContext, DefaultRouteContext } from "../context/Routes/routeCon
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderColor, DotsLoaderSize } from "../../components/common/presentation/loading/DotsLoader";
 import Column from "../../components/common/structure/Column";
 import Row from "../../components/common/structure/Row";
+import { ModalContextType } from "../context/Modal/ModalContextInterfaces";
+import useModal, { defaultModalContext } from "../context/Modal/ModalContext";
 
 export const AppLanguageContext = createContext<AppLanguageType>( [ initialLanguage, () => {} ] );
 export const ErrorContext = createContext<ErrorContextType>( DefaultErrorContext );
@@ -19,6 +21,7 @@ export const LoadingContext = createContext<LoadingType>( [ false, () => { } ] )
 export const AppContext = createContext<AppContextType>( DefaultAppContext );
 export const RouteContext = createContext<RouteContextType>( DefaultRouteContext );
 export const LoginContext = createContext<LoginContextType>( DefaultLoginContext );
+export const ModalContext = createContext<ModalContextType>( defaultModalContext );
 
 export const AppProvider: React.FC = ( { children } ) => {
     const [ appLanguage, setAppLanguage ] = useState( initialLanguage );
@@ -44,6 +47,7 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
     const routeContext = useRouteContext( initialRouteConfig );
     const errorContext = useError( initialError );
     const [ loading, setLoading ] = useState( false );
+    const modalContext = useModal();
 
     useEffect( () => {
         if ( !firstLoad ) {
@@ -62,7 +66,9 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
                     <RouteContext.Provider value = { routeContext }>
                         <ErrorContext.Provider value={ errorContext }>
                             <LoadingContext.Provider value={ [ loading, setLoading ] }>
-                                { children }
+                                <ModalContext.Provider value = {modalContext}>
+                                    { children }
+                                </ModalContext.Provider>
                             </LoadingContext.Provider>
                         </ErrorContext.Provider>
                     </RouteContext.Provider >
