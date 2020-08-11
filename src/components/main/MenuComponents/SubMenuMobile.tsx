@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ISubMenuItem } from './SubMenu';
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
 import PageSelector from '../../common/inputs/PageSelector';
 import useTranslation from '../../../logic/functions/getTranslation';
-import { AppContext, ErrorContext, LoginContext, RouteContext } from '../../../logic/config/AppProvider';
+import useAppHandler from '../../../logic/context/App/AppContextHandler';
+import useRouteHandler from '../../../logic/context/Routes/RouteContextHandler';
+import useErrorHandler from '../../../logic/context/Error/ErrorContextHandler';
+import useLoginHandler from '../../../logic/context/Login/LoginContextHandler';
 
 const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => void }> = ( props ) => {
-    const appContext = useContext( AppContext ).App;
-    const routeContext = React.useContext( RouteContext ).Route;
-    const errorContext = useContext( ErrorContext ).Error;
-    const userContext = useContext(LoginContext).Login;
+    const appContext = useAppHandler().App;
+    const routeContext = useRouteHandler().Route;
+    const errorContext = useErrorHandler().Error;
+    const userContext = useLoginHandler().Login;
     const { getTranslation } = useTranslation();
 
     const makeSubMenu = ( subMenu: ISubMenuItem, isSingle: boolean = false ) => {

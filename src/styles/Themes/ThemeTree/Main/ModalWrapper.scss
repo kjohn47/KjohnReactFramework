@@ -1,0 +1,11 @@
+.ModalWrapper {
+    .ModalClose {
+        color: $MainColor;
+        &:hover {
+            color: $LinkColor;
+        }
+    }
+    .ModalContent {
+        box-shadow: 8px 3px 12px 3px $MainColor;
+    }
+}

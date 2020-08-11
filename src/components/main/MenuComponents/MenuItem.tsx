@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PageSelector from '../../common/inputs/PageSelector';
 import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
 import useTranslation from '../../../logic/functions/getTranslation';
-import { LoginContext, AppContext } from '../../../logic/config/AppProvider';
 import { PageType } from '../../../logic/functions/misc';
+import useAppHandler from '../../../logic/context/App/AppContextHandler';
+import useLoginHandler from '../../../logic/context/Login/LoginContextHandler';
 
 export interface IMenuItem {
     Title: string;
@@ -17,8 +18,8 @@ export interface IMenuItem {
 }
 
 const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
-    const appContext = React.useContext( AppContext ).App;
-    const userContext = useContext(LoginContext).Login;
+    const appContext = useAppHandler().App;
+    const userContext = useLoginHandler().Login;
     const [ toogle, setToogle ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
     const subMenuRef = useRef<HTMLDivElement>( null );

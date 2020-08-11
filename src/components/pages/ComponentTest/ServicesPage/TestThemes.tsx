@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Column from '../../../common/structure/Column';
 import Row from '../../../common/structure/Row';
-import { AppContext } from '../../../../logic/config/AppProvider';
 import { AppGlobalTheme } from '../../../../logic/context/App/appContextEnums';
 import Button, { ButtonTypes } from '../../../common/inputs/Button';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
+import useAppHandler from '../../../../logic/context/App/AppContextHandler';
 
 const TestThemes: React.FC = () => {
-    const appContext = useContext(AppContext);
+    const appContext = useAppHandler();
 
     const setTheme = ( theme: AppGlobalTheme ) => {
         appContext.ChangeTheme(theme)

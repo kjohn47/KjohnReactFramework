@@ -1,9 +1,10 @@
 import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
-import { useContext, useState, useEffect, useRef } from "react";
-import { LoginContext, AppLanguageContext } from "../config/AppProvider";
+import { useState, useEffect, useRef } from "react";
 import { apiServerUrl } from "../config/configuration";
 import { AppLanguage } from "../context/App/appContextEnums";
 import { getFileFromBase64 } from "../functions/misc";
+import useLoginHandler from "../context/Login/LoginContextHandler";
+import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
 
 const handleErrors = ( response: Response ) => {
     if ( !response.ok ) {
@@ -45,8 +46,8 @@ const getHeaders = ( language: AppLanguage, token?: string, isPost?: boolean ) =
 
 export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
 {
-    const login = useContext( LoginContext ).Login;
-    const [appLanguage] = useContext( AppLanguageContext );
+    const login = useLoginHandler().Login;
+    const {appLanguage} = useAppLanguageHandler();
     const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
     const abortControllerRef = useRef(new AbortController());
@@ -128,8 +129,8 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
 
 export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs  ) =>
 {
-    const login = useContext( LoginContext ).Login;
-    const [appLanguage] = useContext( AppLanguageContext );
+    const login = useLoginHandler().Login;
+    const {appLanguage} = useAppLanguageHandler();
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
     const abortControllerRef = useRef(new AbortController());
@@ -219,8 +220,8 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
 }
 
 export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, externalService, customHeaders, loadProgress } : IdownloadArgs ) => {
-    const login = useContext( LoginContext ).Login;
-    const [appLanguage] = useContext( AppLanguageContext );
+    const login = useLoginHandler().Login;
+    const {appLanguage} = useAppLanguageHandler();
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string,string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
     const [isDownloading, setIsDownloading] = useState<boolean>(false);
