@@ -51,13 +51,13 @@ const YNModal: React.FC<IYNModalProps> = ({
                 {
                     Text: "No",
                     ButtonType: NoButtonType ? NoButtonType : ButtonTypes.Cancelation,
-                    Method: () => NoMethod ? NoMethod() : {},
+                    Method: NoMethod ? NoMethod : () => {},
                     CloseAfterMethod: true
                 },
                 {
                     Text: "Yes",
                     ButtonType: YesButtonType,
-                    Method: () => YesMethod(),
+                    Method: YesMethod,
                     CloseAfterMethod: !DoNotCloseAfterYes
                 }
             ]
