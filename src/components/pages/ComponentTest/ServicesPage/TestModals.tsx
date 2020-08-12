@@ -1,47 +1,26 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Column from '../../../common/structure/Column';
 import Row from '../../../common/structure/Row';
-import Button, { ButtonTypes } from '../../../common/inputs/Button';
-import useModalHandler from '../../../../logic/context/Modal/ModalContextHandler';
-import { ModalSize } from '../../../../logic/context/Modal/ModalContextEnum';
-import GenericModal, { IGenericModalProps } from '../../../common/presentation/modal/GenericModal';
+import { ButtonTypes } from '../../../common/inputs/Button';
+import YNModal from '../../../common/presentation/modal/YNModal';
 
 const TestModals: React.FC = () => {
-    const modalHandler = useModalHandler();
-    const GenericModalProps = useMemo((): IGenericModalProps => {
-        return {
-            Title: "Yes/No Modal",
-            Description: "This is a Yes/No Modal type",
-            Buttons: [
-                {
-                    Text: "No",
-                    ButtonType: ButtonTypes.Cancelation,
-                    Method: () => {console.log("Pressed No button")},
-                    CloseAfterMethod: true
-                },
-                {
-                    Text: "Yes",
-                    ButtonType: ButtonTypes.Confirmation,
-                    Method: () => {console.log("Pressed Yes button")},
-                    CloseAfterMethod: true
-                }
-            ]
-        }
-    }, []);
-
     return (
             <Row>
                 <Column>
-                    <Button 
-                        onClick={() => 
-                            modalHandler.openModal({
-                                Modal: GenericModal,
-                                modalProps: GenericModalProps,
-                                size: ModalSize.Small
-                            })}
-                    >
-                        Yes/No Modal
-                    </Button>
+                    <YNModal 
+                        Title = "Y/N Modal" 
+                        Content = "This is a Y/N Modal Type" 
+                        YesButtonType = {ButtonTypes.Confirmation}
+                        YesMethod = {() => {console.log("Clicked Yes on Modal")}}
+                        NoMethod = {() => {console.log("Clicked No on Modal")}}
+                        OpenModalText = "Open Yes/No Modal"
+                        //OpenModalButton = {ButtonTypes.Default}
+                        //NoButtonType = {ButtonTypes.Danger}
+                        //DoNotCloseAfterYes
+                        //StartOpened
+                        //DisableEntry
+                        />
                 </Column>
             </Row>
     );

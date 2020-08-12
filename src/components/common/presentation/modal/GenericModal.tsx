@@ -6,28 +6,36 @@ import Button, { ButtonTypes } from '../../inputs/Button';
 
 export interface IGenericModalProps {
     Title: string;
-    Description?: string;
+    Content?: React.ReactNode;
     Icon?: string;
     Buttons?: IGenericModalButton[];
 }
 
 export interface IGenericModalButton {
     Text: string;
-    Method?: () => void;
+    Method?: () => void | (() => Promise<() => void>);
     CloseAfterMethod?: boolean;
     ButtonType: ButtonTypes;
 }
 
-const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({Title, Description, Buttons, Icon, close}) => {
+const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({Title, Content, Buttons, Icon, close, children}) => {
     const buttonHandle = (button: IGenericModalButton) => {
-        if(button.Method)
+        if(!button.Method)
         {
-            button.Method();
+            if(button.CloseAfterMethod)
+            {
+                close();
+            }
         }
-
-        if(button.CloseAfterMethod)
+        else
         {
-            close();
+            Promise.resolve(button.Method())
+            .finally(() => {
+                if(button.CloseAfterMethod)
+                {
+                    close();
+                }
+            })
         }
     }
 
@@ -41,7 +49,7 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({Title, 
                 </Row>
                 <Row className="Modal_Content">
                     <Column>
-                        {Description}
+                        {Content ? Content : children}
                     </Column>
                 </Row>
                 {Buttons && <Row className = "Modal_Footer Modal_Footer_Centered">
