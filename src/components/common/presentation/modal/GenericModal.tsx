@@ -9,6 +9,7 @@ export interface IGenericModalProps {
     Content?: React.ReactNode;
     Icon?: string;
     Buttons?: IGenericModalButton[];
+    Scrollable?: boolean;
 }
 
 export interface IGenericModalButton {
@@ -18,7 +19,15 @@ export interface IGenericModalButton {
     ButtonType: ButtonTypes;
 }
 
-const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({Title, Content, Buttons, Icon, close, children}) => {
+const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
+    Title, 
+    Content, 
+    Buttons, 
+    Icon, 
+    Scrollable,
+    close, 
+    children
+}) => {
     const buttonHandle = (button: IGenericModalButton) => {
         if(!button.Method)
         {
@@ -41,13 +50,13 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({Title, 
 
     return (
         <Row className = "Modal_Generic">
-            <Column>
+            <Column className = "Modal_Generic_Col">
                 <Row className="Modal_Header">
                     <Column>
                         {Title}
                     </Column>
                 </Row>
-                <Row className="Modal_Content">
+                <Row className={"Modal_Content" + (Scrollable ? " Modal_Content_Scroll KRFScroll" : "")}>
                     <Column>
                         {Content ? Content : children}
                     </Column>

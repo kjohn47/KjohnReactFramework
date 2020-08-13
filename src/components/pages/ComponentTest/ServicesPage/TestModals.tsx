@@ -15,6 +15,7 @@ const TestModals: React.FC = () => {
                         YesMethod = {() => {console.log("Clicked Yes on Modal")}}
                         NoMethod = {() => {console.log("Clicked No on Modal")}}
                         OpenModalText = "Open Yes/No Modal"
+                        //Scrollable
                         //OpenModalButton = {ButtonTypes.Default}
                         //NoButtonType = {ButtonTypes.Danger}
                         //DoNotCloseAfterYes

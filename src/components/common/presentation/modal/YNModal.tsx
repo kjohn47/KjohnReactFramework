@@ -24,6 +24,8 @@ export interface IYNModalProps {
     YesButtonType: ButtonTypes;
     NoButtonType?: ButtonTypes;
     DoNotCloseAfterYes?: boolean;
+    Size?: ModalSize;
+    Scrollable?: boolean;
 }
 
 const YNModal: React.FC<IYNModalProps> = ({
@@ -38,6 +40,8 @@ const YNModal: React.FC<IYNModalProps> = ({
     YesButtonType,
     NoButtonType,
     DoNotCloseAfterYes,
+    Size,
+    Scrollable,
     YesMethod,
     NoMethod,
     children
@@ -47,6 +51,7 @@ const YNModal: React.FC<IYNModalProps> = ({
         return {
             Title: Title,
             Content: Content,
+            Scrollable: Scrollable,
             Buttons: [
                 {
                     Text: "No",
@@ -62,7 +67,7 @@ const YNModal: React.FC<IYNModalProps> = ({
                 }
             ]
         }
-    }, [Title, Content, YesButtonType, NoButtonType, YesMethod, NoMethod, DoNotCloseAfterYes]);
+    }, [Title, Content, YesButtonType, NoButtonType, YesMethod, NoMethod, DoNotCloseAfterYes, Scrollable]);
 
     const openModal = useCallback(() => {
         if(!DisableEntry)
@@ -70,11 +75,11 @@ const YNModal: React.FC<IYNModalProps> = ({
             modalHandler.openModal({
                 Modal: GenericModal,
                 modalProps: GenericModalProps,
-                size: ModalSize.Small
+                size: Size ? Size : ModalSize.Small
             });
         }
         // eslint-disable-next-line
-    }, [GenericModalProps, DisableEntry]);
+    }, [GenericModalProps, DisableEntry, Size]);
 
     useEffect(() => {
         if(StartOpened)
