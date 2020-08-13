@@ -19,4 +19,13 @@
   .TestTabGroup {
     height: 100%;
   }
+
+  .ModalTest {
+    .ModalTest_Col {
+      min-height: 120px;
+      min-width: 80px;
+      padding-left: 10px;
+      box-sizing: border-box;
+    }
+  }
 }

@@ -59,5 +59,11 @@
         "#(FromDateToDate)": "From {0} to {1}",
         "#(OldUnreadedNotification)": "There are {0} unreaded notifications from dates previous to {1}, click here to check full unread list",
          "#(ViewAll)": "View All"
+    },
+    "_modal": {
+        "#(Yes)": "Yes",
+        "#(No)": "No",
+        "#(Ok)": "Ok",
+        "#(Cancel)": "Cancel"
     }
 }
