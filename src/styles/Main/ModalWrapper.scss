@@ -130,6 +130,43 @@
         }
     
         .ModalContentBig {
+            top: 6%;
+            bottom: 6%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentLong {
+            top: 8%;
+            bottom: 8%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    }
+}
+
+@media ( max-width: 540px )
+{
+    .ModalWrapper {    
+        .ModalContent {
+            top: 15%;
+            bottom: 15%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentSmall {
+            top: 25%;
+            bottom: 25%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentBig {
             top: 4%;
             bottom: 4%;
             left: 0;
