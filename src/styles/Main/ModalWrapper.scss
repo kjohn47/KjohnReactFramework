@@ -6,6 +6,7 @@
     right: 0;
     position: fixed;
     z-index: 10000;
+    animation: fadeInModal 0.3s ease;
 
     .ModalClose {
         width: 15px;
@@ -144,4 +145,13 @@
             min-width: 0;
         }
     }
+}
+
+@keyframes fadeInModal {
+	0% {
+		opacity: 0.2;
+	}
+	100% {
+		opacity: 1;
+	}
 }
