@@ -17,14 +17,14 @@ export interface IDialogModalProps {
     OpenModalButton?: ButtonTypes;
     OpenModalText?: string;
     StartOpened?: boolean;
-    OkMethod: () => void;
+    OkMethod?: () => void;
     CancelMethod?: () => void;
     ShowIcon?: boolean;
     ModalType?: DialogModalType;
     DisableEntry?: boolean;
     Title: string;
     Content: React.ReactNode;
-    OkButtonType: ButtonTypes;
+    OkButtonType?: ButtonTypes;
     CancelButtonType?: ButtonTypes;
     DoNotCloseAfterOk?: boolean;
     Size?: ModalSize;
@@ -66,8 +66,8 @@ const DialogModal: React.FC<IDialogModalProps> = ({
                             : ModalType === DialogModalType.OkOnly ? [
                                 {
                                     Text: getTranslation("_modal", "#(Ok)"),
-                                    ButtonType: OkButtonType,
-                                    Method: OkMethod,
+                                    ButtonType: OkButtonType ? OkButtonType : ButtonTypes.Default,
+                                    Method: OkMethod ? OkMethod : () => {},
                                     CloseAfterMethod: !DoNotCloseAfterOk
                                 }
                             ] 
@@ -80,8 +80,8 @@ const DialogModal: React.FC<IDialogModalProps> = ({
                                 },
                                 {
                                     Text: getTranslation("_modal", ( ModalType && ModalType === DialogModalType.YesNo ) ? "#(Yes)": "#(Ok)"),
-                                    ButtonType: OkButtonType,
-                                    Method: OkMethod,
+                                    ButtonType: OkButtonType ? OkButtonType : ButtonTypes.Default,
+                                    Method: OkMethod ? OkMethod : () => {},
                                     CloseAfterMethod: !DoNotCloseAfterOk
                                 }
                             ]
@@ -102,7 +102,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
         return {
             Modal: GenericModal,
             modalProps: GenericModalProps,
-            size: Size ? 
+            size: Size !== undefined ? 
                     Size 
                     : ( ModalType && ModalType === DialogModalType.CustomButtons && CustomButtonArray ) ?
                         CustomButtonArray.length > 4 ? 
@@ -144,7 +144,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
         OpenModalText ? 
             OpenModalButton ? 
                 <Button buttonType = {OpenModalButton} onClick={() => openHandler()} disabled = {DisableEntry}>{OpenModalText}</Button>
-            : <span className = {DisableEntry ? undefined : "pointer_cursor PageSelector_Highlight"} onClick={() => openHandler()}>{OpenModalText}</span>
+            : <div><span className = {DisableEntry ? undefined : "pointer_cursor PageSelector_Highlight"} onClick={() => openHandler()}>{OpenModalText}</span></div>
         : children ? 
             <div className = {DisableEntry ? undefined : "pointer_cursor"} onClick={() => openHandler()}>
                 {children}
