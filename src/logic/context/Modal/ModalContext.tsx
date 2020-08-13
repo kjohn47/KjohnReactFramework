@@ -23,11 +23,22 @@ const useModal = (): ModalContextType => {
             setModal(undefined);
     }
 
+    const updateModal = (modal: IModalContext, newModal: IModalContext): void => {
+        if(modalList && modalList.length > 0)
+        {
+            let modalListTemp = [...modalList];
+            modalListTemp[modalList.indexOf(modal)] = newModal;
+            setModal(modalListTemp);
+        }
+
+    }
+
     let modal = modalList && modalList.length > 0 ? modalList[modalList.length - 1] : undefined;
     return {
         modal,
         openModal,
-        closeModal
+        closeModal,
+        updateModal
     }
 }
 
@@ -36,5 +47,6 @@ export default useModal;
 export const defaultModalContext: ModalContextType = {
     modal: undefined,
     openModal: () => {},
-    closeModal: () => {}
+    closeModal: () => {},
+    updateModal: () => {}
 }

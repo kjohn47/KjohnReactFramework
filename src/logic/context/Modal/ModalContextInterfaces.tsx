@@ -13,6 +13,7 @@ export type ModalContextType = {
     modal?: IModalContext;
     openModal: (modalParams: IModalContext) => void;
     closeModal: () => void;
+    updateModal: (modal: IModalContext, newModal: IModalContext) => void;
 }
 
 export type ModalComponentType<T> = T & {
