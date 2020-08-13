@@ -6,6 +6,7 @@
     right: 0;
     position: fixed;
     z-index: 10000;
+    animation: fadeInModal 0.3s ease;
 
     .ModalClose {
         width: 15px;
@@ -129,6 +130,43 @@
         }
     
         .ModalContentBig {
+            top: 6%;
+            bottom: 6%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentLong {
+            top: 8%;
+            bottom: 8%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    }
+}
+
+@media ( max-width: 540px )
+{
+    .ModalWrapper {    
+        .ModalContent {
+            top: 15%;
+            bottom: 15%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentSmall {
+            top: 25%;
+            bottom: 25%;
+            left: 0;
+            right: 0; 
+            min-width: 0;
+        }
+    
+        .ModalContentBig {
             top: 4%;
             bottom: 4%;
             left: 0;
@@ -144,4 +182,13 @@
             min-width: 0;
         }
     }
+}
+
+@keyframes fadeInModal {
+	0% {
+		opacity: 0.2;
+	}
+	100% {
+		opacity: 1;
+	}
 }
