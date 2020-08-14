@@ -2,14 +2,10 @@ import { useState } from 'react';
 import { ModalContextType, IModalContext } from './ModalContextInterfaces';
 
 const useModal = (): ModalContextType => {
-    const [modalList, setModal] = useState<IModalContext[] | undefined>(undefined);
-    
+    const [modalList, setModal] = useState<IModalContext[]>([]);
     const openModal = (modalParams: IModalContext): void => 
     {
-        if(modalList)
-            setModal([...modalList, modalParams]);
-        else
-            setModal([modalParams]);
+        setModal((prevState) => [...prevState, modalParams]);
     }
 
     const closeModal = (id: string): void => 
@@ -20,7 +16,7 @@ const useModal = (): ModalContextType => {
             setModal(modalListReduced);
         }
         else
-            setModal(undefined);
+            setModal([]);
     }
 
     const updateModal = (id: string, newModal: IModalContext): void => {
@@ -34,7 +30,7 @@ const useModal = (): ModalContextType => {
     }
 
     return {
-        modal: modalList && modalList.length > 0 ? modalList[modalList.length - 1] : undefined,
+        modal: modalList.length > 0 ? modalList[modalList.length - 1] : undefined,
         openModal,
         closeModal,
         updateModal

@@ -12,7 +12,25 @@ const TestModals: React.FC = () => {
             <Row className  ="ModalTest">
                 <Column>
                     <DialogModal 
-                        Title = "Modal Auto Open On Mount" 
+                        Title = "Modal Auto Open On Mount 1" 
+                        Content = "This is a Dialog Modal that open after mount. It has no entry point" 
+                        OkButtonType = {ButtonTypes.Information}
+                        OkMethod = {() => {console.log("Clicked Ok on Modal")}}
+                        StartOpened
+                        DisableEntry
+                        ModalType={DialogModalType.OkOnly}
+                    />
+                    <DialogModal 
+                        Title = "Modal Auto Open On Mount 2" 
+                        Content = "This is a Dialog Modal that open after mount. It has no entry point" 
+                        OkButtonType = {ButtonTypes.Information}
+                        OkMethod = {() => {console.log("Clicked Ok on Modal")}}
+                        StartOpened
+                        DisableEntry
+                        ModalType={DialogModalType.OkOnly}
+                    />
+                    <DialogModal 
+                        Title = "Modal Auto Open On Mount 3" 
                         Content = "This is a Dialog Modal that open after mount. It has no entry point" 
                         OkButtonType = {ButtonTypes.Information}
                         OkMethod = {() => {console.log("Clicked Ok on Modal")}}
