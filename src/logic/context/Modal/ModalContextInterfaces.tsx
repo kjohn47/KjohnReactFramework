@@ -7,15 +7,16 @@ export interface IModalContext {
     overlayColor?: ModalOverlay;
     hideClose?: boolean;
     size?: ModalSize;
+    id: string;
 }
 
 export type ModalContextType = {
     modal?: IModalContext;
     openModal: (modalParams: IModalContext) => void;
-    closeModal: () => void;
-    updateModal: (modal: IModalContext, newModal: IModalContext) => void;
+    closeModal: (id: string) => void;
+    updateModal: (id: string, newModal: IModalContext) => void;
 }
 
 export type ModalComponentType<T> = T & {
-    close: () => void;
+    close: (id: string) => void;
 }

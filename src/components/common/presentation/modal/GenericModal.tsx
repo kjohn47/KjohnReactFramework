@@ -10,6 +10,7 @@ export interface IGenericModalProps {
     Icon?: string;
     Buttons?: IGenericModalButton[];
     Scrollable?: boolean;
+    ModalId: string;
 }
 
 export interface IGenericModalButton {
@@ -23,6 +24,7 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
     Title, 
     Content, 
     Buttons, 
+    ModalId,
     Icon, 
     Scrollable,
     close, 
@@ -33,7 +35,7 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
         {
             if(button.CloseAfterMethod)
             {
-                close();
+                close(ModalId);
             }
         }
         else
@@ -42,7 +44,7 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
             .finally(() => {
                 if(button.CloseAfterMethod)
                 {
-                    close();
+                    close(ModalId);
                 }
             })
         }

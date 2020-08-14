@@ -5,6 +5,7 @@ import Button, { ButtonTypes } from '../../inputs/Button';
 import { ModalSize } from '../../../../logic/context/Modal/ModalContextEnum';
 import useTranslation from '../../../../logic/functions/getTranslation';
 import useAppLanguageHandler from '../../../../logic/context/App/AppLanguageContextHandler';
+import { generateModalId } from '../../../../logic/functions/misc';
 
 export enum DialogModalType {
     OkCancel,
@@ -19,7 +20,7 @@ export interface IDialogModalProps {
     StartOpened?: boolean;
     OkMethod?: () => void;
     CancelMethod?: () => void;
-    ShowIcon?: boolean;
+    Icon?: string;
     ModalType?: DialogModalType;
     DisableEntry?: boolean;
     Title: string;
@@ -39,7 +40,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
     Title,
     Content,
     DisableEntry,
-    ShowIcon,
+    Icon,
     ModalType,
     OkButtonType,
     CancelButtonType,
@@ -54,11 +55,14 @@ const DialogModal: React.FC<IDialogModalProps> = ({
     const {modal, openModal, updateModal} = useModalHandler();
     const {getTranslation} = useTranslation();
     const {appLanguage} = useAppLanguageHandler();
+    const modalId = useMemo(() => generateModalId(), []);
     const GenericModalProps = useMemo((): IGenericModalProps => {
         return {
             Title: Title,
+            Icon: Icon,
             Content: Content,
             Scrollable: Scrollable,
+            ModalId: modalId,
             Buttons: ModalType === DialogModalType.CustomButtons ? 
                             CustomButtonArray ? 
                                 CustomButtonArray.slice(0, 6) 
@@ -86,6 +90,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
                                 }
                             ]
         }
+        // eslint-disable-next-line
     }, [Title, 
         Content, 
         OkButtonType, 
@@ -101,6 +106,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
     const newModal = useMemo(() => {
         return {
             Modal: GenericModal,
+            id: modalId,
             modalProps: GenericModalProps,
             size: Size !== undefined ? 
                     Size 
@@ -136,7 +142,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
 
     useEffect(() => {
         if(modal)
-            updateModal(modal, newModal);
+            updateModal(modalId, newModal);
         // eslint-disable-next-line
     }, [appLanguage])
 

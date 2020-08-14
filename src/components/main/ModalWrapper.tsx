@@ -9,7 +9,7 @@ const ModalWrapper: React.FC = ({children}) => {
             {modal && modal.Modal ?
                 <div className={"ModalWrapper" + (modal.overlayColor !== undefined && !(modal.overlayColor === ModalOverlay.Default) ? ` ${modal.overlayColor}` : "") }>
                     <div className = {"ModalContent" + ((modal.size !== undefined && !(modal.size === ModalSize.Default)) ? ` ${modal.size}` : "")}>
-                        {!modal.hideClose && <div onClick={closeModal} className = "ModalClose">X</div>}
+                        {!modal.hideClose && <div onClick={() => closeModal(modal.id)} className = "ModalClose">X</div>}
                         <modal.Modal close = {closeModal} {...modal.modalProps}/>
                     </div>
                 </div>
