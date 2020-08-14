@@ -4,7 +4,6 @@ import useModalHandler from '../../logic/context/Modal/ModalContextHandler';
 
 const ModalWrapper: React.FC = ({children}) => {
     const {modal, closeModal} = useModalHandler();
-    console.log(modal);
     return (
         <>
             {modal && modal.Modal ?
