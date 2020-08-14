@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ModalSize, ModalOverlay } from '../../logic/context/Modal/ModalContextEnum';
 import useModalHandler from '../../logic/context/Modal/ModalContextHandler';
+import { ModalIcons } from '../common/presentation/icons/modalIcons/ModalIcons';
 
 const ModalWrapper: React.FC = ({children}) => {
     const {modal, closeModal} = useModalHandler();
@@ -21,9 +22,11 @@ const ModalWrapper: React.FC = ({children}) => {
                     }>
                         {!modal.hideClose && <div onClick={() => closeModal(modal.id)} className = "ModalClose">X</div>}
                         {modal.icon !== undefined && <div className="Modal_Icon">
-                            <div className = "Modal_Icon_Img">
-                                IMG
-                            </div>
+                            <Suspense fallback = {<></>}>
+                                <div className = "Modal_Icon_Img">
+                                    {ModalIcons[modal.icon]}
+                                </div>
+                            </Suspense>
                         </div>}
                         <modal.Modal close = {closeModal} {...modal.modalProps}/>
                     </div>
