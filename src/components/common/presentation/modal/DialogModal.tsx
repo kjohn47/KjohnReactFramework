@@ -62,6 +62,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
             Title: Title,
             Content: Content,
             Scrollable: Scrollable,
+            Size: Size,
             ModalId: modalId,
             Buttons: ModalType === DialogModalType.CustomButtons ? 
                             CustomButtonArray ? 
