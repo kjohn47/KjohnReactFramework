@@ -1,36 +1,115 @@
 .Modal_Generic {
     height: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box;  
     .Modal_Generic_Col {
         min-height: 100%;
         max-height: 100%;
         .Modal_Header {
-            height: 20%;
-            max-height: 20%;
-            font-size: xx-large;
+            font-size: x-large;
             font-weight: bold;
             padding-left: 20px;
             padding-top: 10px;
             box-sizing: border-box;
             overflow-y: hidden;
         }
+
+        .Modal_Header_Small {
+            height: 20%;
+            max-height: 20%;
+        }
+
+        .Modal_Header_Default {
+            height: 14%;
+            max-height: 14%;
+        }
+
+        .Modal_Header_Big {
+            height: 10%;
+            max-height: 10%;
+        }
+
+        .Modal_Header_Long {
+            height: 10%;
+            max-height: 10%;
+        }
+
         .Modal_Content {
             box-sizing: border-box;
-            height: 60%;
-            max-height: 60%;
             padding: 15px;
             overflow: hidden;
         }
+
+        .Modal_Content_Small {
+            height: 60%;
+            max-height: 60%;
+        }
+
+        .Modal_Content_Default {
+            height: 69%;
+            max-height: 69%;
+        }
+
+        .Modal_Content_Big {
+            height: 78%;
+            max-height: 78%;
+        }
+
+        .Modal_Content_Long {
+            height: 78%;
+            max-height: 78%;
+        }
+
         .Modal_Content_Scroll {
             overflow-y: scroll;
         }
+
+        .Modal_Content_NoFooter_Small {
+            height: 80%;
+            max-height: 80%;
+        }
+
+        .Modal_Content_NoFooter_Default {
+            height: 86%;
+            max-height: 86%;
+        }
+
+        .Modal_Content_NoFooter_Big {
+            height: 90%;
+            max-height: 90%;
+        }
+
+        .Modal_Content_NoFooter_Long {
+            height: 90%;
+            max-height: 90%;
+        }
+
         .Modal_Footer {
             box-sizing: border-box;
             border-top: 1px solid lightgrey;
-            height: 20%;
             padding-top: 15px;
             overflow-y: hidden;
         }
+
+        .Modal_Footer_Small {
+            height: 20%;
+            max-height: 20%;
+        }
+
+        .Modal_Footer_Default {
+            height: 17%;
+            max-height: 17%;
+        }
+
+        .Modal_Footer_Big {
+            height: 12%;
+            max-height: 12%;
+        }
+
+        .Modal_Footer_Long {
+            height: 12%;
+            max-height: 12%;
+        }
+
         .Modal_Footer_Centered {
             text-align: center;
         }
