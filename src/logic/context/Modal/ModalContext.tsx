@@ -10,7 +10,7 @@ const useModal = (): ModalContextType => {
 
     const closeModal = (id: string): void => 
     {
-        if(modalList && modalList.length > 1)
+        if(modalList.length > 1)
         {
             let modalListReduced = modalList.filter(m => m.id !== id);
             setModal(modalListReduced);
@@ -20,7 +20,7 @@ const useModal = (): ModalContextType => {
     }
 
     const updateModal = (id: string, newModal: IModalContext): void => {
-        if(modalList && modalList.length > 0)
+        if(modalList.length > 0)
         {
             let modalListTemp = [...modalList];
             modalListTemp[modalListTemp.findIndex(m => m.id === id)] = newModal;
