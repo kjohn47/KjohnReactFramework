@@ -8,18 +8,6 @@
     z-index: 10000;
     animation: fadeInModal 0.3s ease;
 
-    .ModalClose {
-        width: 15px;
-        height: 15px; 
-        position: absolute;
-        right: 0; 
-        top: 0;
-        margin: 10px;
-        font-size: large;
-        font-weight: bold; 
-        cursor: pointer;
-        z-index: 10002;
-    }
     .ModalContent {
         background-color: #FFF;
         top: 25%;
@@ -32,6 +20,69 @@
         min-width: 600px;
         min-height: 400px;
         border-radius: 10px;
+
+        .ModalClose {
+            width: 15px;
+            height: 15px; 
+            position: absolute;
+            right: 0; 
+            top: 0;
+            margin: 10px;
+            font-size: large;
+            font-weight: bold; 
+            cursor: pointer;
+            z-index: 10002;
+        }    
+
+        .Modal_Icon {
+            border-bottom: 1px solid black;
+            height: 130px;
+            width: 130px;
+            text-align: center;
+            background-color: white;
+            position: absolute;
+            border-radius: 50%;
+            left: 50%;
+            margin-left: -65px;
+            z-index: 10003;
+            .Modal_Icon_Img {
+                margin: 10px;
+                width: 110px;
+                height: 110px;
+                border-radius: 25px;
+                box-sizing: border-box;
+                background-color: lightgray;
+            }
+        }
+    
+    }
+
+    .ModalContent_Icon {
+        padding-top: 50px;
+        .Modal_Icon {
+            top: -70px;
+        }
+    }
+
+    .ModalContentSmall_Icon {
+        padding-top: 35px;
+        .Modal_Icon {
+            top: -85px;
+        }
+    }
+
+    .ModalContentBig_Icon {
+        padding-top: 75px;
+        .Modal_Icon {
+            top: -40px;
+        }
+    }
+
+    .ModalContentLong_Icon {
+        padding-top: 75px;
+        .Modal_Icon {
+            top: -40px;
+        }
     }
 
     .ModalContentSmall {

@@ -6,6 +6,7 @@ import DialogModal, { DialogModalType } from '../../../common/presentation/modal
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 import Balloon, { BalloonColorEnum, BallonArrowEnum } from '../../../common/presentation/display/Balloon';
 import { ModalSize } from '../../../../logic/context/Modal/ModalContextEnum';
+import { ModalIconEnum } from '../../../common/presentation/icons/modalIcons/ModalIcons';
 
 const TestModals: React.FC = () => {
     return (
@@ -19,6 +20,7 @@ const TestModals: React.FC = () => {
                         StartOpened
                         DisableEntry
                         ModalType={DialogModalType.OkOnly}
+                        Icon = {ModalIconEnum.Danger}
                     />
                     <DialogModal 
                         Title = "Modal Auto Open On Mount 2" 
@@ -40,6 +42,18 @@ const TestModals: React.FC = () => {
                     />
                     <FieldSet Title="Dialog modals">
                         <Row>
+                        <Column className = "ModalTest_Col">
+                                <DialogModal 
+                                    Title = "Modal From Child Component" 
+                                    Content = "This is a Dialog Modal that opened from a child Component" 
+                                    OkButtonType = {ButtonTypes.Default}
+                                    OkMethod = {() => {console.log("Clicked Ok on Modal")}}
+                                    CancelMethod = {() => {console.log("Clicked Cancel on Modal")}}
+                                    OpenModalButton = {ButtonTypes.Default}
+                                >
+                                    {false &&<Balloon Color={BalloonColorEnum.Information} Title="Balloon" Arrow = {BallonArrowEnum.Bottom}>This Balloon will open modal on click</Balloon>}
+                                </DialogModal>
+                            </Column>
                             <Column className = "ModalTest_Col">
                                 <DialogModal 
                                     Title = "Modal from link" 
@@ -60,18 +74,6 @@ const TestModals: React.FC = () => {
                                     OpenModalText = "Open Dialog"
                                     OpenModalButton = {ButtonTypes.Default}
                                 />
-                            </Column>
-                            <Column className = "ModalTest_Col">
-                                <DialogModal 
-                                    Title = "Modal From Child Component" 
-                                    Content = "This is a Dialog Modal that opened from a child Component" 
-                                    OkButtonType = {ButtonTypes.Default}
-                                    OkMethod = {() => {console.log("Clicked Ok on Modal")}}
-                                    CancelMethod = {() => {console.log("Clicked Cancel on Modal")}}
-                                    OpenModalButton = {ButtonTypes.Default}
-                                >
-                                    <Balloon Color={BalloonColorEnum.Information} Title="Balloon" Arrow = {BallonArrowEnum.Bottom}>This Balloon will open modal on click</Balloon>
-                                </DialogModal>
                             </Column>
                         </Row>
                         <Row>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ModalSize, ModalOverlay } from './ModalContextEnum';
+import { ModalIconEnum } from '../../../components/common/presentation/icons/modalIcons/ModalIcons';
 
 export interface IModalContext {
     Modal: React.ComponentType<ModalComponentType<any>>;
@@ -7,6 +8,7 @@ export interface IModalContext {
     overlayColor?: ModalOverlay;
     hideClose?: boolean;
     size?: ModalSize;
+    icon?: ModalIconEnum;
     id: string;
 }
 

@@ -7,7 +7,6 @@ import Button, { ButtonTypes } from '../../inputs/Button';
 export interface IGenericModalProps {
     Title: string;
     Content?: React.ReactNode;
-    Icon?: string;
     Buttons?: IGenericModalButton[];
     Scrollable?: boolean;
     ModalId: string;
@@ -25,7 +24,6 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
     Content, 
     Buttons, 
     ModalId,
-    Icon, 
     Scrollable,
     close, 
     children
@@ -58,7 +56,7 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
                         {Title}
                     </Column>
                 </Row>
-                <Row className={"Modal_Content" + (Scrollable ? " Modal_Content_Scroll KRFScroll" : "")}>
+                <Row className={"Modal_Content" + (Buttons === undefined ? " Modal_Content_NoFooter" : "" ) + (Scrollable ? " Modal_Content_Scroll KRFScroll" : "")}>
                     <Column>
                         {Content ? Content : children}
                     </Column>

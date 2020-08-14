@@ -6,6 +6,7 @@ import { ModalSize } from '../../../../logic/context/Modal/ModalContextEnum';
 import useTranslation from '../../../../logic/functions/getTranslation';
 import useAppLanguageHandler from '../../../../logic/context/App/AppLanguageContextHandler';
 import { generateModalId } from '../../../../logic/functions/misc';
+import { ModalIconEnum } from '../icons/modalIcons/ModalIcons';
 
 export enum DialogModalType {
     OkCancel,
@@ -20,7 +21,7 @@ export interface IDialogModalProps {
     StartOpened?: boolean;
     OkMethod?: () => void;
     CancelMethod?: () => void;
-    Icon?: string;
+    Icon?: ModalIconEnum;
     ModalType?: DialogModalType;
     DisableEntry?: boolean;
     Title: string;
@@ -59,7 +60,6 @@ const DialogModal: React.FC<IDialogModalProps> = ({
     const GenericModalProps = useMemo((): IGenericModalProps => {
         return {
             Title: Title,
-            Icon: Icon,
             Content: Content,
             Scrollable: Scrollable,
             ModalId: modalId,
@@ -108,6 +108,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
             Modal: GenericModal,
             id: modalId,
             modalProps: GenericModalProps,
+            icon: Icon,
             size: Size !== undefined ? 
                     Size 
                     : ( ModalType && ModalType === DialogModalType.CustomButtons && CustomButtonArray ) ?
@@ -121,6 +122,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
         // eslint-disable-next-line
     }, [GenericModalProps, 
         Size, 
+        Icon,
         ModalType, 
         CustomButtonArray])
 
