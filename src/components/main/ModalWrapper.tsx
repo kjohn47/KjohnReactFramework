@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ModalSize, ModalOverlay } from '../../logic/context/Modal/ModalContextEnum';
 import useModalHandler from '../../logic/context/Modal/ModalContextHandler';
+import { ModalIcons } from '../common/presentation/icons/modalIcons/ModalIcons';
 
 const ModalWrapper: React.FC = ({children}) => {
     const {modal, closeModal} = useModalHandler();
@@ -8,8 +9,25 @@ const ModalWrapper: React.FC = ({children}) => {
         <>
             {modal && modal.Modal ?
                 <div className={"ModalWrapper" + (modal.overlayColor !== undefined && !(modal.overlayColor === ModalOverlay.Default) ? ` ${modal.overlayColor}` : "") }>
-                    <div className = {"ModalContent" + ((modal.size !== undefined && !(modal.size === ModalSize.Default)) ? ` ${modal.size}` : "")}>
-                        {!modal.hideClose && <div onClick={closeModal} className = "ModalClose">X</div>}
+                    <div className = {
+                            "ModalContent" + 
+                            ( ( modal.size !== undefined && modal.size !== ModalSize.Default ) ?
+                                ` ${modal.size}` + 
+                                ( modal.icon !== undefined ? 
+                                    ` ${modal.size}_Icon` 
+                                    : "") 
+                            : ( modal.icon !== undefined ?
+                                " ModalContent_Icon" 
+                                : "" ) )
+                    }>
+                        {!modal.hideClose && <div onClick={() => closeModal(modal.id)} className = "ModalClose">X</div>}
+                        {modal.icon !== undefined && <div className="Modal_Icon">
+                            <Suspense fallback = {<></>}>
+                                <div className = "Modal_Icon_Img">
+                                    {ModalIcons[modal.icon]}
+                                </div>
+                            </Suspense>
+                        </div>}
                         <modal.Modal close = {closeModal} {...modal.modalProps}/>
                     </div>
                 </div>

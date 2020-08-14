@@ -2,6 +2,7 @@ import React from 'react';
 import { KnownPages } from '../context/Routes/routeContextEnums';
 import { IdownloadDocument } from '../services/serviceCallerInterfaces';
 import { getMimeTypeFromExtension } from './mimeTypes';
+import SHA from "sha.js";
 
 export interface IDictionary<TValue> {
     [key: string]: TValue;
@@ -75,4 +76,12 @@ export const convertFileSizeToUnit = ( byteSize: number ): string => {
     }
 
     return `${numberPart} ${unit}`;
+}
+
+export const generateModalId = (): string => {
+    let date = new Date();
+    let rand1 = Math.floor((Math.random() * date.getMilliseconds() * 100000 ));
+    let rand2 = Math.floor((Math.random() * rand1));
+
+    return SHA( 'sha256' ).update( `${date.toJSON()}-${rand1}-${rand2}` ).digest( 'hex' );
 }
