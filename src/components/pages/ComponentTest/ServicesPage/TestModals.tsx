@@ -1,5 +1,5 @@
 import React from 'react';
-import Column from '../../../common/structure/Column';
+import Column, { ColumnNumber } from '../../../common/structure/Column';
 import Row from '../../../common/structure/Row';
 import { ButtonTypes } from '../../../common/inputs/Button';
 import DialogModal, { DialogModalType } from '../../../common/presentation/modal/DialogModal';
@@ -21,6 +21,7 @@ const TestModals: React.FC = () => {
                         DisableEntry
                         ModalType={DialogModalType.OkOnly}
                         Icon = {ModalIconEnum.Danger}
+                        Size = {ModalSize.Small}
                     />
                     <DialogModal 
                         Title = "Modal Auto Open On Mount 2" 
@@ -30,6 +31,7 @@ const TestModals: React.FC = () => {
                         StartOpened
                         DisableEntry
                         ModalType={DialogModalType.OkOnly}
+                        Size = {ModalSize.Small}
                     />
                     <DialogModal 
                         Title = "Modal Auto Open On Mount 3" 
@@ -39,10 +41,11 @@ const TestModals: React.FC = () => {
                         StartOpened
                         DisableEntry
                         ModalType={DialogModalType.OkOnly}
+                        Size = {ModalSize.Small}
                     />
                     <FieldSet Title="Dialog modals">
                         <Row>
-                        <Column className = "ModalTest_Col">
+                        <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal From Child Component" 
                                     Content = "This is a Dialog Modal that opened from a child Component" 
@@ -50,11 +53,12 @@ const TestModals: React.FC = () => {
                                     OkMethod = {() => {console.log("Clicked Ok on Modal")}}
                                     CancelMethod = {() => {console.log("Clicked Cancel on Modal")}}
                                     OpenModalButton = {ButtonTypes.Default}
+                                    Size = {ModalSize.Small}
                                 >
-                                    {false &&<Balloon Color={BalloonColorEnum.Information} Title="Balloon" Arrow = {BallonArrowEnum.Bottom}>This Balloon will open modal on click</Balloon>}
+                                    <Balloon Color={BalloonColorEnum.Information} Title="Balloon" Arrow = {BallonArrowEnum.Bottom}>This Balloon will open modal on click</Balloon>
                                 </DialogModal>
                             </Column>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal from link" 
                                     Content = "This is a Dialog Modal that open from link" 
@@ -62,9 +66,10 @@ const TestModals: React.FC = () => {
                                     OkMethod = {() => {console.log("Clicked Ok on Modal")}}
                                     CancelMethod = {() => {console.log("Clicked Cancel on Modal")}}
                                     OpenModalText = "Open Dialog Modal From Link"
+                                    Size = {ModalSize.Small}
                                 />
                             </Column>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal From Button" 
                                     Content = "This is a Dialog Modal that open from button click" 
@@ -73,11 +78,12 @@ const TestModals: React.FC = () => {
                                     CancelMethod = {() => {console.log("Clicked Cancel on Modal")}}
                                     OpenModalText = "Open Dialog"
                                     OpenModalButton = {ButtonTypes.Default}
+                                    Size = {ModalSize.Small}
                                 />
                             </Column>
                         </Row>
                         <Row>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal Button Disabled" 
                                     Content = "This Modal is Disabled" 
@@ -88,7 +94,7 @@ const TestModals: React.FC = () => {
                                     DisableEntry
                                 />
                             </Column>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal Type Yes / No" 
                                     Content = "This Modal uses buttons Yes and No instead of Ok and Cancel" 
@@ -97,9 +103,10 @@ const TestModals: React.FC = () => {
                                     CancelMethod = {() => {console.log("Clicked Cancel on Modal")}}
                                     OpenModalText = "Open Yes/No Modal"
                                     ModalType = {DialogModalType.YesNo}
+                                    Size = {ModalSize.Small}
                                 />
                             </Column>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal Type Ok only" 
                                     Content = "This Modal uses buttons only single Ok button" 
@@ -107,11 +114,12 @@ const TestModals: React.FC = () => {
                                     OkMethod = {() => {console.log("Clicked Ok on Modal")}}
                                     OpenModalText = "Open Ok Only Modal"
                                     ModalType = {DialogModalType.OkOnly}
+                                    Size = {ModalSize.Small}
                                 />
                             </Column>
                         </Row>
                         <Row>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal Type Custom Buttons" 
                                     Content = "This Modal uses dinamic buttons"
@@ -137,9 +145,10 @@ const TestModals: React.FC = () => {
                                             Method: () => {console.log("Clicked custom Btn 3")}
                                         }
                                     ]}
+                                    Size = {ModalSize.Small}
                                 />
                             </Column>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal Type Custom Buttons auto sizing" 
                                     Content = "This Modal uses dinamic buttons but has so many that size adapted :)"
@@ -173,7 +182,7 @@ const TestModals: React.FC = () => {
                                     ]}
                                 />
                             </Column>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal With Scroll Content" 
                                     Content = {longText}
@@ -182,11 +191,12 @@ const TestModals: React.FC = () => {
                                     OpenModalText = "Dialog Modal with scroll"
                                     Scrollable
                                     ModalType = {DialogModalType.OkOnly}
+                                    Size = {ModalSize.Small}
                                 />
                             </Column>
                         </Row>
                         <Row>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal size default/medium" 
                                     Content = {<h1>Text from h1 component.<br /> this is default size, dialog uses small size as default</h1>}
@@ -197,7 +207,7 @@ const TestModals: React.FC = () => {
                                     Size = {ModalSize.Default}
                                 />
                             </Column>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal size big" 
                                     Content = "This is a big dialog modal"
@@ -208,7 +218,7 @@ const TestModals: React.FC = () => {
                                     Size = {ModalSize.Big}
                                 />
                             </Column>
-                            <Column className = "ModalTest_Col">
+                            <Column className = "ModalTest_Col" medium={ColumnNumber.C20}>
                                 <DialogModal 
                                     Title = "Modal size long" 
                                     Content = "This is a long dialog modal"

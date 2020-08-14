@@ -112,13 +112,9 @@ const DialogModal: React.FC<IDialogModalProps> = ({
             icon: Icon,
             size: Size !== undefined ? 
                     Size 
-                    : ( ModalType && ModalType === DialogModalType.CustomButtons && CustomButtonArray ) ?
-                        CustomButtonArray.length > 4 ? 
-                            ModalSize.Long 
-                            : CustomButtonArray.length > 3 ? 
-                                ModalSize.Default
-                                : ModalSize.Small
-                        : ModalSize.Small
+                    : ( ModalType && ModalType === DialogModalType.CustomButtons && CustomButtonArray && CustomButtonArray.length > 4 ) ?
+                        ModalSize.Long
+                        : ModalSize.Default
         }
         // eslint-disable-next-line
     }, [GenericModalProps, 
