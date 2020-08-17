@@ -8,9 +8,10 @@ export enum ModalIconEnum {
 
 const DangerSvg = React.lazy( () => import('./DangerIcon') );
 const WarningSvg = React.lazy( () => import('./WarningIcon') );
+const StopSvg = React.lazy( () => import('./StopIcon') );
 
 export const ModalIcons = {
     [ModalIconEnum.Danger]: <DangerSvg />,
     [ModalIconEnum.Warning]: <WarningSvg />,
-    [ModalIconEnum.Stop]: <DangerSvg />
+    [ModalIconEnum.Stop]: <StopSvg />
 }

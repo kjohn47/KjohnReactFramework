@@ -20,7 +20,7 @@ const TestModals: React.FC = () => {
                         StartOpened
                         DisableEntry
                         ModalType={DialogModalType.OkOnly}
-                        Icon = {ModalIconEnum.Danger}
+                        Icon = {ModalIconEnum.Stop}
                         Size = {ModalSize.Small}
                     />
                     <DialogModal 
