@@ -16,12 +16,12 @@
 		</g>
 	</g>
 	<g>
-		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="42.2788" y1="44.8062" x2="67.3638" y2="69.8912">
+		<linearGradient id="SVGID_2_DANGER_EXCL" gradientUnits="userSpaceOnUse" x1="42.2788" y1="44.8062" x2="67.3638" y2="69.8912">
 			<stop  offset="0" style="stop-color:#CA3F3E"/>
 			<stop  offset="0.5911" style="stop-color:#E41D3C"/>
 			<stop  offset="1" style="stop-color:#EB533A"/>
 		</linearGradient>
-		<path style="fill:#ED1C24;stroke:url(#SVGID_2_);stroke-miterlimit:10;" d="M53.021,67.973l-2.52-29.091
+		<path style="fill:#ED1C24;stroke:url(#SVGID_2_DANGER_EXCL);stroke-miterlimit:10;" d="M53.021,67.973l-2.52-29.091
 			c-0.216-2.304,2.088-3.888,4.32-3.888s4.536,1.584,4.32,3.888l-2.521,29.091H53.021z M54.821,71.717
 			c2.232,0,4.248,1.799,4.248,4.104s-1.944,4.105-4.248,4.105c-2.305,0-4.249-1.801-4.249-4.105S52.589,71.717,54.821,71.717z"/>
 	</g>
