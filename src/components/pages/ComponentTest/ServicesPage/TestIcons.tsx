@@ -64,6 +64,12 @@ const TestIcons: React.FC = () => {
                         <Column>
                             {ModalIcons[ModalIconEnum.Stop]}
                         </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Human]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.HumanGrp]}
+                        </Column>
                     </Row>
                 </FieldSet>
             </Column>

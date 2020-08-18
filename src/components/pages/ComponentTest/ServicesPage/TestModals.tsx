@@ -20,7 +20,7 @@ const TestModals: React.FC = () => {
                         StartOpened
                         DisableEntry
                         ModalType={DialogModalType.OkOnly}
-                        Icon = {ModalIconEnum.Stop}
+                        Icon = {ModalIconEnum.Warning}
                         Size = {ModalSize.Small}
                     />
                     <DialogModal 
@@ -32,16 +32,7 @@ const TestModals: React.FC = () => {
                         DisableEntry
                         ModalType={DialogModalType.OkOnly}
                         Size = {ModalSize.Small}
-                    />
-                    <DialogModal 
-                        Title = "Modal Auto Open On Mount 3" 
-                        Content = "This is a Dialog Modal that open after mount. It has no entry point" 
-                        OkButtonType = {ButtonTypes.Information}
-                        OkMethod = {() => {console.log("Clicked Ok on Modal")}}
-                        StartOpened
-                        DisableEntry
-                        ModalType={DialogModalType.OkOnly}
-                        Size = {ModalSize.Small}
+                        Icon = {ModalIconEnum.HumanGrp}
                     />
                     <FieldSet Title="Dialog modals">
                         <Row>
