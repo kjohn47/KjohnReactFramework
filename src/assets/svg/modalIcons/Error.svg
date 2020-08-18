@@ -1,0 +1,54 @@
+<svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width="110"
+      height="110"
+      version="1.1"
+      viewBox="0 0 29.104 29.104"
+    >
+      <defs>
+        <linearGradient id="Error_grd"  
+          x1="5.953"
+          x2="21.828"
+          y1="7.796"
+          y2="22.301"
+          gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#ff2f17" stopOpacity="1"></stop>
+          <stop offset="1" stopColor="#ff7c7c" stopOpacity="1"></stop>
+        </linearGradient>
+      </defs>
+      <g>
+        <g
+          fillOpacity="1"
+          stroke="#fff"
+          strokeLinejoin="round"
+          strokeMiterlimit="8"
+        >
+          <circle
+            cx="14.514"
+            cy="14.562"
+            r="12.309"
+            fill="url(#Error_grd)"
+            strokeWidth="0.63"
+          ></circle>
+          <path
+            fill="#fff"
+            strokeDasharray="none"
+            strokeLinecap="round"
+            strokeOpacity="1"
+            strokeWidth="0.491"
+            d="M10.725 -0.642H30.569000000000003V0.775H10.725z"
+            transform="rotate(45)"
+          ></path>
+          <path
+            fill="#fff"
+            strokeDasharray="none"
+            strokeLinecap="round"
+            strokeOpacity="1"
+            strokeWidth="0.491"
+            d="M-10.009 19.851H9.835V21.268H-10.009z"
+            transform="rotate(-45)"
+          ></path>
+        </g>
+      </g>
+    </svg>

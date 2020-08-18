@@ -65,6 +65,12 @@ const TestIcons: React.FC = () => {
                             {ModalIcons[ModalIconEnum.Stop]}
                         </Column>
                         <Column>
+                            {ModalIcons[ModalIconEnum.Forbidden]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Error]}
+                        </Column>
+                        <Column>
                             {ModalIcons[ModalIconEnum.Human]}
                         </Column>
                         <Column>

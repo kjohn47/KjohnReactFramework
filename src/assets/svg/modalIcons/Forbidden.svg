@@ -1,0 +1,44 @@
+<svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width="110"
+      height="110"
+      version="1.1"
+      viewBox="0 0 29.104 29.104"
+    >
+      <defs>
+        <linearGradient id="Forbidden_grd"
+          x1="5.953"
+          x2="21.828"
+          y1="7.796"
+          y2="22.301"
+          gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#ff2f17" stopOpacity="1"></stop>
+          <stop offset="1" stopColor="#ff7c7c" stopOpacity="1"></stop>
+        </linearGradient>
+      </defs>
+      <g>
+        <g
+          fillOpacity="1"
+          stroke="#fff"
+          strokeLinejoin="round"
+          strokeMiterlimit="8"
+        >
+          <circle
+            cx="14.514"
+            cy="14.562"
+            r="12.309"
+            fill="url(#Forbidden_grd)"
+            strokeWidth="0.63"
+          ></circle>
+          <path
+            fill="#fff"
+            strokeDasharray="none"
+            strokeLinecap="round"
+            strokeOpacity="1"
+            strokeWidth="0.466"
+            d="M5.622 12.025H23.387V17.056H5.622z"
+          ></path>
+        </g>
+      </g>
+    </svg>
