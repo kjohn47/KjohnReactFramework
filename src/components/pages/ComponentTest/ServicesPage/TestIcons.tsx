@@ -76,6 +76,9 @@ const TestIcons: React.FC = () => {
                         <Column>
                             {ModalIcons[ModalIconEnum.HumanGrp]}
                         </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Cookie]}
+                        </Column>
                     </Row>
                 </FieldSet>
             </Column>

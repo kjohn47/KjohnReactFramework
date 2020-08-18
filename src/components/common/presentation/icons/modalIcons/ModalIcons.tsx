@@ -7,7 +7,8 @@ export enum ModalIconEnum {
     Forbidden,
     Error,
     Human,
-    HumanGrp
+    HumanGrp,
+    Cookie
 }
 
 const DangerSvg = React.lazy( () => import('./DangerIcon') );
@@ -17,6 +18,7 @@ const ForbiddenSvg = React.lazy( () => import('./ForbiddenIcon') );
 const ErrorSvg = React.lazy( () => import('./ErrorIcon') );
 const HumanSvg = React.lazy( () => import('./HumanIcon') );
 const HumanGrpSvg = React.lazy( () => import('./HumanGrpIcon') );
+const CookieSvg = React.lazy( () => import('./CookieIcon') );
 
 export const ModalIcons = {
     [ModalIconEnum.Danger]: <DangerSvg />,
@@ -25,5 +27,6 @@ export const ModalIcons = {
     [ModalIconEnum.Forbidden]: <ForbiddenSvg />,
     [ModalIconEnum.Error]: <ErrorSvg />,
     [ModalIconEnum.Human]: <HumanSvg />,
-    [ModalIconEnum.HumanGrp]: <HumanGrpSvg />
+    [ModalIconEnum.HumanGrp]: <HumanGrpSvg />,
+    [ModalIconEnum.Cookie]: <CookieSvg />
 }
