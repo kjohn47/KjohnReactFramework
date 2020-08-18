@@ -2,14 +2,12 @@
 	 width="110px" height="110px" viewBox="0 0 110 110" enable-background="new 0 0 110 110" xml:space="preserve">
 <g>
 	<g>
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="20.1465" y1="24.1191" x2="68.0854" y2="107.1519">
+		<linearGradient id="SVGID_1_WARNING" gradientUnits="userSpaceOnUse" x1="20.1465" y1="24.1191" x2="68.0854" y2="107.1519">
 			<stop  offset="0" style="stop-color:#FDC70C"/>
-			<stop  offset="0.3498" style="stop-color:#FDC70C"/>
-			<stop  offset="0.3642" style="stop-color:#FEC80D"/>
-			<stop  offset="0.7824" style="stop-color:#FFE52E"/>
-			<stop  offset="1" style="stop-color:#FFF33B"/>
+			<stop  offset="0.6724" style="stop-color:#FFE52E"/>
+			<stop  offset="1" style="stop-color:#FFFF00"/>
 		</linearGradient>
-		<polygon fill="url(#SVGID_1_)" points="11.85,90 54.896,4.056 97.793,90 		"/>
+		<polygon fill="url(#SVGID_1_WARNING)" points="11.85,90 54.896,4.056 97.793,90"/>
 		<g>
 			<path d="M14.44,91.514C28.789,62.866,43.137,34.218,57.486,5.57c-1.728,0-3.454,0-5.181,0
 				c14.299,28.648,28.598,57.296,42.897,85.943c0.864-1.504,1.728-3.009,2.591-4.514c-28.647,0-57.295,0-85.943,0

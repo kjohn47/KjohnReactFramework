@@ -2,14 +2,14 @@
 	 width="110px" height="110px" viewBox="0 0 110 110" style="enable-background:new 0 0 110 110;" xml:space="preserve">
 <g>
 	<g>
-		<polygon style="fill:#FFFFFF;" points="11.893,92.076 54.938,6.133 97.836,92.076 		"/>
+		<polygon style="fill:#FFFFFF;" points="11.893,92.076 54.938,6.133 97.836,92.076"/>
 		<g>
-			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="21.5889" y1="37.249" x2="88.4346" y2="104.0948">
+			<linearGradient id="SVGID_1_DANGER" gradientUnits="userSpaceOnUse" x1="21.5889" y1="37.249" x2="88.4346" y2="104.0948">
 				<stop  offset="0" style="stop-color:#C1403F"/>
 				<stop  offset="0.5911" style="stop-color:#ED2437"/>
 				<stop  offset="1" style="stop-color:#EB533A"/>
 			</linearGradient>
-			<path style="fill:url(#SVGID_1_);" d="M16.21,94.6C30.559,65.952,44.907,37.304,59.256,8.656c-2.878,0-5.756,0-8.635,0
+			<path style="fill:url(#SVGID_1_DANGER);" d="M16.21,94.6C30.559,65.952,44.907,37.304,59.256,8.656c-2.878,0-5.756,0-8.635,0
 				C64.92,37.304,79.22,65.952,93.519,94.6c1.439-2.508,2.878-5.016,4.317-7.523c-28.647,0-57.295,0-85.943,0
 				c-6.449,0-6.449,10,0,10c28.648,0,57.296,0,85.943,0c3.979,0,5.978-4.197,4.317-7.523C87.854,60.905,73.555,32.257,59.256,3.609
 				c-1.631-3.267-7.002-3.26-8.635,0C36.272,32.257,21.924,60.905,7.575,89.553C4.696,95.301,13.322,100.366,16.21,94.6z"/>

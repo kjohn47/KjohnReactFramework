@@ -2,11 +2,11 @@
 	 width="110px" height="110px" viewBox="0 0 110 110" style="enable-background:new 0 0 110 110;" xml:space="preserve">
 <polygon style="fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;" points="35.394,101.167 8.364,74.138 8.364,35.911 35.394,8.88 
 	73.622,8.88 100.651,35.911 100.651,74.138 73.622,101.167 "/>
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="78.1035" y1="95.6982" x2="30.9106" y2="13.9578">
+<linearGradient id="SVGID_1_STOP" gradientUnits="userSpaceOnUse" x1="78.1035" y1="95.6982" x2="30.9106" y2="13.9578">
 	<stop  offset="0" style="stop-color:#F26A6B"/>
 	<stop  offset="0.5419" style="stop-color:#EF3D3E"/>
 </linearGradient>
-<polygon style="fill:url(#SVGID_1_);stroke:#000000;stroke-miterlimit:10;" points="36.292,98.805 10.53,73.045 10.53,36.613 
+<polygon style="fill:url(#SVGID_1_STOP);stroke:#000000;stroke-miterlimit:10;" points="36.292,98.805 10.53,73.045 10.53,36.613 
 	36.292,10.852 72.725,10.852 98.484,36.613 98.484,73.045 72.725,98.805 "/>
 <g>
 	<path style="fill:#FFFFFF;" d="M20.5,61.542c1.262,0.727,3.156,1.356,5.143,1.356c2.494,0,3.882-1.168,3.882-2.904
