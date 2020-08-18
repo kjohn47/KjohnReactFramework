@@ -2,9 +2,16 @@ import React, { Suspense } from 'react';
 import { ModalSize, ModalOverlay } from '../../logic/context/Modal/ModalContextEnum';
 import useModalHandler from '../../logic/context/Modal/ModalContextHandler';
 import { ModalIcons } from '../common/presentation/icons/modalIcons/ModalIcons';
+import useAppHandler from '../../logic/context/App/AppContextHandler';
+import CookieModal, { INeededCookieModal } from './CookieModal';
 
-const ModalWrapper: React.FC = ({children}) => {
+export interface IModalWrapper {
+    CookieModalSettings?: INeededCookieModal;
+}
+
+const ModalWrapper: React.FC<IModalWrapper> = ({children, CookieModalSettings}) => {
     const {modal, closeModal} = useModalHandler();
+    const {App} = useAppHandler();
     return (
         <>
             {modal && modal.Modal ?
@@ -32,6 +39,7 @@ const ModalWrapper: React.FC = ({children}) => {
                     </div>
                 </div>
             : null}
+            {App.showCookieModal && CookieModalSettings && <CookieModal {...CookieModalSettings}/>}
             {children}
         </>
     )

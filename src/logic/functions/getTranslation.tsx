@@ -26,7 +26,13 @@ const getToken: ( process: string, token: string, translations: ITranslations, l
 const useTranslation: () => { getTranslation: ( process: string, token: string, args?: string[] ) => string } = () => {
     const appContext = useAppHandler().App;
     const appLanguage = useAppLanguageHandler().appLanguage;
+
     const getTranslation: ( process: string, token: string, args?: string[] ) => string = ( process, token, args?) => {
+        if(!(token.startsWith( "#(" ) && token.endsWith(")")))
+        {
+            return token;
+        }
+        
         let textOut = getToken( process, token, appContext.translations, appLanguage );
         if ( args && args.length > 0 ) {
             args.forEach( ( arg, i ) => {

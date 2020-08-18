@@ -42,7 +42,8 @@ const tokenData = ( currentUser !== undefined && getTokenData( currentUser.userS
 export const initialAppConfig: IAppContext = {
     globalTheme: lastSavedTheme,
     adminOptions: tokenData !== undefined && tokenData.isAdmin,
-    translations: {}
+    translations: {},
+    showCookieModal: false //TODO: Implement Session Flag and Settings Key
 }
 
 export const initialRouteConfig: IRouteContext = {

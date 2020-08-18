@@ -7,6 +7,7 @@ import useTranslation from '../../../../logic/functions/getTranslation';
 import useAppLanguageHandler from '../../../../logic/context/App/AppLanguageContextHandler';
 import { generateModalId } from '../../../../logic/functions/misc';
 import { ModalIconEnum } from '../icons/modalIcons/ModalIcons';
+import { IModalContext } from '../../../../logic/context/Modal/ModalContextInterfaces';
 
 export enum DialogModalType {
     OkCancel,
@@ -32,6 +33,7 @@ export interface IDialogModalProps {
     Size?: ModalSize;
     Scrollable?: boolean;
     CustomButtonArray?: IGenericModalButton[];
+    HideCloseCross?: boolean;
 }
 
 const DialogModal: React.FC<IDialogModalProps> = ({
@@ -51,6 +53,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
     CustomButtonArray,
     OkMethod,
     CancelMethod,
+    HideCloseCross,
     children
 }) => {
     const {modal, openModal, updateModal} = useModalHandler();
@@ -104,12 +107,13 @@ const DialogModal: React.FC<IDialogModalProps> = ({
         CustomButtonArray,
         getTranslation]);
 
-    const newModal = useMemo(() => {
+    const newModal: IModalContext = useMemo(() => {
         return {
             Modal: GenericModal,
             id: modalId,
             modalProps: GenericModalProps,
             icon: Icon,
+            hideClose: HideCloseCross,
             size: Size !== undefined ? 
                     Size 
                     : ( ModalType && ModalType === DialogModalType.CustomButtons && CustomButtonArray && CustomButtonArray.length > 4 ) ?
@@ -120,6 +124,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
     }, [GenericModalProps, 
         Size, 
         Icon,
+        HideCloseCross,
         ModalType, 
         CustomButtonArray])
 

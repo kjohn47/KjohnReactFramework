@@ -20,7 +20,7 @@ const MenuItemMobile: React.FC<IMenuItem & { collapseFunc: () => void; IsSingle?
     const { getTranslation } = useTranslation();
 
     const makeMenuItem = () => {
-        let translatedTitle = props.Title.startsWith( "#(" ) ? getTranslation( "_menu", props.Title ) : props.Title;
+        let translatedTitle = getTranslation( "_menu", props.Title );
         if ( props.Link ) {
             return (
                 <Column
