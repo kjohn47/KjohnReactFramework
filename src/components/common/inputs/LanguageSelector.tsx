@@ -60,7 +60,10 @@ const LanguageSelector: React.FC = () => {
             </div>
             {open && <div className="LanguageSelector_List">
                 {availableLanguages.map((lang, i) => 
-                    <div key={`Lang_${i}`} onClick={() => handleLanguageChange(lang.Action)} className = "pointer_cursor LanguageSelector_Item">
+                    <div 
+                      key={`Lang_${i}`} 
+                      onClick={lang.Text === appLanguage ? undefined : () => handleLanguageChange(lang.Action)} 
+                      className = {"LanguageSelector_Item" + (lang.Text === appLanguage ? " LanguageSelector_Item_Disabled" : " pointer_cursor")}>
                         {lang.Text}
                     </div>)}
             </div>}

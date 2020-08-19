@@ -4,10 +4,9 @@
     .LanguageSelector_Box {
         box-sizing: border-box;
         padding: 3px;
-        border: 1px solid black;
+        border: 1px solid;
         border-radius: 10px;
         width: 100%;
-        background-color: white;
         height: 33px;
         .LanguageSelector_Box_Text {
             box-sizing: border-box;
@@ -21,16 +20,11 @@
         .LanguageSelector_Box_Arrow {
             box-sizing: border-box;
             display: inline-block;
-            font-size: large;
             padding-right: 2px;
             text-align: right;
             width: 35%;
-            border-left: 1px solid black;
+            border-left: 1px solid;
         }
-    }
-
-    .LanguageSelector_Box_Selected {
-        background-color: rgb(211, 230, 231);
     }
 
     .LanguageSelector_List {
@@ -39,24 +33,21 @@
         top: 43px;
         right: 5px;
         box-sizing: border-box;
-        border: 2px solid black;
+        border: 2px solid;
         border-radius: 10px;
-        background-color: white;
+        animation: slideLangSelector 0.5s ease-in-out;
         .LanguageSelector_Item {
             box-sizing: border-box;
             padding-left: 8px;
-            border-top: 1px dotted black;
+            border-top: 1px dotted;
             padding-top: 7px;
             padding-bottom: 5px;
             &:first-child {
                 border-top: none;
-                border-radius: 10px 10px 0 0;
+                border-radius: 9px 9px 0 0;
             }
             &:last-child {
-                border-radius: 0 0 10px 10px;
-            }
-            &:hover {
-                background-color: rgb(211, 230, 231);
+                border-radius: 0 0 9px 9px;
             }
         }
         &:after {
@@ -69,9 +60,19 @@
             border-right-color: transparent;
             border-top-color: transparent;
             border-left-color: transparent;
-            border-bottom-color: black;
             top: -20px;
             right: 5px; 
         }
     }
 }
+
+@keyframes slideLangSelector {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
