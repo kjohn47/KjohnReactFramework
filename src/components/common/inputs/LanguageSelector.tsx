@@ -33,7 +33,7 @@ const LanguageSelector: React.FC = () => {
 
       return (
         <div className="LanguageSelector">
-            <div onClick={ () => {setOpen((prevOpen) => !prevOpen)} } className = "pointer_cursor LanguageSelector_Box">
+            <div onClick={ () => {setOpen((prevOpen) => !prevOpen)} } className = {"pointer_cursor LanguageSelector_Box" + (open ? " LanguageSelector_Box_Selected" : "")}>
                 <div className = "LanguageSelector_Box_Text">
                     {appLanguage}
                 </div>

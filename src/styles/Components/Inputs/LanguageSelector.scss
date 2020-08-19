@@ -8,6 +8,7 @@
         border-radius: 10px;
         width: 100%;
         background-color: white;
+        height: 33px;
         .LanguageSelector_Box_Text {
             box-sizing: border-box;
             padding-left: 5px;
@@ -28,10 +29,49 @@
         }
     }
 
+    .LanguageSelector_Box_Selected {
+        background-color: rgb(211, 230, 231);
+    }
+
     .LanguageSelector_List {
-
+        width: 70px;
+        position: absolute;
+        top: 43px;
+        right: 5px;
+        box-sizing: border-box;
+        border: 2px solid black;
+        border-radius: 10px;
+        background-color: white;
         .LanguageSelector_Item {
-
+            box-sizing: border-box;
+            padding-left: 8px;
+            border-top: 1px dotted black;
+            padding-top: 7px;
+            padding-bottom: 5px;
+            &:first-child {
+                border-top: none;
+                border-radius: 10px 10px 0 0;
+            }
+            &:last-child {
+                border-radius: 0 0 10px 10px;
+            }
+            &:hover {
+                background-color: rgb(211, 230, 231);
+            }
+        }
+        &:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-width: 10px;
+            border-style: solid;
+            border-right-color: transparent;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            border-bottom-color: black;
+            top: -20px;
+            right: 5px; 
         }
     }
 }
