@@ -4,6 +4,7 @@ import { ModalIconEnum } from '../common/presentation/icons/modalIcons/ModalIcon
 import { ModalSize } from '../../logic/context/Modal/ModalContextEnum';
 import { ButtonTypes } from '../common/inputs/Button';
 import useTranslation from '../../logic/functions/getTranslation';
+import useAppHandler from '../../logic/context/App/AppContextHandler';
 
 export interface INeededCookie {
     CookieKey: string;
@@ -17,7 +18,9 @@ export interface INeededCookieModal {
 }
 
 const CookieModal: React.FC<INeededCookieModal> = ({Title, Description, Cookies}) => {
+    const {AllowCookies} = useAppHandler();
     const {getTranslation} = useTranslation();
+
     return <DialogModal 
                 Title={getTranslation("_cookieModal", Title)} 
                 Icon={ModalIconEnum.Cookie} 
@@ -29,7 +32,8 @@ const CookieModal: React.FC<INeededCookieModal> = ({Title, Description, Cookies}
                 ModalType={DialogModalType.YesNo}
                 OkButtonType={ButtonTypes.Confirmation}
                 CancelButtonType={ButtonTypes.Cancelation}
-                OkMethod={() => {}} //TODO: UPDATE APP Context flag
+                OkMethod={() => AllowCookies(true)}
+                CancelMethod={() => AllowCookies(false)}
                 HideCloseCross>
             </DialogModal>
 }

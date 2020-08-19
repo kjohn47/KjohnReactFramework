@@ -20,5 +20,6 @@ export type LoginContextType = {
     UpdateData: MakeUpdateLoginType,
     MakeLogout: () => void,
     UpdateUserLanguage: UpdateUserLanguageType,
-    UpdateUserTheme: UpdateUserThemeType
+    UpdateUserTheme: UpdateUserThemeType,
+    UpdateUserAllowCookie: (allow: boolean) => void;
 };

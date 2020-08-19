@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ILogin, LoginContextType, MakeUpdateLoginType, UpdateUserLanguageType, UpdateUserThemeType } from "./loginContextInterfaces";
-import { updateUserSession } from "../../functions/sessionStorage";
+import { sessionHandler } from "../../functions/sessionStorage";
 
 export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType = ( initialState ) => {
     const [ login, setLogin ] = useState( initialState );
@@ -18,7 +18,7 @@ export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType 
                 surname: userData.surname
             };
 
-            updateUserSession( newData );
+            sessionHandler.updateUserSession( newData );
             setLogin( newData );
         }
     }
@@ -33,7 +33,7 @@ export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType 
                 ...login,
                 appLanguage: userLanguage
             };
-            updateUserSession( newData );
+            sessionHandler.updateUserSession( newData );
             setLogin( newData );
         }
     }
@@ -44,7 +44,18 @@ export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType 
                 ...login,
                 appTheme: userTheme
             };
-            updateUserSession( newData );
+            sessionHandler.updateUserSession( newData );
+            setLogin( newData );
+        }
+    }
+
+    const UpdateUserAllowCookie = (allow: boolean) => {
+        if ( login ) {
+            const newData: ILogin = {
+                ...login,
+                allowCookies: allow
+            };
+            sessionHandler.updateUserSession( newData );
             setLogin( newData );
         }
     }
@@ -55,7 +66,8 @@ export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType 
         UpdateData,
         MakeLogout,
         UpdateUserLanguage,
-        UpdateUserTheme
+        UpdateUserTheme,
+        UpdateUserAllowCookie
     }
 }
 
@@ -65,5 +77,6 @@ export const DefaultLoginContext: LoginContextType = {
     UpdateData: () => {},
     MakeLogout: () => {},
     UpdateUserLanguage: () => {},
-    UpdateUserTheme: () => {}
+    UpdateUserTheme: () => {},
+    UpdateUserAllowCookie: () => {}
 }

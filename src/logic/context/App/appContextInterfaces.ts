@@ -23,5 +23,5 @@ export type AppContextType = {
     App: IAppContext;
     ChangeLanguage: ChangeAppLanguage;
     ChangeTheme: ChangeAppTheme; 
-    AllowCookies: () => void;
+    AllowCookies: (allow: boolean) => void;
 };

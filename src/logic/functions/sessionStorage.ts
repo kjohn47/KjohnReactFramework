@@ -33,7 +33,7 @@ const validateStoredUser: ( storedUser: ILogin ) => boolean = ( storedUser ) => 
     return false;
 }
 
-export const getLastSelectedLanguage: () => AppLanguage = () => {
+const getLastSelectedLanguage: () => AppLanguage = () => {
     let storedLanguage: string | null = localStorage.getItem( getSessionKey(AppStorageKeys.APPLANGUAGE) );
 
     if ( storedLanguage !== null ) {
@@ -44,11 +44,11 @@ export const getLastSelectedLanguage: () => AppLanguage = () => {
     return AppLanguage.PT;
 }
 
-export const setLastSelectedLanguage: ( language: AppLanguage ) => void = ( language ) => {
+const setLastSelectedLanguage: ( language: AppLanguage ) => void = ( language ) => {
     localStorage.setItem( getSessionKey(AppStorageKeys.APPLANGUAGE), language );
 }
 
-export const getAppTheme: () => AppGlobalTheme = () => {
+const getAppTheme: () => AppGlobalTheme = () => {
     let storedTheme: string | null = localStorage.getItem( getSessionKey(AppStorageKeys.APPTHEME) );
 
     if ( storedTheme !== null ) {
@@ -59,11 +59,11 @@ export const getAppTheme: () => AppGlobalTheme = () => {
     return AppGlobalTheme.Default;
 }
 
-export const setAppTheme: ( language: AppGlobalTheme ) => void = ( theme ) => {
+const setAppTheme: ( language: AppGlobalTheme ) => void = ( theme ) => {
     localStorage.setItem( getSessionKey(AppStorageKeys.APPTHEME), theme );
 }
 
-export const setUserSession: ( userData: ILogin, permanent?: boolean ) => void = ( userData, permanent ) => {
+const setUserSession: ( userData: ILogin, permanent?: boolean ) => void = ( userData, permanent ) => {
     if ( permanent ) {
         localStorage.setItem( getSessionKey(AppStorageKeys.USERDATA), JSON.stringify( userData ) );
     }
@@ -72,7 +72,7 @@ export const setUserSession: ( userData: ILogin, permanent?: boolean ) => void =
     }
 }
 
-export const updateUserSession: ( userDate: ILogin ) => void = ( userData ) => {
+const updateUserSession: ( userDate: ILogin ) => void = ( userData ) => {
     let storedUser: string | null = localStorage.getItem( getSessionKey(AppStorageKeys.USERDATA) );
 
     if ( storedUser === null ) {
@@ -85,7 +85,7 @@ export const updateUserSession: ( userDate: ILogin ) => void = ( userData ) => {
     }
 }
 
-export const getUserSession: () => ILogin | undefined = () => {
+const getUserSession: () => ILogin | undefined = () => {
     let storedUser: string | null = localStorage.getItem( getSessionKey(AppStorageKeys.USERDATA) );
 
     if ( storedUser === null ) {
@@ -101,34 +101,52 @@ export const getUserSession: () => ILogin | undefined = () => {
     return undefined;
 }
 
-export const clearUserSession: () => void = () => {
+const clearUserSession: () => void = () => {
     localStorage.removeItem( getSessionKey(AppStorageKeys.USERDATA) );
     sessionStorage.removeItem( getSessionKey(AppStorageKeys.USERDATA) );
 }
 
-export const getTokenData: ( token: string ) => IAuthTokenPayload = ( token ) => {
+const getTokenData: ( token: string ) => IAuthTokenPayload = ( token ) => {
     let tokenPayload = JWT.decode( token );
     return tokenPayload as IAuthTokenPayload;
 }
 
-export const getAllowCookieFlag = (): boolean => {
+const getAllowCookieFlag = (): boolean => {
     let allowCookieItem = localStorage.getItem( getSessionKey(AppStorageKeys.COOKIEFLAG) );
     if(allowCookieItem !== undefined && allowCookieItem !== null)
     {
-        let expireDate = JSON.parse(allowCookieItem) as IAllowCookieSettings;
-        if(expireDate.Expire > new Date())
+        let cookieSetting = JSON.parse(allowCookieItem) as IAllowCookieSettings;
+        const expire = new Date(cookieSetting.Expire);
+        
+        if(expire  > new Date())
         {
             return true;
         }
     }
-    
     return false;
 }
 
-export const setAllowCookieFlag = (): void => {
+const setAllowCookieFlag = (): void => {
+    const expire = new Date();
+    const currMonth = expire.getMonth();
+    expire.setMonth(currMonth + 1);
     const allowCookie: IAllowCookieSettings = {
-        Expire: new Date()
+        Expire: expire
     };
 
     localStorage.setItem( getSessionKey(AppStorageKeys.COOKIEFLAG), JSON.stringify(allowCookie));
+}
+
+export const sessionHandler = {
+    getLastSelectedLanguage,
+    setLastSelectedLanguage,
+    getAppTheme,
+    setAppTheme,
+    setUserSession,
+    updateUserSession,
+    getUserSession,
+    clearUserSession,
+    getTokenData,
+    getAllowCookieFlag,
+    setAllowCookieFlag
 }
