@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import { AppLanguage } from '../../../logic/context/App/appContextEnums';
@@ -12,6 +12,7 @@ const LanguageSelector: React.FC = () => {
     const {ChangeLanguage} = useAppHandler();
     const {appLanguage} = useAppLanguageHandler();
     const [open, setOpen] = useState<boolean>(false);
+    const langSelectorRef = useRef<HTMLDivElement>( null );
 
     const availableLanguages: ILanguageList[] = useMemo( () => {
         let langList: ILanguageList[] = [];
@@ -31,8 +32,24 @@ const LanguageSelector: React.FC = () => {
         setOpen(false);
       }
 
+      const handleClickOut: ( event: any ) => void = ( event ) => {
+        if ( open && langSelectorRef != null && langSelectorRef.current !== null && !langSelectorRef.current.contains( event.target ) ) {
+          setOpen( false );
+        }
+      }
+
+      useEffect( () => {
+        // add when mounted
+        document.addEventListener( "mousedown", handleClickOut );
+        // return function to be called when unmounted
+        return () => {
+          document.removeEventListener( "mousedown", handleClickOut );
+        };
+        //eslint-disable-next-line
+      }, [ open ] )
+
       return (
-        <div className="LanguageSelector">
+        <div className="LanguageSelector" ref={langSelectorRef}>
             <div onClick={ () => {setOpen((prevOpen) => !prevOpen)} } className = {"pointer_cursor LanguageSelector_Box" + (open ? " LanguageSelector_Box_Selected" : "")}>
                 <div className = "LanguageSelector_Box_Text">
                     {appLanguage}
