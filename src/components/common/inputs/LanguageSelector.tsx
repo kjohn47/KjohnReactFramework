@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import { AppLanguage } from '../../../logic/context/App/appContextEnums';
@@ -11,6 +11,7 @@ interface ILanguageList {
 const LanguageSelector: React.FC = () => {
     const {ChangeLanguage} = useAppHandler();
     const {appLanguage} = useAppLanguageHandler();
+    const [open, setOpen] = useState<boolean>(false);
 
     const availableLanguages: ILanguageList[] = useMemo( () => {
         let langList: ILanguageList[] = [];
@@ -25,12 +26,29 @@ const LanguageSelector: React.FC = () => {
         // eslint-disable-next-line
       }, [] )
 
-      return <>
-        {appLanguage}
-        <br />
-        {availableLanguages.map((lang, i) => <div key={`Lang_${i}`} onClick={lang.Action}>{lang.Text}</div>)}
-      </>
+      const handleLanguageChange = (action: () => void): void => {
+        action();
+        setOpen(false);
+      }
 
+      return (
+        <div className="LanguageSelector">
+            <div onClick={ () => {setOpen((prevOpen) => !prevOpen)} } className = "pointer_cursor LanguageSelector_Box">
+                <div className = "LanguageSelector_Box_Text">
+                    {appLanguage}
+                </div>
+                <div className = "LanguageSelector_Box_Arrow">
+                    {open ? '▲' : '▼'}
+                </div>
+            </div>
+            {open && <div className="LanguageSelector_List">
+                {availableLanguages.map((lang, i) => 
+                    <div key={`Lang_${i}`} onClick={() => handleLanguageChange(lang.Action)} className = "pointer_cursor LanguageSelector_Item">
+                        {lang.Text}
+                    </div>)}
+            </div>}
+        </div>
+      )
 }
 
 export default LanguageSelector;

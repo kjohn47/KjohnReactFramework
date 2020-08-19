@@ -1,0 +1,37 @@
+.LanguageSelector {
+    position: absolute;
+    width: 75px;
+    .LanguageSelector_Box {
+        box-sizing: border-box;
+        padding: 3px;
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 100%;
+        background-color: white;
+        .LanguageSelector_Box_Text {
+            box-sizing: border-box;
+            padding-left: 5px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: large;
+            width: 65%;
+        }
+
+        .LanguageSelector_Box_Arrow {
+            box-sizing: border-box;
+            display: inline-block;
+            font-size: large;
+            padding-right: 2px;
+            text-align: right;
+            width: 35%;
+            border-left: 1px solid black;
+        }
+    }
+
+    .LanguageSelector_List {
+
+        .LanguageSelector_Item {
+
+        }
+    }
+}

@@ -68,7 +68,6 @@ const DialogModal: React.FC<IDialogModalProps> = ({
             Content: Content,
             Scrollable: Scrollable,
             Size: Size,
-            ShowLanguageSelector: ShowLanguageSelector,
             ModalId: modalId,
             Buttons: ModalType === DialogModalType.CustomButtons ? 
                             CustomButtonArray ? 
@@ -108,7 +107,6 @@ const DialogModal: React.FC<IDialogModalProps> = ({
         Scrollable,
         ModalType,
         CustomButtonArray,
-        ShowLanguageSelector,
         getTranslation]);
 
     const newModal: IModalContext = useMemo(() => {
@@ -118,6 +116,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
             modalProps: GenericModalProps,
             icon: Icon,
             hideClose: HideCloseCross,
+            showLanguageSelector: ShowLanguageSelector,
             size: Size !== undefined ? 
                     Size 
                     : ( ModalType && ModalType === DialogModalType.CustomButtons && CustomButtonArray && CustomButtonArray.length > 4 ) ?
@@ -130,6 +129,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
         Icon,
         HideCloseCross,
         ModalType, 
+        ShowLanguageSelector,
         CustomButtonArray])
 
     const openHandler = useCallback(() => {

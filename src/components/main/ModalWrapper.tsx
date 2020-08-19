@@ -5,6 +5,7 @@ import { ModalIcons } from '../common/presentation/icons/modalIcons/ModalIcons';
 import useAppHandler from '../../logic/context/App/AppContextHandler';
 import CookieModal, { INeededCookieModal } from './CookieModal';
 import useLoginHandler from '../../logic/context/Login/LoginContextHandler';
+import LanguageSelector from '../common/inputs/LanguageSelector';
 
 export interface IModalWrapper {
     CookieModalSettings?: INeededCookieModal;
@@ -36,6 +37,9 @@ const ModalWrapper: React.FC<IModalWrapper> = ({children, CookieModalSettings}) 
                                     {ModalIcons[modal.icon]}
                                 </div>
                             </Suspense>
+                        </div>}
+                        {modal.showLanguageSelector && <div className = {"Modal_Language" + (!modal.hideClose ? " Modal_Language_Close" : "")}>
+                            <LanguageSelector />
                         </div>}
                         <modal.Modal close = {closeModal} {...modal.modalProps}/>
                     </div>
