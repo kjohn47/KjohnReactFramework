@@ -22,7 +22,7 @@ const SubMenuMobile: React.FC<{ SubMenus: ISubMenuItem[], collapseFunc: () => vo
                 <Column className='subMenuLine'></Column>
             )
         }
-        let translatedTitle = subMenu.Title.startsWith( "#(" ) ? getTranslation( "_menu", subMenu.Title ) : subMenu.Title;
+        let translatedTitle = getTranslation( "_menu", subMenu.Title );
         if ( subMenu.Link && ( subMenu.Link !== routeContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
             return (
                 <Column className={ "collapsedSubMenuItem" + ( isSingle ? " collapsedSubMenuSingleItem" : "" ) + ( subMenu.Reloadable && subMenu.Link === routeContext.selectedPage ? ' disabledMenuItem pointer_cursor' : '' ) }>

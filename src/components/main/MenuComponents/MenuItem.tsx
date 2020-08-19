@@ -41,7 +41,7 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
     }, [ toogle ] )
 
     const makeMenu = ( menu: IMenuItem ) => {
-        let translatedTitle = menu.Title.startsWith( "#(" ) ? getTranslation( "_menu", menu.Title ) : menu.Title;
+        let translatedTitle = getTranslation( "_menu", menu.Title );
         if ( menu.Link ) {
             return <PageSelector forceReload={ menu.Reloadable } page={ menu.Link } className='menuSpan pointer_cursor'>{ translatedTitle }</PageSelector>
         }

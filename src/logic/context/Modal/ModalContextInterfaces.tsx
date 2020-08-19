@@ -9,6 +9,7 @@ export interface IModalContext {
     hideClose?: boolean;
     size?: ModalSize;
     icon?: ModalIconEnum;
+    showLanguageSelector?: boolean;
     id: string;
 }
 

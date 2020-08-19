@@ -4,6 +4,7 @@ import Row from '../../../common/structure/Row';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 import { DownloadIcons } from '../../../common/presentation/icons/downloadIcons/DownloadIcons';
 import { IconCode } from '../../../../logic/functions/getExtensionIcon';
+import { ModalIcons, ModalIconEnum } from '../../../common/presentation/icons/modalIcons/ModalIcons';
 
 const TestIcons: React.FC = () => {
     return (
@@ -49,6 +50,34 @@ const TestIcons: React.FC = () => {
                         </Column>
                         <Column>
                             {DownloadIcons[IconCode.Xls]}
+                        </Column>
+                    </Row>
+                </FieldSet>
+                <FieldSet Title="Modal Icons">
+                    <Row>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Danger]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Warning]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Stop]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Forbidden]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Error]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Human]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.HumanGrp]}
+                        </Column>
+                        <Column>
+                            {ModalIcons[ModalIconEnum.Cookie]}
                         </Column>
                     </Row>
                 </FieldSet>
