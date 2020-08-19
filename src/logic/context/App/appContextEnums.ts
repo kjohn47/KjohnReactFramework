@@ -17,5 +17,6 @@ export enum AppGlobalTheme {
 export enum AppStorageKeys {
     APPLANGUAGE = "APPLANGUAGE",
     APPTHEME = "APPTHEME",
-    USERDATA = "USERDATA"
+    USERDATA = "USERDATA",
+    COOKIEFLAG = "COOKIEFLAG"
 }

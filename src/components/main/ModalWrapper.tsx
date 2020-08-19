@@ -4,6 +4,7 @@ import useModalHandler from '../../logic/context/Modal/ModalContextHandler';
 import { ModalIcons } from '../common/presentation/icons/modalIcons/ModalIcons';
 import useAppHandler from '../../logic/context/App/AppContextHandler';
 import CookieModal, { INeededCookieModal } from './CookieModal';
+import useLoginHandler from '../../logic/context/Login/LoginContextHandler';
 
 export interface IModalWrapper {
     CookieModalSettings?: INeededCookieModal;
@@ -12,6 +13,7 @@ export interface IModalWrapper {
 const ModalWrapper: React.FC<IModalWrapper> = ({children, CookieModalSettings}) => {
     const {modal, closeModal} = useModalHandler();
     const {App} = useAppHandler();
+    const {Login} = useLoginHandler();
     return (
         <>
             {modal && modal.Modal ?
@@ -39,7 +41,9 @@ const ModalWrapper: React.FC<IModalWrapper> = ({children, CookieModalSettings}) 
                     </div>
                 </div>
             : null}
-            {App.showCookieModal && CookieModalSettings && <CookieModal {...CookieModalSettings}/>}
+            {App.allowCookies !== undefined && CookieModalSettings ?
+                 ( ( !Login && App.allowCookies === false ) || ( Login && Login.allowCookies === undefined ) ) && <CookieModal {...CookieModalSettings}/>
+                : null}
             {children}
         </>
     )

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AppLanguage } from "./appContextEnums";
 import { IAppContext, AppContextType, ChangeAppLanguage, ChangeAppTheme } from "./appContextInterfaces";
-import { setLastSelectedLanguage, setAppTheme } from "../../functions/sessionStorage";
+import { setLastSelectedLanguage, setAppTheme, setAllowCookieFlag } from "../../functions/sessionStorage";
 import { ITranslation } from "../../functions/getTranslation";
 import { AvailableServices } from "../../services/servicesEnums";
 import { useFetchGetHandler } from "../../services/fetchHandler";
@@ -73,17 +73,37 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
             globalTheme: appTheme
         } );
     }
+
+    const AllowCookies = () => {
+        if(loginContext.Login)
+        {
+
+        }
+        else
+        {
+            setAllowCookieFlag();
+        }
+        setCurrentAppContext((prevContext) => {
+            return {
+                ...prevContext,
+                allowCookies: true
+            }
+        });
+    }
+
     return {
         App: currentAppContext, 
         ChangeLanguage,
-        ChangeTheme
+        ChangeTheme,
+        AllowCookies
     };
 }
 
 export const DefaultAppContext: AppContextType = {
     App: initialAppConfig,
     ChangeTheme: () => {},
-    ChangeLanguage: ()=> new Promise(()=>{})
+    ChangeLanguage: ()=> new Promise(()=>{}),
+    AllowCookies: () => {}
 };
 
 //TODO: Add update method to change cookie flag

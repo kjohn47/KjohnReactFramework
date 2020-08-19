@@ -2,7 +2,7 @@ import { IError } from "../context/Error/appErrorInterfaces";
 import { IAppContext } from "../context/App/appContextInterfaces";
 import { ILogin } from "../context/Login/loginContextInterfaces";
 import { AppLanguage, AppGlobalTheme } from "../context/App/appContextEnums";
-import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme } from "../functions/sessionStorage";
+import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme, getAllowCookieFlag } from "../functions/sessionStorage";
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
 import { trueFalseParser } from "../functions/misc";
 import { IRouteContext } from "../context/Routes/routeContextInterfaces";
@@ -15,12 +15,14 @@ currentUser = {
     authTokenHash: "",
     name: "John",
     surname: "Doe",
-    userSessionToken: "abcd"
+    userSessionToken: "abcd",
+    allowCookies: false
 };*/
 
 let lastSavedLang: AppLanguage = currentUser !== undefined ? currentUser.appLanguage : getLastSelectedLanguage();
 let lastSavedTheme: AppGlobalTheme = currentUser !== undefined ? currentUser.appTheme : getAppTheme();
 let pageRoute = getRouteUrlAndQuery();
+let cookiesAlertEnabled = process.env.REACT_APP_COOKIE_MODAL ? trueFalseParser(process.env.REACT_APP_COOKIE_MODAL) : false;
 
 if ( !( Object ).values( AppLanguage ).includes( lastSavedLang ) as any ) {
     lastSavedLang = AppLanguage.PT;
@@ -43,7 +45,7 @@ export const initialAppConfig: IAppContext = {
     globalTheme: lastSavedTheme,
     adminOptions: tokenData !== undefined && tokenData.isAdmin,
     translations: {},
-    showCookieModal: false //TODO: Implement Session Flag and Settings Key
+    allowCookies: cookiesAlertEnabled ? ( currentUser !== undefined ? ( currentUser.allowCookies !== undefined ? currentUser.allowCookies : false ) : getAllowCookieFlag() ): undefined
 }
 
 export const initialRouteConfig: IRouteContext = {

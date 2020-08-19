@@ -7,6 +7,7 @@ export interface ILogin {
     surname: string;
     appLanguage: AppLanguage;
     appTheme: AppGlobalTheme;
+    allowCookies?: boolean;
 }
 
 export type MakeUpdateLoginType = (userData: ILogin) => void;

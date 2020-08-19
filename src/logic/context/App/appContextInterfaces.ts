@@ -11,7 +11,7 @@ export interface IAppContext {
     globalTheme: AppGlobalTheme;
     translations: ITranslations;
     loadingTranslation?: boolean;
-    showCookieModal?: boolean;
+    allowCookies?: boolean;
 }
 
 export type ChangeAppLanguage = (appLanguage: AppLanguage) => Promise<void | IServiceError>;
@@ -23,4 +23,5 @@ export type AppContextType = {
     App: IAppContext;
     ChangeLanguage: ChangeAppLanguage;
     ChangeTheme: ChangeAppTheme; 
+    AllowCookies: () => void;
 };

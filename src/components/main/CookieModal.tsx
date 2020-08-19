@@ -26,8 +26,9 @@ const CookieModal: React.FC<INeededCookieModal> = ({Title, Description, Cookies}
                 StartOpened 
                 Size={ModalSize.Default} 
                 Scrollable 
-                ModalType={DialogModalType.OkOnly}
+                ModalType={DialogModalType.YesNo}
                 OkButtonType={ButtonTypes.Confirmation}
+                CancelButtonType={ButtonTypes.Cancelation}
                 OkMethod={() => {}} //TODO: UPDATE APP Context flag
                 HideCloseCross>
             </DialogModal>
