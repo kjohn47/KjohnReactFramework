@@ -4,6 +4,7 @@ import Row from '../../structure/Row';
 import { ModalComponentType } from '../../../../logic/context/Modal/ModalContextInterfaces';
 import Button, { ButtonTypes } from '../../inputs/Button';
 import { ModalSize } from '../../../../logic/context/Modal/ModalContextEnum';
+import LanguageSelector from '../../inputs/LanguageSelector';
 
 export interface IGenericModalProps {
     Title: string;
@@ -12,6 +13,7 @@ export interface IGenericModalProps {
     Scrollable?: boolean;
     ModalId: string;
     Size?: ModalSize;
+    ShowLanguageSelector?: boolean;
 }
 
 export interface IGenericModalButton {
@@ -29,7 +31,8 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
     Scrollable,
     close, 
     children,
-    Size
+    Size,
+    ShowLanguageSelector
 }) => {
     const modalSizeClass = useMemo(() => {
         let size = (Size === undefined || Size === ModalSize.Default) ? 
@@ -65,6 +68,9 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
     return (
         <Row className = "Modal_Generic">
             <Column className = "Modal_Generic_Col">
+                {ShowLanguageSelector && <div className = "Modal_Header_Language">
+                    <LanguageSelector />
+                </div>}
                 <Row className= {`Modal_Header Modal_Header${modalSizeClass}`}>
                     <Column>
                         {Title}

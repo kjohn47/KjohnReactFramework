@@ -73,7 +73,8 @@ const CookieModal: React.FC<INeededCookieModal> = ({Title, Description, Cookies}
                 CancelButtonType={ButtonTypes.Cancelation}
                 OkMethod={() => AllowCookies(true)}
                 CancelMethod={() => AllowCookies(false)}
-                HideCloseCross>
+                HideCloseCross
+                ShowLanguageSelector>
             </DialogModal>
 }
 export default CookieModal;

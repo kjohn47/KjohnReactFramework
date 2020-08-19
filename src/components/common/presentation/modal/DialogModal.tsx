@@ -34,6 +34,7 @@ export interface IDialogModalProps {
     Scrollable?: boolean;
     CustomButtonArray?: IGenericModalButton[];
     HideCloseCross?: boolean;
+    ShowLanguageSelector?: boolean;
 }
 
 const DialogModal: React.FC<IDialogModalProps> = ({
@@ -54,6 +55,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
     OkMethod,
     CancelMethod,
     HideCloseCross,
+    ShowLanguageSelector,
     children
 }) => {
     const {modal, openModal, updateModal} = useModalHandler();
@@ -66,6 +68,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
             Content: Content,
             Scrollable: Scrollable,
             Size: Size,
+            ShowLanguageSelector: ShowLanguageSelector,
             ModalId: modalId,
             Buttons: ModalType === DialogModalType.CustomButtons ? 
                             CustomButtonArray ? 
@@ -105,6 +108,7 @@ const DialogModal: React.FC<IDialogModalProps> = ({
         Scrollable,
         ModalType,
         CustomButtonArray,
+        ShowLanguageSelector,
         getTranslation]);
 
     const newModal: IModalContext = useMemo(() => {
