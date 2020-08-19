@@ -24,7 +24,7 @@ const CookieModalDescription: React.FC<{Cookies: INeededCookie[]}> = ({Cookies, 
     const {getTranslation} = useTranslation();
 
     return <>
-        <Row>
+        <Row className="CookieModalDescription">
             <Column>
                 {children}
             </Column>
