@@ -76,5 +76,15 @@ export const pageComponents: IKRFProps = {
             }
         ]
     },
-    FooterProps: {}
+    FooterProps: {},
+    CookieModalSettings: {
+        Title: "#(CookiesModal)",
+        Description: "#(CookiesModalDescription)",
+        Cookies: [
+            {
+                CookieDescription: "#(CookieAnalyticDescription)",
+                CookieKey: "CookieAnalytic"
+            }
+        ]
+    }
 }

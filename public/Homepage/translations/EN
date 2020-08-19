@@ -65,5 +65,12 @@
         "#(No)": "No",
         "#(Ok)": "Ok",
         "#(Cancel)": "Cancel"
+    },
+    "_cookieModal": {
+        "#(CookiesModal)": "Allow Cookies",
+        "#(CookiesModalDescription)": "This page uses some cookies for analytics, select yes if you allow the use of cookies bellow.",
+        "#(CookieAnalyticDescription)": "Cookie used for analytics, this cookie will be disabled if no is selected.",
+        "#(CookieKey)": "Cookie Name",
+        "#(CookieDescription)": "Description"
     }
 }

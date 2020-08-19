@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { AppLanguage } from '../../logic/context/App/appContextEnums';
 import Row from '../common/structure/Row';
 import Column, { ColumnNumber } from '../common/structure/Column';
@@ -36,7 +36,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
     }
   }
 
-  const getAvailableLanguages: () => ISubMenuItem[] = () => {
+  const availableLanguages: ISubMenuItem[] = useMemo(() => {
     let langMenu: ISubMenuItem[] = [];
     for ( let item in AppLanguage ) {
       langMenu.push( {
@@ -46,7 +46,8 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
     }
 
     return langMenu;
-  }
+    // eslint-disable-next-line
+  },[])
 
   useEffect( () => {
     // add when mounted
@@ -96,7 +97,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
         </div>
         { toogleLang && <SubMenu
           unToogle={ () => setToogleLang( false ) }
-          subMenu={ getAvailableLanguages() }
+          subMenu={ availableLanguages }
           className='subMenuDropLang'
         /> }
       </Column>

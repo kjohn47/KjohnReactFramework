@@ -1,0 +1,121 @@
+<svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width="110"
+      height="110"
+      version="1.1"
+      viewBox="0 0 29.104 29.104"
+    >
+      <defs>
+        <linearGradient id="Human1Tie">
+          <stop offset="0" stopColor="#f96c65" stopOpacity="1"></stop>
+          <stop offset="1" stopColor="#fe9f9b" stopOpacity="1"></stop>
+        </linearGradient>
+        <linearGradient id="Human1Body">
+          <stop offset="0" stopColor="#68b0bd" stopOpacity="1"></stop>
+          <stop offset="1" stopColor="#70e8e4" stopOpacity="1"></stop>
+        </linearGradient>
+        <linearGradient id="Human1Head">
+          <stop offset="0" stopColor="#6193b6" stopOpacity="1"></stop>
+          <stop offset="1" stopColor="#7ddbf2" stopOpacity="1"></stop>
+        </linearGradient>
+        <linearGradient
+          id="Human1Head_1"
+          x1="12.237"
+          x2="16.867"
+          y1="4.536"
+          y2="9.449"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#Human1Head"
+        ></linearGradient>
+        <linearGradient
+          id="Human1Body_1"
+          x1="10.3"
+          x2="25.655"
+          y1="17.34"
+          y2="25.466"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#Human1Body"
+        ></linearGradient>
+        <linearGradient
+          id="Human1Head_2"
+          x1="11.115"
+          x2="18.379"
+          y1="15.878"
+          y2="15.878"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#Human1Head"
+        ></linearGradient>
+        <linearGradient
+          id="Human1Tie_1"
+          x1="14.552"
+          x2="15.412"
+          y1="13.513"
+          y2="14.583"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#Human1Tie"
+        ></linearGradient>
+        <linearGradient
+          id="Human1Tie_2"
+          x1="13.451"
+          x2="15.649"
+          y1="17.574"
+          y2="17.574"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#Human1Tie"
+        ></linearGradient>
+      </defs>
+      <g fillOpacity="1" strokeOpacity="1">
+        <path
+          fill="url(#Human1Body_1)"
+          stroke="#000"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="4"
+          strokeWidth="0.665"
+          d="M3.449 25.466h22.206c.03-5.655-1.924-13.06-11.103-12.946C5.195 12.361 3.26 20.37 3.45 25.466z"
+        ></path>
+        <path
+          fill="url(#Human1Head_2)"
+          stroke="#000"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeWidth="0.267"
+          d="M14.552 19.29l-1.365-1.576-1.893-4.911c2.453-.634 4.69-.41 6.894-.03l-2.214 5.08z"
+        ></path>
+        <path
+          fill="url(#Human1Tie_2)"
+          stroke="#000"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeWidth="0.336"
+          d="M13.67 14.583h1.742c.207 4.758-.053 5.651-.86 5.97-.848-.303-1.039-1.103-.883-5.97z"
+        ></path>
+        <ellipse
+          cx="14.576"
+          cy="14.021"
+          fill="url(#Human1Tie_1)"
+          fillRule="evenodd"
+          stroke="#000"
+          strokeDasharray="none"
+          strokeLinejoin="round"
+          strokeMiterlimit="4"
+          strokeWidth="0.4"
+          rx="1.504"
+          ry="1.39"
+        ></ellipse>
+        <circle
+          cx="14.528"
+          cy="7.073"
+          r="5.221"
+          fill="url(#Human1Head_1)"
+          fillRule="nonzero"
+          stroke="#fff"
+          strokeDasharray="none"
+          strokeLinejoin="round"
+          strokeMiterlimit="8"
+          strokeWidth="0.491"
+        ></circle>
+      </g>
+    </svg>

@@ -6,6 +6,7 @@ import SessionHandler from './SessionHandler';
 import { injectProps } from '../../logic/functions/misc';
 import Footer from './Footer';
 import Menu, { IMenuProps } from './Menu';
+import { INeededCookieModal } from './CookieModal';
 
 export interface IKRFProps {
   Routes: IPageHandleProps;
@@ -13,6 +14,7 @@ export interface IKRFProps {
   CustomFooterComponent?: React.ComponentType;
   MenuProps?: IMenuProps;
   FooterProps?: any;
+  CookieModalSettings?: INeededCookieModal;
 }
 
 const KRFApp: React.FC<IKRFProps> = (props) =>
@@ -23,6 +25,7 @@ const KRFApp: React.FC<IKRFProps> = (props) =>
         FooterComponent={ props.CustomFooterComponent ? props.CustomFooterComponent : injectProps(Footer, props.FooterProps) } 
         IsCustomMenu={ props.CustomMenuComponent !== undefined }
         IsCustomFooter={ props.CustomFooterComponent !== undefined }
+        CookieModalSettings = {props.CookieModalSettings}
       >
         <PageHandler
           {...props.Routes}

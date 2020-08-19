@@ -22,6 +22,7 @@ export interface ITableContent {
     header?: string[];
     rows: Array<ITableCell[]>;
     highlightRows?: boolean;
+    hideScroll?: boolean;
 }
 
 const Table: React.FC<ITableContent> = ( props ) => {
@@ -84,7 +85,7 @@ const Table: React.FC<ITableContent> = ( props ) => {
     }
 
     return (
-        <div className="TableDiv KRFScroll">
+        <div className={ "TableDiv KRFScroll" + (props.hideScroll ? " TableDiv_HideScroll" : "")}>
             { props.title &&
                 <Row>
                     <Column>

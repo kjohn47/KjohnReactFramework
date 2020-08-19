@@ -65,5 +65,12 @@
         "#(No)": "Não",
         "#(Ok)": "Ok",
         "#(Cancel)": "Cancelar"
+    },
+    "_cookieModal": {
+        "#(CookiesModal)": "Aceitar Cookies",
+        "#(CookiesModalDescription)": "Esta página utiliza cookies para análise de informação. Seleccione sim se permite a utilização dos cookies a baixo.",
+        "#(CookieAnalyticDescription)": "Este cookie destina-se à análise de dados. Este cookie será desativado se seleccionar não.",
+        "#(CookieKey)": "Nome do Cookie",
+        "#(CookieDescription)": "Descrição"
     }
 }
