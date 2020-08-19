@@ -80,6 +80,11 @@ export const pageComponents: IKRFProps = {
     CookieModalSettings: {
         Title: "#(CookiesModal)",
         Description: "#(CookiesModalDescription)",
-        Cookies: []
+        Cookies: [
+            {
+                CookieDescription: "#(CookieAnalyticDescription)",
+                CookieKey: "CookieAnalytic"
+            }
+        ]
     }
 }

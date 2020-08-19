@@ -55,24 +55,6 @@
             }
         }
 
-        .TableHeaderCell {
-            display: table-cell;    
-            border-left: 1px ridge $Table_Border_Header;
-            border-bottom: 2px solid $Table_Border;
-            padding: 10px;
-            min-height: 25px;    
-            text-align: center;
-            &:first-child {
-                border-left: none;
-                border-radius: 18px 0 0 0;
-            }
-            &:last-child {
-                border-left: none;
-                border-left: 1px ridge $Table_Border_Header;
-                border-radius: 0 18px 0 0;
-            }
-        }
-
         .TableCell {
             display: table-cell;
             padding: 15px 20px 15px 20px;
@@ -154,7 +136,31 @@
                 }
             }
         }
+
+        .TableHeaderCell {
+            display: table-cell;    
+            border-left: 1px ridge $Table_Border_Header;
+            border-bottom: 2px solid $Table_Border;
+            padding: 10px;
+            min-height: 25px;    
+            text-align: center;
+            border-right: none;
+            &:first-child {
+                border-left: none;
+                border-right: none;
+                border-radius: 18px 0 0 0;
+            }
+            &:last-child {
+                border-left: 1px ridge lightgrey;
+                border-right: none;
+                border-radius: 0 18px 0 0;
+            }
+        }
     }
+}
+
+.TableDiv_HideScroll {
+    overflow: hidden;
 }
 
 @media ( max-width: 380px ) {

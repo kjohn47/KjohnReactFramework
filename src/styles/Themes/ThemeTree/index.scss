@@ -40,6 +40,10 @@
 @import "./Main/ModalWrapper.scss";
 //Modal
 
+// Table Component
+@import "./Presentation/Table.scss";
+// Table Component
+
 // ---- Content Colors ----
 .PageContentColor {
   // -- All Content --
@@ -52,10 +56,6 @@
   //TabGroup
   @import "./Structure/TabGroup.scss";
   //TabGroup
-  
-  // Table Component
-  @import "./Presentation/Table.scss";
-  // Table Component
 
   // Card Component
   @import "./Presentation/Card.scss";
