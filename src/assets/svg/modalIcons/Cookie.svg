@@ -1,0 +1,129 @@
+<svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width="110"
+      height="110"
+      version="1.1"
+      viewBox="0 0 29.104 29.104"
+    >
+      <defs>
+        <linearGradient id="CookieChocoGrd">
+          <stop offset="0" stopColor="#803e00" stopOpacity="1"></stop>
+          <stop offset="1" stopColor="#9c5412" stopOpacity="1"></stop>
+        </linearGradient>
+        <linearGradient id="CookieGrd"
+          x1="5.433"
+          x2="21.923"
+          y1="9.78"
+          y2="17.907"
+          gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#cc9d42" stopOpacity="1"></stop>
+          <stop offset="1" stopColor="#edd18f" stopOpacity="1"></stop>
+        </linearGradient>
+        <radialGradient
+          id="CookieChocoGrd_1"
+          cx="10.938"
+          cy="17.151"
+          r="2.621"
+          fx="10.938"
+          fy="17.151"
+          gradientTransform="matrix(1 0 0 .99099 0 .155)"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#CookieChocoGrd"
+        ></radialGradient>
+        <radialGradient
+          id="CookieChocoGrd_2"
+          cx="9.568"
+          cy="9.119"
+          r="1.458"
+          fx="9.568"
+          fy="9.119"
+          gradientTransform="matrix(1 0 0 1.08102 0 -.739)"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#CookieChocoGrd"
+        ></radialGradient>
+        <radialGradient
+          id="CookieChocoGrd_3"
+          cx="18.615"
+          cy="14.41"
+          r="1.517"
+          fx="18.615"
+          fy="14.41"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#CookieChocoGrd"
+        ></radialGradient>
+        <radialGradient
+          id="CookieChocoGrd_4"
+          cx="19.041"
+          cy="20.151"
+          r="1.615"
+          fx="19.041"
+          fy="20.151"
+          gradientTransform="matrix(1 0 0 .98537 0 .295)"
+          gradientUnits="userSpaceOnUse"
+          xlinkHref="#CookieChocoGrd"
+        ></radialGradient>
+      </defs>
+      <g fillOpacity="1" strokeOpacity="1">
+        <path
+          fill="url(#CookieGrd)"
+          stroke="#8b600e"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeWidth="0.282"
+          d="M12.86 3.52c-5.367.37-3.3 1.26-4.854 1.898-3.09 1.955-5.002 4.843-4.125 6.838-.653 6.896 2.553 6.57 3.172 9.585 2.889 5.782 8.08 4.85 9.869 3.275 1.343-1.27 11.055-5.23 7.864-12.332.534-1.1-2.194 2.325-3.027.732-.503-1.913-2.802-.725-3.519-1.383-1.458-.784-3.193-3.588-1.582-4.107 1.226-3.17 2.143-3.492 1.365-3.784-2.86-2.834-3.992-.296-5.164-.723z"
+        ></path>
+        <ellipse
+          cx="9.568"
+          cy="9.119"
+          fill="url(#CookieChocoGrd_2)"
+          stroke="#985c2d"
+          strokeDasharray="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="8"
+          strokeWidth="0.3"
+          rx="1.308"
+          ry="1.426"
+        ></ellipse>
+        <ellipse
+          cx="10.938"
+          cy="17.151"
+          fill="url(#CookieChocoGrd_1)"
+          stroke="#985c2d"
+          strokeDasharray="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="8"
+          strokeWidth="0.3"
+          rx="2.471"
+          ry="2.448"
+        ></ellipse>
+        <ellipse
+          cx="18.615"
+          cy="14.41"
+          fill="url(#CookieChocoGrd_3)"
+          stroke="#985c2d"
+          strokeDasharray="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="8"
+          strokeWidth="0.3"
+          rx="1.367"
+          ry="1.367"
+        ></ellipse>
+        <ellipse
+          cx="19.041"
+          cy="20.151"
+          fill="url(#CookieChocoGrd_4)"
+          stroke="#985c2d"
+          strokeDasharray="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit="8"
+          strokeWidth="0.3"
+          rx="1.465"
+          ry="1.441"
+        ></ellipse>
+      </g>
+    </svg>

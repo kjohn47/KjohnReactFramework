@@ -2,12 +2,12 @@ import { IError } from "../context/Error/appErrorInterfaces";
 import { IAppContext } from "../context/App/appContextInterfaces";
 import { ILogin } from "../context/Login/loginContextInterfaces";
 import { AppLanguage, AppGlobalTheme } from "../context/App/appContextEnums";
-import { getLastSelectedLanguage, getUserSession, getTokenData, getAppTheme } from "../functions/sessionStorage";
+import { sessionHandler } from "../functions/sessionStorage";
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
 import { trueFalseParser } from "../functions/misc";
 import { IRouteContext } from "../context/Routes/routeContextInterfaces";
 
-let currentUser: ILogin | undefined = getUserSession();
+let currentUser: ILogin | undefined = sessionHandler.getUserSession();
 /*
 currentUser = {
     appLanguage: AppLanguage.PT,
@@ -15,12 +15,14 @@ currentUser = {
     authTokenHash: "",
     name: "John",
     surname: "Doe",
-    userSessionToken: "abcd"
+    userSessionToken: "abcd",
+    allowCookies: false
 };*/
 
-let lastSavedLang: AppLanguage = currentUser !== undefined ? currentUser.appLanguage : getLastSelectedLanguage();
-let lastSavedTheme: AppGlobalTheme = currentUser !== undefined ? currentUser.appTheme : getAppTheme();
+let lastSavedLang: AppLanguage = currentUser !== undefined ? currentUser.appLanguage : sessionHandler.getLastSelectedLanguage();
+let lastSavedTheme: AppGlobalTheme = currentUser !== undefined ? currentUser.appTheme : sessionHandler.getAppTheme();
 let pageRoute = getRouteUrlAndQuery();
+let cookiesAlertEnabled = process.env.REACT_APP_COOKIE_MODAL ? trueFalseParser(process.env.REACT_APP_COOKIE_MODAL) : false;
 
 if ( !( Object ).values( AppLanguage ).includes( lastSavedLang ) as any ) {
     lastSavedLang = AppLanguage.PT;
@@ -38,11 +40,12 @@ export const initialError: IError = {
 }
 
 //// Get language from cookie or storage
-const tokenData = ( currentUser !== undefined && getTokenData( currentUser.userSessionToken ) ) || undefined;
+const tokenData = ( currentUser !== undefined && sessionHandler.getTokenData( currentUser.userSessionToken ) ) || undefined;
 export const initialAppConfig: IAppContext = {
     globalTheme: lastSavedTheme,
     adminOptions: tokenData !== undefined && tokenData.isAdmin,
-    translations: {}
+    translations: {},
+    allowCookies: cookiesAlertEnabled ? ( currentUser !== undefined ? ( currentUser.allowCookies !== undefined ? currentUser.allowCookies : false ) : sessionHandler.getAllowCookieFlag() ): undefined
 }
 
 export const initialRouteConfig: IRouteContext = {

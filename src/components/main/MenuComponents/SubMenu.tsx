@@ -31,7 +31,7 @@ const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle:
         if ( !subMenu.Title || subMenu.Title === '' ) {
             return <Column className='subMenuLine'></Column>
         }
-        let translatedTitle = subMenu.Title.startsWith( "#(" ) ? getTranslation( "_menu", subMenu.Title ) : subMenu.Title;
+        let translatedTitle = getTranslation( "_menu", subMenu.Title );
         if ( subMenu.Link && ( subMenu.Link !== routeContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
             return <Column className={ 'subMenuCol' + ( subMenu.Reloadable && subMenu.Link === routeContext.selectedPage ? ' disabledMenuItem pointer_cursor subMenuReloadable' : '' ) }>
                 {

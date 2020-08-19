@@ -49,7 +49,7 @@ const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: bo
 
   const renderInLineMenus = () => {
     return <Row className='menuItemRow noselect'>
-      { props.Brand && <Column className='menuItemCol menuBrand noselect'><PageSelector page={ KnownPages.Home } forceReload>{ props.Brand.startsWith( "#(" ) ? getTranslation( "_brand", props.Brand ) : props.Brand }</PageSelector></Column> }
+      { props.Brand && <Column className='menuItemCol menuBrand noselect'><PageSelector page={ KnownPages.Home } forceReload>{ getTranslation( "_brand", props.Brand ) }</PageSelector></Column> }
       {
         props.MenuNav && props.MenuNav.map( ( menu, i ) =>
           <MenuItem key={ 'menu_' + i } Menu={ menu } />
@@ -72,7 +72,7 @@ const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: bo
               { props.Brand &&
                 <Row>
                   <Column className={ "collapsedMenuItem collapseMenuBrand" + ( props.MenuNav && props.MenuNav.length > 0 ? "" : " collapsedMenuSingleItem" ) }>
-                    <PageSelector page={ KnownPages.Home } forceReload action={ () => props.setToogle( false ) }>{ props.Brand.startsWith( "#(" ) ? getTranslation( "_brand", props.Brand ) : props.Brand }</PageSelector>
+                    <PageSelector page={ KnownPages.Home } forceReload action={ () => props.setToogle( false ) }>{ getTranslation( "_brand", props.Brand ) }</PageSelector>
                   </Column>
                 </Row>
               }
