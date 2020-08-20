@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { AppLanguage } from '../../logic/context/App/appContextEnums';
 import Row from '../common/structure/Row';
 import Column, { ColumnNumber } from '../common/structure/Column';
 import { IMenuItem } from './MenuComponents/MenuItem';
@@ -38,16 +37,16 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
 
   const availableLanguages: ISubMenuItem[] = useMemo(() => {
     let langMenu: ISubMenuItem[] = [];
-    for ( let item in AppLanguage ) {
+    appContext.App.languageCodes.forEach(item => {
       langMenu.push( {
         Title: item,
-        Action: () => { appContext.ChangeLanguage(item as AppLanguage) }
+        Action: () => { appContext.ChangeLanguage(item) }
       } )
-    }
+    })
 
     return langMenu;
     // eslint-disable-next-line
-  },[])
+  },[appContext.App.languageCodes, appContext.ChangeLanguage])
 
   useEffect( () => {
     // add when mounted

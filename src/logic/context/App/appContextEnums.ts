@@ -1,8 +1,3 @@
-export enum AppLanguage {
-    PT = "PT",
-    EN = "EN"
-}
-
 export enum AppGlobalTheme {
     Default = "PageLayoutColor",
     Red = "PageLayoutColor_Red",

@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
-import { AppLanguage } from '../../../logic/context/App/appContextEnums';
 
 interface ILanguageList {
     Text: string;
@@ -9,23 +8,22 @@ interface ILanguageList {
 }
 
 const LanguageSelector: React.FC = () => {
-    const {ChangeLanguage} = useAppHandler();
+    const {App, ChangeLanguage} = useAppHandler();
     const {appLanguage} = useAppLanguageHandler();
     const [open, setOpen] = useState<boolean>(false);
     const langSelectorRef = useRef<HTMLDivElement>( null );
 
     const availableLanguages: ILanguageList[] = useMemo( () => {
         let langList: ILanguageList[] = [];
-        for ( let item in AppLanguage ) {
+        App.languageCodes.forEach( item => {
             langList.push( {
             Text: item,
-            Action: () => { ChangeLanguage(item as AppLanguage) }
+            Action: () => { ChangeLanguage(item) }
           } )
-        }
+        })
     
         return langList;
-        // eslint-disable-next-line
-      }, [] )
+      }, [App.languageCodes, ChangeLanguage] )
 
       const handleLanguageChange = (action: () => void): void => {
         action();
