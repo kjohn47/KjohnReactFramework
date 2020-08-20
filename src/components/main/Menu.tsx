@@ -46,7 +46,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
 
     return langMenu;
     // eslint-disable-next-line
-  },[appContext.App.languageCodes])
+  },[appContext.App.languageCodes, appContext.ChangeLanguage])
 
   useEffect( () => {
     // add when mounted

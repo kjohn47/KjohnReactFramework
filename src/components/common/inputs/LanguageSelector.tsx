@@ -23,8 +23,7 @@ const LanguageSelector: React.FC = () => {
         })
     
         return langList;
-        // eslint-disable-next-line
-      }, [App.languageCodes] )
+      }, [App.languageCodes, ChangeLanguage] )
 
       const handleLanguageChange = (action: () => void): void => {
         action();

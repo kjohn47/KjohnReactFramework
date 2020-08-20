@@ -22,7 +22,6 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
 
     const ChangeLanguage: ChangeAppLanguage = (appLanguage, getLangKeys) => new Promise<void | IServiceError>( (resolve) => {
         let globalLanguage: string = appLanguage;
-        
         if(!getLangKeys)
         {
             if(!currentAppContext.languageCodes.find(c => c === globalLanguage))
