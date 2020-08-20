@@ -126,5 +126,3 @@ export const DefaultAppContext: AppContextType = {
     ChangeLanguage: ()=> new Promise(()=>{}),
     AllowCookies: () => {}
 };
-
-//TODO: Add update method to change cookie flag
