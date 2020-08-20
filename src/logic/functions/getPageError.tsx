@@ -3,7 +3,7 @@ import { ErrorCodes } from "../context/Error/appErrorEnums";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
 import useAppHandler from "../context/App/AppContextHandler";
 
-const useErrorTranslation: () => { getErrorData: ( errorCode?: ErrorCodes ) => IErrorData } = () => {
+const useErrorTranslation: () => { getErrorData: ( errorCode?: ErrorCodes | string ) => IErrorData } = () => {
     const { appLanguage } = useAppLanguageHandler();
     const { App } = useAppHandler();
 

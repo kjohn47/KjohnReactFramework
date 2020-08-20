@@ -3,11 +3,11 @@ import { ErrorCodes } from "./appErrorEnums";
 export interface IError {
     hasError: boolean;
     errorDescription?: string;
-    errorCode?: ErrorCodes;
+    errorCode?: ErrorCodes | string;
 }
 
 export interface IChangeError {
-    errorCode: ErrorCodes;
+    errorCode: ErrorCodes | string;
     errorDescription: string;
 }
 
