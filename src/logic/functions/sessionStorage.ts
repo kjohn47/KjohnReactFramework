@@ -2,6 +2,7 @@ import { AppStorageKeys, AppGlobalTheme } from "../context/App/appContextEnums";
 import { ILogin } from "../context/Login/loginContextInterfaces";
 import SHA from "sha.js";
 import JWT from "jsonwebtoken";
+import { appPrefix } from "../config/configuration";
 
 interface IAuthTokenPayload {
     name: string;
@@ -15,8 +16,6 @@ interface IAllowCookieSettings {
     Expire: Date;
 }
 
-const appPrefix = process.env.REACT_APP_SESSION_PREFIX ? process.env.REACT_APP_SESSION_PREFIX : 'KRF_';
-const defaultLanguage = process.env.REACT_APP_DEFAULT_LANGUAGE ? process.env.REACT_APP_DEFAULT_LANGUAGE : "EN";
 const getSessionKey = (key: AppStorageKeys ): string =>
 {
     return `${appPrefix}${key}`;
@@ -34,7 +33,7 @@ const validateStoredUser: ( storedUser: ILogin ) => boolean = ( storedUser ) => 
     return false;
 }
 
-const getLastSelectedLanguage: () => string = () => {
+const getLastSelectedLanguage: (defaultLanguage: string) => string = (defaultLanguage) => {
     let storedLanguage: string | null = localStorage.getItem( getSessionKey(AppStorageKeys.APPLANGUAGE) );
 
     if ( storedLanguage !== null ) {

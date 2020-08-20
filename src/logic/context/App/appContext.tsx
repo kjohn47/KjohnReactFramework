@@ -22,10 +22,14 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
 
     const ChangeLanguage: ChangeAppLanguage = (appLanguage, getLangKeys) => new Promise<void | IServiceError>( (resolve) => {
         let globalLanguage: string = appLanguage;
-        if ( loginContext.Login )
-            loginContext.UpdateUserLanguage( appLanguage );
-        else
-            sessionHandler.setLastSelectedLanguage( appLanguage );
+        
+        if(!getLangKeys)
+        {
+            if(!currentAppContext.languageCodes.find(c => c === globalLanguage))
+            {
+                globalLanguage = currentAppContext.languageCodes[0];
+            }
+        }
 
         if ( currentAppContext.translations === {} || currentAppContext.translations[ globalLanguage ] === undefined ) {
             setCurrentAppContext({
@@ -37,6 +41,11 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                 getTranslation.Get( url )
                     .then( data => {
                         let serviceResponse = data as ITranslationServiceResponse;
+                        if(getLangKeys && serviceResponse.LanguageCodes && !serviceResponse.LanguageCodes.find(c => c === globalLanguage))
+                        {
+                            globalLanguage = serviceResponse.LanguageCodes[0];
+                        }
+
                         return setCurrentAppContext( {
                             ...currentAppContext,
                             translations: {
@@ -47,9 +56,9 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                             loadingTranslation: false
                         } )
                     })
-                    .then(() => 
-                        setAppLanguage(globalLanguage)
-                    )
+                    .then(() => {
+                        UpdateLanguageContext(globalLanguage);
+                    })
                     .catch( () => {
                         setCurrentAppContext( {
                             ...currentAppContext,
@@ -59,8 +68,18 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                     ) )
         }
         else {
-            setAppLanguage(globalLanguage);
-        }});
+            UpdateLanguageContext(globalLanguage);
+        }
+    });
+
+    const UpdateLanguageContext = (langCode: string) => {
+        if ( loginContext.Login )
+            loginContext.UpdateUserLanguage( langCode );
+        else
+            sessionHandler.setLastSelectedLanguage( langCode );
+
+        setAppLanguage(langCode);
+    }
     
     const ChangeTheme: ChangeAppTheme = (appTheme) => 
     {
