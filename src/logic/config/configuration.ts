@@ -30,7 +30,7 @@ export const showDetailedErrors: boolean = process.env.REACT_APP_ERROR_DETAIL ? 
 let currentUser: ILogin | undefined = sessionHandler.getUserSession();
 /*
 currentUser = {
-    appLanguage: AppLanguage.PT,
+    appLanguage: "EN",
     appTheme: AppGlobalTheme.Default,
     authTokenHash: "",
     name: "John",
