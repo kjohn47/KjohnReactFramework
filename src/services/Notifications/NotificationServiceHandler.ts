@@ -2,7 +2,6 @@ import { ServiceType, IServiceError } from "../../logic/services/serviceCallerIn
 import { INotificationRequest, INotifications } from "./NotificationInterfaces";
 import { NotificationRequestType } from "./NotificationEnum";
 import { delayedPromise } from "../../logic/functions/misc";
-import { AppLanguage } from "../../logic/context/App/appContextEnums";
 
 export const useNotificationHandler = ( IsMenu: boolean ) => {
     //const [isMenuQuery] = useState<string>(IsMenu ? "?ismenu=true" : "");
@@ -17,7 +16,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
             UnreadCount: 0,
             Notifications: []
         };
-
+        
         if(serviceRequest) {
             switch(serviceRequest.Type) {
                 case NotificationRequestType.Get: {
@@ -35,32 +34,32 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                                     ID: '1' + new Date().toString(),
                                     IsViewed: false,
                                     Text: {
-                                        [AppLanguage.PT]: "Teste 1",
-                                        [AppLanguage.EN]: "Test 1"
+                                        PT: "Teste 1",
+                                        EN: "Test 1"
                                     }
                                 },
                                 {
                                     ID: '2' + new Date().toString(),
                                     IsViewed: false,
                                     Text: {
-                                        [AppLanguage.PT]: "Teste 2",
-                                        [AppLanguage.EN]: "Test 2"
+                                        PT: "Teste 2",
+                                        EN: "Test 2"
                                     }
                                 },
                                 {
                                     ID: '3' + new Date().toString(),
                                     IsViewed: true,
                                     Text: {
-                                        [AppLanguage.PT]: "Teste 3",
-                                        [AppLanguage.EN]: "Test 3"
+                                        PT: "Teste 3",
+                                        EN: "Test 3"
                                     }
                                 },
                                 {
                                     ID: '4' + new Date().toString(),
                                     IsViewed: true,
                                     Text: {
-                                        [AppLanguage.PT]: "Teste 4",
-                                        [AppLanguage.EN]: "Test 4"
+                                        PT: "Teste 4",
+                                        EN: "Test 4"
                                     }
                                 }
                             ]

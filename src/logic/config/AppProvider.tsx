@@ -6,7 +6,6 @@ import { LoadingType, AppContextType, AppLanguageType } from "../context/App/app
 import { useLogin, DefaultLoginContext } from "../context/Login/loginContext";
 import { LoginContextType } from "../context/Login/loginContextInterfaces";
 import { initialAppConfig, initialLogin, initialError, initialLanguage, initialRouteConfig } from "./configuration";
-import { AppLanguage } from "../context/App/appContextEnums";
 import { RouteContextType } from "../context/Routes/routeContextInterfaces";
 import { useRouteContext, DefaultRouteContext } from "../context/Routes/routeContext";
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderColor, DotsLoaderSize } from "../../components/common/presentation/loading/DotsLoader";
@@ -42,7 +41,7 @@ export const AppProvider: React.FC = ( { children } ) => {
     )
 }
 
-const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>> }> = ( { appLanguage, firstLoad, setFirstLoad, children } ) => {
+const InitializeAppContext: React.FC<{appLanguage: string, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>> }> = ( { appLanguage, firstLoad, setFirstLoad, children } ) => {
     const appContext = useAppContext( initialAppConfig );
     const routeContext = useRouteContext( initialRouteConfig );
     const errorContext = useError( initialError );
@@ -53,7 +52,7 @@ const InitializeAppContext: React.FC<{appLanguage: AppLanguage, firstLoad: boole
         if ( !firstLoad ) {
             //// load loken data for first selected language
             Promise.resolve(
-                appContext.ChangeLanguage(appLanguage)
+                appContext.ChangeLanguage(appLanguage, true)
             ).finally(
                 () => setFirstLoad( true )
             )

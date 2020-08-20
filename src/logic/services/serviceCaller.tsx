@@ -9,7 +9,7 @@ import useAppHandler from '../context/App/AppContextHandler';
 
 interface IServiceCallerArgs<IServiceRequest, IServiceResponse> {
     service: ServiceType<IServiceRequest, IServiceResponse>;
-    processError?: ErrorCodes;
+    processError?: ErrorCodes | string;
     localLoading?: boolean;
     preventErrorCatch?: boolean;
     ignoreAbortError?: boolean;

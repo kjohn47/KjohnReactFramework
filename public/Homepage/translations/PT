@@ -1,76 +1,100 @@
 {
-    "_generic": {
-        "#(loadingText)": "A Carregar!",
-        "#(goBackToHome)": "Voltar para Homepage",
-        "#(goBackToHomeToolTip)": "Carregue no botão para retomar para a homepage.",
-        "#(cardDetails)": "Ver detalhes",
-        "#(cancel)": "Cancelar"
+    "LanguageCodes": [
+        "EN",
+        "PT"
+    ],
+    "ErrorTranslation": {
+        "GenericError": {
+            "Title": "Erro Genérico",
+            "Message": "Erro Genérico"
+        },
+        "PageNotFound": {
+            "Title": "Página não encontrada",
+            "Message": "Página não encontrada"
+        },
+        "AdminOnlyError": {
+            "Title": "Apenas Administrador",
+            "Message": "Página só se encontrada disponível para administração!"
+        },
+        "AbortError": {
+            "Title": "Chamada a serviço abortada",
+            "Message": "A chamada ao serviço foi abortada ou terminou o tempo de espera"
+        }
     },
-    "_tableText": {
-        "#(edit)": "Editar",
-        "#(remove)": "Remover"
-    },
-    "_TestPage" : {
-        "#(TestPage Title)": "Página de Teste de Componentes"
-    },
-    "_datePicker": { 
-        "#(January)": "Janeiro",
-        "#(February)": "Fevereiro",
-        "#(March)": "Março",
-        "#(April)": "Abril", 
-        "#(May)": "Maio",
-        "#(June)": "Junho",
-        "#(July)": "Julho",
-        "#(August)": "Agosto",
-        "#(September)": "Setembro",
-        "#(October)": "Outubro",
-        "#(November)": "Novembro",
-        "#(December)": "Dezembro",
-        "#(Mon)": "Seg",
-        "#(Tue)": "Ter",
-        "#(Wed)": "Qua", 
-        "#(Thu)": "Qui",
-        "#(Fri)": "Sex",
-        "#(Sat)": "Sab",
-        "#(Sun)": "Dom"
-    },
-    "_brand": {
-        "#(krf)": "KRF"
-    },
-    "_menu": {
-        "#(User)": "Utilizador",
-        "#(Administration)": "Administração",
-        "#(Logout)": "Sair",
-        "#(Test1)": "Teste 1",
-        "#(Test2)": "Teste 2",
-        "#(SubTest1)": "Sub-Menu 1",
-        "#(SubTest2)": "Sub-Menu 2"
-    },
-    "_loginform": {
-        "#(Username)": "Utilizador",
-        "#(Password)": "Palavra-Passe",
-        "#(LoginButton)": "Entrar",
-        "#(LoginDrop)": "Entrar",
-        "#(NewLogin)": "Registar"
-    },
-    "_notificationMenu": {
-        "#(Tooltip)": "Notificações",
-        "#(NotificationHeader)": "Lista de Notificações",
-        "#(FromDateToDate)": "De {0} até {1}",
-        "#(OldUnreadedNotification)": "Existem {0} notificações por ler de datas anteriores a {1}, clique aqui para vêr lista de não lidas",
-         "#(ViewAll)": "Ver Todas"
-    },
-    "_modal": {
-        "#(Yes)": "Sim",
-        "#(No)": "Não",
-        "#(Ok)": "Ok",
-        "#(Cancel)": "Cancelar"
-    },
-    "_cookieModal": {
-        "#(CookiesModal)": "Aceitar Cookies",
-        "#(CookiesModalDescription)": "Esta página utiliza cookies para análise de informação. Seleccione sim se permite a utilização dos cookies a baixo.",
-        "#(CookieAnalyticDescription)": "Este cookie destina-se à análise de dados. Este cookie será desativado se seleccionar não.",
-        "#(CookieKey)": "Nome do Cookie",
-        "#(CookieDescription)": "Descrição"
+    "Translation": {
+        "_generic": {
+            "#(loadingText)": "A Carregar!",
+            "#(goBackToHome)": "Voltar para Homepage",
+            "#(goBackToHomeToolTip)": "Carregue no botão para retomar para a homepage.",
+            "#(cardDetails)": "Ver detalhes",
+            "#(cancel)": "Cancelar"
+        },
+        "_tableText": {
+            "#(edit)": "Editar",
+            "#(remove)": "Remover"
+        },
+        "_TestPage" : {
+            "#(TestPage Title)": "Página de Teste de Componentes"
+        },
+        "_datePicker": { 
+            "#(January)": "Janeiro",
+            "#(February)": "Fevereiro",
+            "#(March)": "Março",
+            "#(April)": "Abril", 
+            "#(May)": "Maio",
+            "#(June)": "Junho",
+            "#(July)": "Julho",
+            "#(August)": "Agosto",
+            "#(September)": "Setembro",
+            "#(October)": "Outubro",
+            "#(November)": "Novembro",
+            "#(December)": "Dezembro",
+            "#(Mon)": "Seg",
+            "#(Tue)": "Ter",
+            "#(Wed)": "Qua", 
+            "#(Thu)": "Qui",
+            "#(Fri)": "Sex",
+            "#(Sat)": "Sab",
+            "#(Sun)": "Dom"
+        },
+        "_brand": {
+            "#(krf)": "KRF"
+        },
+        "_menu": {
+            "#(User)": "Utilizador",
+            "#(Administration)": "Administração",
+            "#(Logout)": "Sair",
+            "#(Test1)": "Teste 1",
+            "#(Test2)": "Teste 2",
+            "#(SubTest1)": "Sub-Menu 1",
+            "#(SubTest2)": "Sub-Menu 2"
+        },
+        "_loginform": {
+            "#(Username)": "Utilizador",
+            "#(Password)": "Palavra-Passe",
+            "#(LoginButton)": "Entrar",
+            "#(LoginDrop)": "Entrar",
+            "#(NewLogin)": "Registar"
+        },
+        "_notificationMenu": {
+            "#(Tooltip)": "Notificações",
+            "#(NotificationHeader)": "Lista de Notificações",
+            "#(FromDateToDate)": "De {0} até {1}",
+            "#(OldUnreadedNotification)": "Existem {0} notificações por ler de datas anteriores a {1}, clique aqui para vêr lista de não lidas",
+            "#(ViewAll)": "Ver Todas"
+        },
+        "_modal": {
+            "#(Yes)": "Sim",
+            "#(No)": "Não",
+            "#(Ok)": "Ok",
+            "#(Cancel)": "Cancelar"
+        },
+        "_cookieModal": {
+            "#(CookiesModal)": "Aceitar Cookies",
+            "#(CookiesModalDescription)": "Esta página utiliza cookies para análise de informação. Seleccione sim se permite a utilização dos cookies a baixo.",
+            "#(CookieAnalyticDescription)": "Este cookie destina-se à análise de dados. Este cookie será desativado se seleccionar não.",
+            "#(CookieKey)": "Nome do Cookie",
+            "#(CookieDescription)": "Descrição"
+        }
     }
 }
