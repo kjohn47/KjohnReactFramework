@@ -1,12 +1,13 @@
-import { AppLanguage, AppStorageKeys, AppGlobalTheme } from "../context/App/appContextEnums";
+import { AppStorageKeys, AppGlobalTheme } from "../context/App/appContextEnums";
 import { ILogin } from "../context/Login/loginContextInterfaces";
 import SHA from "sha.js";
 import JWT from "jsonwebtoken";
+import { appPrefix } from "../config/configuration";
 
 interface IAuthTokenPayload {
     name: string;
     surname: string;
-    appLanguage: AppLanguage;
+    appLanguage: string;
     appTheme: AppGlobalTheme;
     isAdmin: boolean;
 }
@@ -15,7 +16,6 @@ interface IAllowCookieSettings {
     Expire: Date;
 }
 
-const appPrefix = process.env.REACT_APP_SESSION_PREFIX ? process.env.REACT_APP_SESSION_PREFIX : 'KRF_';
 const getSessionKey = (key: AppStorageKeys ): string =>
 {
     return `${appPrefix}${key}`;
@@ -33,18 +33,18 @@ const validateStoredUser: ( storedUser: ILogin ) => boolean = ( storedUser ) => 
     return false;
 }
 
-const getLastSelectedLanguage: () => AppLanguage = () => {
+const getLastSelectedLanguage: (defaultLanguage: string) => string = (defaultLanguage) => {
     let storedLanguage: string | null = localStorage.getItem( getSessionKey(AppStorageKeys.APPLANGUAGE) );
 
     if ( storedLanguage !== null ) {
-        return storedLanguage as AppLanguage;
+        return storedLanguage;
     }
 
-    setLastSelectedLanguage( AppLanguage.PT );
-    return AppLanguage.PT;
+    setLastSelectedLanguage( defaultLanguage );
+    return defaultLanguage;
 }
 
-const setLastSelectedLanguage: ( language: AppLanguage ) => void = ( language ) => {
+const setLastSelectedLanguage: ( language: string ) => void = ( language ) => {
     localStorage.setItem( getSessionKey(AppStorageKeys.APPLANGUAGE), language );
 }
 

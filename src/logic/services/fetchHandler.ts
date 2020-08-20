@@ -1,7 +1,6 @@
 import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
 import { useState, useEffect, useRef } from "react";
 import { apiServerUrl } from "../config/configuration";
-import { AppLanguage } from "../context/App/appContextEnums";
 import { getFileFromBase64 } from "../functions/misc";
 import useLoginHandler from "../context/Login/LoginContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
@@ -25,7 +24,7 @@ export interface IdownloadArgs extends IfetchArgs {
     loadProgress?: boolean;
 }
 
-const getHeaders = ( language: AppLanguage, token?: string, isPost?: boolean ) => {
+const getHeaders = ( language: string, token?: string, isPost?: boolean ) => {
     let headers = new Headers();
     headers.append( 'Accept', 'application/json' );
     headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );

@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { AppLanguage } from "./appContextEnums";
-import { IAppContext, AppContextType, ChangeAppLanguage, ChangeAppTheme } from "./appContextInterfaces";
-import { ITranslation } from "../../functions/getTranslation";
+import { IAppContext, AppContextType, ChangeAppLanguage, ChangeAppTheme, ITranslationServiceResponse } from "./appContextInterfaces";
 import { AvailableServices } from "../../services/servicesEnums";
 import { useFetchGetHandler } from "../../services/fetchHandler";
 import { IServiceError } from "../../services/serviceCallerInterfaces";
@@ -20,46 +18,71 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
     const loginContext = useLoginHandler();
     const {setAppLanguage} = useAppLanguageHandler();
-    const getTranslation = useFetchGetHandler<ITranslation>( { serviceUrl: `${ AvailableServices.Translation }`, customHeaders: translationHeaders() } );
+    const getTranslation = useFetchGetHandler<ITranslationServiceResponse>( { serviceUrl: `${ AvailableServices.Translation }`, customHeaders: translationHeaders() } );
 
-    const ChangeLanguage: ChangeAppLanguage = (appLanguage) => new Promise<void | IServiceError>( (resolve) => {
-        let globalLanguage: string = appLanguage.toString();
-        if ( loginContext.Login )
-            loginContext.UpdateUserLanguage( appLanguage );
-        else
-            sessionHandler.setLastSelectedLanguage( appLanguage );
+    const ChangeLanguage: ChangeAppLanguage = (appLanguage, getLangKeys) => new Promise<void | IServiceError>( (resolve) => {
+        let globalLanguage: string = appLanguage;
+        if(!getLangKeys)
+        {
+            if(!currentAppContext.languageCodes.find(c => c === globalLanguage))
+            {
+                globalLanguage = currentAppContext.languageCodes[0];
+            }
+        }
 
         if ( currentAppContext.translations === {} || currentAppContext.translations[ globalLanguage ] === undefined ) {
             setCurrentAppContext({
                 ...currentAppContext,
                 loadingTranslation: true
-            })
+            });
+            const url = getLangKeys ? `/${ globalLanguage }?getKeys=true` : `/${ globalLanguage }`;
             resolve(
-                getTranslation.Get( `/${ globalLanguage }` )
-                    .then( data => 
-                        setCurrentAppContext( {
+                getTranslation.Get( url )
+                    .then( data => {
+                        let serviceResponse = data as ITranslationServiceResponse;
+                        if(getLangKeys && serviceResponse.LanguageCodes && !serviceResponse.LanguageCodes.find(c => c === globalLanguage))
+                        {
+                            globalLanguage = serviceResponse.LanguageCodes[0];
+                        }
+
+                        return setCurrentAppContext( {
                             ...currentAppContext,
                             translations: {
                                 ...currentAppContext.translations,
-                                [globalLanguage]: data as ITranslation
+                                [globalLanguage]: serviceResponse.Translation
                             },
+                            errorTranslations: {
+                                ...currentAppContext.errorTranslations,
+                                [globalLanguage]: serviceResponse.ErrorTranslation
+                            },
+                            languageCodes: getLangKeys && serviceResponse.LanguageCodes ? serviceResponse.LanguageCodes : currentAppContext.languageCodes,
                             loadingTranslation: false
                         } )
-                    )
-                    .then(() => 
-                        setAppLanguage(globalLanguage as AppLanguage)
-                    )
+                    })
+                    .then(() => {
+                        UpdateLanguageContext(globalLanguage);
+                    })
                     .catch( () => {
                         setCurrentAppContext( {
                             ...currentAppContext,
                             loadingTranslation: false
                         })
-                        setAppLanguage(globalLanguage as AppLanguage) }
+                        setAppLanguage(globalLanguage) }
                     ) )
         }
         else {
-            setAppLanguage(globalLanguage as AppLanguage);
-        }});
+            UpdateLanguageContext(globalLanguage);
+        }
+    });
+
+    const UpdateLanguageContext = (langCode: string) => {
+        if ( loginContext.Login )
+            loginContext.UpdateUserLanguage( langCode );
+        else
+            sessionHandler.setLastSelectedLanguage( langCode );
+
+        setAppLanguage(langCode);
+    }
     
     const ChangeTheme: ChangeAppTheme = (appTheme) => 
     {
@@ -106,5 +129,3 @@ export const DefaultAppContext: AppContextType = {
     ChangeLanguage: ()=> new Promise(()=>{}),
     AllowCookies: () => {}
 };
-
-//TODO: Add update method to change cookie flag

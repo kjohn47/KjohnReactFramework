@@ -1,17 +1,17 @@
-import { AppLanguage, AppGlobalTheme } from "../App/appContextEnums";
+import { AppGlobalTheme } from "../App/appContextEnums";
 
 export interface ILogin {
     userSessionToken: string;
     authTokenHash: string;
     name: string;
     surname: string;
-    appLanguage: AppLanguage;
+    appLanguage: string;
     appTheme: AppGlobalTheme;
     allowCookies?: boolean;
 }
 
 export type MakeUpdateLoginType = (userData: ILogin) => void;
-export type UpdateUserLanguageType = (userLanguage: AppLanguage) => void;
+export type UpdateUserLanguageType = (userLanguage: string) => void;
 export type UpdateUserThemeType = (userTheme: AppGlobalTheme) => void;
 
 export type LoginContextType = { 
