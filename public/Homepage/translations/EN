@@ -3,6 +3,24 @@
         "EN",
         "PT"
     ],
+    "ErrorTranslation": {
+        "GenericError": {
+            "Title": "Generic Error",
+            "Message": "Generic Error"
+        },
+        "PageNotFound": {
+            "Title": "Page not found",
+            "Message": "Page not found"
+        },
+        "AdminOnlyError": {
+            "Title": "Administrator Only",
+            "Message": "This page is only available for administration!"
+        },
+        "AbortError": {
+            "Title": "Aborted service call",
+            "Message": "The call to service was aborted or service Timed Out"
+        }
+    },
     "Translation": {
         "_generic": {
             "#(loadingText)": "Loading!",

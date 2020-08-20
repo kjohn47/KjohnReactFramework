@@ -25,7 +25,7 @@ export interface IErrorData {
     Message: string;
 }
 
-interface IErrorTranstation {
+export interface IErrorTranstation {
     [ key: string ]: IErrorData;    
 }
 

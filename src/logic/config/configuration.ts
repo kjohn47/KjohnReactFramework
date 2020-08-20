@@ -60,6 +60,7 @@ export const initialAppConfig: IAppContext = {
     globalTheme: lastSavedTheme,
     adminOptions: tokenData !== undefined && tokenData.isAdmin,
     translations: {},
+    errorTranslations: {},
     allowCookies: cookiesAlertEnabled ? ( currentUser !== undefined ? ( currentUser.allowCookies !== undefined ? currentUser.allowCookies : false ) : sessionHandler.getAllowCookieFlag() ): undefined,
     languageCodes: [defaultLanguage]
 }

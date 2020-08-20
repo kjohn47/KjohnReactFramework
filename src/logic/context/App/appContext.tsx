@@ -52,6 +52,10 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                                 ...currentAppContext.translations,
                                 [globalLanguage]: serviceResponse.Translation
                             },
+                            errorTranslations: {
+                                ...currentAppContext.errorTranslations,
+                                [globalLanguage]: serviceResponse.ErrorTranslation
+                            },
                             languageCodes: getLangKeys && serviceResponse.LanguageCodes ? serviceResponse.LanguageCodes : currentAppContext.languageCodes,
                             loadingTranslation: false
                         } )
