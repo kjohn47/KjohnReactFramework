@@ -1,7 +1,7 @@
 import { IError } from "../context/Error/appErrorInterfaces";
 import { IAppContext } from "../context/App/appContextInterfaces";
 import { ILogin } from "../context/Login/loginContextInterfaces";
-import { AppLanguage, AppGlobalTheme } from "../context/App/appContextEnums";
+import { AppGlobalTheme } from "../context/App/appContextEnums";
 import { sessionHandler } from "../functions/sessionStorage";
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
 import { trueFalseParser } from "../functions/misc";
@@ -19,14 +19,10 @@ currentUser = {
     allowCookies: false
 };*/
 
-let lastSavedLang: AppLanguage = currentUser !== undefined ? currentUser.appLanguage : sessionHandler.getLastSelectedLanguage();
+let lastSavedLang: string = currentUser !== undefined ? currentUser.appLanguage : sessionHandler.getLastSelectedLanguage();
 let lastSavedTheme: AppGlobalTheme = currentUser !== undefined ? currentUser.appTheme : sessionHandler.getAppTheme();
 let pageRoute = getRouteUrlAndQuery();
 let cookiesAlertEnabled = process.env.REACT_APP_COOKIE_MODAL ? trueFalseParser(process.env.REACT_APP_COOKIE_MODAL) : false;
-
-if ( !( Object ).values( AppLanguage ).includes( lastSavedLang ) as any ) {
-    lastSavedLang = AppLanguage.PT;
-}
 
 if ( !( Object ).values( AppGlobalTheme ).includes( lastSavedTheme ) as any ) {
     lastSavedTheme = AppGlobalTheme.Default;
@@ -45,7 +41,8 @@ export const initialAppConfig: IAppContext = {
     globalTheme: lastSavedTheme,
     adminOptions: tokenData !== undefined && tokenData.isAdmin,
     translations: {},
-    allowCookies: cookiesAlertEnabled ? ( currentUser !== undefined ? ( currentUser.allowCookies !== undefined ? currentUser.allowCookies : false ) : sessionHandler.getAllowCookieFlag() ): undefined
+    allowCookies: cookiesAlertEnabled ? ( currentUser !== undefined ? ( currentUser.allowCookies !== undefined ? currentUser.allowCookies : false ) : sessionHandler.getAllowCookieFlag() ): undefined,
+    languageCodes: []
 }
 
 export const initialRouteConfig: IRouteContext = {
@@ -54,7 +51,7 @@ export const initialRouteConfig: IRouteContext = {
     routeReady: false
 }
 
-export const initialLanguage: AppLanguage = lastSavedLang;
+export const initialLanguage: string = lastSavedLang;
 
 //// Get from cookie or storage
 export const initialLogin: ILogin | undefined = currentUser;

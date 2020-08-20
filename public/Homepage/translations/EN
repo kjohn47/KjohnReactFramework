@@ -1,76 +1,82 @@
 {
-    "_generic": {
-        "#(loadingText)": "Loading!",
-        "#(goBackToHome)": "Go back to Homepage",
-        "#(goBackToHomeToolTip)": "Click at the button to return to homepage.",
-        "#(cardDetails)": "View details",
-        "#(cancel)": "Cancel"
-    },
-    "_tableText": {
-        "#(edit)": "Edit",
-        "#(remove)": "Remove"
-    },
-    "_TestPage" : {
-        "#(TestPage Title)": "Component Test Page"
-    },
-    "_datePicker": { 
-        "#(January)": "January",
-        "#(February)": "February",
-        "#(March)": "March",
-        "#(April)": "April", 
-        "#(May)": "May",
-        "#(June)": "June",
-        "#(July)": "July",
-        "#(August)": "August",
-        "#(September)": "September",
-        "#(October)": "October",
-        "#(November)": "November",
-        "#(December)": "December",
-        "#(Mon)": "Mon",
-        "#(Tue)": "Tue",
-        "#(Wed)": "Wed", 
-        "#(Thu)": "Thu",
-        "#(Fri)": "Fri",
-        "#(Sat)": "Sat",
-        "#(Sun)": "Sun"
-    },
-    "_brand": {
-        "#(krf)": "KRF"
-    },
-    "_menu": {
-        "#(User)": "User",
-        "#(Administration)": "Administration",
-        "#(Logout)": "Logout",
-        "#(Test1)": "Test 1",
-        "#(Test2)": "Test 2",
-        "#(SubTest1)": "Submenu 1",
-        "#(SubTest2)": "Submenu 2"
-    },
-    "_loginform": {
-        "#(Username)": "Username",
-        "#(Password)": "Password",
-        "#(LoginButton)": "SignIn",
-        "#(LoginDrop)": "Login",
-        "#(NewLogin)": "SignUp"
-    },
-    "_notificationMenu": {
-        "#(Tooltip)": "Notifications",
-        "#(NotificationHeader)": "Notification List",
-        "#(FromDateToDate)": "From {0} to {1}",
-        "#(OldUnreadedNotification)": "There are {0} unreaded notifications from dates previous to {1}, click here to check full unread list",
-         "#(ViewAll)": "View All"
-    },
-    "_modal": {
-        "#(Yes)": "Yes",
-        "#(No)": "No",
-        "#(Ok)": "Ok",
-        "#(Cancel)": "Cancel"
-    },
-    "_cookieModal": {
-        "#(CookiesModal)": "Allow Cookies",
-        "#(CookiesModalDescription)": "This page uses some cookies for analytics, select yes if you allow the use of cookies bellow.",
-        "#(CookieAnalyticDescription)": "Cookie used for analytics, this cookie will be disabled if no is selected.",
-        "#(CookieKey)": "Cookie Name",
-        "#(CookieDescription)": "Description"
+    "LanguageCodes": [
+        "EN",
+        "PT"
+    ],
+    "Translation": {
+        "_generic": {
+            "#(loadingText)": "Loading!",
+            "#(goBackToHome)": "Go back to Homepage",
+            "#(goBackToHomeToolTip)": "Click at the button to return to homepage.",
+            "#(cardDetails)": "View details",
+            "#(cancel)": "Cancel"
+        },
+        "_tableText": {
+            "#(edit)": "Edit",
+            "#(remove)": "Remove"
+        },
+        "_TestPage" : {
+            "#(TestPage Title)": "Component Test Page"
+        },
+        "_datePicker": { 
+            "#(January)": "January",
+            "#(February)": "February",
+            "#(March)": "March",
+            "#(April)": "April", 
+            "#(May)": "May",
+            "#(June)": "June",
+            "#(July)": "July",
+            "#(August)": "August",
+            "#(September)": "September",
+            "#(October)": "October",
+            "#(November)": "November",
+            "#(December)": "December",
+            "#(Mon)": "Mon",
+            "#(Tue)": "Tue",
+            "#(Wed)": "Wed", 
+            "#(Thu)": "Thu",
+            "#(Fri)": "Fri",
+            "#(Sat)": "Sat",
+            "#(Sun)": "Sun"
+        },
+        "_brand": {
+            "#(krf)": "KRF"
+        },
+        "_menu": {
+            "#(User)": "User",
+            "#(Administration)": "Administration",
+            "#(Logout)": "Logout",
+            "#(Test1)": "Test 1",
+            "#(Test2)": "Test 2",
+            "#(SubTest1)": "Submenu 1",
+            "#(SubTest2)": "Submenu 2"
+        },
+        "_loginform": {
+            "#(Username)": "Username",
+            "#(Password)": "Password",
+            "#(LoginButton)": "SignIn",
+            "#(LoginDrop)": "Login",
+            "#(NewLogin)": "SignUp"
+        },
+        "_notificationMenu": {
+            "#(Tooltip)": "Notifications",
+            "#(NotificationHeader)": "Notification List",
+            "#(FromDateToDate)": "From {0} to {1}",
+            "#(OldUnreadedNotification)": "There are {0} unreaded notifications from dates previous to {1}, click here to check full unread list",
+            "#(ViewAll)": "View All"
+        },
+        "_modal": {
+            "#(Yes)": "Yes",
+            "#(No)": "No",
+            "#(Ok)": "Ok",
+            "#(Cancel)": "Cancel"
+        },
+        "_cookieModal": {
+            "#(CookiesModal)": "Allow Cookies",
+            "#(CookiesModalDescription)": "This page uses some cookies for analytics, select yes if you allow the use of cookies bellow.",
+            "#(CookieAnalyticDescription)": "Cookie used for analytics, this cookie will be disabled if no is selected.",
+            "#(CookieKey)": "Cookie Name",
+            "#(CookieDescription)": "Description"
+        }
     }
 }

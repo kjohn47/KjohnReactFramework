@@ -3,7 +3,7 @@ import Badge from '../../common/presentation/display/Badge';
 import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/inputs/PageSelector';
 import { ToolTipPosition, ToolTipColor } from '../../common/presentation/wrapper/WithTooltip';
-import { AppGlobalTheme, AppLanguage } from '../../../logic/context/App/appContextEnums';
+import { AppGlobalTheme } from '../../../logic/context/App/appContextEnums';
 import useTranslation from '../../../logic/functions/getTranslation';
 import { useNotificationService } from '../../../services/Notifications/NotificationServices';
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
@@ -146,7 +146,7 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
                                 DeleteItem = {() => {removeNotification(notification.ID)}}
                                 Loading = {NotificationsService.Loading}
                             >
-                                {notification.Text[appLanguage] !== undefined ? notification.Text[appLanguage] : notification.Text[AppLanguage.PT]}
+                                {notification.Text[appLanguage] !== undefined ? notification.Text[appLanguage] : ""}
                             </MenuNotificationItem>
                         ))
                     }

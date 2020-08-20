@@ -1,5 +1,4 @@
 import { ITranslations } from "../context/App/appContextInterfaces";
-import { AppLanguage } from "../context/App/appContextEnums";
 import useAppHandler from "../context/App/AppContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
 
@@ -9,7 +8,7 @@ import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
     };
 }
 
-const getToken: ( process: string, token: string, translations: ITranslations, language: AppLanguage ) => string = ( process, token, translations, language ) => {
+const getToken: ( process: string, token: string, translations: ITranslations, language: string ) => string = ( process, token, translations, language ) => {
     let translation = translations[ language ];
     if ( translation === undefined )
         return `[${ process }.${ token }]`;

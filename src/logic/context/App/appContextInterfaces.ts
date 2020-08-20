@@ -1,9 +1,14 @@
-import { AppLanguage, AppGlobalTheme } from "./appContextEnums";
+import { AppGlobalTheme } from "./appContextEnums";
 import { ITranslation } from "../../functions/getTranslation";
 import { IServiceError } from "../../services/serviceCallerInterfaces";
 
 export interface ITranslations {    
     [ key: string ]: ITranslation;
+}
+
+export interface ITranslationServiceResponse {
+    Translation: ITranslation;
+    LanguageCodes?: string[];
 }
 
 export interface IAppContext {
@@ -12,13 +17,14 @@ export interface IAppContext {
     translations: ITranslations;
     loadingTranslation?: boolean;
     allowCookies?: boolean;
+    languageCodes: string[];
 }
 
-export type ChangeAppLanguage = (appLanguage: AppLanguage) => Promise<void | IServiceError>;
+export type ChangeAppLanguage = (appLanguage: string, getLangKeys?: boolean) => Promise<void | IServiceError>;
 export type ChangeAppTheme = (appTheme: AppGlobalTheme) => void;
 
 export type LoadingType = [ boolean, React.Dispatch<React.SetStateAction<boolean>> ];
-export type AppLanguageType = [ AppLanguage, React.Dispatch<React.SetStateAction<AppLanguage>> ];
+export type AppLanguageType = [ string, React.Dispatch<React.SetStateAction<string>> ];
 export type AppContextType = { 
     App: IAppContext;
     ChangeLanguage: ChangeAppLanguage;

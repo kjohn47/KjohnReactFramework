@@ -1,46 +1,45 @@
 import { IPageErrors } from "./appErrorInterfaces";
-import { AppLanguage } from "../App/appContextEnums";
 import { ErrorCodes } from "./appErrorEnums";
 
 //Add new errors here
 const pageErrors: IPageErrors =
 {
     [ ErrorCodes.GenericError ]: {
-        [ AppLanguage.EN ]: {
+        EN: {
             Message: "Generic Error",
             Title: "Generic Error"
         },
-        [ AppLanguage.PT ]: {
+        PT: {
             Message: "Erro Genérico",
             Title: "Erro Genérico"
         },
     },
     [ ErrorCodes.PageNotFound ]: {
-        [ AppLanguage.EN ]: {
+        EN: {
             Message: "Page not found",
             Title: "Page not found"
         },
-        [ AppLanguage.PT ]: {
+        PT: {
             Message: "Página não encontrada",
             Title: "Página não encontrada"
         }
     },
     [ ErrorCodes.AdminOnlyError ]: {
-        [ AppLanguage.EN ]: {
+        EN: {
             Message: "This page is only available for administration!",
             Title: "Administrator Only"
         },
-        [ AppLanguage.PT ]: {
+        PT: {
             Message: "Página só se encontrada disponível para administração!",
             Title: "Apenas Administrador"
         }
     },
     [ ErrorCodes.AbortError ]: {
-        [ AppLanguage.EN ]: {
+        EN: {
             Message: "The call to service was aborted or service Timed Out ",
             Title: "Aborted service call"
         },
-        [ AppLanguage.PT ]: {
+        PT: {
             Message: "A chamada ao serviço foi abortada ou terminou o tempo de espera",
             Title: "Chamada a serviço abortada"
         }
