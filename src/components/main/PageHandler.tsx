@@ -153,14 +153,7 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
                         if ( route ) {
                             if(route.NeedAuth || route.AdminOnly)
                             {
-                                if(route.AdminOnly)
-                                {
-                                    setOutput( withLogin( injectProps( route.Component, route.Props ), route.AdminOnly ) );
-                                }
-                                else
-                                {
-                                    setOutput( withLogin( injectProps( route.Component, route.Props ) ) );
-                                }
+                                setOutput( withLogin( injectProps( route.Component, route.Props ), route.AdminOnly ) );
                             }
                             else
                             {

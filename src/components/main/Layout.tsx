@@ -1,21 +1,19 @@
 import React from "react";
 import ModalWrapper from "./ModalWrapper";
 import useAppHandler from "../../logic/context/App/AppContextHandler";
-import { INeededCookieModal } from "./CookieModal";
 
 interface ILayout {
     MenuComponent: React.ComponentType;
     FooterComponent: React.ComponentType;
     IsCustomMenu: boolean;
     IsCustomFooter: boolean;
-    CookieModalSettings?: INeededCookieModal;
 }
 
 const Layout: React.FC<ILayout> = ( props ) => {
     const selectedTheme = useAppHandler().App.globalTheme;
     return (
         <div className={ "PageLayout " + selectedTheme }>
-            <ModalWrapper CookieModalSettings = {props.CookieModalSettings}>
+            <ModalWrapper>
                 <div className={ !props.IsCustomMenu ? "PageMenu PageMenuColor" : "" }>
                     <props.MenuComponent />
                 </div>

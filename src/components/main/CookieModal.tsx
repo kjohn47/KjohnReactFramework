@@ -8,6 +8,7 @@ import useAppHandler from '../../logic/context/App/AppContextHandler';
 import Column from '../common/structure/Column';
 import Row from '../common/structure/Row';
 import Table, { ITableCell } from '../common/presentation/display/Table';
+import useLoginHandler from '../../logic/context/Login/LoginContextHandler';
 
 export interface INeededCookie {
     CookieKey: string;
@@ -57,10 +58,13 @@ const CookieModalDescription: React.FC<{Cookies: INeededCookie[]}> = ({Cookies, 
 }
 
 const CookieModal: React.FC<INeededCookieModal> = ({Title, Description, Cookies}) => {
-    const {AllowCookies} = useAppHandler();
+    const {App, AllowCookies} = useAppHandler();
+    const {Login} = useLoginHandler();
     const {getTranslation} = useTranslation();
 
-    return <DialogModal 
+    return (
+        App.allowCookies !== undefined  && ( ( !Login && App.allowCookies === false ) || ( Login && Login.allowCookies === undefined ) ) ?
+            <DialogModal 
                 Title={getTranslation("_cookieModal", Title)} 
                 Icon={ModalIconEnum.Cookie} 
                 DisableEntry 
@@ -76,5 +80,7 @@ const CookieModal: React.FC<INeededCookieModal> = ({Title, Description, Cookies}
                 HideCloseCross
                 ShowLanguageSelector>
             </DialogModal>
+            : null 
+        )
 }
 export default CookieModal;

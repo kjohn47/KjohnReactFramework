@@ -2,19 +2,11 @@ import React, { Suspense } from 'react';
 import { ModalSize, ModalOverlay } from '../../logic/context/Modal/ModalContextEnum';
 import useModalHandler from '../../logic/context/Modal/ModalContextHandler';
 import { ModalIcons } from '../common/presentation/icons/modalIcons/ModalIcons';
-import useAppHandler from '../../logic/context/App/AppContextHandler';
-import CookieModal, { INeededCookieModal } from './CookieModal';
-import useLoginHandler from '../../logic/context/Login/LoginContextHandler';
 import LanguageSelector from '../common/inputs/LanguageSelector';
 
-export interface IModalWrapper {
-    CookieModalSettings?: INeededCookieModal;
-}
-
-const ModalWrapper: React.FC<IModalWrapper> = ({children, CookieModalSettings}) => {
+const ModalWrapper: React.FC = ({children}) => {
     const {modal, closeModal} = useModalHandler();
-    const {App} = useAppHandler();
-    const {Login} = useLoginHandler();
+
     return (
         <>
             {modal && modal.Modal ?
@@ -45,9 +37,7 @@ const ModalWrapper: React.FC<IModalWrapper> = ({children, CookieModalSettings}) 
                     </div>
                 </div>
             : null}
-            {App.allowCookies !== undefined && CookieModalSettings ?
-                 ( ( !Login && App.allowCookies === false ) || ( Login && Login.allowCookies === undefined ) ) && <CookieModal {...CookieModalSettings}/>
-                : null}
+            
             {children}
         </>
     )
