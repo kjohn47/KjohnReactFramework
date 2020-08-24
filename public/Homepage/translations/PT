@@ -87,7 +87,9 @@
             "#(Yes)": "Sim",
             "#(No)": "Não",
             "#(Ok)": "Ok",
-            "#(Cancel)": "Cancelar"
+            "#(Cancel)": "Cancelar",
+            "#(ModalTest1)" : "Modal Test 1 Pt",
+            "#(ModalTest2)" : "Modal Test 2 Pt"
         },
         "_cookieModal": {
             "#(CookiesModal)": "Aceitar Cookies",
