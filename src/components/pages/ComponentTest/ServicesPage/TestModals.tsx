@@ -13,7 +13,7 @@ const TestModals: React.FC = () => {
             <Row className  ="ModalTest">
                 <Column>
                     <DialogModal 
-                        Title = "Modal Auto Open On Mount 1" 
+                        Title = "#(ModalTest1)" 
                         Content = "This is a Dialog Modal that open after mount. It has no entry point" 
                         OkButtonType = {ButtonTypes.Information}
                         OkMethod = {() => {console.log("Clicked Ok on Modal")}}
@@ -22,9 +22,10 @@ const TestModals: React.FC = () => {
                         ModalType={DialogModalType.OkOnly}
                         Icon = {ModalIconEnum.Warning}
                         Size = {ModalSize.Small}
+                        ShowLanguageSelector
                     />
                     <DialogModal 
-                        Title = "Modal Auto Open On Mount 2" 
+                        Title = "#(ModalTest2)" 
                         Content = "This is a Dialog Modal that open after mount. It has no entry point" 
                         OkButtonType = {ButtonTypes.Information}
                         OkMethod = {() => {console.log("Clicked Ok on Modal")}}
@@ -33,6 +34,7 @@ const TestModals: React.FC = () => {
                         ModalType={DialogModalType.OkOnly}
                         Size = {ModalSize.Small}
                         Icon = {ModalIconEnum.HumanGrp}
+                        ShowLanguageSelector
                     />
                     <FieldSet Title="Dialog modals">
                         <Row>
