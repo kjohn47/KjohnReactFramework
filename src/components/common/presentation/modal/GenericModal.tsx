@@ -4,9 +4,11 @@ import Row from '../../structure/Row';
 import { ModalComponentType } from '../../../../logic/context/Modal/ModalContextInterfaces';
 import Button, { ButtonTypes } from '../../inputs/Button';
 import { ModalSize } from '../../../../logic/context/Modal/ModalContextEnum';
+import useTranslation from '../../../../logic/functions/getTranslation';
 
 export interface IGenericModalProps {
     Title: string;
+    TitleTranslationProcess?: string;
     Content?: React.ReactNode;
     Buttons?: IGenericModalButton[];
     Scrollable?: boolean;
@@ -19,10 +21,12 @@ export interface IGenericModalButton {
     Method?: () => void | (() => Promise<() => void>);
     CloseAfterMethod?: boolean;
     ButtonType: ButtonTypes;
+    ButtonTranslationProcess?: string;
 }
 
 const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
     Title, 
+    TitleTranslationProcess,
     Content, 
     Buttons, 
     ModalId,
@@ -31,6 +35,8 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
     children,
     Size
 }) => {
+    const {getTranslation} = useTranslation();
+
     const modalSizeClass = useMemo(() => {
         let size = (Size === undefined || Size === ModalSize.Default) ? 
                         "_Default" 
@@ -67,7 +73,7 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
             <Column className = "Modal_Generic_Col">
                 <Row className= {`Modal_Header Modal_Header${modalSizeClass}`}>
                     <Column>
-                        {Title}
+                        {getTranslation((TitleTranslationProcess ? TitleTranslationProcess : "_modal"), Title)}
                     </Column>
                 </Row>
                 <Row className={`Modal_Content Modal_Content${modalSizeClass}` + (Buttons === undefined ? ` Modal_Content_NoFooter${modalSizeClass}` : "" ) + (Scrollable ? " Modal_Content_Scroll KRFScroll" : "")}>
@@ -79,7 +85,7 @@ const GenericModal: React.FC<ModalComponentType<IGenericModalProps>> = ({
                     {
                         Buttons.map((button, index) => 
                         <Column key = {`btn_${index}`}>
-                            <Button onClick={() => buttonHandle(button)} buttonType={button.ButtonType}>{button.Text}</Button>
+                            <Button onClick={() => buttonHandle(button)} buttonType={button.ButtonType}>{getTranslation((button.ButtonTranslationProcess ? button.ButtonTranslationProcess : "_modal"), button.Text)}</Button>
                         </Column>
                         )
                     }
