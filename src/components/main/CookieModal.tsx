@@ -17,17 +17,17 @@ export interface INeededCookie {
 
 export interface INeededCookieModal {
     Description: string;
-    Title: string;
+    Title?: string;
     Cookies: INeededCookie[];
 }
 
-const CookieModalDescription: React.FC<{Cookies: INeededCookie[]}> = ({Cookies, children}) => {
+const CookieModalDescription: React.FC<{Cookies: INeededCookie[], Description: string}> = ({Cookies, Description}) => {
     const {getTranslation} = useTranslation();
 
     return <>
         <Row className="CookieModalDescription">
             <Column>
-                {children}
+                {getTranslation("_cookieModal", Description)}
             </Column>
         </Row>
         <Row>
@@ -60,15 +60,15 @@ const CookieModalDescription: React.FC<{Cookies: INeededCookie[]}> = ({Cookies, 
 const CookieModal: React.FC<INeededCookieModal> = ({Title, Description, Cookies}) => {
     const {App, AllowCookies} = useAppHandler();
     const {Login} = useLoginHandler();
-    const {getTranslation} = useTranslation();
 
     return (
         App.allowCookies !== undefined  && ( ( !Login && App.allowCookies === false ) || ( Login && Login.allowCookies === undefined ) ) ?
             <DialogModal 
-                Title={getTranslation("_cookieModal", Title)} 
+                Title={Title? Title : "#(CookiesModal)"} 
+                TitleTranslationProcess="_cookieModal"
                 Icon={ModalIconEnum.Cookie} 
                 DisableEntry 
-                Content={<CookieModalDescription Cookies = {Cookies}>{getTranslation("_cookieModal", Description)}</CookieModalDescription>}
+                Content={<CookieModalDescription Cookies = {Cookies} Description = {Description}/>}
                 StartOpened 
                 Size={ModalSize.Default} 
                 Scrollable 
