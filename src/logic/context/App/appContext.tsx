@@ -31,10 +31,10 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
         }
 
         if ( currentAppContext.translations === {} || currentAppContext.translations[ globalLanguage ] === undefined ) {
-            setCurrentAppContext({
-                ...currentAppContext,
+            setCurrentAppContext( prevContext => ({
+                ...prevContext,
                 loadingTranslation: true
-            });
+            }));
             const url = getLangKeys ? `/${ globalLanguage }?getKeys=true` : `/${ globalLanguage }`;
             resolve(
                 getTranslation.Get( url )
@@ -45,28 +45,28 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                             globalLanguage = serviceResponse.LanguageCodes[0];
                         }
 
-                        return setCurrentAppContext( {
-                            ...currentAppContext,
+                        return setCurrentAppContext( prevContext => ( {
+                            ...prevContext,
                             translations: {
-                                ...currentAppContext.translations,
+                                ...prevContext.translations,
                                 [globalLanguage]: serviceResponse.Translation
                             },
                             errorTranslations: {
-                                ...currentAppContext.errorTranslations,
+                                ...prevContext.errorTranslations,
                                 [globalLanguage]: serviceResponse.ErrorTranslation
                             },
-                            languageCodes: getLangKeys && serviceResponse.LanguageCodes ? serviceResponse.LanguageCodes : currentAppContext.languageCodes,
+                            languageCodes: getLangKeys && serviceResponse.LanguageCodes ? serviceResponse.LanguageCodes : prevContext.languageCodes,
                             loadingTranslation: false
-                        } )
+                        } ) )
                     })
                     .then(() => {
                         UpdateLanguageContext(globalLanguage);
                     })
                     .catch( () => {
-                        setCurrentAppContext( {
-                            ...currentAppContext,
+                        setCurrentAppContext( precContext => ({
+                            ...precContext,
                             loadingTranslation: false
-                        })
+                        }))
                         setAppLanguage(globalLanguage) }
                     ) )
         }
@@ -91,10 +91,10 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
         else
             sessionHandler.setAppTheme( appTheme );
 
-        setCurrentAppContext( {
-            ...currentAppContext,
+        setCurrentAppContext( prevContext => ( {
+            ...prevContext,
             globalTheme: appTheme
-        } );
+        } ) );
     }
 
     const AllowCookies = (allow: boolean) => {
@@ -107,12 +107,10 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
             sessionHandler.setAllowCookieFlag();
         }
 
-        setCurrentAppContext((prevContext) => {
-            return {
+        setCurrentAppContext( prevContext => ( {
                 ...prevContext,
                 allowCookies: allow
-            }
-        });
+        } ) );
     }
 
     return {
