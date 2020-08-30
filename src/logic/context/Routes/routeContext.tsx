@@ -7,31 +7,31 @@ export const useRouteContext: ( initialRoute: IRouteContext ) => RouteContextTyp
 
     const ChangeRoute: ChangeRouteAction = (params) => {
         let isReady: boolean = ( !params.forceReload && ( routeContext.queryString === params.queryString && routeContext.selectedPage === params.selectedPage ) );
-        setRouteContext( {
-            ...routeContext,
+        setRouteContext( prevRoute => ( {
+            ...prevRoute,
             selectedPage: params.selectedPage,
             queryString: params.queryString,
             forceReload: params.forceReload,
             routeParams: undefined,
             routeReady: isReady
-        } );
+        } ) );
     }
 
     const UpdateRouteParams: ChangeRouteParamsAction = (routeParams) => {
-        setRouteContext({
-            ...routeContext,
+        setRouteContext( prevRoute => ( {
+            ...prevRoute,
             routeParams: routeParams,
             routeReady: true
-        })
+        } ) )
     }
 
     const DisableForceReload: ChangeRouteParamsAction = (routeParams) => {
-        setRouteContext({
-            ...routeContext,
+        setRouteContext( prevRoute => ( {
+            ...prevRoute,
             forceReload: false,
             routeParams: routeParams,
             routeReady: true
-        })
+        } ) )
     }
     
     return {
