@@ -6,12 +6,12 @@ export const useError: ( initialState: IError ) => ErrorContextType = ( initialS
     const [ error, setError ] = useState( initialState );
 
     const ChangeError: ChangeErrorType = (newError) => {
-        setError( {
-            ...error,
+        setError( prevErr => ( {
+            ...prevErr,
             hasError: true,
             errorDescription: newError.errorDescription,
             errorCode: newError.errorCode
-        } );
+        } ) );
     }
 
     const RemoveError: RemoveErrorType = () => {
