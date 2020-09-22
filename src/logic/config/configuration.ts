@@ -6,6 +6,8 @@ import { sessionHandler } from "../functions/sessionStorage";
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
 import { trueFalseParser } from "../functions/misc";
 import { IRouteContext } from "../context/Routes/routeContextInterfaces";
+import { IKnownServices } from "../services/serviceCallerInterfaces";
+import { AvailableActionsEnum, AvailableServicesEnum, NotificationRoutesEnum } from "../services/servicesEnums";
 
 /* 
     *** Application Env Keys ***
@@ -75,3 +77,31 @@ export const initialLanguage: string = lastSavedLang;
 
 //// Get from cookie or storage
 export const initialLogin: ILogin | undefined = currentUser;
+
+export const defaultKnownServices: IKnownServices = {
+    [AvailableServicesEnum.HomePage]: {
+        Name: "homepage",
+        Actions: {
+            [AvailableActionsEnum.Translation] : {
+                Name: "translations"
+            },
+            [AvailableActionsEnum.HomePage] : {
+                Name: "homepage"
+            }
+        }
+    },
+    [AvailableServicesEnum.User]: {
+        Name: "user",
+        Actions: {
+            [AvailableActionsEnum.Notifications] : {
+                Name: "notifications",
+                Routes: {
+                    [NotificationRoutesEnum.GetData]: "getData",
+                    [NotificationRoutesEnum.ReadCurrent]: "readCurrent",
+                    [NotificationRoutesEnum.ReadAll]: "readAll",
+                    [NotificationRoutesEnum.Delete]: "delete"
+                }
+            }
+        }
+    }
+};

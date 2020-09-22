@@ -85,5 +85,18 @@ export const pageComponents: IKRFProps = {
                 CookieKey: "CookieAnalytic"
             }
         ]
+    },
+    KnownServices: {
+        "TestService": {
+            Name: "testService",
+            Actions: {
+                "TestAction": {
+                    Name: "testAction",
+                    Routes: {
+                        "TestRoute": "testRoute"
+                    }
+                }
+            }
+        }
     }
 }

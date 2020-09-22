@@ -28,3 +28,19 @@ export interface IdownloadDocument extends IServiceError {
 }
 
 export type ServiceType<IServiceRequest, IServiceResponse> = ( Args: IServiceArgs<IServiceRequest, IServiceResponse> ) => Promise<IServiceResponse | IServiceError>;
+
+export interface IKnownAction {
+        Name: string,
+        Routes?: {
+            [route: string]: string
+        }
+}
+
+export interface IKnownServices {
+    [service: string] : {
+        Name: string,
+        Actions: {
+            [action: string] : IKnownAction
+        }
+    }
+}

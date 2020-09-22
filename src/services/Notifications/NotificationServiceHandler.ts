@@ -1,12 +1,45 @@
 import { ServiceType, IServiceError } from "../../logic/services/serviceCallerInterfaces";
 import { INotificationRequest, INotifications } from "./NotificationInterfaces";
 import { NotificationRequestType } from "./NotificationEnum";
-import { delayedPromise } from "../../logic/functions/misc";
+import { 
+    delayedPromise
+    //, IDictionary 
+} from "../../logic/functions/misc";
+//import { useKnownServices } from "../../logic/context/App/knownServicesContextHandler";
+//import { useMemo } from "react";
+//import { AvailableActionsEnum, AvailableServicesEnum, NotificationRoutesEnum } from "../../logic/services/servicesEnums";
 
 export const useNotificationHandler = ( IsMenu: boolean ) => {
-    //const [isMenuQuery] = useState<string>(IsMenu ? "?ismenu=true" : "");
-    //const GetData = useFetchGetHandler<INotifications>( { serviceUrl: AvailableServices.Notifications } );
-    //const PostData = useFetchPostHandler<INotificationPostBody, INotifications>( { serviceUrl: AvailableServices.Notifications } );
+    /*
+    const {getKnownService, getKnownAction} = useKnownServices();
+    
+    const userService = useMemo<string>(() => {
+        return getKnownService(AvailableServicesEnum.User)
+    }, []);
+
+    const isMenuQuery = useMemo<IDictionary<string>|undefined>(() => {
+        return IsMenu ? { "ismenu" : "true" } : undefined;
+    }, [IsMenu]);
+
+    const getDataRoute = useMemo(() => {
+        return getKnownAction(AvailableServicesEnum.User, AvailableActionsEnum.Notifications, NotificationRoutesEnum.GetData, false, isMenuQuery );
+    }, [isMenuQuery]);
+
+    const readCurrentRoute = useMemo(() => {
+        return getKnownAction(AvailableServicesEnum.User, AvailableActionsEnum.Notifications, NotificationRoutesEnum.ReadCurrent, false, isMenuQuery );
+    }, [isMenuQuery]);
+
+    const readAllRoute = useMemo(() => {
+        return getKnownAction(AvailableServicesEnum.User, AvailableActionsEnum.Notifications, NotificationRoutesEnum.ReadAll, false, isMenuQuery );
+    }, [isMenuQuery]);
+
+    const deleteRoute = useMemo(() => {
+        return getKnownAction(AvailableServicesEnum.User, AvailableActionsEnum.Notifications, NotificationRoutesEnum.Delete, false, isMenuQuery );
+    }, [isMenuQuery]);
+    
+    const GetData = useFetchGetHandler<INotifications>( { serviceUrl: userService } );
+    const PostData = useFetchPostHandler<INotificationPostBody, INotifications>( { serviceUrl: userService } );
+    */
 
     const NotificationHandler: ServiceType<INotificationRequest, INotifications> = async ( { serviceRequest, serviceResponse } ) => {
         const defaultResponse = serviceResponse ? serviceResponse : {
@@ -20,7 +53,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
         if(serviceRequest) {
             switch(serviceRequest.Type) {
                 case NotificationRequestType.Get: {
-                    //return GetData.Get(`${NotificationEndpoints.GetData}${isMenuQuery}`);
+                    //return GetData.Get(getDataRoute);
                     const notDate = new Date();
                     notDate.setDate( notDate.getDate() - 7 );
                     return delayedPromise(1000).then(() => {
@@ -67,7 +100,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.ReadCurrent: {
-                    //return PostData.Post({IsMenu: IsMenu}, `${NotificationEndpoints.ReadCurrent}`);
+                    //return PostData.Post({IsMenu: IsMenu}, readCurrentRoute);
                     return delayedPromise(1000).then(() => {
                         return {...defaultResponse,
                             UnreadCount: 0,
@@ -81,7 +114,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.ReadAll: {
-                    //return PostData.Post({IsMenu: IsMenu}, `${NotificationEndpoints.ReadAll}`);
+                    //return PostData.Post({IsMenu: IsMenu}, readAllRoute);
                     return delayedPromise(1000).then(() => {
                         return {...defaultResponse,
                             UnreadCount: 0,
@@ -96,7 +129,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.Delete: {
-                    //return PostData.Post({ID: request.ID, IsMenu: IsMenu}, `${NotificationEndpoints.Delete}`);
+                    //return PostData.Post({ID: request.ID, IsMenu: IsMenu}, deleteRoute);
                     return delayedPromise(1000).then(() => {
                         return {...defaultResponse,
                             UnreadCount: defaultResponse.Notifications.find( n => serviceRequest.ID && ( n.ID === serviceRequest.ID && !n.IsViewed )) ? defaultResponse.UnreadCount - 1 : defaultResponse.UnreadCount,
