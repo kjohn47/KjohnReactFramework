@@ -7,6 +7,7 @@ import { injectProps } from '../../logic/functions/misc';
 import Footer from './Footer';
 import Menu, { IMenuProps } from './Menu';
 import CookieModal, { INeededCookieModal } from './CookieModal';
+import { IKnownServices } from '../../logic/services/serviceCallerInterfaces';
 
 export interface IKRFProps {
   Routes: IPageHandleProps;
@@ -15,10 +16,11 @@ export interface IKRFProps {
   MenuProps?: IMenuProps;
   FooterProps?: any;
   CookieModalSettings?: INeededCookieModal;
+  KnownServices?: IKnownServices;
 }
 
 const KRFApp: React.FC<IKRFProps> = (props) =>
-  <AppProvider>
+  <AppProvider knownServices = {props.KnownServices}>
     <SessionHandler>
       <Layout 
         MenuComponent={ props.CustomMenuComponent ? props.CustomMenuComponent : injectProps(Menu, props.MenuProps) } 
