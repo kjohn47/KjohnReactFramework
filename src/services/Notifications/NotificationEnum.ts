@@ -4,10 +4,3 @@ export enum NotificationRequestType {
     ReadAll,
     Delete
 }
-
-export enum NotificationEndpoints {
-    GetData = "/GetData",
-    ReadCurrent  = "/ReadCurrent",
-    ReadAll = "/ReadAll",
-    Delete = "/Delete"
-}
