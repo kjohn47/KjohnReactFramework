@@ -4,6 +4,7 @@ import Row from '../../../common/structure/Row';
 import FileDownloaderList from '../../../common/presentation/download/FileDownloaderList';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
 import { IconCode, getIconCodeFromExtension } from '../../../../logic/functions/getExtensionIcon';
+import { DocumentsDownloadSrvEnum } from '../../../../logic/config/pageComponents';
 
 const TestFileDownloader: React.FC = () => {
     return (
@@ -17,8 +18,9 @@ const TestFileDownloader: React.FC = () => {
                             fileIcon: IconCode.Unknown,
                             progressBar: true,
                             downloaderData: {
-                                documentPath: "pdfFile",
-                                serviceUrl: "Assets/",
+                                documentId: DocumentsDownloadSrvEnum.File,
+                                documentPath: DocumentsDownloadSrvEnum.Action,
+                                serviceUrl: DocumentsDownloadSrvEnum.Service,
                                 loadProgress: true
                             },
                             fileSize: 100254,
@@ -29,8 +31,9 @@ const TestFileDownloader: React.FC = () => {
                             fileIcon: getIconCodeFromExtension("doc"),
                             progressBar: true,
                             downloaderData: {
-                                documentPath: "pdfFile",
-                                serviceUrl: "Assets/",
+                                documentId: DocumentsDownloadSrvEnum.File,
+                                documentPath: DocumentsDownloadSrvEnum.Action,
+                                serviceUrl: DocumentsDownloadSrvEnum.Service,
                                 loadProgress: true
                             },
                             bottomLine: true
@@ -47,8 +50,9 @@ const TestFileDownloader: React.FC = () => {
                             fileIcon: getIconCodeFromExtension("txt"),
                             progressBar: true,
                             downloaderData: {
-                                documentPath: "pdfFile",
-                                serviceUrl: "Assets/",
+                                documentId: DocumentsDownloadSrvEnum.File,
+                                documentPath: DocumentsDownloadSrvEnum.Action,
+                                serviceUrl: DocumentsDownloadSrvEnum.Service,
                                 loadProgress: true
                             },
                             fileSize: 134,
@@ -59,8 +63,9 @@ const TestFileDownloader: React.FC = () => {
                             fileIcon: getIconCodeFromExtension("zip"),
                             progressBar: true,
                             downloaderData: {
-                                documentPath: "pdfFile",
-                                serviceUrl: "Assets/"
+                                documentId: DocumentsDownloadSrvEnum.File,
+                                documentPath: DocumentsDownloadSrvEnum.Action,
+                                serviceUrl: DocumentsDownloadSrvEnum.Service,
                             },
                             fileSize: 1002582282,
                             bottomLine: true
@@ -69,8 +74,9 @@ const TestFileDownloader: React.FC = () => {
                             fileName: "Test File 3",
                             fileIcon: getIconCodeFromExtension("pdf"),
                             downloaderData: {
-                                documentPath: "pdfFile",
-                                serviceUrl: "Assets/",
+                                documentId: DocumentsDownloadSrvEnum.File,
+                                documentPath: DocumentsDownloadSrvEnum.Action,
+                                serviceUrl: DocumentsDownloadSrvEnum.Service,
                                 loadProgress: true
                             },
                             fileSize: 10025482334,
@@ -80,8 +86,9 @@ const TestFileDownloader: React.FC = () => {
                             fileName: "Test File 4",
                             progressBar: true,
                             downloaderData: {
-                                documentPath: "pdfFile",
-                                serviceUrl: "Assets/",
+                                documentId: DocumentsDownloadSrvEnum.File,
+                                documentPath: DocumentsDownloadSrvEnum.Action,
+                                serviceUrl: DocumentsDownloadSrvEnum.Service,
                                 loadProgress: true
                             },
                             fileSize: 10025488222453,

@@ -13,8 +13,9 @@ export const useTestService: () => ITestServices = () => {
     const SampleAbort = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, localLoading: true } ); 
     const SampleExternal = useServiceCaller<ITestServiceRequest, ITestExternalServiceResponse>( { service: getData, localLoading: true } ); 
     const FileDownloader = useDocumentDownloader( {
-        serviceUrl: "http://localhost:3000/Assets/",
-        documentPath: "pdfFile",
+        serviceUrl: "http://localhost:3000",
+        documentPath: "Documents/Download",
+        documentId: "pdfFile",
         externalService: true,
         loadProgress: true
     } );
