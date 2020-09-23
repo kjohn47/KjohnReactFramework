@@ -5,12 +5,18 @@ import { getFileFromBase64, IDictionary } from "../functions/misc";
 import useLoginHandler from "../context/Login/LoginContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
 import { useKnownServices } from "../context/App/knownServicesContextHandler";
+import { getQueryStringFromDictionary } from "../functions/routeHandling";
 
 const handleErrors = ( response: Response ) => {
     if ( !response.ok ) {
         throw Error( `[${ response.status }] - ${ response.statusText }` );
     }
     return response;
+}
+
+const getRouteUrl = ( action: string, route: string | undefined, query: IDictionary<string> | undefined): string => {
+    const queryStr = getQueryStringFromDictionary(query);
+    return `${action}${route ? `/${route}` : ""}${queryStr}`;
 }
 
 interface IfetchArgs {
@@ -90,28 +96,27 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
 
     const Get = ( action: string = "", 
             route: string | undefined = undefined,
-            customRoute: boolean = false,
             query: IDictionary<string> | undefined = undefined ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
         
-        let timeOutabortController = new AbortController();
+        let timeOutAbortController = new AbortController();
         let timeout: NodeJS.Timeout | undefined = undefined;
         let unmountListener: NodeJS.Timeout | undefined = undefined;
         if( timeOut && timeOut > 0 ) {
-            timeout = setTimeout( () => { timeOutabortController.abort() }, timeOut);
+            timeout = setTimeout( () => { timeOutAbortController.abort() }, timeOut);
             unmountListener = setInterval( () => {
-                if( abortControllerRef.current.signal.aborted && !timeOutabortController.signal.aborted)
+                if( abortControllerRef.current.signal.aborted && !timeOutAbortController.signal.aborted)
                 {
-                    timeOutabortController.abort();
+                    timeOutAbortController.abort();
                 }
             }, 200 );
         }
         resolve(
-            fetch( `${service}/${externalService ? action : getKnownAction(serviceUrl, action, route, customRoute, query)}`, {
+            fetch( `${service}/${externalService ? getRouteUrl(action, route, query) : getKnownAction(serviceUrl, action, route, query)}`, {
                 method: 'GET',
                 headers: header,
                 mode: 'cors',
                 cache: 'default',
-                signal: timeOut && timeOut > 0 ? timeOutabortController.signal : abortControllerRef.current.signal
+                signal: timeOut && timeOut > 0 ? timeOutAbortController.signal : abortControllerRef.current.signal
             } )
             .then( handleErrors )
             .then( ( r: Response ) => r.json() )
@@ -190,29 +195,28 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
         request: FetchDataIn, 
         action: string = "", 
         route: string | undefined = undefined,
-        customRoute: boolean = false,
         query: IDictionary<string> | undefined = undefined ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
 
-        let timeOutabortController = new AbortController();
+        let timeOutAbortController = new AbortController();
         let timeout: NodeJS.Timeout | undefined = undefined;
         let unmountListener: NodeJS.Timeout | undefined = undefined;
         if( timeOut && timeOut > 0 ) {
-            timeout = setTimeout( () => { timeOutabortController.abort() }, timeOut);
+            timeout = setTimeout( () => { timeOutAbortController.abort() }, timeOut);
             unmountListener = setInterval( () => {
-                if( abortControllerRef.current.signal.aborted && !timeOutabortController.signal.aborted)
+                if( abortControllerRef.current.signal.aborted && !timeOutAbortController.signal.aborted)
                 {
-                    timeOutabortController.abort();
+                    timeOutAbortController.abort();
                 }
             }, 200 );
         }
         resolve(
-            fetch( `${service}/${externalService ? action : getKnownAction(serviceUrl, action, route, customRoute, query)}`, {
+            fetch( `${service}/${externalService ? getRouteUrl(action, route, query) : getKnownAction(serviceUrl, action, route, query)}`, {
                 method: method,
                 headers: header,
                 mode: 'cors',
                 cache: 'no-cache',
                 body: JSON.stringify( request ),
-                signal: timeOut && timeOut > 0 ? timeOutabortController.signal : abortControllerRef.current.signal
+                signal: timeOut && timeOut > 0 ? timeOutAbortController.signal : abortControllerRef.current.signal
             } )
             .then( handleErrors )
             .then( ( r: Response ) => r.json() )
@@ -238,20 +242,17 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     const Post = ( request: FetchDataIn,
         action: string = "", 
         route: string | undefined = undefined,
-        customRoute: boolean = false,
-        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'POST', request, action, route, customRoute, query );
+        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'POST', request, action, route, query );
 
     const Put = ( request: FetchDataIn,
         action: string = "", 
         route: string | undefined = undefined,
-        customRoute: boolean = false,
-        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'PUT', request, action, route, customRoute, query );
+        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'PUT', request, action, route, query );
 
     const Delete = ( request: FetchDataIn,
         action: string = "", 
         route: string | undefined = undefined,
-        customRoute: boolean = false,
-        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'DELETE', request, action, route, customRoute, query );
+        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'DELETE', request, action, route, query );
         
     const Abort = () => {
             abortControllerRef.current.abort();
@@ -273,7 +274,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, t
         {
             return `${serviceUrl}/${documentPath}${documentId ? `/${documentId}` : ""}`;
         }
-        return `${apiServerUrl}/${getKnownService(serviceUrl)}/${getKnownAction(serviceUrl, documentPath, documentId, true)}`;
+        return `${apiServerUrl}/${getKnownService(serviceUrl)}/${getKnownAction(serviceUrl, documentPath, documentId)}`;
     }, [getKnownService, getKnownAction, externalService, serviceUrl, documentPath, documentId]);
 
     const abortControllerRef = useRef(new AbortController());

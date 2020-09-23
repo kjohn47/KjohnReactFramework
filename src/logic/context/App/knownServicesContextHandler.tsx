@@ -2,18 +2,19 @@ import { useCallback, useContext } from "react"
 import { ServicesContext } from "../../config/AppProvider"
 import { IDictionary } from "../../functions/misc";
 import { IKnownAction } from "../../services/serviceCallerInterfaces";
+import { getQueryStringFromDictionary } from "../../functions/routeHandling";
 
 const getRoute = (action: IKnownAction, route: string): string => {
     if(action.Routes === undefined || action.Routes === null)
     {
-        return "";
+        return route;
     }
     
     const selectedRoute = action.Routes[route];
     
     if(selectedRoute === undefined || selectedRoute === null)
     {
-        return "";
+        return route;
     }
         
     return selectedRoute;
@@ -27,7 +28,7 @@ export const useKnownServices = () => {
         return selectedService ? selectedService.Name : "";
     }, [knownServices])
     
-    const getKnownAction = useCallback((service: string, action: string, route: string | undefined = undefined, customRoute: boolean = false, query: IDictionary<string> | undefined = undefined): string => {
+    const getKnownAction = useCallback((service: string, action: string, route: string | undefined = undefined, query: IDictionary<string> | undefined = undefined): string => {
         const selectedService = knownServices[service];
 
         if(selectedService === null || selectedService === undefined)
@@ -42,17 +43,10 @@ export const useKnownServices = () => {
             return "";
         }
         
-        const url = `${selectedAction.Name}${route !== undefined ? `/${customRoute ? route : getRoute(selectedAction, route) }`: ""}`;
-        let queryStr = "";
+        const url = `${selectedAction.Name}${route !== undefined ? `/${getRoute(selectedAction, route)}` : ""}`;
+        const queryStr = getQueryStringFromDictionary(query);
     
-        if(query !== undefined)
-        {
-            Object.entries(query).forEach(([key, value], i) => {
-                queryStr += `${(i !== 0 ? "&" : "") + key }=${value}`;
-            });
-        }
-    
-        return `${url}${queryStr !== "" ? `?${queryStr}` : ""}`;
+        return `${url}${queryStr}`;
     }, [knownServices])
 
     return {

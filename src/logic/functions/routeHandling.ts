@@ -30,3 +30,17 @@ export const getRouteUrlAndQuery = () => {
         queryString:  getQueryStringParams( window.location.search.substring( 1 ) )
     }
 }
+
+export const getQueryStringFromDictionary = (query: IDictionary<string> | undefined) => {
+    if(query === undefined)
+    {
+        return "";
+    }
+
+    let queryStr = "";
+    Object.entries(query).forEach(([key, value], i) => {
+        queryStr += `${(i !== 0 ? "&" : "?") + key }=${value}`;
+    });
+
+    return queryStr;
+}
