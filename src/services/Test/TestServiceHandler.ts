@@ -5,14 +5,14 @@ import { delayedPromise } from "../../logic/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = () => {
-    const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>( { serviceUrl: "/InexistentService404", externalService: true });
+    const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>( { serviceUrl: "http://localhost:3000", externalService: true });
     const externalService = useFetchGetHandler<ITestExternalServiceResponse>( { serviceUrl: "https://jsonplaceholder.typicode.com/posts", externalService: true, timeOut: 30000 } );
 
     const getData: ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = async ( { context, serviceRequest } ) => {
         if (serviceRequest)
         {
             if ( serviceRequest.Type === TestServiceRequestType.GetSample_3 ) {
-                return delayedPromise( 1500 ).then(() => Get());
+                return delayedPromise( 1500 ).then(() => Get("InexistentService404"));
             }
             
             if( serviceRequest.Type === TestServiceRequestType.GetSample_1 )
@@ -23,7 +23,7 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
             if( serviceRequest.Type === TestServiceRequestType.AbortSample ) {
                 return delayedPromise( 2000 )
                 .then( async () => {
-                    let returnValue = Get();
+                    let returnValue = Get("InexistentService404");
                     Abort();
                     return await returnValue;
                 })
