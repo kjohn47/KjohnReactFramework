@@ -1,14 +1,12 @@
 export enum AvailableServicesEnum {
     HomePage = "Homepage",
-    User = "User",
-    Documents  ="Documents"
+    User = "User"
 }
 
 export enum AvailableActionsEnum {
     Translation = "Translations",
     HomePage = "Homepage",
-    Notifications = "Notifications",
-    Download  = "Download"
+    Notifications = "Notifications"
 }
 
 export enum NotificationRoutesEnum {

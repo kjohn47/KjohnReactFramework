@@ -103,13 +103,5 @@ export const defaultKnownServices: IKnownServices = {
                 }
             }
         }
-    },
-    [AvailableServicesEnum.Documents]: {
-        Name: "documents",
-        Actions: {
-            [AvailableActionsEnum.Download] : {
-                Name: "download"
-            }
-        }
     }
 };
