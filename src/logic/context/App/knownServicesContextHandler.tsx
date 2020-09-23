@@ -25,13 +25,13 @@ export const useKnownServices = () => {
 
     const getKnownService = useCallback((service: string): string => {
         const selectedService = knownServices[service];
-        return selectedService ? selectedService.Name : "";
+        return selectedService ? `/${selectedService.Name}` : "";
     }, [knownServices])
     
     const getKnownAction = useCallback((service: string, action: string, route: string | undefined = undefined, query: IDictionary<string> | undefined = undefined): string => {
         const selectedService = knownServices[service];
 
-        if(selectedService === null || selectedService === undefined)
+        if(selectedService === null || selectedService === undefined || action === "")
         {
             return "";
         }
@@ -43,7 +43,7 @@ export const useKnownServices = () => {
             return "";
         }
         
-        const url = `${selectedAction.Name}${route !== undefined ? `/${getRoute(selectedAction, route)}` : ""}`;
+        const url = `/${selectedAction.Name}${route !== undefined ? `/${getRoute(selectedAction, route)}` : ""}`;
         const queryStr = getQueryStringFromDictionary(query);
     
         return `${url}${queryStr}`;

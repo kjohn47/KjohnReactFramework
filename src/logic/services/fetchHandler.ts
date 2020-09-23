@@ -16,7 +16,7 @@ const handleErrors = ( response: Response ) => {
 
 const getRouteUrl = ( action: string, route: string | undefined, query: IDictionary<string> | undefined): string => {
     const queryStr = getQueryStringFromDictionary(query);
-    return `${action}${route ? `/${route}` : ""}${queryStr}`;
+    return `${action !== "" ? `/${action}` : ""}${route ? `/${route}` : ""}${queryStr}`;
 }
 
 interface IfetchArgs {
@@ -63,7 +63,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
         {
             return serviceUrl;
         }
-        return `${apiServerUrl}/${getKnownService(serviceUrl)}`;
+        return `${apiServerUrl}${getKnownService(serviceUrl)}`;
     }, [getKnownService, externalService, serviceUrl]);
 
     const abortControllerRef = useRef(new AbortController());
@@ -111,7 +111,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
             }, 200 );
         }
         resolve(
-            fetch( `${service}/${externalService ? getRouteUrl(action, route, query) : getKnownAction(serviceUrl, action, route, query)}`, {
+            fetch( `${service}${externalService ? getRouteUrl(action, route, query) : getKnownAction(serviceUrl, action, route, query)}`, {
                 method: 'GET',
                 headers: header,
                 mode: 'cors',
@@ -158,7 +158,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
         {
             return serviceUrl;
         }
-        return `${apiServerUrl}/${getKnownService(serviceUrl)}`;
+        return `${apiServerUrl}${getKnownService(serviceUrl)}`;
     }, [getKnownService, externalService, serviceUrl]);
 
     const abortControllerRef = useRef(new AbortController());
@@ -210,7 +210,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
             }, 200 );
         }
         resolve(
-            fetch( `${service}/${externalService ? getRouteUrl(action, route, query) : getKnownAction(serviceUrl, action, route, query)}`, {
+            fetch( `${service}${externalService ? getRouteUrl(action, route, query) : getKnownAction(serviceUrl, action, route, query)}`, {
                 method: method,
                 headers: header,
                 mode: 'cors',
