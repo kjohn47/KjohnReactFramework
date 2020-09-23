@@ -1,9 +1,10 @@
 import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { apiServerUrl } from "../config/configuration";
-import { getFileFromBase64 } from "../functions/misc";
+import { getFileFromBase64, IDictionary } from "../functions/misc";
 import useLoginHandler from "../context/Login/LoginContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
+import { useKnownServices } from "../context/App/knownServicesContextHandler";
 
 const handleErrors = ( response: Response ) => {
     if ( !response.ok ) {
@@ -21,6 +22,7 @@ interface IfetchArgs {
 
 export interface IdownloadArgs extends IfetchArgs {
     documentPath: string;
+    documentId?: string;
     loadProgress?: boolean;
 }
 
@@ -47,8 +49,17 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
 {
     const login = useLoginHandler().Login;
     const {appLanguage} = useAppLanguageHandler();
+    const {getKnownService, getKnownAction} = useKnownServices();
     const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
+    const service = useMemo(() => {
+        if(externalService)
+        {
+            return serviceUrl;
+        }
+        return `${apiServerUrl}/${getKnownService(serviceUrl)}`;
+    }, [getKnownService, externalService, serviceUrl]);
+
     const abortControllerRef = useRef(new AbortController());
     const componentUnmountedRef = useRef(false);
 
@@ -77,7 +88,11 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
         // eslint-disable-next-line
     }, [])
 
-    const Get = ( query: string = "" ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
+    const Get = ( action: string = "", 
+            route: string | undefined = undefined,
+            customRoute: boolean = false,
+            query: IDictionary<string> | undefined = undefined ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
+        
         let timeOutabortController = new AbortController();
         let timeout: NodeJS.Timeout | undefined = undefined;
         let unmountListener: NodeJS.Timeout | undefined = undefined;
@@ -91,7 +106,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
             }, 200 );
         }
         resolve(
-            fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
+            fetch( `${service}/${externalService ? action : getKnownAction(serviceUrl, action, route, customRoute, query)}`, {
                 method: 'GET',
                 headers: header,
                 mode: 'cors',
@@ -130,8 +145,17 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
 {
     const login = useLoginHandler().Login;
     const {appLanguage} = useAppLanguageHandler();
+    const {getKnownService, getKnownAction} = useKnownServices();
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
+    const service = useMemo(() => {
+        if(externalService)
+        {
+            return serviceUrl;
+        }
+        return `${apiServerUrl}/${getKnownService(serviceUrl)}`;
+    }, [getKnownService, externalService, serviceUrl]);
+
     const abortControllerRef = useRef(new AbortController());
     const componentUnmountedRef = useRef(false);
 
@@ -162,7 +186,13 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
         // eslint-disable-next-line
     }, [])
 
-    const ExecuteFetch = ( method: string, request: FetchDataIn, query: string ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
+    const ExecuteFetch = ( method: string, 
+        request: FetchDataIn, 
+        action: string = "", 
+        route: string | undefined = undefined,
+        customRoute: boolean = false,
+        query: IDictionary<string> | undefined = undefined ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
+
         let timeOutabortController = new AbortController();
         let timeout: NodeJS.Timeout | undefined = undefined;
         let unmountListener: NodeJS.Timeout | undefined = undefined;
@@ -176,7 +206,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
             }, 200 );
         }
         resolve(
-            fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + query, {
+            fetch( `${service}/${externalService ? action : getKnownAction(serviceUrl, action, route, customRoute, query)}`, {
                 method: method,
                 headers: header,
                 mode: 'cors',
@@ -205,11 +235,23 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
         );
     });
 
-    const Post = ( request: FetchDataIn, query: string = "" ) => ExecuteFetch( 'POST', request, query );
+    const Post = ( request: FetchDataIn,
+        action: string = "", 
+        route: string | undefined = undefined,
+        customRoute: boolean = false,
+        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'POST', request, action, route, customRoute, query );
 
-    const Put = ( request: FetchDataIn, query: string = "" ) => ExecuteFetch( 'PUT', request, query );
+    const Put = ( request: FetchDataIn,
+        action: string = "", 
+        route: string | undefined = undefined,
+        customRoute: boolean = false,
+        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'PUT', request, action, route, customRoute, query );
 
-    const Delete = ( request: FetchDataIn, query: string = "" ) => ExecuteFetch( 'DELETE', request, query );
+    const Delete = ( request: FetchDataIn,
+        action: string = "", 
+        route: string | undefined = undefined,
+        customRoute: boolean = false,
+        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'DELETE', request, action, route, customRoute, query );
         
     const Abort = () => {
             abortControllerRef.current.abort();
@@ -218,13 +260,22 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     return {Post, Put, Delete, Abort};
 }
 
-export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, externalService, customHeaders, loadProgress } : IdownloadArgs ) => {
+export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, timeOut, externalService, customHeaders, loadProgress } : IdownloadArgs ) => {
     const login = useLoginHandler().Login;
     const {appLanguage} = useAppLanguageHandler();
+    const {getKnownService, getKnownAction} = useKnownServices();
     const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
     const [header, setHeader] = useState<Headers | [string,string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
     const [isDownloading, setIsDownloading] = useState<boolean>(false);
     const [downloadProgress, setDownloadProgress] = useState<number>(0);
+    const downloadUrl = useMemo(() => {
+        if(externalService)
+        {
+            return `${serviceUrl}/${documentPath}${documentId ? `/${documentId}` : ""}`;
+        }
+        return `${apiServerUrl}/${getKnownService(serviceUrl)}/${getKnownAction(serviceUrl, documentPath, documentId, true)}`;
+    }, [getKnownService, getKnownAction, externalService, serviceUrl, documentPath, documentId]);
+
     const abortControllerRef = useRef(new AbortController());
     const componentUnmountedRef = useRef(false);
 
@@ -269,7 +320,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, timeOut, exte
                 timeout = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
 
-            return await fetch( ( externalService ? "" : apiServerUrl ) + serviceUrl + documentPath, {
+            return await fetch( downloadUrl, {
                 method: 'GET',
                 headers: header,
                 mode: 'cors',

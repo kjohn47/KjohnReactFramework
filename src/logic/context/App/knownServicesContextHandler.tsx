@@ -24,7 +24,6 @@ export const useKnownServices = () => {
 
     const getKnownService = useCallback((service: string): string => {
         const selectedService = knownServices[service];
-
         return selectedService ? selectedService.Name : "";
     }, [knownServices])
     
@@ -43,7 +42,7 @@ export const useKnownServices = () => {
             return "";
         }
         
-        const url = `/${selectedAction.Name}${route !== undefined ? `/${customRoute ? route : getRoute(selectedAction, route) }`: ""}`;
+        const url = `${selectedAction.Name}${route !== undefined ? `/${customRoute ? route : getRoute(selectedAction, route) }`: ""}`;
         let queryStr = "";
     
         if(query !== undefined)

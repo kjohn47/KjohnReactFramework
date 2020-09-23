@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { IAppContext, AppContextType, ChangeAppLanguage, ChangeAppTheme, ITranslationServiceResponse } from "./appContextInterfaces";
 import { AvailableActionsEnum, AvailableServicesEnum } from "../../services/servicesEnums";
 import { useFetchGetHandler } from "../../services/fetchHandler";
@@ -8,7 +8,6 @@ import useLoginHandler from "../Login/LoginContextHandler";
 import useAppLanguageHandler from "./AppLanguageContextHandler";
 import { sessionHandler } from "../../functions/sessionStorage";
 import { IDictionary } from "../../functions/misc";
-import { useKnownServices } from "./knownServicesContextHandler";
 
 const translationHeaders = () => {
     let headers = new Headers();
@@ -16,14 +15,12 @@ const translationHeaders = () => {
     return headers;
 }
 
-export const useAppContext: ( initialContext: IAppContext ) => AppContextType = ( initialContext ) => {    
+export const useAppContext: ( initialContext: IAppContext ) => AppContextType = ( initialContext ) => {
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
-    const {getKnownService, getKnownAction} = useKnownServices();
-    const service = useMemo(() => getKnownService(AvailableServicesEnum.HomePage), [getKnownService]);
     const loginContext = useLoginHandler();
     const {setAppLanguage} = useAppLanguageHandler();
     const getTranslation = useFetchGetHandler<ITranslationServiceResponse>( { 
-            serviceUrl: service, customHeaders: translationHeaders() 
+            serviceUrl: AvailableServicesEnum.HomePage, customHeaders: translationHeaders() 
     } );
 
     const ChangeLanguage: ChangeAppLanguage = (appLanguage, getLangKeys) => new Promise<void | IServiceError>( (resolve) => {
@@ -43,7 +40,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
             }));
             const queryDictionary: IDictionary<string> | undefined = getLangKeys ? {"getKeys" : "true"} : undefined;
             resolve(
-                getTranslation.Get( getKnownAction(AvailableServicesEnum.HomePage, AvailableActionsEnum.Translation, globalLanguage, true, queryDictionary) )
+                getTranslation.Get( AvailableActionsEnum.Translation, globalLanguage, true, queryDictionary )
                     .then( data => {
                         let serviceResponse = data as ITranslationServiceResponse;
                         if(getLangKeys && serviceResponse.LanguageCodes && !serviceResponse.LanguageCodes.find(c => c === globalLanguage))

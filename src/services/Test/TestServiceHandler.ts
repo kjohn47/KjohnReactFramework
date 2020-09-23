@@ -5,7 +5,7 @@ import { delayedPromise } from "../../logic/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = () => {
-    const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>( { serviceUrl: "InexistentService404" });
+    const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>( { serviceUrl: "/InexistentService404", externalService: true });
     const externalService = useFetchGetHandler<ITestExternalServiceResponse>( { serviceUrl: "https://jsonplaceholder.typicode.com/posts", externalService: true, timeOut: 30000 } );
 
     const getData: ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = async ( { context, serviceRequest } ) => {
@@ -30,7 +30,7 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
             }
 
             if( serviceRequest.Type === TestServiceRequestType.CallExternal ) {
-                return externalService.Get("/1");
+                return externalService.Get("1");
             }
 
             return delayedPromise( 2000 )

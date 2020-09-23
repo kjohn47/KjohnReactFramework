@@ -24,7 +24,7 @@ export const mobileWidthMenu: number = process.env.REACT_APP_MOBILE_WIDTH_MENU ?
 
 //// Api host server url
 //export const apiServerUrl: string = "https://localhost:44378";
-export const apiServerUrl: string = process.env.REACT_APP_API_SRV_URL ? process.env.REACT_APP_API_SRV_URL : "/";
+export const apiServerUrl: string = process.env.REACT_APP_API_SRV_URL ? process.env.REACT_APP_API_SRV_URL : "";
 
 //// Show caught error from service
 export const showDetailedErrors: boolean = process.env.REACT_APP_ERROR_DETAIL ? trueFalseParser(process.env.REACT_APP_ERROR_DETAIL) : false;
@@ -101,6 +101,14 @@ export const defaultKnownServices: IKnownServices = {
                     [NotificationRoutesEnum.ReadAll]: "readAll",
                     [NotificationRoutesEnum.Delete]: "delete"
                 }
+            }
+        }
+    },
+    [AvailableServicesEnum.Documents]: {
+        Name: "documents",
+        Actions: {
+            [AvailableActionsEnum.Download] : {
+                Name: "download"
             }
         }
     }
