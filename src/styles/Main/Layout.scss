@@ -30,9 +30,13 @@
   }
 
   .PageFooter {
-    position: fixed;
+    position: relative;
     bottom: 0;
     z-index: 100;
     width: 100%;
+  }
+
+  .FixedFooter {
+    position: fixed;
   }
 }
