@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import useWindowSize from '../../../logic/functions/windowResize';
+import {useWindowWidth} from '../../../logic/functions/windowResize';
 import { mobileWidthMenu, mobileWidthLoginForm } from '../../../logic/config/configuration';
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
@@ -25,7 +25,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
     const [ toogle, setToogle ] = useState<boolean>( false );
     const [ shortName, setShortName ] = useState<boolean>( false );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
-    const [ width ] = useWindowSize();
+    const width = useWindowWidth();
     const userMenuRef = useRef<HTMLDivElement>( null );
     const notificationRef = useRef<HTMLDivElement>( null );
 

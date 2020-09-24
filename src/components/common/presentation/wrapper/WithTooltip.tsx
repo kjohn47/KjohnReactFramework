@@ -1,5 +1,5 @@
 import React from 'react';
-import useWindowSize from '../../../../logic/functions/windowResize';
+import {useWindowWidth} from '../../../../logic/functions/windowResize';
 import { mobileWidth } from '../../../../logic/config/configuration';
 
 export enum ToolTipPosition {
@@ -27,7 +27,7 @@ interface ITooltipProps {
 }
 
 const WithTooltip: React.FC<ITooltipProps> = ( props ) => {
-    const [ width ] = useWindowSize();
+    const width = useWindowWidth();
 
     let css = "ToolTip_Text " + ( props.toolTipPosition && (props.forcePosition || width > mobileWidth) ? props.toolTipPosition : "ToolTip_Text_Bottom" ) + " " + ( props.toolTipColor ? props.toolTipColor : "ToolTip_Text_Default" );
     let toolTipContainerCss = "ToolTip";

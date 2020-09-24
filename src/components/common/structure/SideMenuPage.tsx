@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Column, { ColumnNumber } from './Column';
 import Row from './Row';
-import useWindowSize from '../../../logic/functions/windowResize';
+import {useWindowWidth} from '../../../logic/functions/windowResize';
 import { mobileWidth } from '../../../logic/config/configuration';
 
 interface ISideMenuProps {
@@ -59,7 +59,7 @@ const SideMenuItem: React.FC<ISideMenuItem> = ( props ) => {
 }
 
 const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
-    const [ width ] = useWindowSize();
+    const width = useWindowWidth();
     const [ selected, setSelected ] = useState<string | React.ComponentType | JSX.Element | JSX.IntrinsicElements>( props.presentationComponent );
     const [ selectedIndex, setSelectedIndex ] = useState<string>( "" );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );

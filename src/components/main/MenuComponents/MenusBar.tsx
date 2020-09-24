@@ -5,14 +5,14 @@ import MenuItem from './MenuItem';
 import PageSelector from '../../common/inputs/PageSelector';
 import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import { IMenuProps } from '../Menu';
-import useWindowSize from '../../../logic/functions/windowResize';
+import {useWindowWidth} from '../../../logic/functions/windowResize';
 import { useState, useRef, useEffect } from 'react';
 import { mobileWidthMenu } from '../../../logic/config/configuration';
 import useTranslation from '../../../logic/functions/getTranslation';
 import MenuItemMobile from './MenuItemMobile';
 
 const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: boolean ) => void }> = ( props ) => {
-  const [ width ] = useWindowSize();
+  const width = useWindowWidth();
   const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
 
   const { getTranslation } = useTranslation();

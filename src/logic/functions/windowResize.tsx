@@ -1,11 +1,12 @@
 import { useState, useLayoutEffect } from "react";
 
-const useWindowSize: () => number[] = () => {
-  const [ size, setSize ] = useState( [ 0, 0 ] );
+export const useWindowWidth: () => number = () => {
+  const [ width, setWidth ] = useState(0);
 
   useLayoutEffect( () => {
     const updateSize: () => void = () => {
-      setSize( [ window.innerWidth, window.innerHeight ] );
+      if(width !== window.innerWidth)
+        setWidth(window.innerWidth);
     }
 
     window.addEventListener( 'resize', updateSize );
@@ -13,10 +14,28 @@ const useWindowSize: () => number[] = () => {
     updateSize();
 
     return () => window.removeEventListener( 'resize', updateSize );
-
+    // eslint-disable-next-line
   }, [] );
 
-  return size;
+  return width;
 }
 
-export default useWindowSize;
+export const useWindowHeight: () => number = () => {
+  const [ height, setHeight ] = useState(0);
+
+  useLayoutEffect( () => {
+    const updateSize: () => void = () => {
+      if(height !== window.innerHeight)
+        setHeight(window.innerHeight);
+    }
+
+    window.addEventListener( 'resize', updateSize );
+
+    updateSize();
+
+    return () => window.removeEventListener( 'resize', updateSize );
+    // eslint-disable-next-line
+  }, [] );
+
+  return height;
+}

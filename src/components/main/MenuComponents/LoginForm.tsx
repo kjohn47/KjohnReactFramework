@@ -3,7 +3,7 @@ import Row from '../../common/structure/Row';
 import Column, { ColumnNumber } from '../../common/structure/Column';
 import InputText from '../../common/inputs/InputText';
 import Button, { ButtonTypes } from '../../common/inputs/Button';
-import useWindowSize from '../../../logic/functions/windowResize';
+import {useWindowWidth} from '../../../logic/functions/windowResize';
 import { useState, useEffect } from 'react';
 import { mobileWidthLoginForm, mobileWidthMenu } from '../../../logic/config/configuration';
 import useTranslation from '../../../logic/functions/getTranslation';
@@ -12,7 +12,7 @@ import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import WithLabel from '../../common/presentation/wrapper/WithLabel';
 
 const LoginForm: React.FC = () => {
-    const [ width ] = useWindowSize();
+    const width = useWindowWidth();
     const [ menuDropDown, setDropDown ] = useState<boolean>( false );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
     const [ menuToogle, setMenuToogle ] = useState<boolean>( false );

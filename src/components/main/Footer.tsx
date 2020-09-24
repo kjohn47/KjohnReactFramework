@@ -1,12 +1,12 @@
 import React, { useState, useEffect, CSSProperties } from "react"
 import Column from "../common/structure/Column"
 import Row from "../common/structure/Row";
-import useWindowSize from "../../logic/functions/windowResize";
+import {useWindowWidth} from "../../logic/functions/windowResize";
 import { mobileWidth } from "../../logic/config/configuration";
 
 const Footer: React.FC = () => 
 {
-    const [ width ] = useWindowSize();
+    const width = useWindowWidth();
     const footerRef = React.useRef<HTMLDivElement>( null );
     const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
     const [isMobile, setIsMobile] = useState<boolean>(width <= mobileWidth);
