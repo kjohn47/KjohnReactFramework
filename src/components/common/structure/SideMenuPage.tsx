@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Column, { ColumnNumber } from './Column';
 import Row from './Row';
-import useWindowSize from '../../../logic/functions/windowResize';
-import { mobileWidth } from '../../../logic/config/configuration';
+import {useMobileWidth} from '../../../logic/functions/windowResize';
 
 interface ISideMenuProps {
     title: string;
@@ -59,7 +58,7 @@ const SideMenuItem: React.FC<ISideMenuItem> = ( props ) => {
 }
 
 const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
-    const [ width ] = useWindowSize();
+    const mobileWidth = useMobileWidth();
     const [ selected, setSelected ] = useState<string | React.ComponentType | JSX.Element | JSX.IntrinsicElements>( props.presentationComponent );
     const [ selectedIndex, setSelectedIndex ] = useState<string>( "" );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
@@ -68,16 +67,16 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
         setSelected( component );
         setSelectedIndex( index );
         setSelectedTitle( [ menuTitle, subMenuTitle ] );
-        if ( width <= mobileWidth )
+        if ( mobileWidth.isMobileWidth )
             setMenuCollapse( true );
     }
 
     useEffect( () => {
-        if ( width <= mobileWidth )
+        if ( mobileWidth.isMobileWidth )
             setMenuCollapse( true );
         else
             setMenuCollapse( false );
-    }, [ width ] );
+    }, [ mobileWidth.isMobileWidth ] );
 
     return (
         <Row className="SideMenuPage">
@@ -91,7 +90,7 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
                                         <span className="pointer_cursor" onClick={ () => { selectSubMenu( props.presentationComponent, "", props.title, "" ) } }>{ props.title }</span>
                                     </Column>
                                     <Column full={ ColumnNumber.C2 } className="SideMenuTitleCollapse">
-                                        { width <= mobileWidth && <span className="pointer_cursor " onClick={ () => { setMenuCollapse( !menuCollapse ) } }>{ menuCollapse ? "+" : "-" }</span> }
+                                        { mobileWidth.isMobileWidth && <span className="pointer_cursor " onClick={ () => { setMenuCollapse( !menuCollapse ) } }>{ menuCollapse ? "+" : "-" }</span> }
                                     </Column>
                                 </Row>
                             </Column>
