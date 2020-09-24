@@ -72,7 +72,7 @@ export const useMobileWidth = (customWidth?: number) => {
 
   useLayoutEffect( () => {
     const updateWidthState = () => {
-      if(window.innerWidth <= minHeight)
+      if(window.innerWidth <= mobileWidth)
       {
         setIsMobileWidth(true);
       }
