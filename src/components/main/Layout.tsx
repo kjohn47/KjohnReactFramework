@@ -1,6 +1,9 @@
 import React from "react";
 import ModalWrapper from "./ModalWrapper";
 import useAppHandler from "../../logic/context/App/AppContextHandler";
+import MenuWrapper from "./MenuWrapper";
+import ContentWrapper from "./ContentWrapper";
+import FooterWrapper from "./FooterWrapper";
 
 interface ILayout {
     MenuComponent: React.ComponentType;
@@ -14,15 +17,15 @@ const Layout: React.FC<ILayout> = ( props ) => {
     return (
         <div className={ "PageLayout " + selectedTheme }>
             <ModalWrapper>
-                <div className={ !props.IsCustomMenu ? "PageMenu PageMenuColor" : "" }>
+                <MenuWrapper IsCustom = {props.IsCustomMenu}>
                     <props.MenuComponent />
-                </div>
-                <div className={ "PageContent PageContentColor" } >
+                </MenuWrapper>
+                <ContentWrapper>
                     { props.children }
-                </div>
-                <div className={ !props.IsCustomFooter ? "PageFooter PageMenuColor" : "" }>
+                </ContentWrapper>
+                <FooterWrapper IsCustom = {props.IsCustomFooter}>
                     <props.FooterComponent />
-                </div>
+                </FooterWrapper>
             </ModalWrapper>
         </div>
     );

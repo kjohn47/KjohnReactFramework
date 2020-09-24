@@ -5,21 +5,21 @@ import MenuItem from './MenuItem';
 import PageSelector from '../../common/inputs/PageSelector';
 import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import { IMenuProps } from '../Menu';
-import useWindowSize from '../../../logic/functions/windowResize';
-import { useState, useRef, useEffect } from 'react';
+import {useMobileWidth} from '../../../logic/functions/windowResize';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { mobileWidthMenu } from '../../../logic/config/configuration';
 import useTranslation from '../../../logic/functions/getTranslation';
 import MenuItemMobile from './MenuItemMobile';
 
 const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: boolean ) => void }> = ( props ) => {
-  const [ width ] = useWindowSize();
   const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
-
   const { getTranslation } = useTranslation();
   const menuRef = useRef<HTMLDivElement>( null );
-
-  const numMenus: number = props.MenuNav !== undefined ? props.MenuNav.length : 0;
-  const maxWidth: number = numMenus <= 3 ? mobileWidthMenu : mobileWidthMenu + ( 100 * numMenus - 3 );
+  const maxWith = useMemo(() => {
+    const numMenus: number = props.MenuNav !== undefined ? props.MenuNav.length : 0;
+    return numMenus <= 3 ? mobileWidthMenu : mobileWidthMenu + ( 100 * numMenus - 3 );
+  }, [props.MenuNav])
+  const mobileWidth = useMobileWidth(maxWith);  
 
   const handleClickOut: ( event: any ) => void = ( event ) => {
     if ( props.toogle && menuRef != null && menuRef.current !== null && !menuRef.current.contains( event.target ) ) {
@@ -28,14 +28,14 @@ const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: bo
   }
 
   React.useEffect( () => {
-    if ( width <= maxWidth )
+    if ( mobileWidth.isCustomWidth )
       setMenuCollapse( true );
     else {
       setMenuCollapse( false );
       props.setToogle( false );
     }
     //eslint-disable-next-line
-  }, [ width ] );
+  }, [ mobileWidth.isCustomWidth ] );
 
   useEffect( () => {
     // add when mounted
