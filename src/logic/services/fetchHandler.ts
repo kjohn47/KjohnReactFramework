@@ -274,7 +274,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, t
         {
             return `${serviceUrl}/${documentPath}${documentId ? `/${documentId}` : ""}`;
         }
-        return `${apiServerUrl}/${getKnownService(serviceUrl)}/${getKnownAction(serviceUrl, documentPath, documentId)}`;
+        return `${apiServerUrl}${getKnownService(serviceUrl)}${getKnownAction(serviceUrl, documentPath, documentId)}`;
     }, [getKnownService, getKnownAction, externalService, serviceUrl, documentPath, documentId]);
 
     const abortControllerRef = useRef(new AbortController());
@@ -379,7 +379,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, t
                 return r.json();
             } )
             .then( ( data: IdownloadDocument ) => {
-                getFileFromBase64( data);
+                getFileFromBase64(data);
                 return data;
             } )
             .catch( ( err: Error ) => (
