@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {useWindowWidth} from '../../../logic/functions/windowResize';
-import { mobileWidthMenu, mobileWidthLoginForm } from '../../../logic/config/configuration';
+import {useMobileWidth} from '../../../logic/functions/windowResize';
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
@@ -25,7 +24,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
     const [ toogle, setToogle ] = useState<boolean>( false );
     const [ shortName, setShortName ] = useState<boolean>( false );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
-    const width = useWindowWidth();
+    const mobileWidth = useMobileWidth();
     const userMenuRef = useRef<HTMLDivElement>( null );
     const notificationRef = useRef<HTMLDivElement>( null );
 
@@ -48,14 +47,14 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
     }, [ toogle ] )
 
     useEffect( () => {
-        if ( width <= mobileWidthLoginForm && width > mobileWidthMenu ) {
+        if ( mobileWidth.isMobileWidthLoginForm && !mobileWidth.isMobileWidthMenu ) {
             setShortName( true );
             if ( menuCollapse ) {
                 setMenuCollapse( false );
                 setToogle( false );
             }
         }
-        else if ( width <= mobileWidthMenu ) {
+        else if ( mobileWidth.isMobileWidthMenu ) {
             if ( !menuCollapse ) {
                 setToogle( false );
             }
@@ -68,7 +67,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
             setToogle( false );
         }
         //eslint-disable-next-line
-    }, [ width ] );
+    }, [ mobileWidth.isMobileWidthLoginForm, mobileWidth.isMobileWidthMenu ] );
 
     const renderDropDown = () => {
         const menus: ISubMenuItem[] = [

@@ -3,16 +3,15 @@ import Row from '../../common/structure/Row';
 import Column, { ColumnNumber } from '../../common/structure/Column';
 import InputText from '../../common/inputs/InputText';
 import Button, { ButtonTypes } from '../../common/inputs/Button';
-import {useWindowWidth} from '../../../logic/functions/windowResize';
+import {useMobileWidth} from '../../../logic/functions/windowResize';
 import { useState, useEffect } from 'react';
-import { mobileWidthLoginForm, mobileWidthMenu } from '../../../logic/config/configuration';
 import useTranslation from '../../../logic/functions/getTranslation';
 import PageSelector from '../../common/inputs/PageSelector';
 import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import WithLabel from '../../common/presentation/wrapper/WithLabel';
 
 const LoginForm: React.FC = () => {
-    const width = useWindowWidth();
+    const mobileWidth = useMobileWidth();
     const [ menuDropDown, setDropDown ] = useState<boolean>( false );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
     const [ menuToogle, setMenuToogle ] = useState<boolean>( false );
@@ -36,14 +35,14 @@ const LoginForm: React.FC = () => {
     }, [ menuToogle ] )
 
     useEffect( () => {
-        if ( width <= mobileWidthLoginForm && width > mobileWidthMenu ) {
+        if ( mobileWidth.isMobileWidthLoginForm && !mobileWidth.isMobileWidthMenu ) {
             setDropDown( true );
             if ( menuCollapse ) {
                 setMenuToogle( false );
                 setMenuCollapse( false );
             }
         }
-        else if ( width <= mobileWidthMenu ) {
+        else if ( mobileWidth.isMobileWidthMenu ) {
             if ( menuDropDown ) {
                 setMenuToogle( false );
                 setDropDown( false );
@@ -56,7 +55,7 @@ const LoginForm: React.FC = () => {
             setMenuToogle( false );
         }
         //eslint-disable-next-line
-    }, [ width ] );
+    }, [ mobileWidth.isMobileWidthLoginForm, mobileWidth.isMobileWidthMenu ] );
 
     const renderInlineForm = () => {
         return (
