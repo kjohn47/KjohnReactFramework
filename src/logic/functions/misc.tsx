@@ -1,6 +1,5 @@
 import React from 'react';
 import { KnownPages } from '../context/Routes/routeContextEnums';
-import { IdownloadDocument } from '../services/serviceCallerInterfaces';
 import { getMimeTypeFromExtension } from './mimeTypes';
 import SHA from "sha.js";
 
@@ -21,27 +20,48 @@ export const injectProps: <TProps>(Wrapped: React.ComponentType<TProps>, props: 
 
 export const delayedPromise = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) );
 
-export const getFileFromBase64 = ( fileData: IdownloadDocument ) => {
-    const fileString = atob(fileData.data);
+export const getFileFromBase64 = ( data: string ): Uint8Array => {
+    const fileString = atob(data);
     const fileBytes: Uint8Array = new Uint8Array(fileString.length);
-    const extension = fileData.extension.toLowerCase();
-    const fileName = `${fileData.name}.${extension}`;
+
     for( let i = 0; i < fileString.length; i++ )
     {
         fileBytes[i] = fileString.charCodeAt( i );
     }
 
+    return fileBytes;
+}
+
+export const decodeUnit8Blob = (chunks: Uint8Array) => {
+    if (!("TextDecoder" in window))
+    {
+        let data: string = "";
+
+        chunks.forEach( c => {
+            data += String.fromCharCode( c );
+        } );
+
+        return data;
+    }
+    else
+    {
+        return new TextDecoder("utf-8").decode(chunks);
+    }
+}
+
+export const downloadFile = (bytes: Uint8Array, fileName: string, fileExtension?: string): void => {
+    const extension = fileExtension ? `.${fileExtension.toLocaleLowerCase()}` : "";
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        const file = new Blob( [fileBytes], { type: getMimeTypeFromExtension(extension) } );
-        window.navigator.msSaveOrOpenBlob(file, fileName);
+        const file = new Blob( [bytes], { type: getMimeTypeFromExtension(fileExtension) } );
+        window.navigator.msSaveOrOpenBlob(file, `${fileName}${extension}`);
     } 
     else
     {
-        const file = new File( [fileBytes], fileName, { type: getMimeTypeFromExtension(extension) } );
+        const file = new File( [bytes], fileName, { type: getMimeTypeFromExtension(fileExtension) } );
         let url = window.URL.createObjectURL(file);
         var link = document.createElement("a");
         link.href = url;
-        link.download = fileName;
+        link.download = `${fileName}${extension}`;
         link.target = "_blank";
         link.click();
         link.remove();
