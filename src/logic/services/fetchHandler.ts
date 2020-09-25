@@ -1,7 +1,7 @@
 import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { apiServerUrl } from "../config/configuration";
-import { getFileFromBase64, IDictionary } from "../functions/misc";
+import { getFileFromBase64, IDictionary, downloadFile } from "../functions/misc";
 import useLoginHandler from "../context/Login/LoginContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
 import { useKnownServices } from "../context/App/knownServicesContextHandler";
@@ -26,17 +26,28 @@ interface IfetchArgs {
     customHeaders?: Headers | [string, string][];
 }
 
+export interface IFileMetadata {
+    fileName: string;
+    fileExtension: string;
+}
+
 export interface IdownloadArgs extends IfetchArgs {
     documentPath: string;
     documentId?: string;
     loadProgress?: boolean;
+    fileMetadata?: IFileMetadata;
+    rawDownload?: boolean;
 }
 
-const getHeaders = ( language: string, token?: string, isPost?: boolean ) => {
+const getHeaders = ( language?: string, token?: string, isPost?: boolean ) => {
     let headers = new Headers();
     headers.append( 'Accept', 'application/json' );
-    headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
-    headers.append( 'AppLanguage', language );
+    
+    if(language)
+    {
+        headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
+        headers.append( 'AppLanguage', language );
+    }
     
     if( isPost )
     {
@@ -49,6 +60,23 @@ const getHeaders = ( language: string, token?: string, isPost?: boolean ) => {
         headers.append( 'Authorization', `Bearer ${ token }` );
     }
     return headers;
+}
+
+const decodeUnit8Blob = (chunks: Uint8Array) => {
+    if (!("TextDecoder" in window))
+    {
+        let data: string = "";
+
+        chunks.forEach( c => {
+            data += String.fromCharCode( c );
+        } );
+
+        return data;
+    }
+    else
+    {
+        return new TextDecoder("utf-8").decode(chunks);
+    }
 }
 
 export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
@@ -261,12 +289,15 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     return {Post, Put, Delete, Abort};
 }
 
-export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, timeOut, externalService, customHeaders, loadProgress } : IdownloadArgs ) => {
+export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, timeOut, externalService, customHeaders, loadProgress, fileMetadata, rawDownload } : IdownloadArgs ) => {
     const login = useLoginHandler().Login;
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
-    const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
-    const [header, setHeader] = useState<Headers | [string,string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
+    const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
+    const [header, setHeader] = useState<Headers | [string,string][]>( 
+        ( customHeaders && customHeaders ) || 
+        getHeaders( (!externalService && appLanguage) || undefined, (!externalService && authToken) || undefined, false ) 
+    );
     const [isDownloading, setIsDownloading] = useState<boolean>(false);
     const [downloadProgress, setDownloadProgress] = useState<number>(0);
     const downloadUrl = useMemo(() => {
@@ -292,7 +323,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, t
         }
         else
         {
-            setHeader( getHeaders( appLanguage, authToken, true ) );
+            setHeader( getHeaders( (!externalService && appLanguage) || undefined, (!externalService && authToken) || undefined, false ) );
         }
         // eslint-disable-next-line
     }, [appLanguage, login, authToken]);
@@ -340,7 +371,7 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, t
                         let receivedLength = 0;
                         let chunks: number[] = [];
 
-                        return reader.read().then( function process( { done, value } ): Promise<IdownloadDocument> | IdownloadDocument {
+                        return reader.read().then( function process( { done, value } ): Promise<IdownloadDocument | Uint8Array> | IdownloadDocument | Uint8Array {
                             if( !done )
                             {
                                 if( value )
@@ -358,28 +389,48 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, t
                                 chunks = [];
         
                                 setDownloadProgress(100);
-                                if (!("TextDecoder" in window))
+                                
+                                if(externalService || rawDownload)
                                 {
-                                    let data: string = "";
-        
-                                    chunksAll.forEach( c => {
-                                        data += String.fromCharCode( c );
-                                    } );
-        
-                                    return JSON.parse(data) as IdownloadDocument;
+                                    return chunksAll;
                                 }
-                                else
-                                {
-                                    return JSON.parse(new TextDecoder("utf-8").decode(chunksAll)) as IdownloadDocument;
-                                }
+
+                                return JSON.parse(decodeUnit8Blob(chunksAll)) as IdownloadDocument
                             }
                         } )
                     }
                 }
+                if(externalService || rawDownload)
+                {
+                    return r.blob();
+                }
+
                 return r.json();
             } )
-            .then( ( data: IdownloadDocument ) => {
-                getFileFromBase64(data);
+            .then( ( data: IdownloadDocument & Uint8Array ) => {
+                if(externalService || rawDownload)
+                {
+                    const name = fileMetadata? fileMetadata.fileName : (documentId ? documentId.split('.')[0] : documentPath.split('.')[0]);
+                    const extension = fileMetadata ? fileMetadata.fileExtension : (documentId ? documentId.split('.')[1] : documentPath.split('.')[1]);
+                    downloadFile(data, name, extension);
+                }
+                else
+                {
+                    const dataOut = data as IdownloadDocument;
+                    if(dataOut.dataBytes)
+                    {
+                        downloadFile(dataOut.dataBytes, 
+                                    fileMetadata ? fileMetadata.fileName : dataOut.name, 
+                                    fileMetadata ? fileMetadata.fileExtension : dataOut.extension);
+                    }
+                    else if(dataOut.dataBase64)
+                    {
+                        downloadFile(getFileFromBase64(dataOut.dataBase64),
+                                    fileMetadata ? fileMetadata.fileName : dataOut.name, 
+                                    fileMetadata ? fileMetadata.fileExtension : dataOut.extension);
+                    }
+                }
+
                 return data;
             } )
             .catch( ( err: Error ) => (

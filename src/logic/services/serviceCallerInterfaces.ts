@@ -24,7 +24,8 @@ interface IServiceArgs<IServiceRequest, IServiceResponse> {
 export interface IdownloadDocument extends IServiceError {
     name: string;
     extension: string;
-    data: string;
+    dataBase64?: string;
+    dataBytes?: Uint8Array;
 }
 
 export type ServiceType<IServiceRequest, IServiceResponse> = ( Args: IServiceArgs<IServiceRequest, IServiceResponse> ) => Promise<IServiceResponse | IServiceError>;

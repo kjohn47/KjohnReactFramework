@@ -17,7 +17,11 @@ export const useTestService: () => ITestServices = () => {
         documentPath: "Documents/Download",
         documentId: "pdfFile",
         externalService: true,
-        loadProgress: true
+        loadProgress: true,
+        fileMetadata: {
+            fileExtension: "json",
+            fileName: "pdfFileJson"
+        }
     } );
 
     const SampleService_1 = () => {
