@@ -14,14 +14,52 @@ code {
     monospace;
 }
 
-// Component Styles Import
-@import "./Components/";
+body, .KRFScroll {
+  scrollbar-width: thin;
+  scrollbar-color: $ScrollMain;
+  &:hover {
+    scrollbar-color: $ScrollMainHover;
+  }
 
-// Main Styles Import
-@import "./Main/";
-        
-// Themes Import
-@import "./Themes";
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+   
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px $ScrollBoxShadow;
+    border-radius: 5px;
+    background-color: $ScrollMainBG;
+    &:hover {
+      background-color: $ScrollMainBGHover;
+    }
+  }
+   
+  &::-webkit-scrollbar-thumb {
+    background-color: $ScrollMain;
+    outline: 1px solid $ScrollBox;
+    border-radius: 5px;
+    &:hover {
+      background-color: $ScrollMainHover;
+      outline: 1px solid $ScrollBoxHover;
+    }
+  }
+}
 
-// Pages Styles Import
-@import "./Pages/";
+.KRFApp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  // Component Styles Import
+  @import "./Components/";
+
+  // Main Styles Import
+  @import "./Main/";
+          
+  // Themes Import
+  @import "./Themes";
+
+  // Pages Styles Import
+  @import "./Pages/";
+}
