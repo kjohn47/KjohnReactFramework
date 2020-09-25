@@ -82,10 +82,17 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
     const componentUnmountedRef = useRef(false);
 
     useEffect( () => {
-        if( login && !externalService )
+        if( login && !externalService)
         {
-            setAuthToken(login.userSessionToken);
+            if(authToken !== login.userSessionToken)
+                setAuthToken(login.userSessionToken);
         }
+        else
+        {
+            if(authToken !== undefined)
+                setAuthToken(undefined);
+        }
+        
         if( customHeaders ) {
             setHeader(customHeaders);
         }
@@ -178,9 +185,15 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     const componentUnmountedRef = useRef(false);
 
     useEffect( () => {
-        if( login && !externalService )
+        if( login && !externalService)
         {
-            setAuthToken(login.userSessionToken);
+            if(authToken !== login.userSessionToken)
+                setAuthToken(login.userSessionToken);
+        }
+        else
+        {
+            if(authToken !== undefined)
+                setAuthToken(undefined);
         }
 
         if(customHeaders)
@@ -306,9 +319,15 @@ export const useDocumentDownloader = ( {
     const componentUnmountedRef = useRef(false);
 
     useEffect( () => {
-        if( login && !externalService )
+        if( login && !externalService)
         {
-            setAuthToken(login.userSessionToken);
+            if(authToken !== login.userSessionToken)
+                setAuthToken(login.userSessionToken);
+        }
+        else
+        {
+            if(authToken !== undefined)
+                setAuthToken(undefined);
         }
 
         if(customHeaders)
