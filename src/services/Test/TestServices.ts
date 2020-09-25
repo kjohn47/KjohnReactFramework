@@ -4,6 +4,7 @@ import { ITestServiceRequest, ITestServiceResponse, ITestServices, ITestExternal
 import { ErrorCodes } from "../../logic/context/Error/appErrorEnums";
 import { TestServiceRequestType } from "./TestServiceEnum";
 import { useDocumentDownloader } from "../../logic/services/fetchHandler";
+import { decodeUnit8Blob } from "../../logic/functions/misc";
 
 export const useTestService: () => ITestServices = () => {
     const getData = useTestServiceHandler();
@@ -18,6 +19,7 @@ export const useTestService: () => ITestServices = () => {
         documentId: "pdfFile",
         externalService: true,
         loadProgress: true,
+        returnResultAfterDownloaded: true,
         fileMetadata: {
             fileExtension: "json",
             fileName: "pdfFileJson"
@@ -55,7 +57,11 @@ export const useTestService: () => ITestServices = () => {
     }
 
     const DownloadFile = async () => {
-        console.log(await FileDownloader.download());
+        const result = await FileDownloader.download();
+        console.log("Result: ", result);
+        
+        if(result && result.dataBytes)
+            console.log("Decoded file: ", decodeUnit8Blob(result.dataBytes));
     }
 
     const AbortDownload = () => {

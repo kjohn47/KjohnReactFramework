@@ -32,6 +32,23 @@ export const getFileFromBase64 = ( data: string ): Uint8Array => {
     return fileBytes;
 }
 
+export const decodeUnit8Blob = (chunks: Uint8Array) => {
+    if (!("TextDecoder" in window))
+    {
+        let data: string = "";
+
+        chunks.forEach( c => {
+            data += String.fromCharCode( c );
+        } );
+
+        return data;
+    }
+    else
+    {
+        return new TextDecoder("utf-8").decode(chunks);
+    }
+}
+
 export const downloadFile = (bytes: Uint8Array, fileName: string, fileExtension?: string): void => {
     const extension = fileExtension ? `.${fileExtension.toLocaleLowerCase()}` : "";
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {

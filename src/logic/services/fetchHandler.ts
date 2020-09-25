@@ -1,7 +1,7 @@
 import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { apiServerUrl } from "../config/configuration";
-import { getFileFromBase64, IDictionary, downloadFile } from "../functions/misc";
+import { getFileFromBase64, IDictionary, downloadFile, decodeUnit8Blob } from "../functions/misc";
 import useLoginHandler from "../context/Login/LoginContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
 import { useKnownServices } from "../context/App/knownServicesContextHandler";
@@ -37,6 +37,7 @@ export interface IdownloadArgs extends IfetchArgs {
     loadProgress?: boolean;
     fileMetadata?: IFileMetadata;
     rawDownload?: boolean;
+    returnResultAfterDownloaded?: boolean;
 }
 
 const getHeaders = ( language?: string, token?: string, isPost?: boolean ) => {
@@ -60,23 +61,6 @@ const getHeaders = ( language?: string, token?: string, isPost?: boolean ) => {
         headers.append( 'Authorization', `Bearer ${ token }` );
     }
     return headers;
-}
-
-const decodeUnit8Blob = (chunks: Uint8Array) => {
-    if (!("TextDecoder" in window))
-    {
-        let data: string = "";
-
-        chunks.forEach( c => {
-            data += String.fromCharCode( c );
-        } );
-
-        return data;
-    }
-    else
-    {
-        return new TextDecoder("utf-8").decode(chunks);
-    }
 }
 
 export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
@@ -289,7 +273,18 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     return {Post, Put, Delete, Abort};
 }
 
-export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, timeOut, externalService, customHeaders, loadProgress, fileMetadata, rawDownload } : IdownloadArgs ) => {
+export const useDocumentDownloader = ( { 
+                                        serviceUrl,
+                                        documentPath,
+                                        documentId,
+                                        timeOut,
+                                        externalService,
+                                        customHeaders,
+                                        loadProgress,
+                                        fileMetadata,
+                                        rawDownload,
+                                        returnResultAfterDownloaded
+                                    } : IdownloadArgs ) => {
     const login = useLoginHandler().Login;
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
@@ -413,6 +408,12 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, t
                     const name = fileMetadata? fileMetadata.fileName : (documentId ? documentId.split('.')[0] : documentPath.split('.')[0]);
                     const extension = fileMetadata ? fileMetadata.fileExtension : (documentId ? documentId.split('.')[1] : documentPath.split('.')[1]);
                     downloadFile(data, name, extension);
+                    if(returnResultAfterDownloaded)
+                        return {
+                            name: name,
+                            extension: extension,
+                            dataBytes: data
+                        } as IdownloadDocument;
                 }
                 else
                 {
@@ -429,9 +430,10 @@ export const useDocumentDownloader = ( { serviceUrl, documentPath, documentId, t
                                     fileMetadata ? fileMetadata.fileName : dataOut.name, 
                                     fileMetadata ? fileMetadata.fileExtension : dataOut.extension);
                     }
+                    if(returnResultAfterDownloaded)
+                        return data;
                 }
-
-                return data;
+                return undefined;
             } )
             .catch( ( err: Error ) => (
             {
