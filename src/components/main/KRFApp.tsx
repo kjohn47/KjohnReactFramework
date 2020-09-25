@@ -20,21 +20,23 @@ export interface IKRFProps {
 }
 
 const KRFApp: React.FC<IKRFProps> = (props) =>
-  <AppProvider knownServices = {props.KnownServices}>
-    <SessionHandler>
-      <Layout 
-        MenuComponent={ props.CustomMenuComponent ? props.CustomMenuComponent : injectProps(Menu, props.MenuProps) } 
-        FooterComponent={ props.CustomFooterComponent ? props.CustomFooterComponent : injectProps(Footer, props.FooterProps) } 
-        IsCustomMenu={ props.CustomMenuComponent !== undefined }
-        IsCustomFooter={ props.CustomFooterComponent !== undefined }
-      >
-        {props.CookieModalSettings && <CookieModal {...props.CookieModalSettings} />}
-        <PageHandler
-          {...props.Routes}
-        />
-      </Layout>
-    </SessionHandler>
-  </AppProvider>
+  <div className="KRFApp">
+    <AppProvider knownServices = {props.KnownServices}>
+      <SessionHandler>
+        <Layout 
+          MenuComponent={ props.CustomMenuComponent ? props.CustomMenuComponent : injectProps(Menu, props.MenuProps) } 
+          FooterComponent={ props.CustomFooterComponent ? props.CustomFooterComponent : injectProps(Footer, props.FooterProps) } 
+          IsCustomMenu={ props.CustomMenuComponent !== undefined }
+          IsCustomFooter={ props.CustomFooterComponent !== undefined }
+        >
+          {props.CookieModalSettings && <CookieModal {...props.CookieModalSettings} />}
+          <PageHandler
+            {...props.Routes}
+          />
+        </Layout>
+      </SessionHandler>
+    </AppProvider>
+  </div>
 
 
 export default KRFApp;
