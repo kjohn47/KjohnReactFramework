@@ -81,7 +81,7 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
     }, [ mobileWidth.isMobileWidth ] );
 
     useEffect(() => {
-        if(topRowRef.current)
+        if(topRowRef.current && selectedIndex !== "")
             topRowRef.current.scrollIntoView();
     }, [selectedIndex])
 
