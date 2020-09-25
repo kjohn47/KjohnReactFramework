@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Column, { ColumnNumber } from './Column';
 import Row from './Row';
 import {useMobileWidth} from '../../../logic/functions/windowResize';
@@ -63,6 +63,8 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
     const [ selectedIndex, setSelectedIndex ] = useState<string>( "" );
     const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
     const [ selectedTitle, setSelectedTitle ] = useState<[ string, string ]>( [ props.title, "" ] )
+    const topRowRef = useRef<HTMLDivElement>(null);
+
     const selectSubMenu: selectFunctionType = ( component, index, menuTitle, subMenuTitle ) => {
         setSelected( component );
         setSelectedIndex( index );
@@ -78,8 +80,13 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
             setMenuCollapse( false );
     }, [ mobileWidth.isMobileWidth ] );
 
+    useEffect(() => {
+        if(topRowRef.current)
+            topRowRef.current.scrollIntoView();
+    }, [selectedIndex])
+
     return (
-        <Row className="SideMenuPage">
+        <Row className="SideMenuPage" reference={topRowRef}>
             <Column full={ ColumnNumber.C3 } className="SideMenuColumn" mobile={ ColumnNumber.C20 }>
                 <Row>
                     <Column className={ "SideMenuColumnContent" + ( menuCollapse ? " SideMenuColumnContentHidden" : "" ) }>
