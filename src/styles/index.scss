@@ -47,10 +47,6 @@ body, .KRFScroll {
 }
 
 .KRFApp {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   // Component Styles Import
   @import "./Components/";
 

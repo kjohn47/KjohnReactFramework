@@ -12,7 +12,7 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
         if (serviceRequest)
         {
             if ( serviceRequest.Type === TestServiceRequestType.GetSample_3 ) {
-                return delayedPromise( 1500 ).then(() => Get("InexistentService404"));
+                return delayedPromise( 1500 ).then(() => Get({action: "InexistentService404"}));
             }
             
             if( serviceRequest.Type === TestServiceRequestType.GetSample_1 )
@@ -23,14 +23,14 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
             if( serviceRequest.Type === TestServiceRequestType.AbortSample ) {
                 return delayedPromise( 2000 )
                 .then( async () => {
-                    let returnValue = Get("InexistentService404");
+                    let returnValue = Get({action: "InexistentService404"});
                     Abort();
                     return await returnValue;
                 })
             }
 
             if( serviceRequest.Type === TestServiceRequestType.CallExternal ) {
-                return externalService.Get("posts", "1");
+                return externalService.Get({action: "posts", route: "1"});
             }
 
             return delayedPromise( 2000 )

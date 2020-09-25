@@ -34,7 +34,11 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
         if(serviceRequest) {
             switch(serviceRequest.Type) {
                 case NotificationRequestType.Get: {
-                    //return GetData.Get(AvailableActionsEnum.Notifications, NotificationRoutesEnum.GetData, isMenuQuery);
+                    /*return GetData.Get({
+                                action: AvailableActionsEnum.Notifications, 
+                                route: NotificationRoutesEnum.GetData, 
+                                query: isMenuQuery
+                            });*/
                     const notDate = new Date();
                     notDate.setDate( notDate.getDate() - 7 );
                     return delayedPromise(1000).then(() => {
@@ -81,7 +85,13 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.ReadCurrent: {
-                    //return PostData.Post({IsMenu: IsMenu}, AvailableActionsEnum.Notifications, NotificationRoutesEnum.ReadCurrent);
+                    /*return PostData.Post({
+                                    IsMenu: IsMenu
+                                }, 
+                                {
+                                    action: AvailableActionsEnum.Notifications, 
+                                    route: NotificationRoutesEnum.ReadCurrent
+                                });*/
                     return delayedPromise(1000).then(() => {
                         return {...defaultResponse,
                             UnreadCount: 0,
@@ -95,7 +105,13 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.ReadAll: {
-                    //return PostData.Post({IsMenu: IsMenu}, AvailableActionsEnum.Notifications, NotificationRoutesEnum.ReadAll);
+                    /*return PostData.Post({
+                                    IsMenu: IsMenu
+                                },
+                                {
+                                    action: AvailableActionsEnum.Notifications,
+                                    route: NotificationRoutesEnum.ReadAll
+                                });*/
                     return delayedPromise(1000).then(() => {
                         return {...defaultResponse,
                             UnreadCount: 0,
@@ -110,7 +126,14 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.Delete: {
-                    //return PostData.Post({ID: serviceRequest.ID, IsMenu: IsMenu}, AvailableActionsEnum.Notifications, NotificationRoutesEnum.Delete);
+                    /*return PostData.Post({
+                                    ID: serviceRequest.ID, 
+                                    IsMenu: IsMenu
+                                }, 
+                                {
+                                    action: AvailableActionsEnum.Notifications, 
+                                    route: NotificationRoutesEnum.Delete
+                                });*/
                     return delayedPromise(1000).then(() => {
                         return {...defaultResponse,
                             UnreadCount: defaultResponse.Notifications.find( n => serviceRequest.ID && ( n.ID === serviceRequest.ID && !n.IsViewed )) ? defaultResponse.UnreadCount - 1 : defaultResponse.UnreadCount,
