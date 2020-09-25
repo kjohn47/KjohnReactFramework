@@ -1,10 +1,9 @@
 import { IDictionary } from "./misc";
 
-export const getMimeTypeFromExtension = ( extension: string ): string => {
-    let mime = MimeTypeExtension[extension.toLowerCase()];
-    if( mime )
+export const getMimeTypeFromExtension = ( extension?: string ): string => {
+    if( extension && MimeTypeExtension[extension.toLowerCase()] )
     {
-        return mime;
+        return MimeTypeExtension[extension.toLowerCase()];
     }
     return "application/octet-stream";
 }
