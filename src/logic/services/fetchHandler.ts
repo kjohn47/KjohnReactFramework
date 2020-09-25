@@ -40,11 +40,11 @@ export interface IdownloadArgs extends IfetchArgs {
     returnResultAfterDownloaded?: boolean;
 }
 
-const getHeaders = ( language?: string, token?: string, isPost?: boolean ) => {
+const getHeaders = ( isExternal? : boolean, language?: string, token?: string, isPost?: boolean ) => {
     let headers = new Headers();
     headers.append( 'Accept', 'application/json' );
     
-    if(language)
+    if(!isExternal && language)
     {
         headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
         headers.append( 'AppLanguage', language );
@@ -56,7 +56,7 @@ const getHeaders = ( language?: string, token?: string, isPost?: boolean ) => {
         headers.append( 'Content-Type', 'application/json' );
     }
 
-    if ( token ) {
+    if ( !isExternal && token ) {
         headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
         headers.append( 'Authorization', `Bearer ${ token }` );
     }
@@ -68,8 +68,8 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
     const login = useLoginHandler().Login;
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
-    const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
-    const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken ) );
+    const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined);
+    const [header, setHeader] = useState<Headers | [string, string][]>((customHeaders && customHeaders) || getHeaders(externalService, appLanguage, authToken));
     const service = useMemo(() => {
         if(externalService)
         {
@@ -91,10 +91,10 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
         }
         else
         {
-            setHeader(getHeaders(appLanguage, authToken));
+            setHeader(getHeaders(externalService, appLanguage,authToken));
         }
         // eslint-disable-next-line
-    }, [appLanguage, login, authToken]);
+    }, [externalService, appLanguage, login, authToken]);
 
     useEffect( () => {
         abortControllerRef.current = new AbortController();
@@ -163,8 +163,9 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     const login = useLoginHandler().Login;
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
-    const [authToken, setAuthToken] = useState<string | undefined>( ( login && login.userSessionToken ) || undefined );
-    const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders( appLanguage, authToken, true ) );
+    const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
+    const [header, setHeader] = useState<Headers | [string, string][]>( ( customHeaders && customHeaders ) || getHeaders(externalService, appLanguage, authToken, true) 
+    );
     const service = useMemo(() => {
         if(externalService)
         {
@@ -188,10 +189,10 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
         }
         else
         {
-            setHeader( getHeaders( appLanguage, authToken, true ) );
+            setHeader(getHeaders(externalService, appLanguage, authToken, true));
         }
         // eslint-disable-next-line
-    }, [appLanguage,login, authToken]);
+    }, [externalService, appLanguage, login, authToken]);
 
     useEffect( () => {
         abortControllerRef.current = new AbortController();
@@ -289,9 +290,7 @@ export const useDocumentDownloader = ( {
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
     const [authToken, setAuthToken] = useState<string | undefined>( ( !externalService && login && login.userSessionToken ) || undefined );
-    const [header, setHeader] = useState<Headers | [string,string][]>( 
-        ( customHeaders && customHeaders ) || 
-        getHeaders( (!externalService && appLanguage) || undefined, (!externalService && authToken) || undefined, false ) 
+    const [header, setHeader] = useState<Headers | [string,string][]>((customHeaders && customHeaders) || getHeaders(externalService, appLanguage, authToken) 
     );
     const [isDownloading, setIsDownloading] = useState<boolean>(false);
     const [downloadProgress, setDownloadProgress] = useState<number>(0);
@@ -318,10 +317,10 @@ export const useDocumentDownloader = ( {
         }
         else
         {
-            setHeader( getHeaders( (!externalService && appLanguage) || undefined, (!externalService && authToken) || undefined, false ) );
+            setHeader(getHeaders(externalService, appLanguage, authToken));
         }
         // eslint-disable-next-line
-    }, [appLanguage, login, authToken]);
+    }, [externalService, appLanguage, login, authToken]);
 
     useEffect( () => {
         abortControllerRef.current = new AbortController();
