@@ -14,9 +14,9 @@ const handleErrors = ( response: Response ) => {
     return response;
 }
 
-const getRouteUrl = ( action: string, route: string | undefined, query: IDictionary<string> | undefined): string => {
+const getRouteUrl = ( action: string | undefined, route: string | undefined, query: IDictionary<string> | undefined): string => {
     const queryStr = getQueryStringFromDictionary(query);
-    return `${action !== "" ? `/${action}` : ""}${route ? `/${route}` : ""}${queryStr}`;
+    return `${action ? `/${action}` : ""}${route ? `/${route}` : ""}${queryStr}`;
 }
 
 interface IfetchArgs {
@@ -24,6 +24,12 @@ interface IfetchArgs {
     timeOut?: number;
     externalService?: boolean;
     customHeaders?: Headers | [string, string][];
+}
+
+interface IFetchRoute {
+    action?: string; 
+    route?: string;
+    query?: IDictionary<string>;
 }
 
 export interface IFileMetadata {
@@ -113,9 +119,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
         // eslint-disable-next-line
     }, [])
 
-    const Get = ( action: string = "", 
-            route: string | undefined = undefined,
-            query: IDictionary<string> | undefined = undefined ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
+    const Get = ( { action, route, query}: IFetchRoute ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
         
         let timeOutAbortController = new AbortController();
         let timeout: NodeJS.Timeout | undefined = undefined;
@@ -219,7 +223,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
 
     const ExecuteFetch = ( method: string, 
         request: FetchDataIn, 
-        action: string = "", 
+        action: string | undefined, 
         route: string | undefined = undefined,
         query: IDictionary<string> | undefined = undefined ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
 
@@ -265,20 +269,11 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
         );
     });
 
-    const Post = ( request: FetchDataIn,
-        action: string = "", 
-        route: string | undefined = undefined,
-        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'POST', request, action, route, query );
+    const Post = ( request: FetchDataIn, { action, route, query}: IFetchRoute) => ExecuteFetch( 'POST', request, action, route, query );
 
-    const Put = ( request: FetchDataIn,
-        action: string = "", 
-        route: string | undefined = undefined,
-        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'PUT', request, action, route, query );
+    const Put = ( request: FetchDataIn, { action, route, query}: IFetchRoute) => ExecuteFetch( 'PUT', request, action, route, query );
 
-    const Delete = ( request: FetchDataIn,
-        action: string = "", 
-        route: string | undefined = undefined,
-        query: IDictionary<string> | undefined = undefined  ) => ExecuteFetch( 'DELETE', request, action, route, query );
+    const Delete = ( request: FetchDataIn, { action, route, query}: IFetchRoute) => ExecuteFetch( 'DELETE', request, action, route, query );
         
     const Abort = () => {
             abortControllerRef.current.abort();
