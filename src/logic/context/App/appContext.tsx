@@ -40,7 +40,10 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
             }));
             const queryDictionary: IDictionary<string> | undefined = getLangKeys ? {"getKeys" : "true"} : undefined;
             resolve(
-                getTranslation.Get( AvailableActionsEnum.Translation, globalLanguage, queryDictionary )
+                getTranslation.Get( { 
+                    action: AvailableActionsEnum.Translation, 
+                    route: globalLanguage, 
+                    query: queryDictionary } )
                     .then( data => {
                         let serviceResponse = data as ITranslationServiceResponse;
                         if(getLangKeys && serviceResponse.LanguageCodes && !serviceResponse.LanguageCodes.find(c => c === globalLanguage))

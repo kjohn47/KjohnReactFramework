@@ -28,10 +28,10 @@ export const useKnownServices = () => {
         return selectedService ? `/${selectedService.Name}` : "";
     }, [knownServices])
     
-    const getKnownAction = useCallback((service: string, action: string, route: string | undefined = undefined, query: IDictionary<string> | undefined = undefined): string => {
+    const getKnownAction = useCallback((service: string, action: string | undefined, route: string | undefined = undefined, query: IDictionary<string> | undefined = undefined): string => {
         const selectedService = knownServices[service];
 
-        if(selectedService === null || selectedService === undefined || action === "")
+        if(selectedService === null || selectedService === undefined || action === undefined)
         {
             return "";
         }

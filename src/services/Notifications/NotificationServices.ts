@@ -6,7 +6,11 @@ import { useNotificationHandler } from './NotificationServiceHandler';
 
 export const useNotificationService: ( IsMenu: boolean ) => IuseNotificationReturn = ( IsMenu = false) => {
     const {NotificationHandler} = useNotificationHandler(IsMenu);
-    const {serviceResponse, serviceHandler, serviceLoading} = useServiceCaller<INotificationRequest, INotifications>( {service: NotificationHandler, localLoading: true, ignoreAbortError: true } );
+    const {serviceResponse, serviceHandler, serviceLoading} = useServiceCaller<INotificationRequest, INotifications>({
+        service: NotificationHandler, 
+        localLoading: true, 
+        ignoreAbortError: true 
+    } );
     const [started, setStarted] = useState<boolean>(false);
 
     const ReadCurrent: () => void = () => {
