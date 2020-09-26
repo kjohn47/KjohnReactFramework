@@ -1,6 +1,7 @@
 import { ITranslations } from "../context/App/appContextInterfaces";
 import useAppHandler from "../context/App/AppContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
+import { useCallback } from "react";
 
  export interface ITranslation {
     [ process: string ]: {
@@ -26,7 +27,7 @@ const useTranslation: () => { getTranslation: ( process: string, token: string, 
     const appContext = useAppHandler().App;
     const appLanguage = useAppLanguageHandler().appLanguage;
 
-    const getTranslation: ( process: string, token: string, args?: string[] ) => string = ( process, token, args?) => {
+    const getTranslation = useCallback( (process: string, token: string, args?: string[] ): string => {
         if(!(token.startsWith( "#(" ) && token.endsWith(")")))
         {
             return token;
@@ -40,7 +41,8 @@ const useTranslation: () => { getTranslation: ( process: string, token: string, 
         }
 
         return textOut;
-    }
+    }, [appContext.translations, appLanguage]);
+
     return { getTranslation };
 }
 
