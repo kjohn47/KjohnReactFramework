@@ -61,7 +61,7 @@ const SideMenuPage: React.FC<ISideMenuProps> = ( props ) => {
     const mobileWidth = useMobileWidth();
     const [ selected, setSelected ] = useState<string | React.ComponentType | JSX.Element | JSX.IntrinsicElements>( props.presentationComponent );
     const [ selectedIndex, setSelectedIndex ] = useState<string>( "" );
-    const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
+    const [ menuCollapse, setMenuCollapse ] = useState<boolean>( mobileWidth.isMobileWidth );
     const [ selectedTitle, setSelectedTitle ] = useState<[ string, string ]>( [ props.title, "" ] )
     const topRowRef = useRef<HTMLDivElement>(null);
 

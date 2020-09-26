@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PageSelector from './PageSelector';
 import { IDictionary, PageType } from '../../../logic/functions/misc';
 
@@ -22,8 +22,19 @@ interface IButton {
 }
 
 const Button: React.FC<IButton> = ( props ) => {
-    let css = `noselect page_button  ${( props.buttonType !== undefined ? ( props.buttonType ) : "page_button_color" )}${( props.disabled ? "_disabled" : " pointer_cursor" )}`;
-    css = props.className !== undefined ? css + " " + props.className : css;
+    const css = useMemo(() => {
+        let cssVal = `noselect page_button ${( props.buttonType !== undefined ? 
+                                                props.buttonType 
+                                                : ButtonTypes.Default )
+                                            }${( props.disabled ? 
+                                                "_disabled" 
+                                                : " pointer_cursor" )
+                                            }`;
+
+        return props.className !== undefined ? 
+                    `${cssVal} ${props.className}` 
+                    : cssVal;
+    }, [props.buttonType, props.disabled, props.className])
 
     return (
         <div className="ButtonComponent">

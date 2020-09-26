@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { KnownPages } from "../../logic/context/Routes/routeContextEnums";
 import Button from "../common/inputs/Button";
 import WithTooltip, { ToolTipPosition } from "../common/presentation/wrapper/WithTooltip";
@@ -16,16 +16,21 @@ const ErrorPage: React.FC = () => {
     const { getErrorData } = useErrorTranslation();
     const errorContext = useErrorHandler().Error;
     const appContext = useAppHandler().App;
+
+    const errorInfo = useMemo(() => {
+        return getErrorData( errorContext.errorCode );
+    }, [getErrorData, errorContext.errorCode]);
+
     const showDetails = showDetailedErrors || appContext.adminOptions;
     return (
         <Row className="ErrorPage">
             <Column>
                 <PageHeader className="ErrorPageHeader">
-                    { getErrorData( errorContext.errorCode ).Title }
+                    { errorInfo.Title }
                 </PageHeader>
                 <Row className={ "ErrorPageDescription" + ( showDetails ? "" : " ErrorPageDescriptionFull" ) }>
                     <Column>
-                        { getErrorData( errorContext.errorCode ).Message }
+                        { errorInfo.Message }
                     </Column>
                 </Row>
                 { showDetails &&

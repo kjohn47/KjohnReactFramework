@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { AppRegex } from '../../../logic/config/regexEnum';
 
 interface IInputProps {
@@ -22,95 +22,129 @@ interface IInputProps {
     disabled?: boolean;
 }
 
-const InputText: React.FC<IInputProps> = ( props ) => 
-{    
-    const [ value, setValue ] = useState<string>( props.initialText ? props.initialText : "" );
-    const [ [ valid, validated ], setValidation ] = useState< [boolean, boolean ] >( [ false, false ] );    
+const InputText: React.FC<IInputProps> = ( {
+                                            name,
+                                            allowOnlyRegex,
+                                            balloonValidText,
+                                            className,
+                                            disabled,
+                                            externalIsValid,
+                                            externalValidated,
+                                            initialText,
+                                            invalidText,
+                                            isPassword,
+                                            lenght,
+                                            notEmpty,
+                                            onBlur,
+                                            onChange,
+                                            placeHolder,
+                                            regexValidation,
+                                            validText,
+                                            validateEmail
+                                        } ) => {    
+    const [ value, setValue ] = useState<string>( initialText ? initialText : "" );
+    const [ { valid, validated }, setValidation ] = useState< {valid: boolean, validated: boolean} >( { valid: false, validated: false } );
 
-    const validate: ( eventText: string ) => [ string, boolean ] = ( eventText ) => {
+    const validate = useCallback(( eventText: string, prevValue: string ): [ string, boolean ] => {
         let textOut = eventText;
-        if( props.notEmpty && textOut === "" )
+        if( notEmpty && textOut === "" )
         {
             return [ textOut, false ];
         }
 
-        if( props.regexValidation !== undefined )
+        if( regexValidation !== undefined )
         {            
-            let regex = new RegExp( props.regexValidation );
+            let regex = new RegExp( regexValidation );
             let isValid = regex.test( textOut );
 
-            if( props.allowOnlyRegex && !isValid )
+            if( allowOnlyRegex && !isValid )
             {
-                if( !props.validateEmail )
-                    textOut = value;
+                if( !validateEmail )
+                    textOut = prevValue;
                 else
                 {
                     let emailRegex = new RegExp( AppRegex.EmailChars );
                     if( !( emailRegex.test( textOut ) ) )
-                        textOut = value;
+                        textOut = prevValue;
                 }
 
-                isValid = regex.test( textOut ) && ( !props.notEmpty || ( props.notEmpty && textOut !== "" ) );
+                isValid = regex.test( textOut ) && ( !notEmpty || ( notEmpty && textOut !== "" ) );
             }
 
             return [ textOut, isValid ];
         }
 
         return [ textOut, true ];
-    }
+    }, [regexValidation, allowOnlyRegex, validateEmail, notEmpty]);
 
-    const changeHandler: ( event: React.FormEvent<HTMLInputElement> ) => void = ( event ) => {
-        if(!props.disabled)
+    const changeHandler = useCallback(( event: React.FormEvent<HTMLInputElement>, prevValue: string ): void => {
+        if(!disabled)
         {
-            let [ text, isValid ] = validate( event.currentTarget.value );
+            let [ text, isValid ] = validate( event.currentTarget.value, prevValue );
 
             setValue( text );
-            setValidation( [ isValid, validated ] );
+            setValidation( (prev) => { return { valid: isValid, validated: prev.validated } } );
 
-            if( props.onChange !== undefined )
+            if( onChange !== undefined )
             {
-                props.onChange( { text, name: props.name, isValid } );
+                onChange( { text, name: name, isValid } );
             }
         }
-    }
+    }, [validate, name, onChange, disabled])
 
-    const blurHandler: ( event: React.FormEvent<HTMLInputElement> ) => void = ( event ) => {        
-        if(!props.disabled)
+    const blurHandler = useCallback(( event: React.FormEvent<HTMLInputElement>, prevValue: string ): void => {        
+        if(!disabled)
         {
-            let [ text, isValid ] = validate( event.currentTarget.value );
+            let [ text, isValid ] = validate( event.currentTarget.value, prevValue );
 
-            setValidation( [ isValid, ( props.notEmpty || props.validateEmail || props.regexValidation !== undefined ) ] );
+            setValue( text );
+            setValidation( {valid: isValid, validated: ( notEmpty || validateEmail || regexValidation !== undefined ) } );
 
-            if( props.onBlur !== undefined )
+            if( onBlur !== undefined )
             {
-                props.onBlur( { text, name: props.name, isValid } );
+                onBlur( { text, name: name, isValid } );
             }
         }
-    }
+    }, [validate, name, onBlur, notEmpty, validateEmail, regexValidation, disabled]);
 
-    let inputValid = ( valid && validated ) || ( props.externalIsValid && props.externalValidated );
-    let inputInvalid = ( !valid && validated ) || ( !props.externalIsValid && props.externalValidated );
-    let inputCss = "inputText";
-    inputCss += !( inputValid || inputInvalid ) ? " inputText_Color" : "" ;
-    inputCss += inputValid ?  " inputTextValid" : "";
-    inputCss += inputInvalid ?  " inputTextInvalid" : "";
-    inputCss += props.disabled ? " disabled" : "";
+    const inputValid = useMemo(() => ( valid && validated ) || ( externalIsValid && externalValidated ), [valid, validated, externalIsValid, externalValidated]);
+    const inputInvalid = useMemo(() => ( !valid && validated ) || ( !externalIsValid && externalValidated ), [valid, validated, externalIsValid, externalValidated]);
+    const inputCss = useMemo(() => {
+        return `inputText
+            ${!( inputValid || inputInvalid ) ? " inputText_Color" : ""}
+            ${inputValid ?  " inputTextValid" : ""}
+            ${inputInvalid ?  " inputTextInvalid" : ""}
+            ${disabled ? " disabled" : ""}`;
+    
+    }, [inputValid, inputInvalid, disabled]);
 
     return(
         <div className = "inputTextDiv">
             <input 
-                type = { props.isPassword ? "password" : "text" }
-                name = { props.name }
-                className = { inputCss + ( props.className ? ( " " + props.className ) : "" ) }
-                onChange = { ( event ) => { changeHandler( event ) } }
-                onBlur = { ( event ) => { blurHandler( event ) } }                
+                type = { isPassword ? "password" : "text" }
+                name = { name }
+                className = { inputCss + ( className ? ( " " + className ) : "" ) }
+                onChange = { ( event ) => { changeHandler( event, value ) } }
+                onBlur = { ( event ) => { blurHandler( event, value ) } }                
                 value = { value }
-                maxLength = { props.lenght }
-                placeholder = { props.placeHolder }
-                disabled = { props.disabled }
+                maxLength = { lenght }
+                placeholder = { placeHolder }
+                disabled = { disabled }
             />
-            { props.validText && inputValid && <div className = { props.balloonValidText ? ( "inputTextValidationBalloon inputTextValidBalloon" ) : ( "inputTextValidation inputTextValidationValid" )}>{ props.validText }</div> }
-            { props.invalidText && inputInvalid && <div className = { props.balloonValidText ? ( "inputTextValidationBalloon inputTextInvalidBalloon" ) : ("inputTextValidation inputTextValidationInvalid")}>{ props.invalidText }</div> }
+            { validText && inputValid && 
+                <div className = { balloonValidText ? 
+                            ( "inputTextValidationBalloon inputTextValidBalloon" ) 
+                            : ( "inputTextValidation inputTextValidationValid" )
+                }>
+                    { validText }
+                </div> }
+            { invalidText && inputInvalid && 
+                <div className = { balloonValidText ? 
+                            ( "inputTextValidationBalloon inputTextInvalidBalloon" ) 
+                            : ("inputTextValidation inputTextValidationInvalid")
+                }>
+                    { invalidText }
+                </div> }
         </div>
     )
 }
