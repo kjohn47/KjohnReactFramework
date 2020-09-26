@@ -28,30 +28,26 @@ export const AppProvider: React.FC<{knownServices?: IKnownServices}> = ( { known
     const serviceContext = useMemo(() => knownServices ? {...defaultKnownServices, ...knownServices} : defaultKnownServices, [knownServices]);
     const [ appLanguage, setAppLanguage ] = useState( initialLanguage );
     const loginContext = useLogin( initialLogin );
-    const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
+
     return (
         <ServicesContext.Provider value = {serviceContext} >
             <AppLanguageContext.Provider value = { [ appLanguage, setAppLanguage ] }>
                 <LoginContext.Provider value={ loginContext } >
-                    <InitializeAppContext 
-                        appLanguage = {appLanguage}
-                        firstLoad = {firstLoad}
-                        setFirstLoad = {setFirstLoad}
-                    >
+                    <MainAppProvider appLanguage = {appLanguage}>
                         { children }
-                    </InitializeAppContext>
+                    </MainAppProvider>
                 </LoginContext.Provider>
             </AppLanguageContext.Provider>
         </ServicesContext.Provider>
     )
 }
 
-const InitializeAppContext: React.FC<{appLanguage: string, firstLoad: boolean, setFirstLoad: React.Dispatch<React.SetStateAction<boolean>> }> = ( { appLanguage, firstLoad, setFirstLoad, children } ) => {
+const MainAppProvider: React.FC<{appLanguage: string}> = ( { appLanguage, children } ) => {
     const appContext = useAppContext( initialAppConfig );
     const routeContext = useRouteContext( initialRouteConfig );
     const errorContext = useError( initialError );
     const [ loading, setLoading ] = useState( false );
-    const modalContext = useModal();
+    const [ firstLoad, setFirstLoad ] = useState<boolean>( false );
 
     useEffect( () => {
         if ( !firstLoad ) {
@@ -70,9 +66,9 @@ const InitializeAppContext: React.FC<{appLanguage: string, firstLoad: boolean, s
                     <RouteContext.Provider value = { routeContext }>
                         <ErrorContext.Provider value={ errorContext }>
                             <LoadingContext.Provider value={ [ loading, setLoading ] }>
-                                <ModalContext.Provider value = {modalContext}>
+                                <ModalProvider>
                                     { children }
-                                </ModalContext.Provider>
+                                </ModalProvider>
                             </LoadingContext.Provider>
                         </ErrorContext.Provider>
                     </RouteContext.Provider >
@@ -84,4 +80,11 @@ const InitializeAppContext: React.FC<{appLanguage: string, firstLoad: boolean, s
                 </Column>
             </Row>
     )
+}
+
+const ModalProvider: React.FC = ({children}) => {
+    const modalContext = useModal();
+    return <ModalContext.Provider value = {modalContext}>
+              { children }
+           </ModalContext.Provider>
 }

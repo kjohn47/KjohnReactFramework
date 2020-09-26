@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { KnownPages } from "../../../logic/context/Routes/routeContextEnums";
 import { IDictionary, PageType } from "../../../logic/functions/misc";
 import useRouteHandler from "../../../logic/context/Routes/RouteContextHandler";
@@ -13,9 +13,31 @@ interface IPageSelector {
     disabled?: boolean;
 }
 
-const PageSelector: React.FC<IPageSelector> = ( props ) => {
-    const routeContext = useRouteHandler();
-    const setPage = ( page: PageType, queryParams?: IDictionary<string> ) => {
+const PageSelector: React.FC<IPageSelector> = ( { page,
+                                                  action,
+                                                  className,
+                                                  disabled,
+                                                  forceReload,
+                                                  highlight,
+                                                  queryParams,
+                                                  children
+                                                } ) => {
+    const {ChangeRoute} = useRouteHandler();
+    const css = useMemo(() => ( disabled ? 
+                                "" 
+                                :  "pointer_cursor" +
+                                ( highlight ? 
+                                    " PageSelector_Highlight" 
+                                    : "" ) ) + 
+                                    ( className ? 
+                                        ( " " + className ) 
+                                        : "" ),
+                         [disabled, highlight, className]);
+
+    const setPage = useCallback(( page: PageType, queryParams?: IDictionary<string> ): void => {
+        if(disabled)
+            return;
+
         let queryString = queryParams === undefined ? "" : "?" + new URLSearchParams( queryParams ).toString();
         if ( page === KnownPages.Home || page.toString() === "" || page.toString() === "/" ) {
             page = KnownPages.Home;
@@ -25,20 +47,25 @@ const PageSelector: React.FC<IPageSelector> = ( props ) => {
             window.history.pushState( {}, "", "/" + page.toString() + queryString );
         }
 
-        routeContext.ChangeRoute({
+        ChangeRoute({
             selectedPage: page,
             queryString: queryParams,
-            forceReload: props.forceReload
+            forceReload: forceReload
         });
 
-        if(props.action)
+        if(action)
         {
-            props.action();
+            action();
         }
-    }
+    }, [action, forceReload, ChangeRoute, disabled]);
 
     return (
-        <span className={ ( props.disabled ? "" :  "pointer_cursor" + ( props.highlight ? " PageSelector_Highlight" : "" ) ) + ( props.className ? ( " " + props.className ) : "" ) } onClick={ () => !props.disabled ? setPage( props.page, props.queryParams ) : undefined } >{ props.children }</span>
+        <span 
+            className={ css } 
+            onClick={ () => setPage( page, queryParams ) } 
+        >
+            { children }
+        </span>
     );
 }
 
