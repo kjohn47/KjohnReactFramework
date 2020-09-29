@@ -17,7 +17,7 @@ const MenusBar: React.FC<IMenuProps & { toogle: boolean; setToogle: ( toogle: bo
   const menuRef = useRef<HTMLDivElement>( null );
   const maxWith = useMemo(() => {
     const numMenus: number = props.MenuNav !== undefined ? props.MenuNav.length : 0;
-    return numMenus <= 3 ? mobileWidthMenu : mobileWidthMenu + ( 100 * numMenus - 3 );
+    return numMenus <= 3 ? mobileWidthMenu : mobileWidthMenu + ( 100 * (numMenus - 3) );
   }, [props.MenuNav])
   const mobileWidth = useMobileWidth(maxWith);  
 
