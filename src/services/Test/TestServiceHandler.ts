@@ -4,6 +4,10 @@ import { ITestServiceResponse, ITestServiceRequest, ITestExternalServiceResponse
 import { delayedPromise } from "../../logic/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
+const getRandom = () => {
+    return Math.floor(Math.random() * 10);
+}
+
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = () => {
     const { Get, Abort } = useFetchGetHandler<ITestServiceResponse>( { serviceUrl: "http://localhost:3000", externalService: true });
     const externalService = useFetchGetHandler<ITestExternalServiceResponse>( { serviceUrl: "https://jsonplaceholder.typicode.com", externalService: true, timeOut: 30000 } );
@@ -30,7 +34,7 @@ export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITest
             }
 
             if( serviceRequest.Type === TestServiceRequestType.CallExternal ) {
-                return externalService.Get({action: "posts", route: "1"});
+                return externalService.Get({action: "posts", route: `${getRandom()}`});
             }
 
             return delayedPromise( 2000 )
