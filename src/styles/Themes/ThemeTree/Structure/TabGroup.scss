@@ -13,6 +13,49 @@
             border-bottom-color: $SecondaryColor;
         }
     }
+
+    .TabGroupTabRowCollapsed {
+        border-color: $Menu_Border;
+        background-color: $MainColor;
+        color: $MenuTextColor;
+    
+        .TabMenuEntry {
+            &:hover {
+                background-color: $SecondaryColor;
+            }
+        }
+    
+        .TabEntrySelected{
+            background-color: $SecondaryColor;
+        }
+    
+        .CollapsedTabMenu {
+            border-color: $Menu_Border;
+            color: $Menu_SubText;
+            background-color: $Menu_SubBackground;
+    
+            .CollapsedTabItem {
+                &:hover {
+                    background-color: $Menu_SubHover;
+                    color: $MenuTextColor;
+                }
+            }
+    
+            .CollapsedTabSelected {
+                background-color: $Menu_SubDisabled;
+                color: $Menu_SubText;
+                &:hover {
+                    background-color: $Menu_SubDisabled;
+                    color: $Menu_SubText;
+                }
+            }
+    
+            &::before {
+                border-bottom-color: $Menu_Border;            
+            }
+        }
+    }
+
     .TabGroupContentRow {
         border-color: $SecondaryColor;
     }

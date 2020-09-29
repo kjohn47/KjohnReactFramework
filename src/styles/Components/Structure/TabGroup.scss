@@ -37,12 +37,10 @@
 .TabGroupTabRowCollapsed {
     margin-left: 2px;
     height: 45px;
-    border: 1px black solid;
+    border: 1px solid;
     border-radius: 20px 20px 0 0;
     padding: 10px;
     box-sizing: border-box;
-    background-color: darkslategrey;
-    color: white;
     font-weight: bold;
     text-align: center;
 
@@ -53,32 +51,19 @@
         height: 25px;
         border-radius: 25%;
         writing-mode: vertical-rl;
-
-        &:hover {
-            background-color: slategray;
-        }
-    }
-
-    .TabEntrySelected{
-        background-color: slategray;
     }
 
     .CollapsedTabMenu {
         position: absolute;
         top: 30px;
         min-width: 150px;
-        border: 1px solid black;
+        border: 2px solid;
         border-radius: 10px;
-        color: black;
-        background-color: white;
         z-index: 1;
+        animation: slideTabMenu 0.4s ease;
 
         .CollapsedTabItem {
             padding: 5px;
-            &:hover {
-                background-color: teal;
-                color: white;
-            }
 
             &:first-child {
                 border-radius: 10px 10px 0 0;
@@ -86,11 +71,6 @@
             &:last-child {
                 border-radius: 0 0 10px 10px;
             }
-        }
-
-        .CollapsedTabSelected {
-            background-color: teal;
-            color: white;
         }
 
         &::before {
@@ -103,7 +83,6 @@
             border-right-color: transparent;
             border-top-color: transparent;
             border-left-color: transparent;
-            border-bottom-color: black;
             top: -16px;
             left: 7px;        
         }
@@ -116,3 +95,14 @@
         padding-right: 0;
     }
 }
+
+@keyframes slideTabMenu {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
