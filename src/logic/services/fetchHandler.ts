@@ -46,9 +46,10 @@ export interface IdownloadArgs extends IfetchArgs {
     returnResultAfterDownloaded?: boolean;
 }
 
-const getHeaders = ( isExternal? : boolean, language?: string, token?: string, isPost?: boolean ) => {
+const getHeaders = ( isExternal? : boolean, language?: string, token?: string, isPost?: boolean, rawResponse?: boolean ) => {
     let headers = new Headers();
-    headers.append( 'Accept', 'application/json' );
+    
+    headers.append( 'Accept', `application/${(rawResponse ? 'octet-stream' : 'json')}` );
     
     if(!isExternal && language)
     {
@@ -281,8 +282,8 @@ export const useDocumentDownloader = ( {
     }, [login, externalService]);
 
     const header = useMemo<Headers | [string, string][]>(() => {
-        return (customHeaders && customHeaders) || getHeaders(externalService, appLanguage, authToken);
-    }, [customHeaders, authToken, appLanguage, externalService]);
+        return (customHeaders && customHeaders) || getHeaders(externalService, appLanguage, authToken, false, (externalService || rawDownload));
+    }, [customHeaders, authToken, appLanguage, externalService, rawDownload]);
 
     const abortControllerRef = useRef(new AbortController());
     const componentUnmountedRef = useRef(false);

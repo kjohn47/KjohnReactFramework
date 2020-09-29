@@ -4,9 +4,6 @@
         box-sizing: border-box;
         min-width: 200px;
         min-height: 100%;
-        & > .RowDiv {
-            min-height: 100%;
-        }
 
         .SideMenuColumnContent {
             border: 1px solid black;

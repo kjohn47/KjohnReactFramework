@@ -34,9 +34,78 @@
     }
 }
 
+.TabGroupTabRowCollapsed {
+    margin-left: 2px;
+    height: 45px;
+    border: 1px solid;
+    border-radius: 20px 20px 0 0;
+    padding: 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    text-align: center;
+
+    .TabMenuEntry {
+        position: relative;
+        box-sizing: border-box;
+        width: 30px;
+        height: 25px;
+        border-radius: 25%;
+        writing-mode: vertical-rl;
+        display: flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .CollapsedTabMenu {
+        position: absolute;
+        top: 30px;
+        min-width: 150px;
+        border: 2px solid;
+        border-radius: 10px;
+        z-index: 1;
+        animation: slideTabMenu 0.4s ease;
+
+        .CollapsedTabItem {
+            padding: 5px;
+
+            &:first-child {
+                border-radius: 10px 10px 0 0;
+            }
+            &:last-child {
+                border-radius: 0 0 10px 10px;
+            }
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-width: 8px;
+            border-style: solid;
+            border-right-color: transparent;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            top: -16px;
+            left: 7px;        
+        }
+    }
+}
+
 @media ( max-width: 380px ) {
     .TabGroup {
         padding-left: 0;
         padding-right: 0;
     }
 }
+
+@keyframes slideTabMenu {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
