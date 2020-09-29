@@ -5,7 +5,7 @@ import { delayedPromise } from "../../logic/functions/misc";
 import { TestServiceRequestType } from "./TestServiceEnum";
 
 const getRandom = () => {
-    return Math.floor(Math.random() * 10);
+    return Math.floor(Math.random() * 10) + 1;
 }
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = () => {
