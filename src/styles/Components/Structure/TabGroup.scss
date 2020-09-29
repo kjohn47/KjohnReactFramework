@@ -47,10 +47,13 @@
     .TabMenuEntry {
         position: relative;
         box-sizing: border-box;
-        width: 25px;
+        width: 30px;
         height: 25px;
         border-radius: 25%;
         writing-mode: vertical-rl;
+        display: flex;
+        justify-content:center;
+        align-items:center;
     }
 
     .CollapsedTabMenu {

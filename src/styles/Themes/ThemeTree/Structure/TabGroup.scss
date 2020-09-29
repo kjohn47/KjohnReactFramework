@@ -27,10 +27,11 @@
     
         .TabEntrySelected{
             background-color: $SecondaryColor;
+            box-shadow: 0px 1px 5px 1px $Menu_SubBorder;
         }
     
         .CollapsedTabMenu {
-            border-color: $Menu_Border;
+            border-color: $Menu_SubBorder;
             color: $Menu_SubText;
             background-color: $Menu_SubBackground;
     
