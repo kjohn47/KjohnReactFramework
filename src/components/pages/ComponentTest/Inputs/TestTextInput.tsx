@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Row from '../../../common/structure/Row';
 import Column, { ColumnNumber } from '../../../common/structure/Column';
 import WithLabel from '../../../common/presentation/wrapper/WithLabel';
-import InputText from '../../../common/inputs/InputText';
+import InputTextHoc from '../../../common/inputs/InputTextHoc';
 import { AppRegex } from '../../../../logic/config/regexEnum';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
+import useInputText from '../../../../logic/functions/UseInputText';
+import InputText from '../../../common/inputs/InputText';
 
 const TestInputWithHook: React.FC = () =>
 {
@@ -15,7 +17,7 @@ const TestInputWithHook: React.FC = () =>
     },[text6])
 
 
-    return  <InputText
+    return  <InputTextHoc
                 name="TestInput6"
                 validText="Valid :)"
                 invalidText="Invalid :("
@@ -26,11 +28,23 @@ const TestInputWithHook: React.FC = () =>
 }
 
 const TestTextInput: React.FC = () => {
-
+    const hookInput = useInputText({
+        name: "hookInput",
+        validText: "valid :p",
+        invalidText: "invalid :(",
+        initialText: "some initial text",
+        regexValidation: AppRegex.NoSpecialChar,
+        notEmpty: true
+    });
 
     const logOutput = useCallback( (textOutput) => {
         console.log( textOutput );
     }, [])
+
+    useEffect(() => {
+        console.log(hookInput);
+        // eslint-disable-next-line 
+    }, [hookInput.value, hookInput.valid, hookInput.validated])
 
     return (
     <FieldSet Title="Text Inputs">
@@ -42,7 +56,7 @@ const TestTextInput: React.FC = () => {
                 mobile={ ColumnNumber.C20 }
             >
                 <WithLabel htmlFor="TestInput1" text="Test numbers" inline>
-                    <InputText
+                    <InputTextHoc
                         name="TestInput1"
                         validText="Valid :)"
                         invalidText="Invalid :("
@@ -64,7 +78,7 @@ const TestTextInput: React.FC = () => {
                 mobile={ ColumnNumber.C20 }
             >
                 <WithLabel htmlFor="TestInput2" text="Test Input text" inline>
-                    <InputText
+                    <InputTextHoc
                         name="TestInput2"
                         validText="Valid :)"
                         invalidText="Invalid :("
@@ -86,7 +100,7 @@ const TestTextInput: React.FC = () => {
                 mobile={ ColumnNumber.C20 }
             >
                 <WithLabel htmlFor="TestInput3" text="Test Input email" inline>
-                    <InputText
+                    <InputTextHoc
                         name="TestInput3"
                         validText="Valid :)"
                         invalidText="Invalid :("
@@ -109,7 +123,7 @@ const TestTextInput: React.FC = () => {
                 mobile={ ColumnNumber.C20 }
             >
                 <WithLabel htmlFor="TestInput4" text="Password">
-                    <InputText
+                    <InputTextHoc
                         name="TestInput4"
                         validText="Valid :)"
                         invalidText="Invalid :("
@@ -130,7 +144,7 @@ const TestTextInput: React.FC = () => {
                 mobile={ ColumnNumber.C20 }
             >
                 <WithLabel htmlFor="TestInput5" text="Test Input not forced valid chars">
-                    <InputText
+                    <InputTextHoc
                         name="TestInput5"
                         validText="Valid :)"
                         invalidText="Invalid :("
@@ -162,7 +176,7 @@ const TestTextInput: React.FC = () => {
                 mobile={ ColumnNumber.C20 }
             >
                 <WithLabel htmlFor="TestInput7" text="Test Input invalid chars with balloon">
-                    <InputText
+                    <InputTextHoc
                         name="TestInput7"
                         validText="Valid :)"
                         invalidText="Invalid :("
@@ -183,11 +197,23 @@ const TestTextInput: React.FC = () => {
                 mobile={ ColumnNumber.C20 }
             >
                 <WithLabel htmlFor="TestInput8" text="Disabled Text Input">
-                    <InputText
+                    <InputTextHoc
                         name="TestInput8"
                         initialText="Cannot change text on input"
                         disabled
                     />
+                </WithLabel>
+            </Column>
+        </Row>
+        <Row>
+            <Column
+                full={ ColumnNumber.C10 }
+                large={ ColumnNumber.C14 }
+                medium={ ColumnNumber.C17 }
+                mobile={ ColumnNumber.C20 }
+            >
+                <WithLabel htmlFor="hookInput" text="Test Input hook" inline>
+                    <InputText {...hookInput.inputProps}/>
                 </WithLabel>
             </Column>
         </Row>
