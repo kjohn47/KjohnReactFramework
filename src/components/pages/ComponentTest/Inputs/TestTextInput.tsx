@@ -33,7 +33,7 @@ const TestTextInput: React.FC = () => {
         validText: "valid :p",
         invalidText: "invalid :(",
         initialText: "some initial text",
-        regexValidation: AppRegex.NumberOnly,
+        regexValidation: AppRegex.NoSpecialChar,
         notEmpty: true
     });
 
@@ -212,7 +212,7 @@ const TestTextInput: React.FC = () => {
                 medium={ ColumnNumber.C17 }
                 mobile={ ColumnNumber.C20 }
             >
-                <WithLabel htmlFor="TestInput3" text="Test Input email" inline>
+                <WithLabel htmlFor="hookInput" text="Test Input hook" inline>
                     <InputText {...hookInput.inputProps}/>
                 </WithLabel>
             </Column>
