@@ -84,14 +84,14 @@ const InputTextHoc: React.FC<IInputProps> = ( {
             let [ text, isValid ] = validate( event.currentTarget.value, prevValue );
 
             setValue( text );
-            setValidation( (prev) => { return { valid: isValid, validated: prev.validated } } );
+            setValidation( (prev) => { return { valid: isValid, validated: ( notEmpty || validateEmail || regexValidation !== undefined ) && prev.validated } } );
 
             if( onChange !== undefined )
             {
                 onChange( { text, name: name, isValid } );
             }
         }
-    }, [validate, name, onChange, disabled])
+    }, [validate, name, onChange, notEmpty, validateEmail, regexValidation, disabled])
 
     const blurHandler = useCallback(( event: React.FormEvent<HTMLInputElement>, prevValue: string ): void => {        
         if(!disabled)
