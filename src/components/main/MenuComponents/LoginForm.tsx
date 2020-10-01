@@ -8,7 +8,7 @@ import useTranslation from '../../../logic/functions/getTranslation';
 import PageSelector from '../../common/inputs/PageSelector';
 import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import WithLabel from '../../common/presentation/wrapper/WithLabel';
-import useInputText from '../../../logic/functions/UseInputText';
+import useInputText from '../../../logic/inputHooks/UseInputText';
 import InputText from '../../common/inputs/InputText';
 
 const LoginFormWrapper: React.FC<{reference: React.RefObject<HTMLDivElement>, toogle: boolean, changeToogle: () => void}> = ( {reference, toogle, changeToogle, children} ) => {

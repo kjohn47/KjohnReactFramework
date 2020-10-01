@@ -5,7 +5,7 @@ import WithLabel from '../../../common/presentation/wrapper/WithLabel';
 import InputTextHoc from '../../../common/inputs/InputTextHoc';
 import { AppRegex } from '../../../../logic/config/regexEnum';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
-import useInputText from '../../../../logic/functions/UseInputText';
+import useInputText from '../../../../logic/inputHooks/UseInputText';
 import InputText from '../../../common/inputs/InputText';
 
 const TestInputWithHook: React.FC = () =>
