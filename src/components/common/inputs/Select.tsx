@@ -62,7 +62,7 @@ const Select: React.FC<ISelectProps> = ({
         </div>)
     }, [selectedIndex, items, appLanguage]);
 
-    const handleClickOut = useCallback( (event: any) => handleClickOutDiv(event, selectRef, open, () => setOpen(false) ), [open]);
+    const handleClickOutSelect = useCallback( (event: any) => handleClickOutDiv(event, selectRef, open, () => setOpen(false) ), [open]);
 
     useEffect(() => {
         const selected = items[selectedIndex];
@@ -87,12 +87,12 @@ const Select: React.FC<ISelectProps> = ({
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut);
+        document.addEventListener( "mousedown", handleClickOutSelect);
         // return function to be called when unmounted
         return () => {
-          document.removeEventListener( "mousedown", handleClickOut);
+          document.removeEventListener( "mousedown", handleClickOutSelect);
         };        
-      }, [ handleClickOut ] )
+      }, [ handleClickOutSelect ] )
 
     const selectedItem = items[selectedIndex];
 

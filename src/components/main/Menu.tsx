@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import Row from '../common/structure/Row';
 import Column, { ColumnNumber } from '../common/structure/Column';
 import { IMenuItem } from './MenuComponents/MenuItem';
@@ -6,7 +6,7 @@ import SubMenu, { ISubMenuItem } from './MenuComponents/SubMenu';
 import LoginForm from './MenuComponents/LoginForm';
 import MenusBar from './MenuComponents/MenusBar';
 import UserMenu, { IUserCustomMenu } from './MenuComponents/UserMenu';
-import { PageType } from '../../logic/functions/misc';
+import { PageType, handleClickOutDiv } from '../../logic/functions/misc';
 import DotsLoader, { DotsLoaderColor, DotsLoaderSize, DotsLoaderNrBall } from '../common/presentation/loading/DotsLoader';
 import useAppHandler from '../../logic/context/App/AppContextHandler';
 import useLoginHandler from '../../logic/context/Login/LoginContextHandler';
@@ -29,11 +29,7 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
   const [ menuToogle, setMenuToogle ] = useState<boolean>( false );
   const langMenuRef = useRef<HTMLDivElement>( null );
 
-  const handleClickOut: ( event: any ) => void = ( event ) => {
-    if ( toogleLang && langMenuRef != null && langMenuRef.current !== null && !langMenuRef.current.contains( event.target ) ) {
-      setToogleLang( false );
-    }
-  }
+  const handleClickOutLangMenu = useCallback( (event: any) => handleClickOutDiv(event, langMenuRef, toogleLang, () => setToogleLang( false ) ), [toogleLang]);
 
   const availableLanguages: ISubMenuItem[] = useMemo(() => {
     let langMenu: ISubMenuItem[] = [];
@@ -50,13 +46,12 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
 
   useEffect( () => {
     // add when mounted
-    document.addEventListener( "mousedown", handleClickOut );
+    document.addEventListener( "mousedown", handleClickOutLangMenu );
     // return function to be called when unmounted
     return () => {
-      document.removeEventListener( "mousedown", handleClickOut );
+      document.removeEventListener( "mousedown", handleClickOutLangMenu );
     };
-    //eslint-disable-next-line
-  }, [ toogleLang ] )
+  }, [ handleClickOutLangMenu ] )
 
   return (
     <Row className='menuRow'>

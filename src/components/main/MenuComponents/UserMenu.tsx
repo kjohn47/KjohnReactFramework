@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {useMobileWidth} from '../../../logic/functions/windowResize';
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
@@ -28,23 +28,23 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
     const userMenuRef = useRef<HTMLDivElement>( null );
     const notificationRef = useRef<HTMLDivElement>( null );
 
-    const handleClickOut: ( event: any ) => void = ( event ) => {
+    const handleClickOutUsrMenu = useCallback(( event:any ): void => {
         if ( toogle && 
             ( ( userMenuRef != null && userMenuRef.current !== null && !userMenuRef.current.contains( event.target ) ) ||
               ( notificationRef != null && notificationRef.current !== null && notificationRef.current.contains( event.target ) ) ) ) {
             setToogle( false );
         }
-    }
+    }, [toogle]);
+
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut );
+        document.addEventListener( "mousedown", handleClickOutUsrMenu );
         // return function to be called when unmounted
         return () => {
-            document.removeEventListener( "mousedown", handleClickOut );
+            document.removeEventListener( "mousedown", handleClickOutUsrMenu );
         };
-        //eslint-disable-next-line
-    }, [ toogle ] )
+    }, [ handleClickOutUsrMenu ] )
 
     useEffect( () => {
         if ( mobileWidth.isMobileWidthLoginForm && !mobileWidth.isMobileWidthMenu ) {

@@ -44,7 +44,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     //// Translate hook
     const { getTranslation } = useTranslation();
     ////handle click out event to close calendar
-    const handleClickOut: ( event: any ) => void = ( event ) => {
+    const handleClickOutDtPckr: ( event: any ) => void = ( event ) => {
         if ( !props.calendarVisible && showCalendar && ( datePickerRef !== null && datePickerRef.current !== null && !datePickerRef.current.contains( event.target ) ) ) {
             setShowCalendar( false );
             setShowYearSelector( false );
@@ -77,10 +77,10 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut );
+        document.addEventListener( "mousedown", handleClickOutDtPckr );
         // return function to be called when unmounted
         return () => {
-            document.removeEventListener( "mousedown", handleClickOut );
+            document.removeEventListener( "mousedown", handleClickOutDtPckr );
         };
         //eslint-disable-next-line
     }, [ showCalendar, showYearSelector, showMonthSelector ] )
