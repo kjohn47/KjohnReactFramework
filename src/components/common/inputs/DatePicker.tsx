@@ -92,6 +92,10 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
         }
     }, [props.calendarVisible, props.disabled]) 
 
+    useEffect( () => {
+        props.getSelectedDate( selectedDate );
+    }, [selectedDate, props])
+
     //// Translate tokens
     const monthTokens = useMemo( () => ( [
         getTranslation( "_datePicker", "#(January)" ),
@@ -126,7 +130,6 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
             newDate = props.endDate;
         }
         setSelectedDate( newDate );
-        props.getSelectedDate( newDate );
         setCalendarInput( { [ DatePickerTextField.day ]: newDate.getDate().toString(), [ DatePickerTextField.month ]: ( newDate.getMonth() + 1 ).toString(), [ DatePickerTextField.year ]: newDate.getFullYear().toString() } );
         !props.calendarVisible && setShowCalendar( false );
     }

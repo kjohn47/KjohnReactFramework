@@ -105,3 +105,10 @@ export const generateModalId = (): string => {
 
     return SHA( 'sha256' ).update( `${date.toJSON()}-${rand1}-${rand2}` ).digest( 'hex' );
 }
+
+export const handleClickOutDiv = (event: any, reference: React.RefObject<HTMLDivElement>, toogleFlag: boolean, callback: () => void): void => {
+    if(toogleFlag && reference.current && !reference.current.contains(event.target))
+    {
+        callback();
+    }
+}
