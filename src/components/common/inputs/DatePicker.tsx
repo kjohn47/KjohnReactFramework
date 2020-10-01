@@ -93,7 +93,8 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
 
     useEffect( () => {
         props.getSelectedDate( selectedDate );
-    }, [selectedDate, props])
+        // eslint-disable-next-line
+    }, [selectedDate])
 
     //// Translate tokens
     const monthTokens = useMemo( () => ( [

@@ -97,6 +97,10 @@
             "#(CookieAnalyticDescription)": "Este cookie destina-se à análise de dados. Este cookie será desativado se seleccionar não.",
             "#(CookieKey)": "Nome do Cookie",
             "#(CookieDescription)": "Descrição"
+        },
+        "_select": {
+            "#(no_option)" : "Nenhum",
+            "#(opt_2)" : "Opção 2"
         }
     }
 }

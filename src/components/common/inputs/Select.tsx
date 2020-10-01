@@ -1,19 +1,24 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { IDictionary, handleClickOutDiv } from '../../../logic/functions/misc';
 import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
+import useTranslation from '../../../logic/functions/getTranslation';
 
-export interface ISelectOption {
+export interface IOptionOut {
     key: string;
-    value: string;
-    textTranslated?: IDictionary<string>;
+    value?: number;
+}
+
+export interface ISelectOption extends IOptionOut {
+    textDictionary?: IDictionary<string>;
+    text?: string;
     defaultSelected?: boolean;
 }
 
 interface ISelectProps {
-    startOpen?: boolean;
     emptyAvailable?: boolean;
     emptyText?: string;
-    getSelectedOption: (option: ISelectOption) => void;
+    translationProcess?: string;
+    getSelectedOption: (option: IOptionOut) => void;
     options: ISelectOption[];
 }
 
@@ -31,59 +36,44 @@ const getOptionIndex = (options: ISelectOption[]): number => {
 }
 
 const Select: React.FC<ISelectProps> = ({
-    startOpen,
     emptyAvailable,
     emptyText,
+    translationProcess,
     getSelectedOption,
     options
 }) => {
     const {appLanguage} = useAppLanguageHandler();
-
+    const {getTranslation} = useTranslation();
     const emptyOption: ISelectOption = useMemo<ISelectOption>(() => {
      return { 
          key: "",
-         value: emptyText!== undefined ? emptyText : "---" } 
-    }, [emptyText]);
+         text: emptyText !== undefined ? getTranslation( translationProcess ? translationProcess : "_select", emptyText) : "---" } 
+    }, [emptyText, getTranslation, translationProcess]);
 
     const items = useMemo(() => {
         return emptyAvailable ? [emptyOption, ...options] : options
     }, [options, emptyAvailable, emptyOption]);
 
-    const [open, setOpen] = useState<boolean>(startOpen ? startOpen : false);
+    const [open, setOpen] = useState<boolean>(false);
     const [selectedIndex, setSelectedIndex] = useState<number>(getOptionIndex(items));
 
-    const lastSelectedKey = useRef<string>(items[selectedIndex].key);
     const selectRef = useRef<HTMLDivElement>(null);
 
     const itemList = useMemo(() => {
         return items.map((o, i) => 
         <div key={`option_${i}`} onClick={() => setSelectedIndex(i)} className={`${selectedIndex === i ? " selectedOption" : " pointer_cursor"}`}>
-            {(o.textTranslated && o.textTranslated[appLanguage]) || o.value}
+            {(o.textDictionary && o.textDictionary[appLanguage]) || (o.text && getTranslation( translationProcess ? translationProcess : "_select", o.text)) || o.value || o.key}
         </div>)
-    }, [selectedIndex, items, appLanguage]);
+    }, [selectedIndex, items, appLanguage, getTranslation, translationProcess]);
 
     const handleClickOutSelect = useCallback( (event: any) => handleClickOutDiv(event, selectRef, open, () => setOpen(false) ), [open]);
 
     useEffect(() => {
         const selected = items[selectedIndex];
-        getSelectedOption(selected);
-        lastSelectedKey.current = selected.key;
+        getSelectedOption({key: selected.key, value: selected.value});
         setOpen(false);
         // eslint-disable-next-line
     }, [selectedIndex]);
-
-    useEffect(() => {
-        const selected = items.findIndex(o => o.key === lastSelectedKey.current);
-        if(selected < 0)
-        {
-            setSelectedIndex(getOptionIndex(items));
-        }
-        else if(selected !== selectedIndex)
-        {
-            setSelectedIndex(selected);
-        }
-        // eslint-disable-next-line
-    }, [items])
 
     useEffect( () => {
         // add when mounted
@@ -92,16 +82,17 @@ const Select: React.FC<ISelectProps> = ({
         return () => {
           document.removeEventListener( "mousedown", handleClickOutSelect);
         };        
+        // eslint-disable-next-line
       }, [ handleClickOutSelect ] )
 
     const selectedItem = items[selectedIndex];
 
     return (
         <div className="SelectInput" ref = {selectRef}>
-            <div>{(selectedItem.textTranslated && selectedItem.textTranslated[appLanguage]) || selectedItem.value}
+            <div>{(selectedItem.textDictionary && selectedItem.textDictionary[appLanguage]) || (selectedItem.text && getTranslation( translationProcess ? translationProcess : "_select", selectedItem.text)) || selectedItem.value || selectedItem.key}
             </div>
             <div onClick={() => setOpen(prev => !prev)} className={"pointer_cursor"}>
-                {open ? 'A' : 'V'}
+                {open ? '▲' : '▼'}
             </div>
             {open && <div>
                 {itemList}

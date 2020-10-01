@@ -1,23 +1,34 @@
-import React from 'react';
-import Select from '../../../common/inputs/Select';
-import useTranslation from '../../../../logic/functions/getTranslation';
+import React, { useState, useEffect } from 'react';
+import Select, { ISelectOption } from '../../../common/inputs/Select';
 
 const TestSelect: React.FC = () => {
-    const {getTranslation} = useTranslation();
+    const [option, setOption] = useState<ISelectOption | undefined>();
+
+    useEffect(() => {
+        if(option)
+        {
+            console.log("OPT: ", option)
+        }
+    }, [option])
+
     return <Select 
-        getSelectedOption = {(opt) => console.log("Selected Opt:", opt) }
+        getSelectedOption = {(opt) => setOption(opt) }
         options = {[
             {
                 key: "opt1",
-                value: "Option 1",
-                textTranslated: {
+                textDictionary: {
                     "PT": "Opção 1",
                     "EN": "Option 1"
                 }
+            },
+            {
+                key: "opt2",
+                value: 2,
+                text: "#(opt_2)"
             }
         ]}
-        emptyAvailable = {true}
-        emptyText = {getTranslation("_select", "#(no_option)")}
+        emptyAvailable
+        emptyText = "#(no_option)"
     />
 }
 

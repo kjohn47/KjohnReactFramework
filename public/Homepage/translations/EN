@@ -97,6 +97,10 @@
             "#(CookieAnalyticDescription)": "Cookie used for analytics, this cookie will be disabled if no is selected.",
             "#(CookieKey)": "Cookie Name",
             "#(CookieDescription)": "Description"
+        },
+        "_select": {
+            "#(no_option)" : "None",
+            "#(opt_2)" : "Option 2"
         }
     }
 }
