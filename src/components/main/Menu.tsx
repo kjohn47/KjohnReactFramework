@@ -21,7 +21,14 @@ export interface IMenuProps {
   CustomUserMenu?: IUserCustomMenu[];
 }
 
-const Menu: React.FC<IMenuProps> = ( props ) => {
+const Menu: React.FC<IMenuProps> = ( {
+  Brand,
+  CustomUserMenu,
+  EnableNotifications,
+  MenuNav,
+  NotificationRefreshTime,
+  NotificationsRoute
+} ) => {
   const appContext = useAppHandler();
   const loginContext = useLoginHandler().Login;
   const appLanguage = useAppLanguageHandler().appLanguage;
@@ -58,20 +65,20 @@ const Menu: React.FC<IMenuProps> = ( props ) => {
       {
         loginContext !== undefined ?
           <Column full={ ColumnNumber.C16 } medium={ ColumnNumber.C11 } tablet={ menuToogle ? ColumnNumber.C12 : ColumnNumber.C4 }>
-            <MenusBar { ...props } toogle={ menuToogle } setToogle={ ( toogleVal ) => { setMenuToogle( toogleVal ) } } />
+            <MenusBar Brand = {Brand} MenuNav = {MenuNav} toogle={ menuToogle } setToogle={ ( toogleVal ) => { setMenuToogle( toogleVal ) } } />
           </Column> :
           <Column full={ ColumnNumber.C13 } medium={ ColumnNumber.C11 } tablet={ menuToogle ? ColumnNumber.C13 : ColumnNumber.C4 }>
-            <MenusBar { ...props } toogle={ menuToogle } setToogle={ ( toogleVal ) => { setMenuToogle( toogleVal ) } } />
+            <MenusBar Brand = {Brand} MenuNav = {MenuNav} toogle={ menuToogle } setToogle={ ( toogleVal ) => { setMenuToogle( toogleVal ) } } />
           </Column>
       }
       {
         loginContext !== undefined ?
           <Column full={ ColumnNumber.C3 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C6 : ColumnNumber.C14 } className="loginMenuCol">
               <UserMenu 
-                NotificationsEnabled = {props.EnableNotifications} 
-                CustomMenus = { props.CustomUserMenu } 
-                NotificationsRoute = { props.NotificationsRoute }
-                NotificationRefreshTime = { props.NotificationRefreshTime }
+                NotificationsEnabled = {EnableNotifications} 
+                CustomMenus = { CustomUserMenu } 
+                NotificationsRoute = { NotificationsRoute }
+                NotificationRefreshTime = { NotificationRefreshTime }
               />
           </Column> :
           <Column full={ ColumnNumber.C6 } medium={ ColumnNumber.C7 } tablet={ menuToogle ? ColumnNumber.C5 : ColumnNumber.C14 } className="loginMenuCol">

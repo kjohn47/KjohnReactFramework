@@ -18,7 +18,12 @@ export interface IUserCustomMenu {
     AdminOnly?: boolean;
 }
 
-const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType; NotificationRefreshTime?: number;}> = ( props ) => {
+const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled?: boolean; NotificationsRoute?: PageType; NotificationRefreshTime?: number;}> = ( {
+    CustomMenus,
+    NotificationRefreshTime,
+    NotificationsEnabled,
+    NotificationsRoute
+} ) => {
     const appContext = useAppHandler().App;
     const userContext = useLoginHandler().Login;
     const [ toogle, setToogle ] = useState<boolean>( false );
@@ -74,8 +79,8 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
             { Title: "#(User)", Link: KnownPages.UserSettings }
         ];
 
-        if ( props.CustomMenus ) {
-            props.CustomMenus.forEach( ( menu ) => {
+        if ( CustomMenus ) {
+            CustomMenus.forEach( ( menu ) => {
                 if(!menu.AdminOnly || appContext.adminOptions)
                 {
                     menus.push( { Title: menu.Title, Action: menu.Action, Link: menu.Link, Reloadable: menu.Reloadable } );
@@ -103,7 +108,7 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
                 <Column className="collapsedMenuGroup collapsedMenuGroupUserMenu">
                     <MenuItemMobile Title="#(User)" Link={ KnownPages.UserSettings } collapseFunc={ () => { setToogle( false ) } } />
                     {
-                        props.CustomMenus && props.CustomMenus.map( ( menu, i ) =>
+                        CustomMenus && CustomMenus.map( ( menu, i ) =>
                             menu.Title && ( !menu.AdminOnly || appContext.adminOptions ) ?
                             <MenuItemMobile
                                 key={ i }
@@ -126,11 +131,11 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
 
     return (
             <div ref={ userMenuRef }>
-                { props.NotificationsEnabled && props.NotificationsRoute && 
+                { NotificationsEnabled && NotificationsRoute && 
                     <MenuNotification 
                         reference = {notificationRef} 
-                        Route= { props.NotificationsRoute ? props.NotificationsRoute : "" }
-                        RefreshTime = { props.NotificationRefreshTime }
+                        Route= { NotificationsRoute ? NotificationsRoute : "" }
+                        RefreshTime = { NotificationRefreshTime }
                     />
                 }
                 <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogle( !toogle ) }>
