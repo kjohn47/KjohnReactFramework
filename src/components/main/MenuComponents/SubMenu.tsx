@@ -35,7 +35,14 @@ const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle:
         if ( subMenu.Link && ( subMenu.Link !== routeContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
             return <Column className={ 'subMenuCol' + ( subMenu.Reloadable && subMenu.Link === routeContext.selectedPage ? ' disabledMenuItem pointer_cursor subMenuReloadable' : '' ) }>
                 {
-                    <PageSelector page={ subMenu.Link } action={ props.unToogle } forceReload={ subMenu.Reloadable }>{ translatedTitle }</PageSelector>
+                    <PageSelector 
+                        page={ subMenu.Link } 
+                        focusable = {subMenu.Reloadable || subMenu.Link !== routeContext.selectedPage} 
+                        action={ props.unToogle } 
+                        forceReload={ subMenu.Reloadable }
+                    >
+                        { translatedTitle }
+                    </PageSelector>
                 }
             </Column>
         }
