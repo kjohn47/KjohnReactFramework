@@ -32,8 +32,8 @@ interface IColumn {
     className?: string;
     reference?: any;
     tabIndex?:number;
-    onClick?:(event: React.MouseEvent)=>void;
-    onKeyDown?:(event: React.KeyboardEvent)=>void;
+    onClick?:(event: React.MouseEvent<HTMLDivElement>)=>void;
+    onKeyDown?:(event: React.KeyboardEvent<HTMLDivElement>)=>void;
 }
 
 const getCssString: ( config: IColumn ) => string = ( config ) => {

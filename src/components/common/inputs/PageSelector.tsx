@@ -45,7 +45,7 @@ const PageSelector: React.FC<IPageSelector> = ( { page,
     return (
         <span 
             className={ css } 
-            onClick={ () => setPage( page, queryParams ) } 
+            onClick={ (e) => {setPage( page, queryParams ); e.currentTarget.blur()} } 
             tabIndex = {!disabled && focusable ? 0 : undefined}
             onKeyDown = {focusable ? (event) => executeClickEnterSpace(event, () => setPage( page, queryParams ) ) : undefined}
         >
