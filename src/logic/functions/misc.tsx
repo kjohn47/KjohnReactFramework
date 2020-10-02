@@ -147,3 +147,18 @@ export const trapFocusInElements = (event: KeyboardEvent, focusable: NodeListOf<
         }
     }
 }
+
+export const executeAfterLostFocusChild = (event: React.KeyboardEvent | KeyboardEvent, parentRef: HTMLElement, callback: () => void): void => {
+    if(event.keyCode === 9)
+    {
+        const focusable = getFocusableList(parentRef);
+        if(focusable && focusable.length > 0)
+        {
+            const active = document.activeElement;
+            if(active && active !== parentRef && !Object.values(focusable).includes(active as HTMLElement))
+            {
+                callback();
+            }
+        }
+    }
+}

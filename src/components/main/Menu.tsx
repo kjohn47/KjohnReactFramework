@@ -91,8 +91,8 @@ const Menu: React.FC<IMenuProps> = ( {
             <div style={{display:"inline-block", paddingTop:"5px", marginLeft:"50%"}}>
               <DotsLoader Color = {DotsLoaderColor.White} Size = {DotsLoaderSize.Medium} DotsNumber={DotsLoaderNrBall.One}/>
             </div>:
-            <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogleLang( !toogleLang ) }>
-              <span tabIndex={ 0 } className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
+            <div className="menuLanguageCol pointer_cursor noselect" tabIndex={ 0 } onClick={ () => setToogleLang( !toogleLang ) }>
+              <span className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
             </div> 
           }
         </div>

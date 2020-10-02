@@ -1,9 +1,8 @@
-import React from 'react';
-import PageSelector from '../../common/inputs/PageSelector';
+import React, { useCallback } from 'react';
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
 import useTranslation from '../../../logic/functions/getTranslation';
-import { PageType } from '../../../logic/functions/misc';
+import { executeClickEnterSpace, PageType } from '../../../logic/functions/misc';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import useRouteHandler from '../../../logic/context/Routes/RouteContextHandler';
 import useErrorHandler from '../../../logic/context/Error/ErrorContextHandler';
@@ -19,54 +18,71 @@ export interface ISubMenuItem {
     AdminOnly?: boolean;
 }
 
-const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle: () => void }> = ( props ) => {
+const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle: () => void }> = ( { 
+    subMenu,
+    unToogle,
+    className
+} ) => {
     const appContext = useAppHandler().App;
-    const routeContext = useRouteHandler().Route;
+    const {Route, SetPage} = useRouteHandler();
     const errorContext = useErrorHandler().Error;
     const globalLang = useAppLanguageHandler().appLanguage;
     const userContext = useLoginHandler().Login;
     const { getTranslation } = useTranslation();
 
-    const makeSubMenu = ( subMenu: ISubMenuItem ) => {
+    const executeAction = useCallback((subMenuItem: ISubMenuItem) => {
+        if((!subMenuItem.Link && !subMenuItem.Action) || globalLang === subMenuItem.Title)
+        {
+            return;
+        }
+
+        if(subMenuItem.Link && ( subMenuItem.Link !== Route.selectedPage || errorContext.hasError || subMenuItem.Reloadable ))
+        {
+            SetPage({
+                page: subMenuItem.Link,
+                forceReload: subMenuItem.Reloadable
+            });
+        }
+        else if(subMenuItem.Action)
+        {
+            subMenuItem.Action();
+        }
+        unToogle();
+    }, [Route.selectedPage, errorContext.hasError, SetPage, unToogle, globalLang]);
+
+    const makeSubMenu = useCallback( ( subMenu: ISubMenuItem ) => {
         if ( !subMenu.Title || subMenu.Title === '' ) {
             return <Column className='subMenuLine'></Column>
         }
         let translatedTitle = getTranslation( "_menu", subMenu.Title );
-        if ( subMenu.Link && ( subMenu.Link !== routeContext.selectedPage || errorContext.hasError || subMenu.Reloadable ) ) {
-            return <Column className={ 'subMenuCol' + ( subMenu.Reloadable && subMenu.Link === routeContext.selectedPage ? ' disabledMenuItem pointer_cursor subMenuReloadable' : '' ) }>
-                {
-                    <PageSelector 
-                        page={ subMenu.Link } 
-                        focusable = {subMenu.Reloadable || subMenu.Link !== routeContext.selectedPage} 
-                        action={ props.unToogle } 
-                        forceReload={ subMenu.Reloadable }
-                    >
-                        { translatedTitle }
-                    </PageSelector>
-                }
-            </Column>
-        }
-        if ( subMenu.Action ) {
-            return <Column className={ 'subMenuCol' + ( globalLang === subMenu.Title ? ' disabledMenuItem' : ' pointer_cursor' ) }>
-                <span onClick={ () => { subMenu.Action && subMenu.Action(); props.unToogle(); } }>
+        return (
+            <Column 
+                className={ `subMenuCol
+                            ${((!subMenu.Link && !subMenu.Action) || globalLang === subMenu.Title || (!errorContext.hasError && subMenu.Link === Route.selectedPage))
+                            ? ` disabledMenuItem${subMenu.Reloadable ? " pointer_cursor subMenuReloadable" : ""}`
+                            : ' pointer_cursor'}`}
+                onClick={() => executeAction(subMenu) }
+                tabIndex = {(!subMenu.Link && !subMenu.Action) || 
+                            (!subMenu.Reloadable && (globalLang === subMenu.Title || 
+                            (!errorContext.hasError && subMenu.Link === Route.selectedPage))) 
+                            ? undefined 
+                            : 0}
+                onKeyDown={(e)=> executeClickEnterSpace(e, () => executeAction(subMenu))}
+            >
+                <span>
                     { translatedTitle }
                 </span>
             </Column>
-        }
-        return <Column className='subMenuCol disabledMenuItem'>
-            <span>
-                { translatedTitle }
-            </span>
-        </Column>
-    }
+        )}, [globalLang, Route.selectedPage, errorContext.hasError, executeAction, getTranslation]);
+
     return (
-        <div className={ 'subMenuDrop' + ( props.className ? ' ' + props.className : '' ) }>
-            { props.subMenu.map( ( subMenu, i ) =>
-                ( (!subMenu.AdminOnly && !subMenu.AuthOnly) || 
-                  (!subMenu.AdminOnly && userContext) ||
+        <div className={ `subMenuDrop${className ? ` ${className}` : ''}` }>
+            { subMenu.map( ( subMenuItem, i ) =>
+                ( (!subMenuItem.AdminOnly && !subMenuItem.AuthOnly) || 
+                  (!subMenuItem.AdminOnly && userContext) ||
                   appContext.adminOptions ) ? 
                     <Row key={ 'SubMenu_' + i }>
-                        { makeSubMenu( subMenu ) }
+                        { makeSubMenu( subMenuItem ) }
                     </Row>
                     : null
             ) }

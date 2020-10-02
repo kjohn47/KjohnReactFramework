@@ -3,7 +3,7 @@ import PageSelector from '../../common/inputs/PageSelector';
 import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
 import useTranslation from '../../../logic/functions/getTranslation';
-import { PageType, handleClickOutDiv, executeClickEnterSpace, getFocusableList } from '../../../logic/functions/misc';
+import { PageType, handleClickOutDiv, executeClickEnterSpace, executeAfterLostFocusChild } from '../../../logic/functions/misc';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import useLoginHandler from '../../../logic/context/Login/LoginContextHandler';
 
@@ -26,19 +26,11 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
     const handleClickOutMenuItem = useCallback( (event: any) => handleClickOutDiv(event, subMenuRef, toogle, () => setToogle( false ) ), [toogle]);
 
     const handleTab = useCallback((e: KeyboardEvent) => {
-        if(subMenuRef.current && e.keyCode === 9)
+        if(toogle && subMenuRef.current)
         {
-            const focusable = getFocusableList(subMenuRef.current);
-            if(focusable && focusable.length > 0)
-            {
-                const active = document.activeElement;
-                if(active && active !== subMenuRef.current && !Object.values(focusable).includes(active as HTMLElement))
-                {
-                    setToogle( false );
-                }
-            }
+            executeAfterLostFocusChild(e, subMenuRef.current, () => setToogle(false));
         }
-    }, [subMenuRef])
+    }, [subMenuRef, toogle])
 
     useEffect( () => {
         // add when mounted

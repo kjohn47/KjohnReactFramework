@@ -99,25 +99,35 @@
           border-bottom-color: $Menu_SubBorder;
       }
       .subMenuCol {
-          &:hover {
-            background-color: $Menu_SubHover;
-            color: $Menu_SubTextHover;
-          }
-      }
-
-      .disabledMenuItem {    
-        background-color: $Menu_SubDisabled;
         &:hover {
-            background-color: $Menu_SubDisabled;
-            color: $Menu_SubText;
+          background-color: $Menu_SubHover;
+          color: $Menu_SubTextHover;
+        }
+        &:focus {
+          background-color: $Menu_SubHover;
+          color: $Menu_SubTextHover;
         }
       }
 
-      .subMenuReloadable:hover {
+    .disabledMenuItem {    
+      background-color: $Menu_SubDisabled;
+      &:hover {
+          background-color: $Menu_SubDisabled;
+          color: $Menu_SubText;
+      }
+    }
+
+    .subMenuReloadable {
+      &:hover {
+        background-color: $Menu_SubHover;
+        color: $Menu_SubTextHover;
+      }
+      &:focus {
         background-color: $Menu_SubHover;
         color: $Menu_SubTextHover;
       }
     }
+  }
 
     .MenuNotifications {
       .BadgeComponent {
