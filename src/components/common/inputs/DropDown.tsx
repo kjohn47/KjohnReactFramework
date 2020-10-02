@@ -89,7 +89,7 @@ const DropDown: React.FC<IDropDownProps> = ({
         // return function to be called when unmounted
         return () => {
           document.removeEventListener( "mousedown", handleClickOutSelect);
-        };        
+        };
         // eslint-disable-next-line
       }, [ handleClickOutSelect ] )
 

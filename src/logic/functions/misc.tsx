@@ -119,3 +119,31 @@ export const executeClickEnterSpace = (event: React.KeyboardEvent, callback: () 
         callback();
     }
 }
+
+export const getFocusableList = (parentRef: HTMLElement) => {
+    return parentRef.querySelectorAll<HTMLElement>('[href], input, button, select, textarea, [tabindex]:not([tabindex="-1"])');
+}
+
+export const trapFocusInElements = (event: KeyboardEvent, focusable: NodeListOf<HTMLElement>) => {
+    if(event.keyCode === 9)
+    {
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+        if(event.shiftKey)
+        {
+            if(document.activeElement === firstElement)
+            {
+                event.preventDefault()
+                lastElement.focus();
+            }
+        }
+        else
+        {
+            if(document.activeElement === lastElement)
+            {
+                event.preventDefault()
+                firstElement.focus();
+            }
+        }
+    }
+}
