@@ -113,11 +113,16 @@ export const handleClickOutDiv = (event: any, reference: React.RefObject<HTMLDiv
     }
 }
 
-export const executeClickEnterSpace = (event: React.KeyboardEvent, callback: () => void): void => {
+export const executeClickEnterSpace = (event: React.KeyboardEvent<HTMLElement>, callback: () => void): void => {
     if([13, 32].includes(event.keyCode))
     {
         event.preventDefault();
         callback();
+    }
+    else if(event.keyCode === 27)
+    {
+        event.preventDefault();
+        event.currentTarget.blur();
     }
 }
 
