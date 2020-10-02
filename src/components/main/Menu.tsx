@@ -6,7 +6,7 @@ import SubMenu, { ISubMenuItem } from './MenuComponents/SubMenu';
 import LoginForm from './MenuComponents/LoginForm';
 import MenusBar from './MenuComponents/MenusBar';
 import UserMenu, { IUserCustomMenu } from './MenuComponents/UserMenu';
-import { PageType, handleClickOutDiv } from '../../logic/functions/misc';
+import { PageType, handleClickOutDiv, executeAfterLostFocusChild, executeClickEnterSpace } from '../../logic/functions/misc';
 import DotsLoader, { DotsLoaderColor, DotsLoaderSize, DotsLoaderNrBall } from '../common/presentation/loading/DotsLoader';
 import useAppHandler from '../../logic/context/App/AppContextHandler';
 import useLoginHandler from '../../logic/context/Login/LoginContextHandler';
@@ -38,6 +38,13 @@ const Menu: React.FC<IMenuProps> = ( {
 
   const handleClickOutLangMenu = useCallback( (event: any) => handleClickOutDiv(event, langMenuRef, toogleLang, () => setToogleLang( false ) ), [toogleLang]);
 
+  const handleTabOutLang = useCallback((event: KeyboardEvent) => {
+    if(toogleLang && langMenuRef.current)
+    {
+      executeAfterLostFocusChild(event, langMenuRef.current, () => setToogleLang(false));
+    }
+  }, [toogleLang, langMenuRef])
+
   const availableLanguages: ISubMenuItem[] = useMemo(() => {
     let langMenu: ISubMenuItem[] = [];
     appContext.App.languageCodes.forEach(item => {
@@ -59,6 +66,15 @@ const Menu: React.FC<IMenuProps> = ( {
       document.removeEventListener( "mousedown", handleClickOutLangMenu );
     };
   }, [ handleClickOutLangMenu ] )
+
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener( "keyup", handleTabOutLang );
+    // return function to be called when unmounted
+    return () => {
+        document.removeEventListener( "keyup", handleTabOutLang );
+    };
+}, [handleTabOutLang])
 
   return (
     <Row className='menuRow'>
@@ -91,7 +107,12 @@ const Menu: React.FC<IMenuProps> = ( {
             <div style={{display:"inline-block", paddingTop:"5px", marginLeft:"50%"}}>
               <DotsLoader Color = {DotsLoaderColor.White} Size = {DotsLoaderSize.Medium} DotsNumber={DotsLoaderNrBall.One}/>
             </div>:
-            <div className="menuLanguageCol pointer_cursor noselect" tabIndex={ 0 } onClick={ () => setToogleLang( !toogleLang ) }>
+            <div 
+              className="menuLanguageCol pointer_cursor noselect" 
+              tabIndex={ 0 } 
+              onClick={ () => setToogleLang( p => !p ) }
+              onKeyDown={(e) => executeClickEnterSpace(e, () => setToogleLang( p => !p ))}
+            >
               <span className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>
             </div> 
           }

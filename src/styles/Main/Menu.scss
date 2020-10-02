@@ -335,6 +335,7 @@
     height: 40px;
     display: inline-block;
     font-weight: bold;
+    outline: none;
     & span {
         text-align: center;
         padding-right: 10px;
@@ -350,6 +351,10 @@
             border-radius: 4px 4px 10px 10px;
             transition: background-color 0.3s ease;
         }
+    }
+    &:focus span {
+      box-sizing: border-box;
+      border-radius: 4px 4px 10px 10px;
     }
   }
 

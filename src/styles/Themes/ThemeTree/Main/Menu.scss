@@ -72,6 +72,8 @@
       }
       .menuSpan {
         &:focus {
+          border-color: $Menu_Border;
+          background-color: $Menu_Background;
           box-shadow: 0 0 4px $Menu_SubBorder;
         }
       }
@@ -83,6 +85,10 @@
               border-color: $Menu_Border;
               background-color: $Menu_Background;
           }
+      }
+      &:focus span {
+        border-color: $Menu_Border;
+        background-color: $Menu_Background;
       }
     }
     .menuBrand {
