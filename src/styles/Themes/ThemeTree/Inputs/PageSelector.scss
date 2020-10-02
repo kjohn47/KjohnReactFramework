@@ -1,7 +1,20 @@
 .PageSelector_Highlight {
     color: $LinkColor;
     text-decoration: none;
+    outline: none;
     &:hover {
       text-decoration: underline;
     }
+    &:focus {
+      text-decoration: underline;
+      color: $LinkColor;
+    }
+}
+
+.PageSelector_Focusable {
+  outline: none;
+  &:focus {
+    text-decoration: underline;
+    color: $LinkColor;
+  }
 }

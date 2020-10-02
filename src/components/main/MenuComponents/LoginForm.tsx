@@ -101,7 +101,7 @@ const LoginForm: React.FC = () => {
                     <span onClick={ () => handleLogin() } className="pointer_cursor">{ getTranslation( "_loginform", "#(LoginButton)" ) }</span>
                 </Column>
                 <Column full={ ColumnNumber.C3 } className="loginMenuLink">
-                    <PageSelector page={ KnownPages.Home }>{ getTranslation( "_loginform", "#(NewLogin)" ) }</PageSelector>
+                    <PageSelector page={ KnownPages.Home } focusable>{ getTranslation( "_loginform", "#(NewLogin)" ) }</PageSelector>
                 </Column>
             </Row>
         );

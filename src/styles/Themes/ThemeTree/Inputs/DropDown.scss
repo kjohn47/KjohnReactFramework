@@ -1,0 +1,47 @@
+.DropDownInput {
+
+    .DropDownBox {
+        color: black;
+        background-color: white;
+
+        &:focus {
+            box-shadow: 0 0 3px green;
+        }
+        
+        .DropDownBox_Arrow {
+            &:hover {
+                color: darkblue;
+            }
+        }
+    }
+
+    .DropDownBoxOpen {
+        background-color: greenyellow;
+    }
+
+    .DropDownBox_List {
+
+        .DropDownBox_Item {
+            background-color: white;
+            color: blue;
+
+            &:hover {
+                background-color: green;
+                color: white;
+            }
+
+            &:focus {
+                background-color: green;
+                color: white;
+            }
+        }
+
+        .DropDownBox_Item_Selected {
+            background-color: gray;
+        }
+
+        &::after {
+            border-bottom-color: black;
+        }
+    }
+}

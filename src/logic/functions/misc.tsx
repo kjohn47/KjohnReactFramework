@@ -112,3 +112,10 @@ export const handleClickOutDiv = (event: any, reference: React.RefObject<HTMLDiv
         callback();
     }
 }
+
+export const executeClickEnterSpace = (event: React.KeyboardEvent, callback: () => void): void => {
+    if([13, 32].includes(event.keyCode))
+    {
+        callback();
+    }
+}

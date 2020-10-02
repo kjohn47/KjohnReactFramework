@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { IDictionary, handleClickOutDiv } from '../../../logic/functions/misc';
+import { IDictionary, handleClickOutDiv, executeClickEnterSpace } from '../../../logic/functions/misc';
 import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
 import useTranslation from '../../../logic/functions/getTranslation';
 
@@ -58,10 +58,17 @@ const DropDown: React.FC<IDropDownProps> = ({
     const [selectedIndex, setSelectedIndex] = useState<number>(getOptionIndex(items));
 
     const selectRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const itemList = useMemo(() => {
         return items.map((o, i) => 
-        <div key={`option_${i}`} onClick={() => setSelectedIndex(i)} className={`DropDownBox_Item${selectedIndex === i ? " DropDownBox_Item_Selected" : " pointer_cursor"}`}>
+        <div 
+            tabIndex= {selectedIndex === i ? undefined : 0} 
+            key={`option_${i}`} 
+            onClick={() => setSelectedIndex(i)} 
+            onKeyDown={(event) => executeClickEnterSpace(event, () => setSelectedIndex(i)) }
+            className={`DropDownBox_Item${selectedIndex === i ? " DropDownBox_Item_Selected" : " pointer_cursor"}`}
+        >
             <span>{(o.textDictionary && o.textDictionary[appLanguage]) || (o.text && getTranslation( translationProcess ? translationProcess : "_dropdown", o.text)) || o.value || o.key}</span>
         </div>)
     }, [selectedIndex, items, appLanguage, getTranslation, translationProcess]);
@@ -72,6 +79,7 @@ const DropDown: React.FC<IDropDownProps> = ({
         const selected = items[selectedIndex];
         getSelectedOption({key: selected.key, value: selected.value});
         setOpen(false);
+        dropdownRef.current && dropdownRef.current.focus();
         // eslint-disable-next-line
     }, [selectedIndex]);
 
@@ -89,7 +97,13 @@ const DropDown: React.FC<IDropDownProps> = ({
 
     return (
         <div className="DropDownInput" ref = {selectRef}>
-            <div onClick={() => setOpen(prev => !prev)} className={`pointer_cursor DropDownBox${open ? " DropDownBoxOpen" : ""}`}>
+            <div 
+                onClick={() => setOpen(prev => !prev)} 
+                className={`pointer_cursor DropDownBox${open ? " DropDownBoxOpen" : ""}`} 
+                tabIndex= {0} 
+                onKeyDown={(event) => executeClickEnterSpace(event, () => setOpen(prev => !prev))}
+                ref={dropdownRef}
+            >
                 <div className="DropDownBox_Text">
                     {
                         (selectedItem.textDictionary && selectedItem.textDictionary[appLanguage]) || 
