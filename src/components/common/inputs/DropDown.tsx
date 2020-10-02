@@ -61,8 +61,8 @@ const DropDown: React.FC<IDropDownProps> = ({
 
     const itemList = useMemo(() => {
         return items.map((o, i) => 
-        <div key={`option_${i}`} onClick={() => setSelectedIndex(i)} className={`${selectedIndex === i ? " selectedOption" : " pointer_cursor"}`}>
-            {(o.textDictionary && o.textDictionary[appLanguage]) || (o.text && getTranslation( translationProcess ? translationProcess : "_dropdown", o.text)) || o.value || o.key}
+        <div key={`option_${i}`} onClick={() => setSelectedIndex(i)} className={`DropDownBox_Item${selectedIndex === i ? " DropDownBox_Item_Selected" : " pointer_cursor"}`}>
+            <span>{(o.textDictionary && o.textDictionary[appLanguage]) || (o.text && getTranslation( translationProcess ? translationProcess : "_dropdown", o.text)) || o.value || o.key}</span>
         </div>)
     }, [selectedIndex, items, appLanguage, getTranslation, translationProcess]);
 
@@ -89,18 +89,20 @@ const DropDown: React.FC<IDropDownProps> = ({
 
     return (
         <div className="DropDownInput" ref = {selectRef}>
-            <div>
-                {
-                    (selectedItem.textDictionary && selectedItem.textDictionary[appLanguage]) || 
-                    (selectedItem.text && getTranslation( translationProcess ? translationProcess : "_dropdown", selectedItem.text)) || 
-                    selectedItem.value || 
-                    selectedItem.key
-                }
+            <div onClick={() => setOpen(prev => !prev)} className={`pointer_cursor DropDownBox${open ? " DropDownBoxOpen" : ""}`}>
+                <div className="DropDownBox_Text">
+                    {
+                        (selectedItem.textDictionary && selectedItem.textDictionary[appLanguage]) || 
+                        (selectedItem.text && getTranslation( translationProcess ? translationProcess : "_dropdown", selectedItem.text)) || 
+                        selectedItem.value || 
+                        selectedItem.key
+                    }
+                </div>
+                <div className="DropDownBox_Arrow">
+                    {open ? '▲' : '▼'}
+                </div>
             </div>
-            <div onClick={() => setOpen(prev => !prev)} className={"pointer_cursor"}>
-                {open ? '▲' : '▼'}
-            </div>
-            {open && <div>
+            {open && <div className="DropDownBox_List">
                 {itemList}
             </div>}
         </div>
