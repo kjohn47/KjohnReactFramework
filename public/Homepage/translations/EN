@@ -98,7 +98,7 @@
             "#(CookieKey)": "Cookie Name",
             "#(CookieDescription)": "Description"
         },
-        "_select": {
+        "_dropdown": {
             "#(no_option)" : "None",
             "#(opt_2)" : "Option 2"
         }

@@ -23,7 +23,7 @@ import TestBadge from './DataPresentation/TestBadge';
 import TestFileDownloader from './DataPresentation/TestFileDownloader';
 import TestIcons from './ServicesPage/TestIcons';
 import TestModals from './ServicesPage/TestModals';
-import TestSelect from './Inputs/TestSelect';
+import TestDropDown from './Inputs/TestDropDown';
 
 const Test: React.FC = () => {
   const { getTranslation } = useTranslation();
@@ -127,8 +127,8 @@ const Test: React.FC = () => {
                   component: <TestDatePicker />
                 },
                 {
-                  title: "Select",
-                  component: <TestSelect />
+                  title: "DropDown",
+                  component: <TestDropDown />
                 }
               ]
             },

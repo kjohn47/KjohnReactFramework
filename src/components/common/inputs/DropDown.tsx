@@ -8,21 +8,21 @@ export interface IOptionOut {
     value?: number;
 }
 
-export interface ISelectOption extends IOptionOut {
+export interface IDropDownOption extends IOptionOut {
     textDictionary?: IDictionary<string>;
     text?: string;
     defaultSelected?: boolean;
 }
 
-interface ISelectProps {
+interface IDropDownProps {
     emptyAvailable?: boolean;
     emptyText?: string;
     translationProcess?: string;
     getSelectedOption: (option: IOptionOut) => void;
-    options: ISelectOption[];
+    options: IDropDownOption[];
 }
 
-const getOptionIndex = (options: ISelectOption[]): number => {
+const getOptionIndex = (options: IDropDownOption[]): number => {
     if(options != null && options.length > 0)
     {
         const optionIndex = options.findIndex(o => o.defaultSelected);
@@ -35,7 +35,7 @@ const getOptionIndex = (options: ISelectOption[]): number => {
     return 0;
 }
 
-const Select: React.FC<ISelectProps> = ({
+const DropDown: React.FC<IDropDownProps> = ({
     emptyAvailable,
     emptyText,
     translationProcess,
@@ -44,10 +44,10 @@ const Select: React.FC<ISelectProps> = ({
 }) => {
     const {appLanguage} = useAppLanguageHandler();
     const {getTranslation} = useTranslation();
-    const emptyOption: ISelectOption = useMemo<ISelectOption>(() => {
+    const emptyOption: IDropDownOption = useMemo<IDropDownOption>(() => {
      return { 
          key: "",
-         text: emptyText !== undefined ? getTranslation( translationProcess ? translationProcess : "_select", emptyText) : "---" } 
+         text: emptyText !== undefined ? getTranslation( translationProcess ? translationProcess : "_dropdown", emptyText) : "---" } 
     }, [emptyText, getTranslation, translationProcess]);
 
     const items = useMemo(() => {
@@ -62,7 +62,7 @@ const Select: React.FC<ISelectProps> = ({
     const itemList = useMemo(() => {
         return items.map((o, i) => 
         <div key={`option_${i}`} onClick={() => setSelectedIndex(i)} className={`${selectedIndex === i ? " selectedOption" : " pointer_cursor"}`}>
-            {(o.textDictionary && o.textDictionary[appLanguage]) || (o.text && getTranslation( translationProcess ? translationProcess : "_select", o.text)) || o.value || o.key}
+            {(o.textDictionary && o.textDictionary[appLanguage]) || (o.text && getTranslation( translationProcess ? translationProcess : "_dropdown", o.text)) || o.value || o.key}
         </div>)
     }, [selectedIndex, items, appLanguage, getTranslation, translationProcess]);
 
@@ -88,8 +88,14 @@ const Select: React.FC<ISelectProps> = ({
     const selectedItem = items[selectedIndex];
 
     return (
-        <div className="SelectInput" ref = {selectRef}>
-            <div>{(selectedItem.textDictionary && selectedItem.textDictionary[appLanguage]) || (selectedItem.text && getTranslation( translationProcess ? translationProcess : "_select", selectedItem.text)) || selectedItem.value || selectedItem.key}
+        <div className="DropDownInput" ref = {selectRef}>
+            <div>
+                {
+                    (selectedItem.textDictionary && selectedItem.textDictionary[appLanguage]) || 
+                    (selectedItem.text && getTranslation( translationProcess ? translationProcess : "_dropdown", selectedItem.text)) || 
+                    selectedItem.value || 
+                    selectedItem.key
+                }
             </div>
             <div onClick={() => setOpen(prev => !prev)} className={"pointer_cursor"}>
                 {open ? '▲' : '▼'}
@@ -101,4 +107,4 @@ const Select: React.FC<ISelectProps> = ({
     )
 }
 
-export default Select;
+export default DropDown;
