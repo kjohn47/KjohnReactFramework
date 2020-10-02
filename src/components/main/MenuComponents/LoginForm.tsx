@@ -1,23 +1,38 @@
-import * as React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Row from '../../common/structure/Row';
 import Column, { ColumnNumber } from '../../common/structure/Column';
 import Button, { ButtonTypes } from '../../common/inputs/Button';
 import {useMobileWidth} from '../../../logic/functions/windowResize';
-import { useState, useEffect } from 'react';
 import useTranslation from '../../../logic/functions/getTranslation';
 import PageSelector from '../../common/inputs/PageSelector';
 import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import WithLabel from '../../common/presentation/wrapper/WithLabel';
 import useInputText from '../../../logic/inputHooks/UseInputText';
 import InputText from '../../common/inputs/InputText';
-import { handleClickOutDiv } from '../../../logic/functions/misc';
+import { executeAfterLostFocusChild, executeClickEnterSpace, handleClickOutDiv } from '../../../logic/functions/misc';
 
-const LoginFormWrapper: React.FC<{reference: React.RefObject<HTMLDivElement>, toogle: boolean, changeToogle: () => void}> = ( {reference, toogle, changeToogle, children} ) => {
+const LoginFormWrapper: React.FC<{reference: React.RefObject<HTMLDivElement>, toogle: boolean, changeToogle: (override?: boolean) => void}> = ( {reference, toogle, changeToogle, children} ) => {
     const { getTranslation } = useTranslation();
+    const handleLoginTabOut = useCallback((event: KeyboardEvent) => {
+        if(toogle && reference.current)
+        {
+            executeAfterLostFocusChild(event, reference.current, () => changeToogle(false))
+        }
+    }, [reference, toogle, changeToogle]);
+
+    useEffect(() => {
+        // add when mounted
+        document.addEventListener( "keyup", handleLoginTabOut );
+        // return function to be called when unmounted
+        return () => {
+            document.removeEventListener( "keyup", handleLoginTabOut );
+        };
+    }, [handleLoginTabOut])
+
     return (
         <div ref={ reference }>
-            <div className="menuLanguageCol pointer_cursor noselect" onClick={changeToogle}>
-                <span tabIndex={ 0 } className={ ( toogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
+            <div tabIndex={ 0 } className="menuLanguageCol pointer_cursor noselect" onClick={(e) => {changeToogle(); e.currentTarget.blur()}} onKeyDown={(e)=>executeClickEnterSpace(e, () => changeToogle())}>
+                <span className={ ( toogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
             </div>
             { children }
         </div>
@@ -109,7 +124,7 @@ const LoginForm: React.FC = () => {
 
     const renderDropDownForm = () => {
         return (
-            <LoginFormWrapper reference={loginMenuRef} toogle={menuToogle} changeToogle={() => setMenuToogle(prev => !prev)}>
+            <LoginFormWrapper reference={loginMenuRef} toogle={menuToogle} changeToogle={(override) => setMenuToogle(prev => override !== undefined ? override : !prev)}>
                 { menuToogle && <div className="loginMenuDrop">
                     <Row>
                         <Column>
@@ -147,7 +162,7 @@ const LoginForm: React.FC = () => {
 
     const renderCollapsedForm = () => {
         return (
-            <LoginFormWrapper reference={loginMenuRef} toogle={menuToogle} changeToogle={() => setMenuToogle(!menuToogle)}>
+            <LoginFormWrapper reference={loginMenuRef} toogle={menuToogle} changeToogle={(override) => setMenuToogle(prev => override !== undefined ? override : !prev)}>
                 { menuToogle &&
                     <Row className="loginMenuCollapsed">
                         <Column>
