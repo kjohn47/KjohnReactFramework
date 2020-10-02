@@ -3,7 +3,7 @@ import { ModalSize, ModalOverlay } from '../../logic/context/Modal/ModalContextE
 import useModalHandler from '../../logic/context/Modal/ModalContextHandler';
 import { ModalIcons } from '../common/presentation/icons/modalIcons/ModalIcons';
 import LanguageSelector from '../common/inputs/LanguageSelector';
-import { getFocusableList, trapFocusInElements } from '../../logic/functions/misc';
+import { getFocusableList, trapFocusInElements, executeClickEnterSpace } from '../../logic/functions/misc';
 
 const ModalWrapper: React.FC = ({children}) => {
     const {modal, closeModal} = useModalHandler();
@@ -27,7 +27,6 @@ const ModalWrapper: React.FC = ({children}) => {
     }, [modal]);
 
     useEffect(() => {
-            focusModal();   
             document.addEventListener('keydown', focusModal);
         return () => {
             document.removeEventListener('keydown', focusModal);
@@ -51,16 +50,20 @@ const ModalWrapper: React.FC = ({children}) => {
                     }
                         ref={modalRef}
                     >
-                        {!modal.hideClose && <div tabIndex={0} onClick={() => closeModal(modal.id)} className = "ModalClose">X</div>}
+                        {modal.showLanguageSelector && <div className = {"Modal_Language" + (!modal.hideClose ? " Modal_Language_Close" : "")}>
+                            <LanguageSelector />
+                        </div>}
+                        {!modal.hideClose && <div 
+                                                tabIndex={0}
+                                                onClick={() => closeModal(modal.id)} 
+                                                onKeyDown={(evt) => executeClickEnterSpace(evt, () => closeModal(modal.id))} 
+                                                className = "ModalClose">X</div>}
                         {modal.icon !== undefined && <div className="Modal_Icon">
                             <Suspense fallback = {<></>}>
                                 <div className = "Modal_Icon_Img">
                                     {ModalIcons[modal.icon]}
                                 </div>
                             </Suspense>
-                        </div>}
-                        {modal.showLanguageSelector && <div className = {"Modal_Language" + (!modal.hideClose ? " Modal_Language_Close" : "")}>
-                            <LanguageSelector />
                         </div>}
                         <modal.Modal close = {closeModal} {...modal.modalProps}/>
                     </div>
