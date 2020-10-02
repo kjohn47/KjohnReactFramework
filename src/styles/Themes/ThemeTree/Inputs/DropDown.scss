@@ -1,47 +1,52 @@
 .DropDownInput {
 
     .DropDownBox {
-        color: black;
-        background-color: white;
-
+        border-color: $Menu_Border;
+        background-color: $Menu_SubBackground;
+        color: $TextColor;
         &:focus {
-            box-shadow: 0 0 3px green;
+            box-shadow: 0 0 3px $Menu_Border;
         }
         
         .DropDownBox_Arrow {
+            border-left-color: $Menu_Border;
             &:hover {
-                color: darkblue;
+                color: $LinkColor;
             }
         }
     }
 
     .DropDownBoxOpen {
-        background-color: greenyellow;
+        background-color: $Menu_MenuSubOpen;
     }
 
     .DropDownBox_List {
-
+        color: $TextColor;
+        border-color: $Menu_Border;
+        background-color: $Menu_SubBackground;
         .DropDownBox_Item {
-            background-color: white;
-            color: blue;
-
+            border-top-color: $Menu_SubSeparator;
             &:hover {
-                background-color: green;
-                color: white;
+                background-color: $Menu_SubHover;
+                color: $Menu_SubTextHover;
             }
-
             &:focus {
-                background-color: green;
-                color: white;
+                background-color: $Menu_SubHover;
+                color: $Menu_SubTextHover;
             }
         }
 
         .DropDownBox_Item_Selected {
-            background-color: gray;
+            background-color: $Menu_SubDisabled;
+            color: $TextColor;
+            &:hover {
+                background-color: $Menu_SubDisabled;
+                color: $TextColor;
+            }
         }
 
         &::after {
-            border-bottom-color: black;
+            border-bottom-color: $Menu_Border;
         }
     }
 }

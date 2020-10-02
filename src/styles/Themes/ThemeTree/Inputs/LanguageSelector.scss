@@ -3,6 +3,9 @@
         border-color: $Menu_Border;
         background-color: $Menu_SubBackground;
         color: $TextColor;
+        &:focus {
+            box-shadow: 0 0 3px $Menu_Border;
+        }
         .LanguageSelector_Box_Arrow {
             border-left-color: $Menu_Border;
         }
@@ -17,6 +20,10 @@
         .LanguageSelector_Item {
             border-top-color: $Menu_SubSeparator;
             &:hover {
+                background-color: $Menu_SubHover;
+                color: $Menu_SubTextHover;
+            }
+            &:focus {
                 background-color: $Menu_SubHover;
                 color: $Menu_SubTextHover;
             }
