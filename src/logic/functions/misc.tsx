@@ -113,10 +113,16 @@ export const handleClickOutDiv = (event: any, reference: React.RefObject<HTMLDiv
     }
 }
 
-export const executeClickEnterSpace = (event: React.KeyboardEvent, callback: () => void): void => {
+export const executeClickEnterSpace = (event: React.KeyboardEvent<HTMLElement>, callback: () => void): void => {
     if([13, 32].includes(event.keyCode))
     {
+        event.preventDefault();
         callback();
+    }
+    else if(event.keyCode === 27)
+    {
+        event.preventDefault();
+        event.currentTarget.blur();
     }
 }
 
@@ -124,7 +130,7 @@ export const getFocusableList = (parentRef: HTMLElement) => {
     return parentRef.querySelectorAll<HTMLElement>('[href], input, button, select, textarea, [tabindex]:not([tabindex="-1"])');
 }
 
-export const trapFocusInElements = (event: KeyboardEvent, focusable: NodeListOf<HTMLElement>) => {
+export const trapFocusInElements = (event: React.KeyboardEvent | KeyboardEvent, focusable: NodeListOf<HTMLElement>) => {
     if(event.keyCode === 9)
     {
         const firstElement = focusable[0];
