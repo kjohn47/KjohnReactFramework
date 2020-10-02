@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { KnownPages } from "../../../logic/context/Routes/routeContextEnums";
-import { IDictionary, PageType } from "../../../logic/functions/misc";
+import { IDictionary, PageType, executeClickEnterSpace } from "../../../logic/functions/misc";
 import useRouteHandler from "../../../logic/context/Routes/RouteContextHandler";
 
 interface IPageSelector {
@@ -11,6 +10,7 @@ interface IPageSelector {
     forceReload?: boolean;
     action?: () => void;
     disabled?: boolean;
+    focusable?: boolean;
 }
 
 const PageSelector: React.FC<IPageSelector> = ( { page,
@@ -20,49 +20,34 @@ const PageSelector: React.FC<IPageSelector> = ( { page,
                                                   forceReload,
                                                   highlight,
                                                   queryParams,
+                                                  focusable,
                                                   children
                                                 } ) => {
-    const {ChangeRoute} = useRouteHandler();
-    const css = useMemo(() => ( disabled ? 
-                                "" 
-                                :  "pointer_cursor" +
-                                ( highlight ? 
-                                    " PageSelector_Highlight" 
-                                    : "" ) ) + 
-                                    ( className ? 
-                                        ( " " + className ) 
-                                        : "" ),
-                         [disabled, highlight, className]);
+    const {SetPage} = useRouteHandler();
+    const css = useMemo(() => `${( disabled ? "" :  "pointer_cursor")}
+                               ${( highlight ? " PageSelector_Highlight" : "" )}
+                               ${( focusable ? " PageSelector_Focusable" : "" )}
+                               ${( className ? ` ${className}` : "" )}`,
+                         [disabled, highlight, className, focusable]);
 
     const setPage = useCallback(( page: PageType, queryParams?: IDictionary<string> ): void => {
         if(disabled)
             return;
 
-        let queryString = queryParams === undefined ? "" : "?" + new URLSearchParams( queryParams ).toString();
-        if ( page === KnownPages.Home || page.toString() === "" || page.toString() === "/" ) {
-            page = KnownPages.Home;
-            window.history.pushState( {}, "", "/" + ( queryString !== "" ? page.toString() + queryString : "" ) );
-        }
-        else {
-            window.history.pushState( {}, "", "/" + page.toString() + queryString );
-        }
-
-        ChangeRoute({
-            selectedPage: page,
-            queryString: queryParams,
-            forceReload: forceReload
-        });
+        SetPage({page, queryParams, forceReload});
 
         if(action)
         {
             action();
         }
-    }, [action, forceReload, ChangeRoute, disabled]);
+    }, [action, forceReload, SetPage, disabled]);
 
     return (
         <span 
             className={ css } 
             onClick={ () => setPage( page, queryParams ) } 
+            tabIndex = {!disabled && focusable ? 0 : undefined}
+            onKeyDown = {focusable ? (event) => executeClickEnterSpace(event, () => setPage( page, queryParams ) ) : undefined}
         >
             { children }
         </span>

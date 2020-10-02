@@ -5,7 +5,7 @@ import WithLabel from '../../../common/presentation/wrapper/WithLabel';
 import InputTextHoc from '../../../common/inputs/InputTextHoc';
 import { AppRegex } from '../../../../logic/config/regexEnum';
 import FieldSet from '../../../common/presentation/wrapper/FieldSet';
-import useInputText from '../../../../logic/functions/UseInputText';
+import useInputText from '../../../../logic/inputHooks/UseInputText';
 import InputText from '../../../common/inputs/InputText';
 
 const TestInputWithHook: React.FC = () =>
@@ -21,8 +21,7 @@ const TestInputWithHook: React.FC = () =>
                 name="TestInput6"
                 validText="Valid :)"
                 invalidText="Invalid :("
-                onChange={ ( Output ) => { setText6(Output.text) } }
-                onBlur={ ( Output ) => { setText6(Output.text) } }
+                getText ={ ( {text} ) => { setText6(text) } }
                 initialText = {text6}
             />
 }
@@ -44,7 +43,7 @@ const TestTextInput: React.FC = () => {
     useEffect(() => {
         console.log(hookInput);
         // eslint-disable-next-line 
-    }, [hookInput.value, hookInput.valid, hookInput.validated])
+    }, [hookInput.value, hookInput.isValid])
 
     return (
     <FieldSet Title="Text Inputs">
@@ -61,8 +60,7 @@ const TestTextInput: React.FC = () => {
                         validText="Valid :)"
                         invalidText="Invalid :("
                         notEmpty={ true }
-                        onChange={ logOutput }
-                        onBlur={ logOutput }
+                        getText = {logOutput}
                         regexValidation={ AppRegex.NumberOnly }
                         allowOnlyRegex
                         placeHolder="Test input box for numbers"
@@ -83,8 +81,7 @@ const TestTextInput: React.FC = () => {
                         validText="Valid :)"
                         invalidText="Invalid :("
                         notEmpty={ true }
-                        onChange={ logOutput }
-                        onBlur={ logOutput }
+                        getText={ logOutput }
                         regexValidation={ AppRegex.TextOnly }
                         allowOnlyRegex
                         placeHolder="Test input box for text"
@@ -105,8 +102,7 @@ const TestTextInput: React.FC = () => {
                         validText="Valid :)"
                         invalidText="Invalid :("
                         notEmpty={ true }
-                        onChange={ logOutput }
-                        onBlur={ logOutput }
+                        getText={ logOutput }
                         regexValidation={ AppRegex.Email }
                         validateEmail
                         allowOnlyRegex
@@ -128,8 +124,7 @@ const TestTextInput: React.FC = () => {
                         validText="Valid :)"
                         invalidText="Invalid :("
                         notEmpty={ true }
-                        onChange={ logOutput }
-                        onBlur={ logOutput }
+                        getText={ logOutput }
                         isPassword
                         placeHolder="Test input box for password"
                     />
@@ -148,8 +143,7 @@ const TestTextInput: React.FC = () => {
                         name="TestInput5"
                         validText="Valid :)"
                         invalidText="Invalid :("
-                        onChange={ logOutput }
-                        onBlur={ logOutput }
+                        getText={ logOutput }
                         regexValidation={ AppRegex.NoSpecialChar }
                         placeHolder="Test input box for text without symbol"
                     />
@@ -180,8 +174,7 @@ const TestTextInput: React.FC = () => {
                         name="TestInput7"
                         validText="Valid :)"
                         invalidText="Invalid :("
-                        onChange={ logOutput }
-                        onBlur={ logOutput }
+                        getText={ logOutput }
                         regexValidation={ AppRegex.NoSpecialChar }
                         placeHolder="Test input box for text without symbol"
                         balloonValidText

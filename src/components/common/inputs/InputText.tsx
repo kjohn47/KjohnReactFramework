@@ -5,8 +5,8 @@ export interface ITextInput {
     name: string;
     className?: string;
     value: string;
-    changeHandler: ( event: React.FormEvent<HTMLInputElement>, prevValue: string ) => void;
-    blurHandler: ( event: React.FormEvent<HTMLInputElement>, prevValue: string ) => void;
+    changeHandler: ( event: React.ChangeEvent<HTMLInputElement>) => void;
+    blurHandler: ( event: React.FocusEvent<HTMLInputElement>) => void;
     lenght?: number;
     placeHolder?: string;
     disabled?: boolean;
@@ -52,8 +52,8 @@ const InputText: React.FC<ITextInput> = ({
             type = { isPassword ? "password" : "text" }
             name = { name }
             className = { inputCss }
-            onChange = { ( event ) => { changeHandler( event, value ) } }
-            onBlur = { ( event ) => { blurHandler( event, value ) } }
+            onChange = { changeHandler }
+            onBlur = { blurHandler }
             value = { value }
             maxLength = { lenght }
             placeholder = { placeHolder }
