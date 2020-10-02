@@ -1,34 +1,31 @@
-import React, { useState, useEffect, CSSProperties } from "react"
+import React, { useState, useEffect, CSSProperties, useCallback } from "react"
 import Column from "../common/structure/Column"
 import Row from "../common/structure/Row";
 import {useMobileWidth} from "../../logic/functions/windowResize";
+import { handleClickOutDiv } from "../../logic/functions/misc";
 
 const Footer: React.FC = () => 
 {
     const mobileWidth = useMobileWidth();
     const footerRef = React.useRef<HTMLDivElement>( null );
     const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
-
-    const handleClickOut: ( event: any ) => void = ( event ) => {
-        if ( !isCollapsed && footerRef != null && footerRef.current !== null && !footerRef.current.contains( event.target ) ) {
-            setIsCollapsed( true );
-        }
-    }
+    const handleClickOutFooter = useCallback( (event: any) => handleClickOutDiv(event, footerRef, !isCollapsed, () => setIsCollapsed( true ) ), [isCollapsed]);
 
     const openerStyle: CSSProperties = {
         display: "block",
         width: "50px"
     }
+    
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut );
+        document.addEventListener( "mousedown", handleClickOutFooter );
         // return function to be called when unmounted
         return () => {
-            document.removeEventListener( "mousedown", handleClickOut );
+            document.removeEventListener( "mousedown", handleClickOutFooter );
         };
-        //eslint-disable-next-line
-    }, [ isCollapsed ] )
+        
+    }, [ handleClickOutFooter ] )
 
     useEffect(() => {
         if(!mobileWidth.isMobileWidth)

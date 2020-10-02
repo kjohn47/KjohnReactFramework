@@ -105,3 +105,60 @@ export const generateModalId = (): string => {
 
     return SHA( 'sha256' ).update( `${date.toJSON()}-${rand1}-${rand2}` ).digest( 'hex' );
 }
+
+export const handleClickOutDiv = (event: any, reference: React.RefObject<HTMLDivElement>, toogleFlag: boolean, callback: () => void): void => {
+    if(toogleFlag && reference.current && !reference.current.contains(event.target))
+    {
+        callback();
+    }
+}
+
+export const executeClickEnterSpace = (event: React.KeyboardEvent, callback: () => void): void => {
+    if([13, 32].includes(event.keyCode))
+    {
+        callback();
+    }
+}
+
+export const getFocusableList = (parentRef: HTMLElement) => {
+    return parentRef.querySelectorAll<HTMLElement>('[href], input, button, select, textarea, [tabindex]:not([tabindex="-1"])');
+}
+
+export const trapFocusInElements = (event: KeyboardEvent, focusable: NodeListOf<HTMLElement>) => {
+    if(event.keyCode === 9)
+    {
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+        if(event.shiftKey)
+        {
+            if(document.activeElement === firstElement)
+            {
+                event.preventDefault()
+                lastElement.focus();
+            }
+        }
+        else
+        {
+            if(document.activeElement === lastElement)
+            {
+                event.preventDefault()
+                firstElement.focus();
+            }
+        }
+    }
+}
+
+export const executeAfterLostFocusChild = (event: React.KeyboardEvent | KeyboardEvent, parentRef: HTMLElement, callback: () => void): void => {
+    if(event.keyCode === 9)
+    {
+        const focusable = getFocusableList(parentRef);
+        if(focusable && focusable.length > 0)
+        {
+            const active = document.activeElement;
+            if(active && active !== parentRef && !Object.values(focusable).includes(active as HTMLElement))
+            {
+                callback();
+            }
+        }
+    }
+}

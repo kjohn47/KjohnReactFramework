@@ -32,7 +32,8 @@ interface IColumn {
     className?: string;
     reference?: any;
     tabIndex?:number;
-    onClick?:()=>void;
+    onClick?:(event: React.MouseEvent)=>void;
+    onKeyDown?:(event: React.KeyboardEvent)=>void;
 }
 
 const getCssString: ( config: IColumn ) => string = ( config ) => {
@@ -55,7 +56,7 @@ const getCssString: ( config: IColumn ) => string = ( config ) => {
 const Column: React.FC<IColumn> = ( props ) => {
     let css = getCssString( props );
     return (
-        <div className={ css } ref = {props.reference} tabIndex = {props.tabIndex} onClick = {props.onClick}>
+        <div className={ css } ref = {props.reference} tabIndex = {props.tabIndex} onClick = {props.onClick} onKeyDown={props.onKeyDown}>
             { props.children }
         </div>
     )

@@ -23,8 +23,7 @@ interface IInputSettings {
 interface IUseTextInputReturn {
     inputProps: ITextInput;
     value: string;
-    valid: boolean;
-    validated:boolean;
+    isValid?: boolean;
     disableInput: () => void;
     enableInput: () => void;
     changeValidation: (valid: boolean) => void;
@@ -140,8 +139,7 @@ const useInputText = ( {
 
     return {
         value,
-        valid,
-        validated,
+        isValid: validated ? valid : undefined,
         disableInput,
         enableInput,
         changeValidation,
@@ -160,8 +158,8 @@ const useInputText = ( {
                 validText,
                 invalidText,
                 balloonValidText,
-                blurHandler,
-                changeHandler,
+                blurHandler: (event: React.FocusEvent<HTMLInputElement>) => blurHandler(event, value),
+                changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => changeHandler(event, value),
                 reference
         }
     }

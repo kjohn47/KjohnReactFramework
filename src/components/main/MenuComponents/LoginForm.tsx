@@ -8,8 +8,9 @@ import useTranslation from '../../../logic/functions/getTranslation';
 import PageSelector from '../../common/inputs/PageSelector';
 import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import WithLabel from '../../common/presentation/wrapper/WithLabel';
-import useInputText from '../../../logic/functions/UseInputText';
+import useInputText from '../../../logic/inputHooks/UseInputText';
 import InputText from '../../common/inputs/InputText';
+import { handleClickOutDiv } from '../../../logic/functions/misc';
 
 const LoginFormWrapper: React.FC<{reference: React.RefObject<HTMLDivElement>, toogle: boolean, changeToogle: () => void}> = ( {reference, toogle, changeToogle, children} ) => {
     const { getTranslation } = useTranslation();
@@ -49,21 +50,16 @@ const LoginForm: React.FC = () => {
 
     const loginMenuRef = React.useRef<HTMLDivElement>( null );
 
-    const handleClickOut: ( event: any ) => void = ( event ) => {
-        if ( menuToogle && loginMenuRef != null && loginMenuRef.current !== null && !loginMenuRef.current.contains( event.target ) ) {
-            setMenuToogle( false );
-        }
-    }
+    const handleClickOutLoginFrm = React.useCallback( (event: any) => handleClickOutDiv(event, loginMenuRef, menuToogle, () => setMenuToogle( false ) ), [menuToogle]);
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut );
+        document.addEventListener( "mousedown", handleClickOutLoginFrm );
         // return function to be called when unmounted
         return () => {
-            document.removeEventListener( "mousedown", handleClickOut );
+            document.removeEventListener( "mousedown", handleClickOutLoginFrm );
         };
-        //eslint-disable-next-line
-    }, [ menuToogle ] )
+    }, [ handleClickOutLoginFrm ] )
 
     useEffect( () => {
         if ( mobileWidth.isMobileWidthLoginForm && !mobileWidth.isMobileWidthMenu ) {
@@ -105,7 +101,7 @@ const LoginForm: React.FC = () => {
                     <span onClick={ () => handleLogin() } className="pointer_cursor">{ getTranslation( "_loginform", "#(LoginButton)" ) }</span>
                 </Column>
                 <Column full={ ColumnNumber.C3 } className="loginMenuLink">
-                    <PageSelector page={ KnownPages.Home }>{ getTranslation( "_loginform", "#(NewLogin)" ) }</PageSelector>
+                    <PageSelector page={ KnownPages.Home } focusable>{ getTranslation( "_loginform", "#(NewLogin)" ) }</PageSelector>
                 </Column>
             </Row>
         );

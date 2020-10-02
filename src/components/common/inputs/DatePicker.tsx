@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { AppRegex } from '../../../logic/config/regexEnum';
 import useTranslation from '../../../logic/functions/getTranslation';
 import { scrollToRef } from '../../../logic/functions/misc';
@@ -44,7 +44,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
     //// Translate hook
     const { getTranslation } = useTranslation();
     ////handle click out event to close calendar
-    const handleClickOut: ( event: any ) => void = ( event ) => {
+    const handleClickOutDtPckr = useCallback( ( event: any ): void => {
         if ( !props.calendarVisible && showCalendar && ( datePickerRef !== null && datePickerRef.current !== null && !datePickerRef.current.contains( event.target ) ) ) {
             setShowCalendar( false );
             setShowYearSelector( false );
@@ -60,7 +60,7 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
             && monthSelectedRef.current.parentElement.previousElementSibling !== null && !monthSelectedRef.current.parentElement.previousElementSibling.contains( event.target ) ) {
             setShowMonthSelector( false );
         }
-    }
+    }, [showCalendar, showYearSelector, showMonthSelector, props.calendarVisible, selectedDate]);
 
     //// useEffect hooks
     useEffect( () => {
@@ -77,13 +77,12 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut );
+        document.addEventListener( "mousedown", handleClickOutDtPckr );
         // return function to be called when unmounted
         return () => {
-            document.removeEventListener( "mousedown", handleClickOut );
+            document.removeEventListener( "mousedown", handleClickOutDtPckr );
         };
-        //eslint-disable-next-line
-    }, [ showCalendar, showYearSelector, showMonthSelector ] )
+    }, [ handleClickOutDtPckr ] )
 
     useEffect( () => {
         if( !props.calendarVisible && props.disabled )
@@ -91,6 +90,11 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
             setShowCalendar(false);
         }
     }, [props.calendarVisible, props.disabled]) 
+
+    useEffect( () => {
+        props.getSelectedDate( selectedDate );
+        // eslint-disable-next-line
+    }, [selectedDate])
 
     //// Translate tokens
     const monthTokens = useMemo( () => ( [
@@ -126,7 +130,6 @@ const DatePicker: React.FC<IDatePicker> = ( props ) => {
             newDate = props.endDate;
         }
         setSelectedDate( newDate );
-        props.getSelectedDate( newDate );
         setCalendarInput( { [ DatePickerTextField.day ]: newDate.getDate().toString(), [ DatePickerTextField.month ]: ( newDate.getMonth() + 1 ).toString(), [ DatePickerTextField.year ]: newDate.getFullYear().toString() } );
         !props.calendarVisible && setShowCalendar( false );
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Badge from '../../common/presentation/display/Badge';
 import MenuNotificationItem from './MenuNotificationItem';
 import PageSelector from '../../common/inputs/PageSelector';
@@ -9,8 +9,9 @@ import { useNotificationService } from '../../../services/Notifications/Notifica
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
+import { handleClickOutDiv } from '../../../logic/functions/misc';
 
-const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
+const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
     const appContext = useAppHandler().App;
     const {appLanguage}= useAppLanguageHandler();
     const {getTranslation} = useTranslation();
@@ -19,7 +20,7 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
     const NotificationsService = useNotificationService(true);
     const NotificationsServiceRef = useRef(NotificationsService);
 
-    const readNotifications = ( updateOld: boolean = false) => {
+    const readNotifications = useCallback(( updateOld: boolean = false) => {
         if(open) {
             if( !NotificationsService.Loading )
                 updateOld ? NotificationsService.ReadAll() : NotificationsService.ReadCurrent();
@@ -30,18 +31,16 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
             if( !NotificationsService.Loading )
                 setOpen( true );
         }
-    }
+    }, [open, NotificationsService])
 
     const removeNotification: ( id: string ) => void = (id) => {
         if( !NotificationsService.Loading )
             NotificationsService.DeleteNotification(id);
     }
 
-    const handleClickOut: ( event: any ) => void = ( event ) => {
-        if ( open && ( reference != null && reference.current !== null && !reference.current.contains( event.target ) ) ) {
-            readNotifications();
-        }
-    }
+    const handleClickOutNotifMenu = useCallback( (event: any) => 
+        handleClickOutDiv(event, reference, open, () => readNotifications() 
+        ), [open, readNotifications, reference]);
 
     useEffect( () => {
         return () => {
@@ -59,13 +58,12 @@ const MenuNotification: React.FC<{reference: any, Route: string; RefreshTime?: n
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut );
+        document.addEventListener( "mousedown", handleClickOutNotifMenu );
         // return function to be called when unmounted
         return () => {
-            document.removeEventListener( "mousedown", handleClickOut );
+            document.removeEventListener( "mousedown", handleClickOutNotifMenu );
         };
-        //eslint-disable-next-line
-    }, [ open, NotificationsService ] )
+    }, [ handleClickOutNotifMenu ] )
 
     useEffect( () => {
         if( RefreshTime && RefreshTime > 0 )

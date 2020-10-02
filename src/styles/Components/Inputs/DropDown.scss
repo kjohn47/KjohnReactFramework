@@ -1,49 +1,61 @@
-.LanguageSelector {
-    position: absolute;
-    width: 75px;
-    .LanguageSelector_Box {
+.DropDownInput {
+    position: relative;
+    max-width: 250px;
+    min-width: 80px;
+    .DropDownBox {
         position: relative;
         box-sizing: border-box;
         padding: 3px;
         border: 1px solid;
         border-radius: 10px;
-        width: 100%;
         height: 33px;
+        width: 100%;
         outline: none;
-        .LanguageSelector_Box_Text {
+        .DropDownBox_Text {
+            top: 0;
+            left: 0;
             position: absolute;
             box-sizing: border-box;
-            padding-left: 5px;
+            padding-left: 10px;
+            padding-top: 2px;
             display: inline-block;
             font-weight: bold;
             font-size: large;
-            width: calc(100% - 35px);
+            max-width: calc(100% - 35px);
+            height: 100%;
+            overflow: hidden;
+            white-space: nowrap;
         }
-
-        .LanguageSelector_Box_Arrow {
-            right: 0;
+        .DropDownBox_Arrow {
             top: 0;
+            right: 0;
+            padding-top: 5px;
+            padding-right: 10px;
             position: absolute;
             box-sizing: border-box;
             display: inline-block;
-            margin-top: 5px;
-            padding-right: 10px;
             text-align: right;
             width: 35px;
             border-left: 1px solid;
+            height: 100%;
         }
     }
 
-    .LanguageSelector_List {
-        width: 70px;
+    .DropDownBox_List {
+        width: 85%;
         position: absolute;
         top: 43px;
-        right: 5px;
+        left: 5px;
         box-sizing: border-box;
         border: 2px solid;
         border-radius: 10px;
+        z-index: 1;
         animation: slideLangSelector 0.5s ease-in-out;
-        .LanguageSelector_Item {
+        .DropDownBox_Item {
+            position: relative;
+            width: 100%;
+            display: block;
+            overflow: hidden;
             box-sizing: border-box;
             padding-left: 8px;
             border-top: 1px dotted;
@@ -54,27 +66,34 @@
                 border-top: none;
                 border-radius: 9px 9px 0 0;
             }
+
             &:last-child {
                 border-radius: 0 0 9px 9px;
             }
+
+            & span {
+                white-space: nowrap;
+            }
         }
-        &:after {
+        &::after {
             content: "";
+            overflow: visible;
             position: absolute;
             width: 0;
             height: 0;
-            border-width: 10px;
+            border-width: 8px;
             border-style: solid;
+            z-index: 2;
             border-right-color: transparent;
             border-top-color: transparent;
             border-left-color: transparent;
-            top: -20px;
-            right: 5px; 
+            top: -16px;
+            left: 5px;
         }
     }
 }
 
-@keyframes slideLangSelector {
+@keyframes slideDropDown {
     0% {
         opacity: 0;
         transform: translateY(-10px);
