@@ -4,6 +4,10 @@
         &:hover {
             color: $LinkColor;
         }
+        &:focus {
+            color: $LinkColor;
+            text-decoration: underline;
+        }
     }
     .ModalContent {
         box-shadow: 8px 3px 12px 3px $MainColor;

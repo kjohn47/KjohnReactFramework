@@ -63,14 +63,19 @@
     .menuItemColSel {
         border-color: $Menu_Border;
         background-color: $Menu_Background;
-        &:focus {
-          box-shadow: 0 0 4px $Menu_SubBorder;
-        }
+        box-shadow: 0 0 4px $Menu_SubBorder;
     }
     .menuItemCol {
       &:hover {
           border-color: $Menu_Border;
           background-color: $Menu_Background;
+      }
+      .menuSpan {
+        &:focus {
+          border-color: $Menu_Border;
+          background-color: $Menu_Background;
+          box-shadow: 0 0 4px $Menu_SubBorder;
+        }
       }
     }
 
@@ -80,6 +85,10 @@
               border-color: $Menu_Border;
               background-color: $Menu_Background;
           }
+      }
+      &:focus span {
+        border-color: $Menu_Border;
+        background-color: $Menu_Background;
       }
     }
     .menuBrand {
@@ -96,25 +105,35 @@
           border-bottom-color: $Menu_SubBorder;
       }
       .subMenuCol {
-          &:hover {
-            background-color: $Menu_SubHover;
-            color: $Menu_SubTextHover;
-          }
-      }
-
-      .disabledMenuItem {    
-        background-color: $Menu_SubDisabled;
         &:hover {
-            background-color: $Menu_SubDisabled;
-            color: $Menu_SubText;
+          background-color: $Menu_SubHover;
+          color: $Menu_SubTextHover;
+        }
+        &:focus {
+          background-color: $Menu_SubHover;
+          color: $Menu_SubTextHover;
         }
       }
 
-      .subMenuReloadable:hover {
+    .disabledMenuItem {    
+      background-color: $Menu_SubDisabled;
+      &:hover {
+          background-color: $Menu_SubDisabled;
+          color: $Menu_SubText;
+      }
+    }
+
+    .subMenuReloadable {
+      &:hover {
+        background-color: $Menu_SubHover;
+        color: $Menu_SubTextHover;
+      }
+      &:focus {
         background-color: $Menu_SubHover;
         color: $Menu_SubTextHover;
       }
     }
+  }
 
     .MenuNotifications {
       .BadgeComponent {

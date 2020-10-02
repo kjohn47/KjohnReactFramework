@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PageSelector from '../../common/inputs/PageSelector';
 import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
 import useTranslation from '../../../logic/functions/getTranslation';
-import { PageType } from '../../../logic/functions/misc';
+import { PageType, handleClickOutDiv, executeClickEnterSpace, executeAfterLostFocusChild } from '../../../logic/functions/misc';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import useLoginHandler from '../../../logic/context/Login/LoginContextHandler';
 
@@ -23,41 +23,56 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
     const [ toogle, setToogle ] = useState<boolean>( false );
     const { getTranslation } = useTranslation();
     const subMenuRef = useRef<HTMLDivElement>( null );
+    const handleClickOutMenuItem = useCallback( (event: any) => handleClickOutDiv(event, subMenuRef, toogle, () => setToogle( false ) ), [toogle]);
 
-    const handleClickOut: ( event: any ) => void = ( event ) => {
-        if ( toogle && subMenuRef != null && subMenuRef.current !== null && !subMenuRef.current.contains( event.target ) ) {
-            setToogle( false );
+    const handleTab = useCallback((e: KeyboardEvent) => {
+        if(toogle && subMenuRef.current)
+        {
+            executeAfterLostFocusChild(e, subMenuRef.current, () => setToogle(false));
         }
-    }
+    }, [subMenuRef, toogle])
 
     useEffect( () => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut );
+        document.addEventListener( "mousedown", handleClickOutMenuItem );
         // return function to be called when unmounted
         return () => {
-            document.removeEventListener( "mousedown", handleClickOut );
+            document.removeEventListener( "mousedown", handleClickOutMenuItem );
         };
-        //eslint-disable-next-line
-    }, [ toogle ] )
+    }, [ handleClickOutMenuItem ] )
+
+    useEffect(() => {
+        // add when mounted
+        document.addEventListener( "keyup", handleTab );
+        // return function to be called when unmounted
+        return () => {
+            document.removeEventListener( "keyup", handleTab );
+        };
+    }, [handleTab])
 
     const makeMenu = ( menu: IMenuItem ) => {
         let translatedTitle = getTranslation( "_menu", menu.Title );
         if ( menu.Link ) {
-            return <PageSelector forceReload={ menu.Reloadable } page={ menu.Link } className='menuSpan pointer_cursor'>{ translatedTitle }</PageSelector>
+            return <PageSelector focusable forceReload={ menu.Reloadable } page={ menu.Link } className='menuSpan pointer_cursor'>{ translatedTitle }</PageSelector>
         }
         if ( menu.SubMenus ) {
             return <>
-                <span className='menuSpan pointer_cursor' onClick={ () => setToogle( !toogle ) }>{ translatedTitle }</span>
+                <span 
+                    className='menuSpan pointer_cursor'
+                    tabIndex={0} 
+                    onClick={ () => setToogle( p => !p ) } 
+                    onKeyDown={(e) => executeClickEnterSpace(e, () => setToogle(p => !p))}
+                >{ translatedTitle }</span>
                 { toogle && <SubMenu subMenu={ menu.SubMenus } unToogle={ () => setToogle( false ) } /> }
             </>
         }
-        return <span onClick={ menu.Action } className='menuSpan pointer_cursor'>{ translatedTitle }</span>
+        return <span onClick={ menu.Action } tabIndex={0} className='menuSpan pointer_cursor'>{ translatedTitle }</span>
     }
 
     return ( (!props.Menu.AdminOnly && !props.Menu.AuthOnly) || 
              (!props.Menu.AdminOnly && userContext) ||
              appContext.adminOptions ) ? 
-                <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef } tabIndex={ 0 }>
+                <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef }>
                     { makeMenu( props.Menu ) }
                 </Column> 
                 : null

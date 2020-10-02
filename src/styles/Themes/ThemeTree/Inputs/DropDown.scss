@@ -1,5 +1,6 @@
-.LanguageSelector {
-    .LanguageSelector_Box {
+.DropDownInput {
+
+    .DropDownBox {
         border-color: $Menu_Border;
         background-color: $Menu_SubBackground;
         color: $TextColor;
@@ -7,22 +8,24 @@
             box-shadow: 0 0 3px $Menu_Border;
         }
 
-        &:hover .LanguageSelector_Box_Arrow {
+        &:hover .DropDownBox_Arrow {
             color: $LinkColor;
         }
 
-        .LanguageSelector_Box_Arrow {
+        .DropDownBox_Arrow {
             border-left-color: $Menu_Border;
         }
     }
-    .LanguageSelector_Box_Selected {
+
+    .DropDownBoxOpen {
         background-color: $Menu_MenuSubOpen;
     }
-    .LanguageSelector_List {
+
+    .DropDownBox_List {
         color: $TextColor;
         border-color: $Menu_Border;
         background-color: $Menu_SubBackground;
-        .LanguageSelector_Item {
+        .DropDownBox_Item {
             border-top-color: $Menu_SubSeparator;
             &:hover {
                 background-color: $Menu_SubHover;
@@ -33,16 +36,18 @@
                 color: $Menu_SubTextHover;
             }
         }
-        &:after {
-            border-bottom-color: $Menu_Border;
-        }
-        .LanguageSelector_Item_Disabled {
+
+        .DropDownBox_Item_Selected {
             background-color: $Menu_SubDisabled;
             color: $TextColor;
             &:hover {
                 background-color: $Menu_SubDisabled;
                 color: $TextColor;
             }
+        }
+
+        &::after {
+            border-bottom-color: $Menu_Border;
         }
     }
 }

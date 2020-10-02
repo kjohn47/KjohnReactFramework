@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
-import PageSelector from './PageSelector';
-import { IDictionary, PageType } from '../../../logic/functions/misc';
+import React, { useMemo, useCallback } from 'react';
+import { IDictionary, PageType, executeClickEnterSpace } from '../../../logic/functions/misc';
+import useRouteHandler from '../../../logic/context/Routes/RouteContextHandler';
 
 export enum ButtonTypes {
     Default = "page_button_color",
@@ -21,36 +21,39 @@ interface IButton {
     disabled?: boolean;
 }
 
-const Button: React.FC<IButton> = ( props ) => {
+const Button: React.FC<IButton> = ( {buttonType, className, disabled, forceReload, page, queryParams, onClick, children} ) => {
+    const {SetPage} = useRouteHandler();
+
     const css = useMemo(() => {
-        let cssVal = `noselect page_button ${( props.buttonType !== undefined ? 
-                                                props.buttonType 
+        let cssVal = `noselect page_button ${( buttonType !== undefined ? 
+                                                buttonType 
                                                 : ButtonTypes.Default )
-                                            }${( props.disabled ? 
+                                            }${( disabled ? 
                                                 "_disabled" 
                                                 : " pointer_cursor" )
                                             }`;
 
-        return props.className !== undefined ? 
-                    `${cssVal} ${props.className}` 
+        return className !== undefined ? 
+                    `${cssVal} ${className}` 
                     : cssVal;
-    }, [props.buttonType, props.disabled, props.className])
+    }, [buttonType, disabled, className])
 
+    const handleClick = useCallback(() => {
+        if(!disabled && onClick)
+        {
+            onClick();
+        }
+
+        if(!disabled && page)
+        {
+            SetPage({page, queryParams, forceReload});
+        }
+    }, [SetPage, disabled, forceReload, onClick, page, queryParams])
+    
     return (
         <div className="ButtonComponent">
-            <div tabIndex={ 0 } className={ css } onClick={ () => !props.disabled ? props.onClick && props.onClick() : undefined }>
-                { props.page !== undefined &&
-                    <PageSelector
-                        page={ props.page }
-                        queryParams={ props.queryParams }
-                        className="page_Button_PageSelector"
-                        forceReload = {props.forceReload}
-                        disabled = { props.disabled }
-                    >
-                        { props.children }
-                    </PageSelector>
-                }
-                { !props.page && props.children }
+            <div tabIndex={ !disabled ? 0 : undefined } className={ css } onClick={ () => handleClick() } onKeyDown={(event) => executeClickEnterSpace(event, () => handleClick())}>
+                { children }
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import Column, { ColumnNumber } from './Column';
 import Row from './Row';
-import { injectProps } from '../../../logic/functions/misc';
+import { injectProps, handleClickOutDiv } from '../../../logic/functions/misc';
 import { useMobileWidth } from '../../../logic/functions/windowResize';
 import { mobileWidthMenu } from '../../../logic/config/configuration';
 
@@ -81,12 +81,7 @@ const TabGroup: React.FC<ITabGroup> = (props) => {
         </div>
     )}, [props.Tabs, selectedIndex, indexHandle])
 
-    const handleClickOut = (event: any) => {
-        if(isCollapsed && collapsedTabs && collapsedMenuRef.current && !collapsedMenuRef.current.contains(event.target))
-        {
-            setCollapsedTabs(false);
-        }
-    }
+    const handleClickOutTabGrp = useCallback( (event: any) => handleClickOutDiv(event, collapsedMenuRef, isCollapsed && collapsedTabs, () => setCollapsedTabs(false) ), [isCollapsed, collapsedTabs]);
 
     useEffect(() => {
         if(props.Tabs.length > 0 && (!props.DefaultIndex || props.DefaultIndex < props.Tabs.length))
@@ -97,13 +92,12 @@ const TabGroup: React.FC<ITabGroup> = (props) => {
 
     useEffect(() => {
         // add when mounted
-        document.addEventListener( "mousedown", handleClickOut );
+        document.addEventListener( "mousedown", handleClickOutTabGrp );
         // return function to be called when unmounted
         return () => {
-        document.removeEventListener( "mousedown", handleClickOut );
+        document.removeEventListener( "mousedown", handleClickOutTabGrp );
         };
-        // eslint-disable-next-line
-    }, [collapsedTabs]);
+    }, [handleClickOutTabGrp]);
 
     useEffect(() => {
         if(!isCollapsed)
