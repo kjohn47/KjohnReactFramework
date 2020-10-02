@@ -63,14 +63,17 @@
     .menuItemColSel {
         border-color: $Menu_Border;
         background-color: $Menu_Background;
-        &:focus {
-          box-shadow: 0 0 4px $Menu_SubBorder;
-        }
+        box-shadow: 0 0 4px $Menu_SubBorder;
     }
     .menuItemCol {
       &:hover {
           border-color: $Menu_Border;
           background-color: $Menu_Background;
+      }
+      .menuSpan {
+        &:focus {
+          box-shadow: 0 0 4px $Menu_SubBorder;
+        }
       }
     }
 

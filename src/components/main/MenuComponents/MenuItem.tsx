@@ -3,7 +3,7 @@ import PageSelector from '../../common/inputs/PageSelector';
 import Column from '../../common/structure/Column';
 import SubMenu, { ISubMenuItem } from './SubMenu';
 import useTranslation from '../../../logic/functions/getTranslation';
-import { PageType, handleClickOutDiv } from '../../../logic/functions/misc';
+import { PageType, handleClickOutDiv, executeClickEnterSpace } from '../../../logic/functions/misc';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import useLoginHandler from '../../../logic/context/Login/LoginContextHandler';
 
@@ -38,21 +38,21 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
     const makeMenu = ( menu: IMenuItem ) => {
         let translatedTitle = getTranslation( "_menu", menu.Title );
         if ( menu.Link ) {
-            return <PageSelector forceReload={ menu.Reloadable } page={ menu.Link } className='menuSpan pointer_cursor'>{ translatedTitle }</PageSelector>
+            return <PageSelector focusable forceReload={ menu.Reloadable } page={ menu.Link } className='menuSpan pointer_cursor'>{ translatedTitle }</PageSelector>
         }
         if ( menu.SubMenus ) {
             return <>
-                <span className='menuSpan pointer_cursor' onClick={ () => setToogle( !toogle ) }>{ translatedTitle }</span>
+                <span className='menuSpan pointer_cursor' tabIndex={0} onBlur={(e) => handleClickOutMenuItem(e)} onClick={ () => setToogle( p => !p ) } onKeyDown={(e) => executeClickEnterSpace(e, () => setToogle( p => !p))}>{ translatedTitle }</span>
                 { toogle && <SubMenu subMenu={ menu.SubMenus } unToogle={ () => setToogle( false ) } /> }
             </>
         }
-        return <span onClick={ menu.Action } className='menuSpan pointer_cursor'>{ translatedTitle }</span>
+        return <span onClick={ menu.Action } tabIndex={0} className='menuSpan pointer_cursor'>{ translatedTitle }</span>
     }
 
     return ( (!props.Menu.AdminOnly && !props.Menu.AuthOnly) || 
              (!props.Menu.AdminOnly && userContext) ||
              appContext.adminOptions ) ? 
-                <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef } tabIndex={ 0 }>
+                <Column className={ 'menuItemCol' + ( toogle ? ' menuItemColSel' : '' ) } reference={ subMenuRef }>
                     { makeMenu( props.Menu ) }
                 </Column> 
                 : null

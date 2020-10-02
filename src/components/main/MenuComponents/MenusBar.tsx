@@ -56,7 +56,7 @@ const MenusBar: React.FC<INavMenuProps> = ( {
 
   const renderInLineMenus = () => {
     return <Row className='menuItemRow noselect'>
-      { Brand && <Column className='menuItemCol menuBrand noselect'><PageSelector page={ KnownPages.Home } forceReload>{ getTranslation( "_brand", Brand ) }</PageSelector></Column> }
+      { Brand && <Column className='menuItemCol menuBrand noselect'><PageSelector page={ KnownPages.Home } focusable forceReload>{ getTranslation( "_brand", Brand ) }</PageSelector></Column> }
       {
         MenuNav && MenuNav.map( ( menu, i ) =>
           <MenuItem key={ 'menu_' + i } Menu={ menu } />
