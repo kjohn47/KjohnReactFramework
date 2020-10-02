@@ -42,7 +42,7 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
         }
         if ( menu.SubMenus ) {
             return <>
-                <span className='menuSpan pointer_cursor' tabIndex={0} onBlur={(e) => handleClickOutMenuItem(e)} onClick={ () => setToogle( p => !p ) } onKeyDown={(e) => executeClickEnterSpace(e, () => setToogle( p => !p))}>{ translatedTitle }</span>
+                <span className='menuSpan pointer_cursor' tabIndex={0} onClick={ () => setToogle( p => !p ) } onKeyDown={(e) => {setToogle(false); executeClickEnterSpace(e, () => setToogle(true));}}>{ translatedTitle }</span>
                 { toogle && <SubMenu subMenu={ menu.SubMenus } unToogle={ () => setToogle( false ) } /> }
             </>
         }
