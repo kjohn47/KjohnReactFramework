@@ -24,6 +24,7 @@
         margin-left: 5px;
         margin-right: 5px;
         text-align: center;
+        outline: none;
         &:hover {
             transition: background-color 0.3s ease;
         }
@@ -33,6 +34,10 @@
         background-color: $Button_Danger_Main;
         border-color: $Button_Danger_Secondary;
         color: $Button_Danger_Text;
+        &:focus {
+            background-color: $Button_Danger_Secondary;
+            color: $Button_Danger_Text_Hover;
+            }
     }
     .BadgeComponentColorClick_Danger {
         &:hover {
@@ -45,6 +50,10 @@
         background-color: $Button_Warning_Main;
         border-color: $Button_Warning_Secondary;
         color: $Button_Warning_Text;
+        &:focus {
+            background-color: $Button_Warning_Secondary;
+            color: $Button_Warning_Text_Hover;
+            }
     }
     .BadgeComponentColorClick_Warning {
         &:hover {
@@ -57,6 +66,10 @@
         background-color: $Button_Confirmation_Main;
         border-color: $Button_Confirmation_Secondary;
         color: $Button_Confirmation_Text;
+        &:focus {
+            background-color: $Button_Confirmation_Secondary;
+            color: $Button_Confirmation_Text_Hover;
+            }
     }
     .BadgeComponentColorClick_Confirmation {
         &:hover {
@@ -69,6 +82,10 @@
         background-color: $Button_Information_Main;
         border-color: $Button_Information_Secondary;
         color: $Button_Information_Text;
+        &:focus {
+            background-color: $Button_Information_Secondary;
+            color: $Button_Information_Text_Hover;
+            }
     }
     .BadgeComponentColorClick_Information {
         &:hover {
@@ -81,6 +98,10 @@
         background-color: $Button_Cancelation_Main;
         border-color: $Button_Cancelation_Secondary;
         color: $Button_Cancelation_Text;
+        &:focus {
+            background-color: $Button_Cancelation_Secondary;
+            color: $Button_Cancelation_Text_Hover;
+            }
     }
     .BadgeComponentColorClick_Cancelation {
         &:hover {

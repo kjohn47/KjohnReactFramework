@@ -6,7 +6,7 @@ import SubMenu, { ISubMenuItem } from './SubMenu';
 import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import MenuItemMobile from './MenuItemMobile';
 import MenuNotification from './MenuNotification';
-import { PageType } from '../../../logic/functions/misc';
+import { executeAfterLostFocusChild, executeClickEnterSpace, PageType } from '../../../logic/functions/misc';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import useLoginHandler from '../../../logic/context/Login/LoginContextHandler';
 
@@ -41,6 +41,28 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
         }
     }, [toogle]);
 
+    const handleTabOutUsrMenu = useCallback((e: KeyboardEvent) => {
+        if(toogle && userMenuRef.current)
+        {
+            if(NotificationsEnabled && notificationRef.current)
+            {
+                const notificationMenu = notificationRef.current.querySelector('.BadgeComponent_Inner') as HTMLElement;
+                if(document.activeElement === notificationMenu)
+                {
+                    e.preventDefault();
+                    setToogle(false);
+                }
+                else
+                {
+                    executeAfterLostFocusChild(e, userMenuRef.current, () => setToogle(false));
+                }
+            }
+            else
+            {
+                executeAfterLostFocusChild(e, userMenuRef.current, () => setToogle(false));
+            }
+        }
+    }, [toogle, NotificationsEnabled] )
 
     useEffect( () => {
         // add when mounted
@@ -50,6 +72,15 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
             document.removeEventListener( "mousedown", handleClickOutUsrMenu );
         };
     }, [ handleClickOutUsrMenu ] )
+
+    useEffect( () => {
+        // add when mounted
+        document.addEventListener( "keyup", handleTabOutUsrMenu );
+        // return function to be called when unmounted
+        return () => {
+            document.removeEventListener( "keyup", handleTabOutUsrMenu );
+        };
+    }, [ handleTabOutUsrMenu ] )
 
     useEffect( () => {
         if ( mobileWidth.isMobileWidthLoginForm && !mobileWidth.isMobileWidthMenu ) {
@@ -138,8 +169,13 @@ const UserMenu: React.FC<{ CustomMenus?: IUserCustomMenu[]; NotificationsEnabled
                         RefreshTime = { NotificationRefreshTime }
                     />
                 }
-                <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogle( !toogle ) }>
-                    <span tabIndex={ 0 } className={ ( toogle ? 'menuItemColSel' : '' ) }>
+                <div 
+                    className="menuLanguageCol pointer_cursor noselect" 
+                    tabIndex={ 0 } 
+                    onClick={ (e) => { toogle && e.currentTarget.blur(); setToogle( !toogle )} }
+                    onKeyDown={(e) => executeClickEnterSpace(e, () => setToogle( !toogle ))}
+                >
+                    <span className={ ( toogle ? 'menuItemColSel' : '' ) }>
                         { userContext && ( `${ userContext.name } ${ shortName ? `${ userContext.surname.charAt( 0 ) }.` : userContext.surname }` ) }
                     </span>
                 </div>

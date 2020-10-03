@@ -4,7 +4,7 @@
         background-color: $Menu_SubBackground;
         color: $TextColor;
         &:focus {
-            box-shadow: 0 0 3px $Menu_Border;
+            box-shadow: 0 0 5px $Menu_Border;
         }
 
         &:hover .LanguageSelector_Box_Arrow {

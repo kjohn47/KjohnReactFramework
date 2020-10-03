@@ -40,7 +40,7 @@
       color: $Button_Danger_Text_Hover;
     }
     &:focus {
-      box-shadow: 0 0 4px $Button_Danger_Main;
+      box-shadow: 0 0 10px $Button_Danger_Main;
     }
   }
 
@@ -54,7 +54,7 @@
     }
     
     &:focus {
-      box-shadow: 0 0 4px $Button_Warning_Main;
+      box-shadow: 0 0 10px $Button_Warning_Main;
     }
   }
 
@@ -68,7 +68,7 @@
     }
     
     &:focus {
-      box-shadow: 0 0 4px $Button_Confirmation_Main;
+      box-shadow: 0 0 10px $Button_Confirmation_Main;
     }
   }
 
@@ -82,7 +82,7 @@
     }
     
     &:focus {
-      box-shadow: 0 0 4px $Button_Cancelation_Main;
+      box-shadow: 0 0 10px $Button_Cancelation_Main;
     }
   }
 
@@ -96,7 +96,7 @@
     }
     
     &:focus {
-      box-shadow: 0 0 4px $Button_Information_Main;
+      box-shadow: 0 0 10px $Button_Information_Main;
     }
   }
 
