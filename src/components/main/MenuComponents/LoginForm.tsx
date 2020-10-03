@@ -31,7 +31,12 @@ const LoginFormWrapper: React.FC<{reference: React.RefObject<HTMLDivElement>, to
 
     return (
         <div ref={ reference }>
-            <div tabIndex={ 0 } className="menuLanguageCol pointer_cursor noselect" onClick={(e) => {changeToogle(); e.currentTarget.blur()}} onKeyDown={(e)=>executeClickEnterSpace(e, () => changeToogle())}>
+            <div 
+                tabIndex={ 0 } 
+                className="menuLanguageCol pointer_cursor noselect" 
+                onClick={(e) => { toogle && e.currentTarget.blur(); changeToogle();}} 
+                onKeyDown={(e)=>executeClickEnterSpace(e, () => changeToogle())}
+            >
                 <span className={ ( toogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
             </div>
             { children }

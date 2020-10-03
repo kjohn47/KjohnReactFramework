@@ -21,14 +21,14 @@
     .inputTextValid {
         border-color: $TextInputValid;
         &:focus {
-            box-shadow: 0 0 3px $TextInputValid;
+            box-shadow: 0 0 4px $TextInputValid;
         }
     }
 
     .inputTextInvalid {
         border-color: $TextInputInvalid;
         &:focus {
-            box-shadow: 0 0 3px $TextInputInvalid;
+            box-shadow: 0 0 4px $TextInputInvalid;
         }
     }    
     // validation text
