@@ -3,6 +3,10 @@
       background-color: $Button;
       border-color: $Button_Hover;
       color: $Button_Text;
+      &:focus {
+        background-color: $Button_Hover;
+        color: $Button_Text_Hover;
+      }
     }
     .BadgeComponentColorClick_Default {
       &:hover {

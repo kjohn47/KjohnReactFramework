@@ -35,6 +35,18 @@ export const useNotificationService: ( IsMenu: boolean ) => IuseNotificationRetu
         serviceHandler({
             Type: NotificationRequestType.Delete,
             ID: id
+        }).finally(() => {
+            if(IsMenu)
+            {
+                const firstCrossElement = document.querySelector('.NotificationItemCross') as HTMLElement | null;
+                if(firstCrossElement)
+                    firstCrossElement.focus();
+                else
+                {
+                    const notifications = document.querySelector('.Notification_Badge_Clicked') as HTMLElement
+                    notifications.focus();
+                }
+            }
         })
     };
 

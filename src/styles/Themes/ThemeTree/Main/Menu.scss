@@ -169,10 +169,24 @@
         .NotificationItemNew {
           background-color: $Menu_NotificationBgNew
         }
+        .NotificationItemText {
+          &:hover {
+            color: $LinkColor;
+          }
+          &:focus {
+            color: $LinkColor;
+            text-decoration: underline;
+          }
+        }
+
         .NotificationItemDel {
           .NotificationItemCross {
             &:hover {
               color: $LinkColor;
+            }
+            &:focus {
+              color: $LinkColor;
+              text-decoration: underline;
             }
           }
         }
