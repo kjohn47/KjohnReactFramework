@@ -118,7 +118,14 @@ const LoginForm: React.FC = () => {
                 <Column full={ ColumnNumber.C7 }><InputText {...usernameInput.inputProps} /></Column>
                 <Column full={ ColumnNumber.C7 }><InputText {...passwordInput.inputProps} /></Column>
                 <Column full={ ColumnNumber.C3 } className="loginMenuLink">
-                    <span onClick={ () => handleLogin() } className="pointer_cursor">{ getTranslation( "_loginform", "#(LoginButton)" ) }</span>
+                    <span 
+                        tabIndex={0} 
+                        onClick={ () => handleLogin() } 
+                        onKeyDown={ (e) => executeClickEnterSpace(e, () => handleLogin()) } 
+                        className="pointer_cursor"
+                    >
+                        { getTranslation( "_loginform", "#(LoginButton)" ) }
+                    </span>
                 </Column>
                 <Column full={ ColumnNumber.C3 } className="loginMenuLink">
                     <PageSelector page={ KnownPages.Home } focusable>{ getTranslation( "_loginform", "#(NewLogin)" ) }</PageSelector>

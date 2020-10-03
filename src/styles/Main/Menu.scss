@@ -182,6 +182,12 @@
       &:hover {
         text-decoration: underline;
       }
+      & span {
+        outline: none;
+        &:focus {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
@@ -240,6 +246,7 @@
       font-weight: bold;
       padding-left: 30px;
       border-bottom: 1px dotted;
+      outline: none;
       .collapsedMenuItemInner {
         min-height: 20px;
         padding-top: 10px;

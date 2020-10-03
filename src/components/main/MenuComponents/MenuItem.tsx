@@ -66,7 +66,14 @@ const MenuItem: React.FC<{ Menu: IMenuItem }> = ( props ) => {
                 { toogle && <SubMenu subMenu={ menu.SubMenus } unToogle={ () => setToogle( false ) } /> }
             </>
         }
-        return <span onClick={ e => {menu.Action && menu.Action(); e.currentTarget.blur();} } tabIndex={0} className='menuSpan pointer_cursor'>{ translatedTitle }</span>
+        return <span 
+                    onClick={ e => {menu.Action && menu.Action(); e.currentTarget.blur();} } 
+                    onKeyDown={ e => executeClickEnterSpace(e, () =>{ menu.Action && menu.Action(); })}
+                    tabIndex={0} 
+                    className='menuSpan pointer_cursor'
+                >
+                    { translatedTitle }
+                </span>
     }
 
     return ( (!props.Menu.AdminOnly && !props.Menu.AuthOnly) || 
