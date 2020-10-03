@@ -8,7 +8,7 @@
         color: $Button_Text_Hover;
       }
       &:focus {
-        box-shadow: 0 0 4px $Button;
+        box-shadow: 0 0 10px $Button;
       }
     }
     .page_button_color_disabled {

@@ -1,15 +1,15 @@
-import * as React from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import Row from '../../common/structure/Row';
 import Column from '../../common/structure/Column';
 import MenuItem, { IMenuItem } from './MenuItem';
 import PageSelector from '../../common/inputs/PageSelector';
 import { KnownPages } from '../../../logic/context/Routes/routeContextEnums';
 import {useMobileWidth} from '../../../logic/functions/windowResize';
-import { useState, useRef, useEffect, useMemo } from 'react';
 import { mobileWidthMenu } from '../../../logic/config/configuration';
 import useTranslation from '../../../logic/functions/getTranslation';
 import MenuItemMobile from './MenuItemMobile';
-import { handleClickOutDiv } from '../../../logic/functions/misc';
+import { executeAfterLostFocusChild, executeClickEnterSpace, handleClickOutDiv } from '../../../logic/functions/misc';
+import useRouteHandler from '../../../logic/context/Routes/RouteContextHandler';
 
 interface INavMenuProps {
   toogle: boolean; 
@@ -26,6 +26,7 @@ const MenusBar: React.FC<INavMenuProps> = ( {
 } ) => {
   const [ menuCollapse, setMenuCollapse ] = useState<boolean>( false );
   const { getTranslation } = useTranslation();
+  const {SetPage} = useRouteHandler();
   const menuRef = useRef<HTMLDivElement>( null );
   const maxWith = useMemo(() => {
     const numMenus: number = MenuNav !== undefined ? MenuNav.length : 0;
@@ -33,9 +34,24 @@ const MenusBar: React.FC<INavMenuProps> = ( {
   }, [MenuNav])
   const mobileWidth = useMobileWidth(maxWith);  
 
-  const handleClickOutNavMenu = React.useCallback( (event: any) => handleClickOutDiv(event, menuRef, toogle, () => setToogle( false ) ), [toogle, setToogle]);
+  const handleGoHome = useCallback(() => {
+    SetPage({
+      page: KnownPages.Home,
+      forceReload: true
+    });
+    setToogle( false );
+  }, [SetPage, setToogle])
 
-  React.useEffect( () => {
+  const handleClickOutNavMenu = useCallback( (event: any) => handleClickOutDiv(event, menuRef, toogle, () => setToogle( false ) ), [toogle, setToogle]);
+
+  const handleTabOutMenu = useCallback((e: KeyboardEvent) => {
+    if(toogle && menuRef.current)
+    {
+      executeAfterLostFocusChild(e, menuRef.current, () => setToogle(false));
+    }
+  }, [toogle, menuRef, setToogle]);
+
+  useEffect( () => {
     if ( mobileWidth.isCustomWidth )
       setMenuCollapse( true );
     else {
@@ -54,9 +70,20 @@ const MenusBar: React.FC<INavMenuProps> = ( {
     };
   }, [ handleClickOutNavMenu ] )
 
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener( "keyup", handleTabOutMenu );
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener( "keyup", handleTabOutMenu );
+    };
+  }, [handleTabOutMenu])
+
   const renderInLineMenus = () => {
     return <Row className='menuItemRow noselect'>
-      { Brand && <Column className='menuItemCol menuBrand noselect'><PageSelector page={ KnownPages.Home } focusable forceReload>{ getTranslation( "_brand", Brand ) }</PageSelector></Column> }
+      { Brand && <Column className='menuItemCol menuBrand noselect'>
+          <PageSelector page={ KnownPages.Home } focusable forceReload>{ getTranslation( "_brand", Brand ) }</PageSelector>
+        </Column> }
       {
         MenuNav && MenuNav.map( ( menu, i ) =>
           <MenuItem key={ 'menu_' + i } Menu={ menu } />
@@ -68,8 +95,13 @@ const MenusBar: React.FC<INavMenuProps> = ( {
   const renderCollapsedMenu = () => {
     return (
       <div ref={ menuRef }>
-        <div className="menuLanguageCol pointer_cursor noselect" onClick={ () => setToogle( !toogle ) }>
-          <span tabIndex={ 0 } className={ ( toogle ? 'menuItemColSel' : '' ) }>
+        <div 
+          tabIndex={ 0 } 
+          className="menuLanguageCol pointer_cursor noselect" 
+          onClick={ (e) => {toogle && e.currentTarget.blur(); setToogle( !toogle );} }
+          onKeyDown={(e) => executeClickEnterSpace(e, () => setToogle( !toogle ))}
+        >
+          <span className={ ( toogle ? 'menuItemColSel' : '' ) }>
             <div className="menuCollapsed">|||</div>
           </span>
         </div>
@@ -78,8 +110,13 @@ const MenusBar: React.FC<INavMenuProps> = ( {
             <Column className="collapsedMenuGroup">
               { Brand &&
                 <Row>
-                  <Column className={ "collapsedMenuItem collapseMenuBrand" + ( MenuNav && MenuNav.length > 0 ? "" : " collapsedMenuSingleItem" ) }>
-                    <PageSelector page={ KnownPages.Home } forceReload action={ () => setToogle( false ) }>{ getTranslation( "_brand", Brand ) }</PageSelector>
+                  <Column 
+                    className={ "collapsedMenuItem collapseMenuBrand pointer_cursor" + ( MenuNav && MenuNav.length > 0 ? "" : " collapsedMenuSingleItem" ) }
+                    onClick={() => handleGoHome()}
+                    onKeyDown={(e) => executeClickEnterSpace(e, () => handleGoHome())}
+                    tabIndex={0}
+                  >
+                    <span>{ getTranslation( "_brand", Brand ) }</span>
                   </Column>
                 </Row>
               }

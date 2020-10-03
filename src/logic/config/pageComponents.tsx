@@ -104,6 +104,11 @@ const menuSettings: IMenuProps = {
                     Link: KnownPages.Test
                 }
             ]
+        },
+        {
+            Title: "Link",
+            Link: "noPage",
+            Reloadable: true
         }
     ]
 }

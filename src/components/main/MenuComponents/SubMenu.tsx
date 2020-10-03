@@ -30,7 +30,7 @@ const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle:
     const userContext = useLoginHandler().Login;
     const { getTranslation } = useTranslation();
 
-    const executeAction = useCallback((subMenuItem: ISubMenuItem) => {
+    const executeAction = useCallback((subMenuItem: ISubMenuItem, e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if((!subMenuItem.Link && !subMenuItem.Action) || globalLang === subMenuItem.Title || ( subMenuItem.Link === Route.selectedPage && !errorContext.hasError && !subMenuItem.Reloadable ))
         {
             return;
@@ -47,6 +47,7 @@ const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle:
         {
             subMenuItem.Action();
         }
+        e && e.currentTarget.blur();
         unToogle();
     }, [Route.selectedPage, errorContext.hasError, SetPage, unToogle, globalLang]);
 
@@ -61,7 +62,7 @@ const SubMenu: React.FC<{ subMenu: ISubMenuItem[], className?: string, unToogle:
                             ${((!subMenu.Link && !subMenu.Action) || globalLang === subMenu.Title || (!errorContext.hasError && subMenu.Link === Route.selectedPage))
                             ? ` disabledMenuItem${subMenu.Reloadable ? " pointer_cursor subMenuReloadable" : ""}`
                             : ' pointer_cursor'}`}
-                onClick={(e) => {executeAction(subMenu); e.currentTarget.blur();} }
+                onClick={(e) => {executeAction(subMenu, e);} }
                 tabIndex = {(!subMenu.Link && !subMenu.Action) || 
                             (!subMenu.Reloadable && (globalLang === subMenu.Title || 
                             (!errorContext.hasError && subMenu.Link === Route.selectedPage))) 

@@ -66,6 +66,7 @@
             font-size: small;
             padding-top: 5px;
             padding-bottom: 5px;
+            outline: none;
           }
           .NotificationItemTextDel {
             width: 85%;
@@ -77,6 +78,7 @@
             width: 15%;
             .NotificationItemCross {
               font-size: smaller;
+              outline: none;
             }
           }
         }
@@ -182,6 +184,12 @@
       &:hover {
         text-decoration: underline;
       }
+      & span {
+        outline: none;
+        &:focus {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
@@ -240,6 +248,7 @@
       font-weight: bold;
       padding-left: 30px;
       border-bottom: 1px dotted;
+      outline: none;
       .collapsedMenuItemInner {
         min-height: 20px;
         padding-top: 10px;
