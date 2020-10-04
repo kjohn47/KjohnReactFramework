@@ -4,7 +4,8 @@ import { NotificationRequestType } from "./NotificationEnum";
 export interface INotificationItem {
     ID: string;
     Text: IDictionary<string>;
-    IsViewed: boolean
+    IsViewed: boolean;
+    DetailsRoute?: string;
 }
 
 export interface INotifications {
@@ -28,8 +29,8 @@ export interface INotificationPostBody {
 export interface IuseNotificationReturn {
     Notifications?: INotifications,
     Loading: boolean;
-    ReadCurrent: () => void;
-    ReadAll: () => void;
-    GetNotifications: () => void;
-    DeleteNotification: (id: string) => void;
+    ReadCurrent: (Id?: string, callback?: () => void) => void;
+    ReadAll: (callback?: () => void) => void;
+    GetNotifications: (callback?: () => void) => void;
+    DeleteNotification: (id: string, callback?: () => void) => void;
 }

@@ -54,7 +54,8 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                                     Text: {
                                         PT: "Teste 1",
                                         EN: "Test 1"
-                                    }
+                                    },
+                                    DetailsRoute: "TestNot/1"
                                 },
                                 {
                                     ID: '2' + new Date().toString(),
@@ -86,22 +87,43 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                 }
                 case NotificationRequestType.ReadCurrent: {
                     /*return PostData.Post({
-                                    IsMenu: IsMenu
+                                    IsMenu: IsMenu,
+                                    ID: serviceRequest.ID
                                 }, 
                                 {
                                     action: AvailableActionsEnum.Notifications, 
                                     route: NotificationRoutesEnum.ReadCurrent
                                 });*/
                     return delayedPromise(1000).then(() => {
-                        return {...defaultResponse,
-                            UnreadCount: 0,
-                            Notifications: [
-                                ...defaultResponse.Notifications.map( (n) => {
-                                    n.IsViewed = true;
-                                    return n;
-                                })
-                            ]
-                        };
+                        if(serviceRequest.ID)
+                        {
+                            const currentNot = defaultResponse.Notifications.find(x => x.ID === serviceRequest.ID);
+                            const decCount = currentNot && !currentNot.IsViewed ? 1 : 0;
+                            return {...defaultResponse,
+                                UnreadCount: defaultResponse.UnreadCount - decCount,
+                                Notifications: [
+                                    ...defaultResponse.Notifications.map( (n) => {
+                                        if(n.ID === serviceRequest.ID)
+                                        {
+                                            n.IsViewed = true;
+                                        }
+                                        return n;
+                                    })
+                                ]
+                            };
+                        }
+                        else
+                        {
+                            return {...defaultResponse,
+                                UnreadCount: 0,
+                                Notifications: [
+                                    ...defaultResponse.Notifications.map( (n) => {
+                                        n.IsViewed = true;
+                                        return n;
+                                    })
+                                ]
+                            };
+                        }
                     })
                 }
                 case NotificationRequestType.ReadAll: {
