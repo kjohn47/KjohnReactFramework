@@ -110,7 +110,7 @@ const Menu: React.FC<IMenuProps> = ( {
             <div 
               className="menuLanguageCol pointer_cursor noselect" 
               tabIndex={ 0 } 
-              onClick={ (e) => { setToogleLang( p => !p ); e.currentTarget.blur();} }
+              onClick={ (e) => {toogleLang && e.currentTarget.blur(); setToogleLang( p => !p );} }
               onKeyDown={(e) => executeClickEnterSpace(e, () => setToogleLang( p => !p ))}
             >
               <span className={ ( toogleLang ? ' menuItemColSel' : '' ) }>{ appLanguage }</span>

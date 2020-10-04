@@ -64,19 +64,29 @@
           .NotificationItemText {
             display: inline-block;
             font-size: small;
-            padding-top: 5px;
             padding-bottom: 5px;
+            outline: none;
           }
+          .NotificationItemText_Action:focus {
+            text-decoration: underline;
+          }
+
           .NotificationItemTextDel {
             width: 85%;
           }
           .NotificationItemDel {
+            position: relative;
             display: inline-block;
-            text-align: right;
+            text-align: center;
             vertical-align: top;
             width: 15%;
             .NotificationItemCross {
-              font-size: smaller;
+              position: absolute;
+              top: -4px;
+              outline: none;
+              &:focus {
+                text-decoration: underline;
+              }
             }
           }
         }
@@ -182,6 +192,12 @@
       &:hover {
         text-decoration: underline;
       }
+      & span {
+        outline: none;
+        &:focus {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
@@ -240,6 +256,7 @@
       font-weight: bold;
       padding-left: 30px;
       border-bottom: 1px dotted;
+      outline: none;
       .collapsedMenuItemInner {
         min-height: 20px;
         padding-top: 10px;

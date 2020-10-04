@@ -76,7 +76,7 @@ const PageHandler: React.FC<IPageHandleProps> = ( { Routes } ) => {
     useEffect( () => {
         if( errorContext.Error.hasError )
         {
-            if( routeContext.Route.forceReload || lastPage !== routeContext.Route.selectedPage || queryString !== routeContext.Route.queryString ) 
+            if( lastPage !== routeContext.Route.selectedPage || queryString !== routeContext.Route.queryString ) 
             {
                 errorContext.RemoveError();
             }

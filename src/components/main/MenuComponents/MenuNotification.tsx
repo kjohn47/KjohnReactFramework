@@ -9,16 +9,25 @@ import { useNotificationService } from '../../../services/Notifications/Notifica
 import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '../../common/presentation/loading/DotsLoader';
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
-import { handleClickOutDiv } from '../../../logic/functions/misc';
+import { executeAfterLostFocusChild, executeClickEnterSpace, handleClickOutDiv } from '../../../logic/functions/misc';
+import useRouteHandler from '../../../logic/context/Routes/RouteContextHandler';
 
 const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
     const appContext = useAppHandler().App;
     const {appLanguage}= useAppLanguageHandler();
+    const {SetPage}= useRouteHandler();
     const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
     const refreshTimerId = useRef<NodeJS.Timeout | undefined>(undefined);
     const NotificationsService = useNotificationService(true);
     const NotificationsServiceRef = useRef(NotificationsService);
+
+    const handleTabOutNotifications = useCallback((e: KeyboardEvent) => {
+        if(open && reference.current)
+        {
+            executeAfterLostFocusChild(e, reference.current, () => setOpen(false));
+        }
+    }, [open, reference])
 
     const readNotifications = useCallback(( updateOld: boolean = false) => {
         if(open) {
@@ -33,9 +42,27 @@ const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Ro
         }
     }, [open, NotificationsService])
 
+    const goToDetails = useCallback((Route: string, Id: string) => {
+        NotificationsService.ReadCurrent(Id);
+        setOpen( false );
+        if(Route)
+        {
+            SetPage({
+                page: `${Route}`
+            });
+        }
+    }, [SetPage, NotificationsService])
+
     const removeNotification: ( id: string ) => void = (id) => {
         if( !NotificationsService.Loading )
-            NotificationsService.DeleteNotification(id);
+            NotificationsService.DeleteNotification(id, () => {
+                if(reference.current)
+                {
+                    const notifications = reference.current.querySelector<HTMLElement>('.Notification_Badge_Clicked');
+                    notifications && notifications.focus();
+                }
+            }
+        );
     }
 
     const handleClickOutNotifMenu = useCallback( (event: any) => 
@@ -64,6 +91,15 @@ const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Ro
             document.removeEventListener( "mousedown", handleClickOutNotifMenu );
         };
     }, [ handleClickOutNotifMenu ] )
+
+    useEffect( () => {
+        // add when mounted
+        document.addEventListener( "keyup", handleTabOutNotifications );
+        // return function to be called when unmounted
+        return () => {
+            document.removeEventListener( "keyup", handleTabOutNotifications );
+        };
+    }, [ handleTabOutNotifications ] )
 
     useEffect( () => {
         if( RefreshTime && RefreshTime > 0 )
@@ -117,7 +153,9 @@ const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Ro
                     forcePosition: true
                 }}
                 ClassName={ open ? "Notification_Badge_Clicked" : undefined}
-                OnClick={() => readNotifications() }
+                OnClick={(e) =>{ open && e.currentTarget.blur(); readNotifications();}}
+                TabIndex={0}
+                OnKeyDown={(e)=>executeClickEnterSpace(e, () => readNotifications())}
                 >
                 { (NotificationsService.Loading || !NotificationsService.Notifications ) ?
                         <div style={{paddingLeft: "6px"}}>
@@ -143,6 +181,7 @@ const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Ro
                                 IsViewed = {notification.IsViewed} 
                                 DeleteItem = {() => {removeNotification(notification.ID)}}
                                 Loading = {NotificationsService.Loading}
+                                Action = {notification.DetailsRoute ? () => goToDetails(notification.DetailsRoute as string,  notification.ID) : undefined}
                             >
                                 {notification.Text[appLanguage] !== undefined ? notification.Text[appLanguage] : ""}
                             </MenuNotificationItem>
@@ -150,14 +189,14 @@ const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Ro
                     }
                     {NotificationsService.Notifications && NotificationsService.Notifications.OlderUnreadCount > 0 && 
                         <MenuNotificationItem>
-                            <PageSelector page={`${Route}?unreadOnly=true`} action={ () => { readNotifications(true) } } highlight>
+                            <PageSelector focusable page={`${Route}?unreadOnly=true`} action={ () => { readNotifications(true) } } highlight>
                                 <span className="NotificationOlderLink">
                                     {getTranslation("_notificationMenu", "#(OldUnreadedNotification)",[NotificationsService.Notifications.OlderUnreadCount.toString(), NotificationsService.Notifications.From])}
                                 </span>
                             </PageSelector>
                         </MenuNotificationItem>}
                     <div className="NotificationViewAll">
-                        <PageSelector className="NotificationViewAllLink" page={Route}  action={ () => { readNotifications(true) }} highlight >
+                        <PageSelector focusable className="NotificationViewAllLink" page={Route} action={ () => { readNotifications(true) }} highlight >
                             {getTranslation("_notificationMenu", "#(ViewAll)")}
                         </PageSelector>
                     </div>

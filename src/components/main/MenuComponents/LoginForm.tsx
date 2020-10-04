@@ -31,7 +31,12 @@ const LoginFormWrapper: React.FC<{reference: React.RefObject<HTMLDivElement>, to
 
     return (
         <div ref={ reference }>
-            <div tabIndex={ 0 } className="menuLanguageCol pointer_cursor noselect" onClick={(e) => {changeToogle(); e.currentTarget.blur()}} onKeyDown={(e)=>executeClickEnterSpace(e, () => changeToogle())}>
+            <div 
+                tabIndex={ 0 } 
+                className="menuLanguageCol pointer_cursor noselect" 
+                onClick={(e) => { toogle && e.currentTarget.blur(); changeToogle();}} 
+                onKeyDown={(e)=>executeClickEnterSpace(e, () => changeToogle())}
+            >
                 <span className={ ( toogle ? 'menuItemColSel' : '' ) }>{ getTranslation( "_loginform", "#(LoginDrop)" ) }</span>
             </div>
             { children }
@@ -113,7 +118,14 @@ const LoginForm: React.FC = () => {
                 <Column full={ ColumnNumber.C7 }><InputText {...usernameInput.inputProps} /></Column>
                 <Column full={ ColumnNumber.C7 }><InputText {...passwordInput.inputProps} /></Column>
                 <Column full={ ColumnNumber.C3 } className="loginMenuLink">
-                    <span onClick={ () => handleLogin() } className="pointer_cursor">{ getTranslation( "_loginform", "#(LoginButton)" ) }</span>
+                    <span 
+                        tabIndex={0} 
+                        onClick={ () => handleLogin() } 
+                        onKeyDown={ (e) => executeClickEnterSpace(e, () => handleLogin()) } 
+                        className="pointer_cursor"
+                    >
+                        { getTranslation( "_loginform", "#(LoginButton)" ) }
+                    </span>
                 </Column>
                 <Column full={ ColumnNumber.C3 } className="loginMenuLink">
                     <PageSelector page={ KnownPages.Home } focusable>{ getTranslation( "_loginform", "#(NewLogin)" ) }</PageSelector>

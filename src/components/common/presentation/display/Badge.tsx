@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import WithTooltip, { ToolTipPosition, ToolTipColor } from '../wrapper/WithTooltip';
 
 export enum BadgeColorEnum {
@@ -11,7 +11,7 @@ export enum BadgeColorEnum {
 }
 
 interface IBadge {
-    OnClick?: () => void;
+    OnClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
     ClassName?: string;
     Color?: BadgeColorEnum;
     ToolTip?: {
@@ -20,26 +20,33 @@ interface IBadge {
         ToolTipColor?: ToolTipColor;
         forcePosition?: boolean;
     }
+    TabIndex?: number;
+    OnKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
-const Badge: React.FC<IBadge> = ({OnClick, ClassName, ToolTip, Color, children}) => {
-    const _color = Color ? `${Color}` : BadgeColorEnum.Default;
-    const RenderBadge: React.FC = () => <div 
-                        className = { `BadgeComponent_Inner noselect BadgeComponentColor_${_color}` + 
-                        ( OnClick !== undefined ? ` pointer_cursor BadgeComponentColorClick_${_color}` : "" ) +
-                        ( ClassName ? ` ${ClassName}` : "" ) } 
-                        onClick = {OnClick}
-                        >
-                            {children}
-                        </div>
+const RenderBadge: React.FC<IBadge> = ({OnClick, ClassName, children, OnKeyDown, TabIndex, Color}) => {
+    const _color = useMemo(() =>Color ? `${Color}` : BadgeColorEnum.Default, [Color]);
+    return (<div 
+        className = { `BadgeComponent_Inner noselect BadgeComponentColor_${_color}` + 
+        ( OnClick !== undefined ? ` pointer_cursor BadgeComponentColorClick_${_color}` : "" ) +
+        ( ClassName ? ` ${ClassName}` : "" ) } 
+        onClick = {OnClick}
+        onKeyDown={OnKeyDown}
+        tabIndex={TabIndex}
+        >
+            {children}
+        </div>)
+}
+
+const Badge: React.FC<IBadge> = ({OnClick, ClassName, ToolTip, Color, children, OnKeyDown, TabIndex}) => {
  
     return <div className="BadgeComponent">
         {ToolTip ? 
             <WithTooltip toolTipText={ToolTip.TooltipText} toolTipPosition={ToolTip.ToolTipPosition} toolTipColor = {ToolTip.ToolTipColor} forcePosition= {ToolTip.forcePosition}>
-                <RenderBadge />
+                <RenderBadge {...{OnClick, ClassName, Color, children, OnKeyDown, TabIndex}}/>
             </WithTooltip> 
          : 
-        <RenderBadge />}
+        <RenderBadge {...{OnClick, ClassName, Color, children, OnKeyDown, TabIndex}}/>}
         </div>
 }
 
