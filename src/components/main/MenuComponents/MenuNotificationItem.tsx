@@ -6,14 +6,19 @@ interface IMenuNotificationItem {
     IsViewed?: boolean;
     DeleteItem?: () => void;
     Loading?: boolean;
-    TabIndex?: number;
+    Action?: () => void;
 }
 
-const MenuNotificationItem: React.FC<IMenuNotificationItem> = ({IsViewed, DeleteItem, Loading, children, TabIndex}) => {
+const MenuNotificationItem: React.FC<IMenuNotificationItem> = ({IsViewed, DeleteItem, Loading, children, Action}) => {
     const[isDeleting, setIsDeleting] = useState<boolean>(false);
     return (
         <div className={"NotificationItem" + (!IsViewed ? " NotificationItemNew" : "")}>
-            <div tabIndex={TabIndex} className={"NotificationItemText" + ( DeleteItem ? " NotificationItemTextDel" : "" ) }>
+            <div 
+                tabIndex={Action ? 0 : undefined} 
+                className={`NotificationItemText${Action ? " NotificationItemText_Action pointer_cursor" : ""}${DeleteItem ? " NotificationItemTextDel" : ""}` }
+                onClick={(e) => {if(Action) {e.currentTarget.blur(); Action();}}}
+                onKeyDown={e => Action && executeClickEnterSpace(e, () => Action())}
+            >
                 {children}
             </div>
             <div className="NotificationItemDel">
@@ -27,7 +32,7 @@ const MenuNotificationItem: React.FC<IMenuNotificationItem> = ({IsViewed, Delete
                                                                                 setIsDeleting(true);
                                                                                 DeleteItem(); 
                                                                             })}
-                                >X</span>
+                                >&times;</span>
                 )}
             </div>
         </div>

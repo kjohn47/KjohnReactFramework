@@ -64,21 +64,29 @@
           .NotificationItemText {
             display: inline-block;
             font-size: small;
-            padding-top: 5px;
             padding-bottom: 5px;
             outline: none;
           }
+          .NotificationItemText_Action:focus {
+            text-decoration: underline;
+          }
+
           .NotificationItemTextDel {
             width: 85%;
           }
           .NotificationItemDel {
+            position: relative;
             display: inline-block;
-            text-align: right;
+            text-align: center;
             vertical-align: top;
             width: 15%;
             .NotificationItemCross {
-              font-size: smaller;
+              position: absolute;
+              top: -4px;
               outline: none;
+              &:focus {
+                text-decoration: underline;
+              }
             }
           }
         }
