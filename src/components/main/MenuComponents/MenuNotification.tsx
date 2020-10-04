@@ -10,10 +10,12 @@ import DotsLoader, { DotsLoaderNrBall, DotsLoaderSize, DotsLoaderColor } from '.
 import useAppHandler from '../../../logic/context/App/AppContextHandler';
 import useAppLanguageHandler from '../../../logic/context/App/AppLanguageContextHandler';
 import { executeAfterLostFocusChild, executeClickEnterSpace, handleClickOutDiv } from '../../../logic/functions/misc';
+import useRouteHandler from '../../../logic/context/Routes/RouteContextHandler';
 
 const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Route: string; RefreshTime?: number}> = ({reference, Route, RefreshTime}) => {
     const appContext = useAppHandler().App;
     const {appLanguage}= useAppLanguageHandler();
+    const {SetPage}= useRouteHandler();
     const {getTranslation} = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
     const refreshTimerId = useRef<NodeJS.Timeout | undefined>(undefined);
@@ -40,9 +42,27 @@ const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Ro
         }
     }, [open, NotificationsService])
 
+    const goToDetails = useCallback((Route: string, Id: string) => {
+        NotificationsService.ReadCurrent(Id);
+        setOpen( false );
+        if(Route)
+        {
+            SetPage({
+                page: `${Route}`
+            });
+        }
+    }, [SetPage, NotificationsService])
+
     const removeNotification: ( id: string ) => void = (id) => {
         if( !NotificationsService.Loading )
-            NotificationsService.DeleteNotification(id);
+            NotificationsService.DeleteNotification(id, () => {
+                if(reference.current)
+                {
+                    const notifications = reference.current.querySelector<HTMLElement>('.Notification_Badge_Clicked');
+                    notifications && notifications.focus();
+                }
+            }
+        );
     }
 
     const handleClickOutNotifMenu = useCallback( (event: any) => 
@@ -161,6 +181,7 @@ const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Ro
                                 IsViewed = {notification.IsViewed} 
                                 DeleteItem = {() => {removeNotification(notification.ID)}}
                                 Loading = {NotificationsService.Loading}
+                                Action = {notification.DetailsRoute ? () => goToDetails(notification.DetailsRoute as string,  notification.ID) : undefined}
                             >
                                 {notification.Text[appLanguage] !== undefined ? notification.Text[appLanguage] : ""}
                             </MenuNotificationItem>
@@ -175,7 +196,7 @@ const MenuNotification: React.FC<{reference: React.RefObject<HTMLDivElement>, Ro
                             </PageSelector>
                         </MenuNotificationItem>}
                     <div className="NotificationViewAll">
-                        <PageSelector focusable className="NotificationViewAllLink" page={Route}  action={ () => { readNotifications(true) }} highlight >
+                        <PageSelector focusable className="NotificationViewAllLink" page={Route} action={ () => { readNotifications(true) }} highlight >
                             {getTranslation("_notificationMenu", "#(ViewAll)")}
                         </PageSelector>
                     </div>

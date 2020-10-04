@@ -13,40 +13,37 @@ export const useNotificationService: ( IsMenu: boolean ) => IuseNotificationRetu
     } );
     const [started, setStarted] = useState<boolean>(false);
 
-    const ReadCurrent: () => void = () => {
+    const ReadCurrent = (Id?: string, callback?: () => void): void => {
         serviceHandler({
-            Type: NotificationRequestType.ReadCurrent
+            Type: NotificationRequestType.ReadCurrent,
+            ID: Id
+        }).finally(() => {
+            callback && callback();
         })
     };
 
-    const ReadAll: () => void = () => {
+    const ReadAll = (callback?: () => void): void => {
         serviceHandler({
             Type: NotificationRequestType.ReadAll
+        }).finally(() => {
+            callback && callback();
         })
     };
 
-    const GetNotifications: () => void = () => {
+    const GetNotifications = (callback?: () => void): void => {
         serviceHandler({
             Type: NotificationRequestType.Get
+        }).finally(() => {
+            callback && callback();
         })
     };
 
-    const DeleteNotification: (id: string) => void = ( id ) => {
+    const DeleteNotification = (id: string, callback?: () => void): void => {
         serviceHandler({
             Type: NotificationRequestType.Delete,
             ID: id
         }).finally(() => {
-            if(IsMenu)
-            {
-                const firstCrossElement = document.querySelector('.NotificationItemCross') as HTMLElement | null;
-                if(firstCrossElement)
-                    firstCrossElement.focus();
-                else
-                {
-                    const notifications = document.querySelector('.Notification_Badge_Clicked') as HTMLElement
-                    notifications.focus();
-                }
-            }
+            callback && callback();            
         })
     };
 

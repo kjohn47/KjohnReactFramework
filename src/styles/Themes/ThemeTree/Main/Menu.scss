@@ -169,13 +169,12 @@
         .NotificationItemNew {
           background-color: $Menu_NotificationBgNew
         }
-        .NotificationItemText {
+        .NotificationItemText_Action {
           &:hover {
             color: $LinkColor;
           }
           &:focus {
             color: $LinkColor;
-            text-decoration: underline;
           }
         }
 
@@ -186,7 +185,6 @@
             }
             &:focus {
               color: $LinkColor;
-              text-decoration: underline;
             }
           }
         }
