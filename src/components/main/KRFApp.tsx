@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/index.scss';
 import { AppProvider } from '../../logic/config/AppProvider';
 import PageHandler, { IPageHandleProps } from './PageHandler';
 import Layout from './Layout';
