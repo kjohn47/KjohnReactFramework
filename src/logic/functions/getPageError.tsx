@@ -13,8 +13,8 @@ const useErrorTranslation = (): { getErrorData: ( errorCode?: ErrorCodes | strin
         const errorData: IErrorData | undefined = errorTranslation ? ( errorCode ? errorTranslation[errorCode] : errorTranslation[ErrorCodes.GenericError] ) : undefined;
 
         return errorData ? errorData : {
-            Title: "Inexistent error translation",
-            Message: "It was not possible to get error translation for the selected language"
+            title: "Inexistent error translation",
+            message: "It was not possible to get error translation for the selected language"
         };
     }, [appLanguage, App.errorTranslations, ]);
     return { getErrorData };

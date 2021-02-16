@@ -86,8 +86,8 @@ export const defaultKnownServices: IKnownServices = {
             [AvailableActionsEnum.Translation] : {
                 Name: "translations"
             },
-            [AvailableActionsEnum.HomePage] : {
-                Name: "homepage"
+            [AvailableActionsEnum.Home] : {
+                Name: "home"
             }
         }
     },
