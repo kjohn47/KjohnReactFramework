@@ -26,11 +26,11 @@ const ErrorPage: React.FC = () => {
         <Row className="ErrorPage">
             <Column>
                 <PageHeader className="ErrorPageHeader">
-                    { errorInfo.Title }
+                    { errorInfo.title }
                 </PageHeader>
                 <Row className={ "ErrorPageDescription" + ( showDetails ? "" : " ErrorPageDescriptionFull" ) }>
                     <Column>
-                        { errorInfo.Message }
+                        { errorInfo.message }
                     </Column>
                 </Row>
                 { showDetails &&

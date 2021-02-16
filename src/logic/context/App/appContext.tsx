@@ -46,22 +46,22 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
                     query: queryDictionary } )
                     .then( data => {
                         let serviceResponse = data as ITranslationServiceResponse;
-                        if(getLangKeys && serviceResponse.LanguageCodes && !serviceResponse.LanguageCodes.find(c => c === globalLanguage))
+                        if(getLangKeys && serviceResponse.languageCodes && !serviceResponse.languageCodes.find(c => c === globalLanguage))
                         {
-                            globalLanguage = serviceResponse.LanguageCodes[0];
+                            globalLanguage = serviceResponse.languageCodes[0];
                         }
 
                         return setCurrentAppContext( prevContext => ( {
                             ...prevContext,
                             translations: {
                                 ...prevContext.translations,
-                                [globalLanguage]: serviceResponse.Translation
+                                [globalLanguage]: serviceResponse.translation
                             },
                             errorTranslations: {
                                 ...prevContext.errorTranslations,
-                                [globalLanguage]: serviceResponse.ErrorTranslation
+                                [globalLanguage]: serviceResponse.errorTranslation
                             },
-                            languageCodes: getLangKeys && serviceResponse.LanguageCodes ? serviceResponse.LanguageCodes : prevContext.languageCodes,
+                            languageCodes: getLangKeys && serviceResponse.languageCodes ? serviceResponse.languageCodes : prevContext.languageCodes,
                             loadingTranslation: false
                         } ) )
                     })

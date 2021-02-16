@@ -1,27 +1,27 @@
 {
-    "LanguageCodes": [
+    "languageCodes": [
         "EN",
         "PT"
     ],
-    "ErrorTranslation": {
+    "errorTranslation": {
         "GenericError": {
-            "Title": "Generic Error",
-            "Message": "Generic Error"
+            "title": "Generic Error",
+            "message": "Generic Error"
         },
         "PageNotFound": {
-            "Title": "Page not found",
-            "Message": "Page not found"
+            "title": "Page not found",
+            "message": "Page not found"
         },
         "AdminOnlyError": {
-            "Title": "Administrator Only",
-            "Message": "This page is only available for administration!"
+            "title": "Administrator Only",
+            "message": "This page is only available for administration!"
         },
         "AbortError": {
-            "Title": "Aborted service call",
-            "Message": "The call to service was aborted or service Timed Out"
+            "title": "Aborted service call",
+            "message": "The call to service was aborted or service Timed Out"
         }
     },
-    "Translation": {
+    "translation": {
         "_generic": {
             "#(loadingText)": "Loading!",
             "#(goBackToHome)": "Go back to Homepage",

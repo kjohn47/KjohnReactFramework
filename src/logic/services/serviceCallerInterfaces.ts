@@ -40,7 +40,7 @@ export interface IKnownAction {
 export interface IKnownServices {
     [service: string] : {
         Name: string,
-        Actions: {
+        Actions?: {
             [action: string] : IKnownAction
         }
     }
