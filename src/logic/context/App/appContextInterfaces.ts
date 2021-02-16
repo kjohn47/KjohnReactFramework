@@ -12,9 +12,9 @@ export interface IErrorTranslations {
 }
 
 export interface ITranslationServiceResponse {
-    Translation: ITranslation;
-    LanguageCodes?: string[];
-    ErrorTranslation: IErrorTranstation; 
+    translation: ITranslation;
+    languageCodes?: string[];
+    errorTranslation: IErrorTranstation; 
 }
 
 export interface IAppContext {

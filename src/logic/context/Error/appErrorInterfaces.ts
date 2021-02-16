@@ -21,8 +21,8 @@ export type ErrorContextType = {
 };
 
 export interface IErrorData {
-    Title: string;
-    Message: string;
+    title: string;
+    message: string;
 }
 
 export interface IErrorTranstation {

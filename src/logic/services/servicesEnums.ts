@@ -5,7 +5,7 @@ export enum AvailableServicesEnum {
 
 export enum AvailableActionsEnum {
     Translation = "Translations",
-    HomePage = "Homepage",
+    Home = "Home",
     Notifications = "Notifications"
 }
 

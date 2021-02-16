@@ -1,27 +1,27 @@
 {
-    "LanguageCodes": [
+    "languageCodes": [
         "EN",
         "PT"
     ],
-    "ErrorTranslation": {
+    "errorTranslation": {
         "GenericError": {
-            "Title": "Erro Genérico",
-            "Message": "Erro Genérico"
+            "title": "Erro Genérico",
+            "message": "Erro Genérico"
         },
         "PageNotFound": {
-            "Title": "Página não encontrada",
-            "Message": "Página não encontrada"
+            "title": "Página não encontrada",
+            "message": "Página não encontrada"
         },
         "AdminOnlyError": {
-            "Title": "Apenas Administrador",
-            "Message": "Página só se encontrada disponível para administração!"
+            "title": "Apenas Administrador",
+            "message": "Página só se encontrada disponível para administração!"
         },
         "AbortError": {
-            "Title": "Chamada a serviço abortada",
-            "Message": "A chamada ao serviço foi abortada ou terminou o tempo de espera"
+            "title": "Chamada a serviço abortada",
+            "message": "A chamada ao serviço foi abortada ou terminou o tempo de espera"
         }
     },
-    "Translation": {
+    "translation": {
         "_generic": {
             "#(loadingText)": "A Carregar!",
             "#(goBackToHome)": "Voltar para Homepage",

@@ -31,7 +31,7 @@ export const useKnownServices = () => {
     const getKnownAction = useCallback((service: string, action: string | undefined, route: string | undefined = undefined, query: IDictionary<string> | undefined = undefined): string => {
         const selectedService = knownServices[service];
 
-        if(selectedService === null || selectedService === undefined || action === undefined)
+        if(selectedService === null || selectedService === undefined || selectedService.Actions === null || selectedService.Actions === undefined || action === undefined)
         {
             return "";
         }
