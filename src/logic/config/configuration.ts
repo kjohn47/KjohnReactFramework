@@ -16,6 +16,7 @@ import { AvailableActionsEnum, AvailableServicesEnum, NotificationRoutesEnum } f
 const defaultLanguage = process.env.REACT_APP_DEFAULT_LANGUAGE ? process.env.REACT_APP_DEFAULT_LANGUAGE : "EN";
 export const appPrefix = process.env.REACT_APP_SESSION_PREFIX ? process.env.REACT_APP_SESSION_PREFIX : 'KRF_';
 const cookiesAlertEnabled = process.env.REACT_APP_COOKIE_MODAL ? trueFalseParser(process.env.REACT_APP_COOKIE_MODAL) : false;
+export const krfGatewayService = process.env.REACT_APP_USE_GW_SERVICE ? trueFalseParser(process.env.REACT_APP_USE_GW_SERVICE) : false;
 
 //// Width for mobile dimensions
 export const mobileWidth: number = process.env.REACT_APP_MOBILE_WIDTH ? parseInt(process.env.REACT_APP_MOBILE_WIDTH) : 480;
@@ -84,12 +85,15 @@ export const defaultKnownServices: IKnownServices = {
         Name: "homepage",
         Actions: {
             [AvailableActionsEnum.Translation] : {
-                Name: "translations"
+                Name: "translations",
+                GWRoute: "open"
             },
             [AvailableActionsEnum.Home] : {
-                Name: "home"
+                Name: "home",
+                GWRoute: "open"
             }
-        }
+        },
+        GWRoute: "protected"
     },
     [AvailableServicesEnum.User]: {
         Name: "user",
@@ -97,11 +101,20 @@ export const defaultKnownServices: IKnownServices = {
             [AvailableActionsEnum.Notifications] : {
                 Name: "notifications",
                 Routes: {
-                    [NotificationRoutesEnum.GetData]: "getData",
-                    [NotificationRoutesEnum.ReadCurrent]: "readCurrent",
-                    [NotificationRoutesEnum.ReadAll]: "readAll",
-                    [NotificationRoutesEnum.Delete]: "delete"
-                }
+                    [NotificationRoutesEnum.GetData]: {
+                        Name: "getData"
+                    },
+                    [NotificationRoutesEnum.ReadCurrent]: {
+                        Name: "readCurrent"
+                    },
+                    [NotificationRoutesEnum.ReadAll]:  {
+                        Name: "readAll"
+                    },
+                    [NotificationRoutesEnum.Delete]: {
+                        Name: "delete"
+                    }
+                },
+                GWRoute: "protected"
             }
         }
     }

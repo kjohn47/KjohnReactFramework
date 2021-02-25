@@ -1,6 +1,5 @@
 import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
 import { useState, useEffect, useRef, useMemo } from "react";
-import { apiServerUrl } from "../config/configuration";
 import { getFileFromBase64, IDictionary, downloadFile, decodeUnit8Blob } from "../functions/misc";
 import useLoginHandler from "../context/Login/LoginContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
@@ -14,9 +13,9 @@ const handleErrors = ( response: Response ) => {
     return response;
 }
 
-const getRouteUrl = ( action: string | undefined, route: string | undefined, query: IDictionary<string> | undefined): string => {
+const getRouteUrl = ( url: string, action: string | undefined, route: string | undefined, query: IDictionary<string> | undefined): string => {
     const queryStr = getQueryStringFromDictionary(query);
-    return `${action ? `/${action}` : ""}${route ? `/${route}` : ""}${queryStr}`;
+    return `${url}${action ? `/${action}` : ""}${route ? `/${route}` : ""}${queryStr}`;
 }
 
 interface IfetchArgs {
@@ -76,13 +75,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
 
-    const service = useMemo(() => {
-        if(externalService)
-        {
-            return serviceUrl;
-        }
-        return `${apiServerUrl}${getKnownService(serviceUrl)}`;
-    }, [getKnownService, externalService, serviceUrl]);
+    const service = useMemo(() => getKnownService(serviceUrl), [getKnownService, serviceUrl]);
 
     const authToken = useMemo<string | undefined>(() => {
         return ( !externalService && login && login.userSessionToken ) || undefined;
@@ -119,16 +112,20 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
                 }
             }, 200 );
         }
+        const fetchHandler = () => fetch( `${externalService ? getRouteUrl(serviceUrl, action, route, query) : getKnownAction(service, action, route, query)}`, {
+            method: 'GET',
+            headers: header,
+            mode: 'cors',
+            cache: 'default',
+            signal: timeOut && timeOut > 0 ? timeOutAbortController.signal : abortControllerRef.current.signal
+        } );
+
         resolve(
-            fetch( `${service}${externalService ? getRouteUrl(action, route, query) : getKnownAction(serviceUrl, action, route, query)}`, {
-                method: 'GET',
-                headers: header,
-                mode: 'cors',
-                cache: 'default',
-                signal: timeOut && timeOut > 0 ? timeOutAbortController.signal : abortControllerRef.current.signal
-            } )
+            fetchHandler()
             .then( handleErrors )
             .then( ( r: Response ) => r.json() )
+            /*.then( fetchHandler )
+            .then( ( r: Response ) => r.json() )*/
             .then( ( data: FetchDataType | IServiceError ) => data )
             .finally( () => {
                 if(abortControllerRef.current.signal.aborted && !componentUnmountedRef.current)
@@ -161,13 +158,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
 
-    const service = useMemo(() => {
-        if(externalService)
-        {
-            return serviceUrl;
-        }
-        return `${apiServerUrl}${getKnownService(serviceUrl)}`;
-    }, [getKnownService, externalService, serviceUrl]);
+    const service = useMemo(() => getKnownService(serviceUrl), [getKnownService, serviceUrl]);
 
     const authToken = useMemo<string | undefined>(() => {
         return ( !externalService && login && login.userSessionToken ) || undefined;
@@ -209,7 +200,7 @@ export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, t
             }, 200 );
         }
         resolve(
-            fetch( `${service}${externalService ? getRouteUrl(action, route, query) : getKnownAction(serviceUrl, action, route, query)}`, {
+            fetch( `${externalService ? getRouteUrl(serviceUrl, action, route, query) : getKnownAction(service, action, route, query)}`, {
                 method: method,
                 headers: header,
                 mode: 'cors',
@@ -274,7 +265,7 @@ export const useDocumentDownloader = ( {
         {
             return `${serviceUrl}/${documentPath}${documentId ? `/${documentId}` : ""}`;
         }
-        return `${apiServerUrl}${getKnownService(serviceUrl)}${getKnownAction(serviceUrl, documentPath, documentId)}`;
+        return `${getKnownAction(getKnownService(serviceUrl), documentPath, documentId)}`;
     }, [getKnownService, getKnownAction, externalService, serviceUrl, documentPath, documentId]);
 
     const authToken = useMemo<string | undefined>(() => {
