@@ -13,7 +13,7 @@ import useRouteHandler from "../../logic/context/Routes/RouteContextHandler";
 import useErrorHandler from "../../logic/context/Error/ErrorContextHandler";
 import useLoadingHandler from "../../logic/context/App/LoadingContextHandler";
 
-export interface IRoure<TRouteProps> {
+export interface IRoute<TRouteProps> {
     Route: PageType;
     Component: React.ComponentType<TRouteProps>;
     Props?: TRouteProps;
@@ -31,7 +31,7 @@ export interface IPageHandleProps {
         Home: IStaticRouteComponent<any>;
         CustomUserMenu?: IStaticRouteComponent<any>;
         CustomAdminMenu?: IStaticRouteComponent<any>;
-        KnownRoutes?: IRoure<any>[];
+        KnownRoutes?: IRoute<any>[];
     };
 }
 

@@ -33,15 +33,25 @@ export type ServiceType<IServiceRequest, IServiceResponse> = ( Args: IServiceArg
 export interface IKnownAction {
         Name: string,
         Routes?: {
-            [route: string]: string
-        }
+            [route: string]: IServiceRoute
+        },
+        GWRoute?: string
 }
 
 export interface IKnownServices {
-    [service: string] : {
-        Name: string,
-        Actions?: {
-            [action: string] : IKnownAction
-        }
-    }
+    [service: string] : IKnownService
+}
+
+export interface IKnownService {
+    Name: string,
+    Actions?: {
+        [action: string] : IKnownAction
+    },
+    GWRoute?: string
+}
+
+
+export interface IServiceRoute {
+    GWRoute?: string,
+    Name: string
 }
