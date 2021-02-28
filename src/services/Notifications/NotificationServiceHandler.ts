@@ -16,8 +16,7 @@ import {
 export const useNotificationHandler = ( IsMenu: boolean ) => {
     /*
     const {getKnownService, getKnownAction} = useKnownServices();    
-    const GetData = useFetchGetHandler<INotifications>( { serviceUrl: AvailableServicesEnum.User } );
-    const PostData = useFetchPostHandler<INotificationPostBody, INotifications>( { serviceUrl: AvailableServicesEnum.User } );
+    const fetchHandler = useFetchGetHandler( { serviceUrl: AvailableServicesEnum.User } );
     const isMenuQuery = useMemo<IDictionary<string>|undefined>(() => {
         return IsMenu ? { "ismenu" : "true" } : undefined;
     }, [IsMenu]);
@@ -34,7 +33,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
         if(serviceRequest) {
             switch(serviceRequest.Type) {
                 case NotificationRequestType.Get: {
-                    /*return GetData.Get({
+                    /*return fetchHandler.Get<INotifications>({
                                 action: AvailableActionsEnum.Notifications, 
                                 route: NotificationRoutesEnum.GetData, 
                                 query: isMenuQuery
@@ -86,7 +85,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.ReadCurrent: {
-                    /*return PostData.Post({
+                    /*return fetchHandler.Post<INotificationPostBody, INotifications>({
                                     IsMenu: IsMenu,
                                     ID: serviceRequest.ID
                                 }, 
@@ -127,7 +126,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.ReadAll: {
-                    /*return PostData.Post({
+                    /*return fetchHandler.Post<INotificationPostBody, INotifications>({
                                     IsMenu: IsMenu
                                 },
                                 {
@@ -148,7 +147,7 @@ export const useNotificationHandler = ( IsMenu: boolean ) => {
                     })
                 }
                 case NotificationRequestType.Delete: {
-                    /*return PostData.Post({
+                    /*return fetchHandler.Post<INotificationPostBody, INotifications>({
                                     ID: serviceRequest.ID, 
                                     IsMenu: IsMenu
                                 }, 

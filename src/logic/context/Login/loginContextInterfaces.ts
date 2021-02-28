@@ -2,7 +2,7 @@ import { AppGlobalTheme } from "../App/appContextEnums";
 
 export interface ILogin {
     userSessionToken: string;
-    authTokenHash: string;
+    refreshToken?: string;
     name: string;
     surname: string;
     appLanguage: string;
@@ -13,6 +13,7 @@ export interface ILogin {
 export type MakeUpdateLoginType = (userData: ILogin) => void;
 export type UpdateUserLanguageType = (userLanguage: string) => void;
 export type UpdateUserThemeType = (userTheme: AppGlobalTheme) => void;
+export type RefreshTokenType = (newAuthToken: string, newRefreshToken?: string) => void;
 
 export type LoginContextType = { 
     Login: ILogin | undefined,
@@ -22,4 +23,5 @@ export type LoginContextType = {
     UpdateUserLanguage: UpdateUserLanguageType,
     UpdateUserTheme: UpdateUserThemeType,
     UpdateUserAllowCookie: (allow: boolean) => void;
+    RefreshToken: RefreshTokenType;
 };

@@ -6,7 +6,7 @@ import { sessionHandler } from "../functions/sessionStorage";
 import { getRouteUrlAndQuery } from "../functions/routeHandling";
 import { trueFalseParser } from "../functions/misc";
 import { IRouteContext } from "../context/Routes/routeContextInterfaces";
-import { IKnownServices } from "../services/serviceCallerInterfaces";
+import { IKnownServices, IKRFRefreshTokenSettings } from "../services/serviceCallerInterfaces";
 import { AvailableActionsEnum, AvailableServicesEnum, NotificationRoutesEnum } from "../services/servicesEnums";
 
 /* 
@@ -17,6 +17,12 @@ const defaultLanguage = process.env.REACT_APP_DEFAULT_LANGUAGE ? process.env.REA
 export const appPrefix = process.env.REACT_APP_SESSION_PREFIX ? process.env.REACT_APP_SESSION_PREFIX : 'KRF_';
 const cookiesAlertEnabled = process.env.REACT_APP_COOKIE_MODAL ? trueFalseParser(process.env.REACT_APP_COOKIE_MODAL) : false;
 export const krfGatewayService = process.env.REACT_APP_USE_GW_SERVICE ? trueFalseParser(process.env.REACT_APP_USE_GW_SERVICE) : false;
+export const krfRefreshToken: IKRFRefreshTokenSettings = {
+    isEnabled: process.env.REACT_APP_REFRESH_TOKEN_ACTIVE ? trueFalseParser(process.env.REACT_APP_REFRESH_TOKEN_ACTIVE) : false,
+    header: process.env.REACT_APP_REFRESH_TOKEN_RESPONSE_HEADER ? process.env.REACT_APP_REFRESH_TOKEN_RESPONSE_HEADER : 'www-authenticate',
+    header_Code: process.env.REACT_APP_REFRESH_TOKEN_RESPONSE_HEADER_CODE ? process.env.REACT_APP_REFRESH_TOKEN_RESPONSE_HEADER_CODE : 'REFRESH',
+    url: process.env.REACT_APP_REFRESH_TOKEN_URL ? process.env.REACT_APP_REFRESH_TOKEN_URL : 'https://localhost/refresh',
+}
 
 //// Width for mobile dimensions
 export const mobileWidth: number = process.env.REACT_APP_MOBILE_WIDTH ? parseInt(process.env.REACT_APP_MOBILE_WIDTH) : 480;
