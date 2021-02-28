@@ -11,6 +11,7 @@ export interface IServiceError {
     hasError?: boolean;
     isAbortError?: boolean;
     caughtError?: string;
+    krfApiError?: IKRFApiError;
 }
 
 export type ServiceCallType<IServiceRequest, IServiceResponse> = { serviceResponse: IServiceResponse | undefined, serviceHandler: ( request?: IServiceRequest ) => Promise<void>, serviceLoading: boolean, serviceError: IServiceError | undefined, setServiceResponse: React.Dispatch<React.SetStateAction<IServiceResponse | undefined>> };
@@ -54,4 +55,26 @@ export interface IKnownService {
 export interface IServiceRoute {
     GWRoute?: string,
     Name: string
+}
+
+export interface IKRFApiError {
+    withErrors: boolean,
+    errorStatusCode: number,
+    errorMessage: string,
+    errorProperty: string,
+    errorType: string,
+    errorCode: string,
+    validationError: boolean
+}
+
+export interface IKRFRefreshTokenSettings {
+    isEnabled: boolean;
+    header: string;
+    header_Code: string;
+    url: string;
+}
+
+export interface IKRFRefreshTokenFetch {
+    authToken: string,
+    refreshToken?: string
 }
