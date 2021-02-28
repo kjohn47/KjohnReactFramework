@@ -73,15 +73,9 @@ const fetchRefreshToken = async (
     forceUserLogout: () => void,
     abortSignal: AbortSignal) => {
 
-    const refreshHeader = new Headers();
-    
-    refreshHeader.append( 'Access-Control-Allow-Headers', 'Content-Type' );
-    refreshHeader.append( 'Content-Type', 'application/json' );
-    refreshHeader.append( 'Accept', 'application/json' );
-
     return await fetch( krfRefreshToken.url, {
         method: 'POST',
-        headers: refreshHeader,
+        headers: getHeaders(false, language, authToken, true),
         mode: 'cors',
         cache: 'default',
         signal: abortSignal,
