@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ILogin, LoginContextType, MakeUpdateLoginType, UpdateUserLanguageType, UpdateUserThemeType } from "./loginContextInterfaces";
+import { ILogin, LoginContextType, MakeUpdateLoginType, RefreshTokenType, UpdateUserLanguageType, UpdateUserThemeType } from "./loginContextInterfaces";
 import { sessionHandler } from "../../functions/sessionStorage";
 
 export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType = ( initialState ) => {
@@ -24,6 +24,7 @@ export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType 
     }
 
     const MakeLogout: () => void = () => {
+        sessionHandler.clearUserSession();
         setLogin( undefined );
     }
 
@@ -60,6 +61,23 @@ export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType 
         }
     }
 
+    const RefreshToken: RefreshTokenType = (newAuthToken: string, newRefreshToken?: string) => 
+    {
+        if ( login ) {
+            const newData: ILogin = {
+                ...login,
+                userSessionToken: newAuthToken,
+            };
+            if(newRefreshToken !== undefined && newRefreshToken !== null)
+            {
+                newData.refreshToken = newRefreshToken
+            }
+
+            sessionHandler.updateUserSession( newData );
+            setLogin( newData );
+        }
+    }
+
     return {
         Login: login,
         MakeLogin,
@@ -67,7 +85,8 @@ export const useLogin: ( initialState: ILogin | undefined ) => LoginContextType 
         MakeLogout,
         UpdateUserLanguage,
         UpdateUserTheme,
-        UpdateUserAllowCookie
+        UpdateUserAllowCookie,
+        RefreshToken
     }
 }
 
@@ -78,5 +97,6 @@ export const DefaultLoginContext: LoginContextType = {
     MakeLogout: () => {},
     UpdateUserLanguage: () => {},
     UpdateUserTheme: () => {},
-    UpdateUserAllowCookie: () => {}
+    UpdateUserAllowCookie: () => {},
+    RefreshToken: () => {}
 }

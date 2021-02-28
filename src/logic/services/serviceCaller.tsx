@@ -114,12 +114,13 @@ const callService = async <IServiceRequest, IServiceResponse> ( service: Service
         }
         let serviceError: IServiceError = response as IServiceError;
         if ( serviceError !== undefined && serviceError !== null && serviceError.hasError ) {
-            throw new Error( serviceError.caughtError );
+            //console.log(serviceError)
+            return serviceError as IServiceError
         }
         else {
             return response as IServiceResponse;
         }
-    } ).catch( ( err: Error ) => {
+    } ).catch( ( err: Error ) => { //extra catch just to be safe
         let serviceError: IServiceError = {
             caughtError: err.message,
             hasError: true,

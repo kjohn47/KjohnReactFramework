@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IAppContext, AppContextType, ChangeAppLanguage, ChangeAppTheme, ITranslationServiceResponse } from "./appContextInterfaces";
 import { AvailableActionsEnum, AvailableServicesEnum } from "../../services/servicesEnums";
-import { useFetchGetHandler } from "../../services/fetchHandler";
+import { useFetchHandler } from "../../services/fetchHandler";
 import { IServiceError } from "../../services/serviceCallerInterfaces";
 import { initialAppConfig } from "../../config/configuration";
 import useLoginHandler from "../Login/LoginContextHandler";
@@ -19,7 +19,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
     const [ currentAppContext, setCurrentAppContext ] = useState( initialContext );
     const loginContext = useLoginHandler();
     const {setAppLanguage} = useAppLanguageHandler();
-    const getTranslation = useFetchGetHandler<ITranslationServiceResponse>( { 
+    const getTranslation = useFetchHandler ( { 
             serviceUrl: AvailableServicesEnum.HomePage, customHeaders: translationHeaders() 
     } );
 
@@ -40,7 +40,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
             }));
             const queryDictionary: IDictionary<string> | undefined = getLangKeys ? {"getKeys" : "true"} : undefined;
             resolve(
-                getTranslation.Get( { 
+                getTranslation.Get<ITranslationServiceResponse>( { 
                     action: AvailableActionsEnum.Translation, 
                     route: globalLanguage, 
                     query: queryDictionary } )

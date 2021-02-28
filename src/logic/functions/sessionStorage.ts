@@ -2,7 +2,7 @@ import { AppStorageKeys, AppGlobalTheme } from "../context/App/appContextEnums";
 import { ILogin } from "../context/Login/loginContextInterfaces";
 import SHA from "sha.js";
 import JWT from "jsonwebtoken";
-import { appPrefix } from "../config/configuration";
+import { appPrefix, krfRefreshToken } from "../config/configuration";
 
 interface IAuthTokenPayload {
     name: string;
@@ -25,9 +25,8 @@ const validateStoredUser: ( storedUser: ILogin ) => boolean = ( storedUser ) => 
     if ( storedUser.name !== "" &&
         storedUser.surname !== "" &&
         storedUser.userSessionToken !== "" &&
-        storedUser.authTokenHash.length === 64 ) {
-        ////verify token signature is correct
-        return SHA( 'sha256' ).update( storedUser.userSessionToken ).digest( 'hex' ) === storedUser.authTokenHash;
+        krfRefreshToken.isEnabled && storedUser.refreshToken !== "" ) {
+        return true;
     }
 
     return false;

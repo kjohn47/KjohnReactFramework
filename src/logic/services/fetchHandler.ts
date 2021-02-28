@@ -1,22 +1,12 @@
-import { IServiceError, IdownloadDocument } from "./serviceCallerInterfaces";
+import { IServiceError, IdownloadDocument, IKRFApiError, IKRFRefreshTokenFetch } from "./serviceCallerInterfaces";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { getFileFromBase64, IDictionary, downloadFile, decodeUnit8Blob } from "../functions/misc";
 import useLoginHandler from "../context/Login/LoginContextHandler";
 import useAppLanguageHandler from "../context/App/AppLanguageContextHandler";
 import { useKnownServices } from "../context/App/knownServicesContextHandler";
 import { getQueryStringFromDictionary } from "../functions/routeHandling";
-
-const handleErrors = ( response: Response ) => {
-    if ( !response.ok ) {
-        throw Error( `[${ response.status }] - ${ response.statusText }` );
-    }
-    return response;
-}
-
-const getRouteUrl = ( url: string, action: string | undefined, route: string | undefined, query: IDictionary<string> | undefined): string => {
-    const queryStr = getQueryStringFromDictionary(query);
-    return `${url}${action ? `/${action}` : ""}${route ? `/${route}` : ""}${queryStr}`;
-}
+import { krfRefreshToken } from "../config/configuration";
+import { RefreshTokenType } from "../context/Login/loginContextInterfaces";
 
 interface IfetchArgs {
     serviceUrl: string;
@@ -55,23 +45,77 @@ const getHeaders = ( isExternal? : boolean, language?: string, token?: string, i
         headers.append( 'Access-Control-Allow-Headers', 'AppLanguage' );
         headers.append( 'AppLanguage', language );
     }
-    
+
+    if ( !isExternal && token ) {
+        //change authorization to env variable
+        headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
+        headers.append( 'Authorization', `Bearer ${ token }` );
+    }
+
     if( isPost )
     {
         headers.append( 'Access-Control-Allow-Headers', 'Content-Type' );
         headers.append( 'Content-Type', 'application/json' );
     }
 
-    if ( !isExternal && token ) {
-        headers.append( 'Access-Control-Allow-Headers', 'Authorization' );
-        headers.append( 'Authorization', `Bearer ${ token }` );
-    }
     return headers;
 }
 
-export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
+const isRefreshTokenError = ( r: Response ): boolean =>  krfRefreshToken.isEnabled && r.status === 401 && r.headers.get(krfRefreshToken.header) === krfRefreshToken.header_Code;
+
+const fetchRefreshToken = async ( 
+    authToken: string, 
+    refreshToken: string,
+    language: string,
+    isPost: boolean,
+    fetchHandler: (headers?: HeadersInit) => Promise<Response>,
+    updateUserToken: RefreshTokenType,
+    forceUserLogout: () => void,
+    abortSignal: AbortSignal) => {
+
+    return await fetch( krfRefreshToken.url, {
+        method: 'POST',
+        headers: getHeaders(false, language, authToken, true),
+        mode: 'cors',
+        cache: 'default',
+        signal: abortSignal,
+        body: JSON.stringify( ( {
+            authToken,
+            refreshToken
+        } ) as IKRFRefreshTokenFetch )
+    } ).then( async r => {
+        if( r.ok )
+        {
+            let newAuthToken = await r.json() as IKRFRefreshTokenFetch;
+            if( newAuthToken != null && newAuthToken.authToken !== "" )
+            {
+                updateUserToken( newAuthToken.authToken, newAuthToken.refreshToken );
+                return await fetchHandler(getHeaders(false, language, newAuthToken.authToken, isPost))
+            }
+        }
+
+        forceUserLogout();
+        return r;
+    });
+}
+
+const parseKrfApiError = async ( r: Response ): Promise<IServiceError> => {
+    let err: IKRFApiError = await r.json();// as apiErr;
+    return ({
+        hasError: true,
+        caughtError: `[${ r.status }] - ${ r.statusText }`,
+        krfApiError: err
+    }) as IServiceError;
+}
+
+const getRouteUrl = ( url: string, action: string | undefined, route: string | undefined, query: IDictionary<string> | undefined): string => {
+    const queryStr = getQueryStringFromDictionary(query);
+    return `${url}${action ? `/${action}` : ""}${route ? `/${route}` : ""}${queryStr}`;
+}
+
+export const useFetchHandler = ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
 {
-    const login = useLoginHandler().Login;
+    const { Login: login, MakeLogout, RefreshToken } = useLoginHandler();
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
 
@@ -98,8 +142,7 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
         // eslint-disable-next-line
     }, [])
 
-    const Get = ( { action, route, query}: IFetchRoute ) => new Promise<FetchDataType | IServiceError>( ( resolve ) => {
-        
+    const ExecuteFetch = <TRequest, TResponse> ( method: string, { action, route, query}: IFetchRoute, request? : TRequest ) => new Promise<TResponse | IServiceError>((resolve) => {
         let timeOutAbortController = new AbortController();
         let timeout: NodeJS.Timeout | undefined = undefined;
         let unmountListener: NodeJS.Timeout | undefined = undefined;
@@ -112,21 +155,69 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
                 }
             }, 200 );
         }
-        const fetchHandler = () => fetch( `${externalService ? getRouteUrl(serviceUrl, action, route, query) : getKnownAction(service, action, route, query)}`, {
-            method: 'GET',
-            headers: header,
+        
+        const isPost = method === 'POST' || method === 'PUT';
+        if(isPost && customHeaders === undefined)
+        {
+            //In case of error, copy the header to temp variable
+            (header as Headers).append( 'Access-Control-Allow-Headers', 'Content-Type' );
+            (header as Headers).append( 'Content-Type', 'application/json' );
+        }
+
+        const fetchAbortSignal = timeOut && timeOut > 0 ? timeOutAbortController.signal : abortControllerRef.current.signal;
+
+        const fetchHandler = (headers?: HeadersInit) => fetch( `${externalService ? getRouteUrl(serviceUrl, action, route, query) : getKnownAction(service, action, route, query)}`, {
+            method: method,
+            headers: headers,
             mode: 'cors',
             cache: 'default',
-            signal: timeOut && timeOut > 0 ? timeOutAbortController.signal : abortControllerRef.current.signal
+            signal: fetchAbortSignal,
+            body: isPost && request !== undefined ? JSON.stringify( request ) : undefined
         } );
 
         resolve(
-            fetchHandler()
-            .then( handleErrors )
-            .then( ( r: Response ) => r.json() )
-            /*.then( fetchHandler )
-            .then( ( r: Response ) => r.json() )*/
-            .then( ( data: FetchDataType | IServiceError ) => data )
+            fetchHandler(header)
+            .then( async ( r: Response ) => {
+                if(r.ok) {
+                    return await r.json() as TResponse;
+                }
+                if(!externalService)
+                {
+
+                    if( login &&
+                        authToken !== undefined && 
+                        login.refreshToken !== undefined &&
+                        isRefreshTokenError(r) )
+                    {
+                        return await fetchRefreshToken(
+                            authToken, 
+                            login.refreshToken,
+                            appLanguage, 
+                            isPost, 
+                            fetchHandler, 
+                            RefreshToken,                            
+                            MakeLogout, 
+                            fetchAbortSignal )
+                            .then( async (response) => {                            
+                                if( response.ok )
+                                {
+                                    return await response.json() as TResponse;
+                                }
+            
+                            return await parseKrfApiError( response );
+                            });
+                    }
+            
+                    return await parseKrfApiError( r );
+                }
+
+                throw Error(`[${ r.status }] - ${ r.statusText }`);
+            } )
+            .catch( ( err: Error ) => ( {
+                hasError: true,
+                caughtError: err.message,
+                isAbortError: err.name === 'AbortError'
+            } ) as IServiceError )
             .finally( () => {
                 if(abortControllerRef.current.signal.aborted && !componentUnmountedRef.current)
                 {
@@ -143,103 +234,18 @@ export const useFetchGetHandler = <FetchDataType> ( { serviceUrl, timeOut, exter
                 }
             })
         );
-    });
+    })
+
+    const Get = <TFetchDataOut> ( { action, route, query}: IFetchRoute ) => ExecuteFetch<undefined, TFetchDataOut>('GET', { action, route, query } );
+    const Post = <TFetchDataIn, TFetchDataOut>( request: TFetchDataIn, { action, route, query}: IFetchRoute) => ExecuteFetch<TFetchDataIn, TFetchDataOut>( 'POST', { action, route, query }, request );
+    const Put = <TFetchDataIn, TFetchDataOut>( request: TFetchDataIn, { action, route, query}: IFetchRoute) => ExecuteFetch<TFetchDataIn, TFetchDataOut>( 'PUT', { action, route, query }, request );
+    const Delete = <TFetchDataOut> ( { action, route, query}: IFetchRoute ) => ExecuteFetch<undefined, TFetchDataOut>('DELETE', { action, route, query } );
 
     const Abort = () => {
         abortControllerRef.current.abort();
     }
 
-    return {Get, Abort};
-}
-
-export const useFetchPostHandler = <FetchDataIn, FetchDataOut> ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs  ) =>
-{
-    const login = useLoginHandler().Login;
-    const {appLanguage} = useAppLanguageHandler();
-    const {getKnownService, getKnownAction} = useKnownServices();
-
-    const service = useMemo(() => getKnownService(serviceUrl), [getKnownService, serviceUrl]);
-
-    const authToken = useMemo<string | undefined>(() => {
-        return ( !externalService && login && login.userSessionToken ) || undefined;
-    }, [login, externalService]);
-
-    const header = useMemo<Headers | [string, string][]>(() => {
-        return (customHeaders && customHeaders) || getHeaders(externalService, appLanguage, authToken, true);
-    }, [customHeaders, authToken, appLanguage, externalService]);
-
-    const abortControllerRef = useRef(new AbortController());
-    const componentUnmountedRef = useRef(false);
-
-    useEffect( () => {
-        abortControllerRef.current = new AbortController();
-        componentUnmountedRef.current = false;
-        return () => {
-            componentUnmountedRef.current = true;
-            abortControllerRef.current.abort();
-        }
-        // eslint-disable-next-line
-    }, [])
-
-    const ExecuteFetch = ( method: string, 
-        request: FetchDataIn, 
-        action: string | undefined, 
-        route: string | undefined = undefined,
-        query: IDictionary<string> | undefined = undefined ) => new Promise<FetchDataOut | IServiceError>( ( resolve ) => {
-
-        let timeOutAbortController = new AbortController();
-        let timeout: NodeJS.Timeout | undefined = undefined;
-        let unmountListener: NodeJS.Timeout | undefined = undefined;
-        if( timeOut && timeOut > 0 ) {
-            timeout = setTimeout( () => { timeOutAbortController.abort() }, timeOut);
-            unmountListener = setInterval( () => {
-                if( abortControllerRef.current.signal.aborted && !timeOutAbortController.signal.aborted)
-                {
-                    timeOutAbortController.abort();
-                }
-            }, 200 );
-        }
-        resolve(
-            fetch( `${externalService ? getRouteUrl(serviceUrl, action, route, query) : getKnownAction(service, action, route, query)}`, {
-                method: method,
-                headers: header,
-                mode: 'cors',
-                cache: 'no-cache',
-                body: JSON.stringify( request ),
-                signal: timeOut && timeOut > 0 ? timeOutAbortController.signal : abortControllerRef.current.signal
-            } )
-            .then( handleErrors )
-            .then( ( r: Response ) => r.json() )
-            .then( ( data: FetchDataOut | IServiceError ) => data )
-            .finally( () => {
-                if(abortControllerRef.current.signal.aborted && !componentUnmountedRef.current)
-                {
-                    abortControllerRef.current = new AbortController();
-                }
-                if( timeout !== undefined ) {
-                    clearTimeout(timeout);
-                    timeout = undefined;
-                }
-                if( unmountListener !== undefined )
-                {
-                    clearInterval(unmountListener);
-                    unmountListener = undefined;
-                }
-            })
-        );
-    });
-
-    const Post = ( request: FetchDataIn, { action, route, query}: IFetchRoute) => ExecuteFetch( 'POST', request, action, route, query );
-
-    const Put = ( request: FetchDataIn, { action, route, query}: IFetchRoute) => ExecuteFetch( 'PUT', request, action, route, query );
-
-    const Delete = ( request: FetchDataIn, { action, route, query}: IFetchRoute) => ExecuteFetch( 'DELETE', request, action, route, query );
-        
-    const Abort = () => {
-            abortControllerRef.current.abort();
-    }
-
-    return {Post, Put, Delete, Abort};
+    return {Get, Post, Put, Delete, Abort};
 }
 
 export const useDocumentDownloader = ( { 
@@ -254,7 +260,7 @@ export const useDocumentDownloader = ( {
                                         rawDownload,
                                         returnResultAfterDownloaded
                                     } : IdownloadArgs ) => {
-    const login = useLoginHandler().Login;
+    const { Login: login, MakeLogout, RefreshToken } = useLoginHandler();
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
     const [isDownloading, setIsDownloading] = useState<boolean>(false);
@@ -303,15 +309,56 @@ export const useDocumentDownloader = ( {
                 timeout = setTimeout( () => { abortControllerRef.current.abort() }, timeOut);
             }
 
-            return await fetch( downloadUrl, {
+            const downloadFetch = (headers?: HeadersInit) => fetch( downloadUrl, {
                 method: 'GET',
-                headers: header,
+                headers: headers,
                 mode: 'cors',
                 cache: 'no-cache',
                 signal: abortControllerRef.current.signal
             } )
-            .then( handleErrors )
-            .then( ( r: Response ) => {
+
+            return await downloadFetch(header)
+            .then( async (r: Response) => {
+                if( r.ok )
+                {
+                    return r;
+                }
+
+                if( !externalService )
+                {
+
+                    if( login &&
+                        authToken !== undefined && 
+                        login.refreshToken !== undefined && 
+                        isRefreshTokenError(r) )
+                    {
+                        return await fetchRefreshToken(
+                            authToken, 
+                            login.refreshToken, 
+                            appLanguage, 
+                            false, 
+                            downloadFetch, 
+                            RefreshToken,
+                            MakeLogout, 
+                            abortControllerRef.current.signal
+                        ).then( async (response) => {            
+                            if(response.ok)
+                            {
+                                return response;
+                            }
+                
+                            let err = await response.text();
+                            throw new Error(`${ response.status };;${ response.statusText };;${err}`);
+                        } );
+                    }
+            
+                    let err = await r.text();
+                    throw new Error(`${ r.status };;${ r.statusText };;${err}`);
+                }
+
+                throw new Error(`[${ r.status }] - ${ r.statusText }`);
+            } )
+            .then( async ( r: Response ) => {
                 if( loadProgress && r !== null && r.headers !== null && r.body !== null )
                 {
                     let length = `${r.headers.get('content-length')}`;
@@ -391,12 +438,25 @@ export const useDocumentDownloader = ( {
                 }
                 return undefined;
             } )
-            .catch( ( err: Error ) => (
-            {
-                hasError: true,
-                isAbortError: err.name === 'AbortError',
-                caughtError: `${err.name} - ${err.message}`
-            } ) as IdownloadDocument )
+            .catch( ( err: Error ) => {
+                let splitErr = err.message.split(';;');
+                if(splitErr.length === 3)
+                {
+                    return (
+                        {
+                            hasError: true,
+                            isAbortError: err.name === 'AbortError',
+                            caughtError: `${splitErr[0]} - ${splitErr[1]}`,
+                            krfApiError: JSON.parse(splitErr[2])
+                        } ) as IdownloadDocument 
+                }
+
+                return (
+                {
+                    hasError: true,
+                    isAbortError: err.name === 'AbortError',
+                    caughtError: `${err.name} - ${err.message}`
+                } ) as IdownloadDocument })
             .finally( () => {
                 if( timeout !== undefined ) {
                     clearTimeout(timeout);
