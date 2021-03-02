@@ -9,8 +9,8 @@ const getRandom = () => {
 }
 
 export const useTestServiceHandler: () => ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = () => {
-    const { Get, Abort } = useFetchHandler( { serviceUrl: "http://localhost:3000", externalService: true });
-    const externalService = useFetchHandler( { serviceUrl: "https://jsonplaceholder.typicode.com", externalService: true, timeOut: 30000 } );
+    const { Get, Abort } = useFetchHandler( { serviceUrl: "http://localhost:3000" });
+    const externalService = useFetchHandler( { serviceUrl: "https://jsonplaceholder.typicode.com", timeOut: 30000 } );
 
     const getData: ServiceType<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse> = async ( { context, serviceRequest } ) => {
         if (serviceRequest)

@@ -11,7 +11,6 @@ import { RefreshTokenType } from "../context/Login/loginContextInterfaces";
 interface IfetchArgs {
     serviceUrl: string;
     timeOut?: number;
-    externalService?: boolean;
     customHeaders?: Headers | [string, string][];
 }
 
@@ -113,13 +112,20 @@ const getRouteUrl = ( url: string, action: string | undefined, route: string | u
     return `${url}${action ? `/${action}` : ""}${route ? `/${route}` : ""}${queryStr}`;
 }
 
-export const useFetchHandler = ( { serviceUrl, timeOut, externalService, customHeaders }: IfetchArgs ) =>
+const checkErternalUrl = (url: string) => {
+    const urlLowerCase = url.toLocaleLowerCase();
+    return urlLowerCase.startsWith("http://") || urlLowerCase.startsWith("https://"); 
+}
+
+export const useFetchHandler = ( { serviceUrl, timeOut, customHeaders }: IfetchArgs ) =>
 {
     const { Login: login, MakeLogout, RefreshToken } = useLoginHandler();
     const {appLanguage} = useAppLanguageHandler();
     const {getKnownService, getKnownAction} = useKnownServices();
 
     const service = useMemo(() => getKnownService(serviceUrl), [getKnownService, serviceUrl]);
+
+    const externalService = useMemo(() => checkErternalUrl(serviceUrl), [serviceUrl]);
 
     const authToken = useMemo<string | undefined>(() => {
         return ( !externalService && login && login.userSessionToken ) || undefined;
@@ -253,7 +259,6 @@ export const useDocumentDownloader = ( {
                                         documentPath,
                                         documentId,
                                         timeOut,
-                                        externalService,
                                         customHeaders,
                                         loadProgress,
                                         fileMetadata,
@@ -265,7 +270,7 @@ export const useDocumentDownloader = ( {
     const {getKnownService, getKnownAction} = useKnownServices();
     const [isDownloading, setIsDownloading] = useState<boolean>(false);
     const [downloadProgress, setDownloadProgress] = useState<number>(0);
-
+    const externalService = useMemo(() => checkErternalUrl(serviceUrl), [serviceUrl]);
     const downloadUrl = useMemo(() => {
         if(externalService)
         {
