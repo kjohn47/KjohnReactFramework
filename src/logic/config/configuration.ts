@@ -91,15 +91,13 @@ export const defaultKnownServices: IKnownServices = {
         Name: "homepage",
         Actions: {
             [AvailableActionsEnum.Translation] : {
-                Name: "translations",
-                GWRoute: "open"
+                Name: "translations"
             },
             [AvailableActionsEnum.Home] : {
-                Name: "home",
-                GWRoute: "open"
+                Name: "home"
             }
         },
-        GWRoute: "protected"
+        GWRoute: "open"
     },
     [AvailableServicesEnum.User]: {
         Name: "user",
@@ -119,9 +117,9 @@ export const defaultKnownServices: IKnownServices = {
                     [NotificationRoutesEnum.Delete]: {
                         Name: "delete"
                     }
-                },
-                GWRoute: "protected"
+                }
             }
-        }
+        },
+        GWRoute: "protected"
     }
 };

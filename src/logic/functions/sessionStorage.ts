@@ -1,6 +1,5 @@
 import { AppStorageKeys, AppGlobalTheme } from "../context/App/appContextEnums";
 import { ILogin } from "../context/Login/loginContextInterfaces";
-import SHA from "sha.js";
 import JWT from "jsonwebtoken";
 import { appPrefix, krfRefreshToken } from "../config/configuration";
 
