@@ -12,7 +12,7 @@ import useAppHandler from '../../logic/context/App/AppContextHandler';
 import useLoginHandler from '../../logic/context/Login/LoginContextHandler';
 import useAppLanguageHandler from '../../logic/context/App/AppLanguageContextHandler';
 
-export interface IMenuProps {
+export interface IMenuProps extends JSX.IntrinsicAttributes {
   Brand?: string;
   MenuNav?: IMenuItem[];
   EnableNotifications?: boolean;

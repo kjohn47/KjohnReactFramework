@@ -8,11 +8,11 @@ import { decodeUnit8Blob } from "../../logic/functions/misc";
 
 export const useTestService: () => ITestServices = () => {
     const getData = useTestServiceHandler();
-    const Sample1 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData} );
-    const Sample2 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, processError: ErrorCodes.GenericError, localLoading: true } );
-    const Sample3 = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData } ); 
-    const SampleAbort = useServiceCaller<ITestServiceRequest, ITestServiceResponse>( { service: getData, localLoading: true } ); 
-    const SampleExternal = useServiceCaller<ITestServiceRequest, ITestExternalServiceResponse>( { service: getData, localLoading: true } ); 
+    const Sample1 = useServiceCaller<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse>( { service: getData} );
+    const Sample2 = useServiceCaller<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse>( { service: getData, processError: ErrorCodes.GenericError, localLoading: true } );
+    const Sample3 = useServiceCaller<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse>( { service: getData } ); 
+    const SampleAbort = useServiceCaller<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse>( { service: getData, localLoading: true } ); 
+    const SampleExternal = useServiceCaller<ITestServiceRequest, ITestServiceResponse | ITestExternalServiceResponse>( { service: getData, localLoading: true } ); 
     const FileDownloader = useDocumentDownloader( {
         serviceUrl: "http://localhost:3000",
         documentPath: "Documents/Download",
@@ -68,16 +68,16 @@ export const useTestService: () => ITestServices = () => {
     }
 
     return {
-        serviceResponse1: Sample1.serviceResponse,
+        serviceResponse1: Sample1.serviceResponse as ITestServiceResponse,
         SampleService_1,
-        serviceResponse2: Sample2.serviceResponse,
+        serviceResponse2: Sample2.serviceResponse as ITestServiceResponse,
         isLoading2: Sample2.serviceLoading,
         SampleService_2,
-        serviceResponse3: Sample3.serviceResponse,
+        serviceResponse3: Sample3.serviceResponse as ITestServiceResponse,
         SampleService_3,
         AbortSample,
         AbortSampleLoading: SampleAbort.serviceLoading,
-        ExternalService: SampleExternal.serviceResponse,
+        ExternalService: SampleExternal.serviceResponse as ITestExternalServiceResponse,
         CallExternalService,
         ExternalLoading: SampleExternal.serviceLoading,
         DownloadFile,
