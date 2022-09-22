@@ -1,7 +1,6 @@
 import React from 'react';
 import { KnownPages } from '../context/Routes/routeContextEnums';
 import { getMimeTypeFromExtension } from './mimeTypes';
-import SHA from "sha.js";
 
 export interface IDictionary<TValue> {
     [key: string]: TValue;
@@ -16,7 +15,7 @@ export const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
 
 export const trueFalseParser = (str: string) => str.toLowerCase() === 'true' ? true : false;
 
-export const injectProps: <TProps>(Wrapped: React.ComponentType<TProps>, props: TProps) => React.ComponentType = ( Wrapped, props ) => () => <Wrapped {...props} />
+export const injectProps: <TProps extends JSX.IntrinsicAttributes>(Wrapped: React.ComponentType<TProps>, props: TProps) => React.ComponentType = ( Wrapped, props ) => () => <Wrapped {...props} />
 
 export const delayedPromise = ( t: number ) => new Promise( resolve => setTimeout( resolve, t ) );
 
@@ -51,9 +50,10 @@ export const decodeUnit8Blob = (chunks: Uint8Array) => {
 
 export const downloadFile = (bytes: Uint8Array, fileName: string, fileExtension?: string): void => {
     const extension = fileExtension ? `.${fileExtension.toLocaleLowerCase()}` : "";
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+    let nav = window.navigator as any;
+    if (nav != null && nav.msSaveOrOpenBlob != null) {
         const file = new Blob( [bytes], { type: getMimeTypeFromExtension(fileExtension) } );
-        window.navigator.msSaveOrOpenBlob(file, `${fileName}${extension}`);
+        nav.msSaveOrOpenBlob(file, `${fileName}${extension}`);
     } 
     else
     {
@@ -102,8 +102,7 @@ export const generateModalId = (): string => {
     let date = new Date();
     let rand1 = Math.floor((Math.random() * date.getMilliseconds() * 100000 ));
     let rand2 = Math.floor((Math.random() * rand1));
-
-    return SHA( 'sha256' ).update( `${date.toJSON()}-${rand1}-${rand2}` ).digest( 'hex' );
+    return btoa(`${date.toJSON()}-${rand1}-${rand2}`);
 }
 
 export const handleClickOutDiv = (event: any, reference: React.RefObject<HTMLDivElement>, toogleFlag: boolean, callback: () => void): void => {

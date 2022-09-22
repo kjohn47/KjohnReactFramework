@@ -1,7 +1,7 @@
 import { AppStorageKeys, AppGlobalTheme } from "../context/App/appContextEnums";
 import { ILogin } from "../context/Login/loginContextInterfaces";
-import JWT from "jsonwebtoken";
 import { appPrefix, krfRefreshToken } from "../config/configuration";
+import jwt_decode from "jwt-decode";
 
 interface IAuthTokenPayload {
     name: string;
@@ -105,8 +105,7 @@ const clearUserSession: () => void = () => {
 }
 
 const getTokenData: ( token: string ) => IAuthTokenPayload = ( token ) => {
-    let tokenPayload = JWT.decode( token );
-    return tokenPayload as IAuthTokenPayload;
+    return jwt_decode<IAuthTokenPayload>( token );
 }
 
 const getAllowCookieFlag = (): boolean => {

@@ -33,7 +33,7 @@ export const useAppContext: ( initialContext: IAppContext ) => AppContextType = 
             }
         }
 
-        if ( currentAppContext.translations === {} || currentAppContext.translations[ globalLanguage ] === undefined ) {
+        if ( currentAppContext.translations == null || currentAppContext.translations[ globalLanguage ] === undefined ) {
             setCurrentAppContext( prevContext => ({
                 ...prevContext,
                 loadingTranslation: true
