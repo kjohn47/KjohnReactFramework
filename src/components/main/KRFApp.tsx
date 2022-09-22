@@ -25,7 +25,7 @@ const KRFApp: React.FC<IKRFProps> = (props) =>
     <AppProvider knownServices = {props.KnownServices}>
       <SessionHandler>
         <Layout 
-          MenuComponent={ props.CustomMenuComponent ? props.CustomMenuComponent : injectProps(Menu, props.MenuProps) } 
+          MenuComponent={ props.CustomMenuComponent ? props.CustomMenuComponent : props.MenuProps != null ? injectProps(Menu, props.MenuProps) : Menu } 
           FooterComponent={ props.CustomFooterComponent ? props.CustomFooterComponent : injectProps(Footer, props.FooterProps) } 
           IsCustomMenu={ props.CustomMenuComponent !== undefined }
           IsCustomFooter={ props.CustomFooterComponent !== undefined }
